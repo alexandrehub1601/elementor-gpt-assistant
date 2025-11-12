@@ -1,0 +1,76 @@
+<!-- elementor-chat.html -->
+<!-- Cole isso no Widget HTML do Elementor.
+     Troque a constante API_URL pela URL do seu endpoint na Vercel. -->
+
+<div id="gpt-chat" style="max-width:600px;margin:0 auto;font-family:system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial;">
+  <div id="chat-window" style="border:1px solid #e5e7eb;border-radius:12px;padding:16px;height:420px;overflow:auto;background:#fafafa;"></div>
+  <form id="chat-form" style="display:flex;gap:8px;margin-top:10px;">
+    <input id="chat-input" type="text" placeholder="Faça sua pergunta..." style="flex:1;border:1px solid #e5e7eb;border-radius:10px;padding:10px;">
+    <button type="submit" style="border:0;border-radius:10px;padding:10px 16px;background:#111;color:#fff;cursor:pointer;">Enviar</button>
+  </form>
+</div>
+
+<script>
+  // === CONFIG ===
+  const API_URL = "https://SEU-PROJETO.vercel.app/api/chat"; // TROQUE AQUI
+  const history = []; // mantém o histórico básico em memória
+
+  const chatWindow = document.getElementById("chat-window");
+  const chatForm = document.getElementById("chat-form");
+  const chatInput = document.getElementById("chat-input");
+
+  function addBubble(text, who) {
+    const wrap = document.createElement("div");
+    wrap.style.margin = "8px 0";
+    wrap.style.display = "flex";
+    wrap.style.justifyContent = (who === "user") ? "flex-end" : "flex-start";
+
+    const bubble = document.createElement("div");
+    bubble.style.maxWidth = "80%";
+    bubble.style.padding = "10px 12px";
+    bubble.style.borderRadius = "12px";
+    bubble.style.whiteSpace = "pre-wrap";
+    bubble.style.wordBreak = "break-word";
+
+    if (who === "user") {
+      bubble.style.background = "#e5e7eb";
+      bubble.style.color = "#111827";
+    } else {
+      bubble.style.background = "#ffffff";
+      bubble.style.border = "1px solid #e5e7eb";
+      bubble.style.color = "#111827";
+    }
+
+    bubble.textContent = text;
+    wrap.appendChild(bubble);
+    chatWindow.appendChild(wrap);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+  }
+
+  chatForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const text = chatInput.value.trim();
+    if (!text) return;
+
+    addBubble(text, "user");
+    history.push({ role: "user", content: text });
+    chatInput.value = "";
+    addBubble("Digitando…", "assistant");
+    const typingEl = chatWindow.lastChild.firstChild; // bolha "Digitando…"
+
+    try {
+      const resp = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text, history }),
+      });
+      const data = await resp.json();
+      const reply = data.reply || "Desculpe, não consegui responder agora.";
+      typingEl.textContent = reply;
+      history.push({ role: "assistant", content: reply });
+    } catch (err) {
+      typingEl.textContent = "Erro ao conectar. Tente novamente.";
+      console.error(err);
+    }
+  });
+</script>

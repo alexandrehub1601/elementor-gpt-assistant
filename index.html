@@ -11,8 +11,10 @@
   MR ICE — Landing page (arquivo único, sem dependências além do kit Adobe Fonts).
 
   PENDÊNCIAS PARA PUBLICAR:
-  1. Fontes .... trocar os nomes das famílias em --font-display / --font-body pelos
-     nomes reais do kit Adobe dfs7hqs.
+  1. Fontes .... trocar o PRIMEIRO nome de --font-display e --font-body pelos nomes
+     reais das famílias do kit Adobe dfs7hqs (Adobe Fonts > Web Projects > kit >
+     "Using fonts in CSS"). O kit só serve as fontes em domínios cadastrados no
+     projeto: para testar local, abra via http://localhost, não por file://.
   2. Logo ...... o lockup do header/rodapé é uma reconstrução vetorial; substituir
      pelos arquivos oficiais (símbolos #logo-mark e #logo-mark-mono).
   3. Fotos ..... colocar a foto da fábrica em assets/nossa-fabrica.jpg (o bloco já
@@ -29,6 +31,14 @@
 
 <link rel="preconnect" href="https://use.typekit.net" crossorigin>
 <link rel="stylesheet" href="https://use.typekit.net/dfs7hqs.css">
+
+<!-- REDE DE SEGURANÇA: se o kit da Adobe não carregar (domínio não cadastrado,
+     arquivo aberto em file://), a página usa fontes de desenho equivalente em
+     vez de cair em Arial/Trebuchet. Assim que os nomes reais das famílias do kit
+     estiverem em --font-display / --font-body, estas 3 linhas podem sair. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap">
 
 <style>
 /* ==========================================================================
@@ -61,8 +71,9 @@
   --white:#fff;
 
   /* Tipografia */
-  --font-display:"brandon-grotesque","proxima-nova","Poppins","Futura","Trebuchet MS",system-ui,sans-serif;
-  --font-body:"proxima-nova","objektiv-mk1","Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  /* 1o nome = fonte do kit Adobe (TROCAR pelo nome real); os demais sao fallback */
+  --font-display:"brandon-grotesque","Poppins","Futura","Trebuchet MS",system-ui,sans-serif;
+  --font-body:"proxima-nova","Nunito Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
 
   /* Escala */
   --step-eyebrow:clamp(.72rem,.68rem + .2vw,.8rem);

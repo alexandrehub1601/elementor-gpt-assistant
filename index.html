@@ -216,8 +216,8 @@ h2.title{font-size:var(--step-h2)}
 .header.is-stuck{border-bottom-color:var(--line);box-shadow:0 10px 30px -26px rgba(20,36,43,.8)}
 .header__inner{display:flex;align-items:center;gap:1rem;min-height:var(--header-h)}
 .logo{display:flex;align-items:flex-start;text-decoration:none;flex:none}
-.logo__mark{width:auto;height:52px;flex:none;margin-right:-14px}
-.logo__type{display:flex;flex-direction:column;line-height:1;padding-top:9px}
+.logo__mark{width:auto;height:54px;flex:none;margin-right:-19px}
+.logo__type{display:flex;flex-direction:column;line-height:1;padding-top:10px}
 .logo__word{font-family:var(--font-display);font-weight:700;font-size:1.75rem;letter-spacing:-.035em;color:var(--blue)}
 .logo__word .mr{color:var(--red)}
 .logo__tag{font-family:var(--font-label);font-weight:700;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-dark);margin-top:.5em;padding-left:3.4em}
@@ -225,8 +225,9 @@ h2.title{font-size:var(--step-h2)}
 
 .nav{margin-left:auto;display:none;align-items:center;gap:.35rem}
 .nav a{
-  padding:.6rem .7rem;border-radius:var(--pill);text-decoration:none;
-  font-family:var(--font-display);font-weight:700;font-size:.97rem;color:var(--ink);
+  display:inline-flex;align-items:center;min-height:44px;padding:.55rem .7rem;border-radius:var(--pill);text-decoration:none;
+  font-family:var(--font-label);font-weight:700;font-size:.92rem;color:var(--ink);
+  text-transform:uppercase;letter-spacing:.07em;
   transition:background-color .18s var(--ease),color .18s var(--ease);
 }
 .nav a:hover{background:var(--red-tint);color:var(--red)}
@@ -249,7 +250,8 @@ h2.title{font-size:var(--step-h2)}
 .mobile-nav.is-open{display:block}
 .mobile-nav a{
   display:flex;align-items:center;min-height:52px;text-decoration:none;
-  font-family:var(--font-display);font-weight:700;font-size:1.05rem;
+  font-family:var(--font-label);font-weight:700;font-size:1rem;
+  text-transform:uppercase;letter-spacing:.07em;
   border-bottom:1px solid var(--line);
 }
 .mobile-nav .btn{width:100%;margin-top:1rem}
@@ -459,10 +461,12 @@ h2.title{font-size:var(--step-h2)}
 .resellers__art{position:relative;display:grid;place-items:center}
 .resellers__box{
   width:100%;aspect-ratio:4/3.4;border-radius:var(--radius);overflow:hidden;position:relative;
-  background:var(--white);box-shadow:var(--shadow-lg);display:grid;place-items:center;
+  background:var(--white);box-shadow:var(--shadow-lg);
 }
-.resellers__box .wave{position:absolute;inset:0;width:100%;height:100%}
-.resellers__box .mark{position:relative;width:min(58%,260px);filter:drop-shadow(0 18px 24px rgba(20,36,43,.25))}
+.resellers__box .wave{position:absolute;top:0;left:0;width:100%;height:34%}
+.resellers__box .box-drip{position:absolute;left:0;top:19%;width:100%;height:17%;transform:scaleY(-1);color:#fff}
+.resellers__box .box-drip use{fill:currentColor}
+.resellers__scene{position:absolute;inset:5% 8%;width:84%;height:90%}
 
 /* ---------- FAQ ---------- */
 .faq{background:var(--white)}
@@ -501,7 +505,7 @@ h2.title{font-size:var(--step-h2)}
 .social:hover{background:#fff;color:var(--blue-deep);border-color:#fff;transform:translateY(-3px)}
 .social .icon{width:24px;height:24px}
 .footer__nav{display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;padding-block:1.75rem;border-top:1px solid rgba(255,255,255,.18)}
-.footer__nav a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;text-decoration:none;font-weight:700;color:rgba(255,255,255,.88);font-size:.95rem}
+.footer__nav a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;text-decoration:none;font-family:var(--font-label);font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.88);font-size:.9rem}
 .footer__nav a:hover{color:#fff;text-decoration:underline}
 .footer__bottom{
   display:flex;flex-wrap:wrap;gap:.6rem 1.5rem;justify-content:space-between;align-items:center;
@@ -529,23 +533,21 @@ h2.title{font-size:var(--step-h2)}
      substitua #logo-mark / #logo-mark-mono pelo arquivo oficial da Mr Ice.
      ========================================================================== -->
 <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
-  <symbol id="logo-mark" viewBox="0 0 256 200">
-    <g fill="none" stroke="#E3242B" stroke-width="40">
-      <path d="M30 140V70a30 30 0 0 1 60 0v70"/>
-      <path d="M90 70a30 30 0 0 1 60 0v25c0 45 16 65 52 65h44"/>
+  <symbol id="logo-mark" viewBox="0 0 920 740">
+    <g fill="none" stroke="#E3242B" stroke-width="130">
+      <path d="M65 475V195a130 130 0 0 1 260 0v280"/>
+      <path d="M325 195a130 130 0 0 1 260 0v125c0 250 55 335 175 335h160"/>
     </g>
-    <path d="M50 60h20v126H50z" fill="#fff"/>
-    <path d="M60 50a10 10 0 0 1 10 10v80H50V60a10 10 0 0 1 10-10z" fill="#fff"/>
-    <path d="M50 140h20v36a10 10 0 0 1-20 0z" fill="#F3C395"/>
+    <path d="M130 195a65 65 0 0 1 130 0v280H130z" fill="#fff"/>
+    <path d="M130 475h130v180a65 65 0 0 1-130 0z" fill="#F3C395"/>
   </symbol>
 
-  <symbol id="logo-mark-mono" viewBox="0 0 256 200">
-    <g fill="none" stroke="currentColor" stroke-width="40">
-      <path d="M30 140V70a30 30 0 0 1 60 0v70"/>
-      <path d="M90 70a30 30 0 0 1 60 0v25c0 45 16 65 52 65h44"/>
+  <symbol id="logo-mark-mono" viewBox="0 0 920 740">
+    <g fill="none" stroke="currentColor" stroke-width="130">
+      <path d="M65 475V195a130 130 0 0 1 260 0v280"/>
+      <path d="M325 195a130 130 0 0 1 260 0v125c0 250 55 335 175 335h160"/>
     </g>
-    <path d="M60 50a10 10 0 0 1 10 10v80H50V60a10 10 0 0 1 10-10z" fill="currentColor" opacity=".001"/>
-    <path d="M50 140h20v36a10 10 0 0 1-20 0z" fill="currentColor"/>
+    <path d="M130 475h130v180a65 65 0 0 1-130 0z" fill="currentColor"/>
   </symbol>
 
   <path id="drip-path" d="M0 0H1200 V6a74.9 30 0 0 1 -149.9 0a59.4 18 0 0 1 -118.8 0a45.2 34 0 0 1 -90.3 0a74.3 22 0 0 1 -148.5 0a68.3 26 0 0 1 -136.6 0a74.9 15 0 0 1 -149.8 0a70.1 32 0 0 1 -140.2 0a68.4 20 0 0 1 -136.8 0a64.5 28 0 0 1 -129.0 0V0Z"/>
@@ -642,7 +644,7 @@ h2.title{font-size:var(--step-h2)}
   <div class="container header__inner">
     <!-- Substituir pela arte oficial do logo (SVG/PNG) quando publicar -->
     <a class="logo" href="#topo" aria-label="Mr Ice Sorvetes e Açaí, início da página">
-      <svg class="logo__mark" viewBox="0 0 256 200" role="img" aria-hidden="true"><use href="#logo-mark"></use></svg>
+      <svg class="logo__mark" viewBox="0 0 920 740" role="img" aria-hidden="true"><use href="#logo-mark"></use></svg>
       <span class="logo__type">
         <span class="logo__word"><span class="mr">r.</span>Ice</span>
         <span class="logo__tag">Sorvetes <span class="amp">&amp;</span> Açaí</span>
@@ -775,7 +777,7 @@ h2.title{font-size:var(--step-h2)}
         <!-- Troque o src pela foto da fábrica enviada pela cliente -->
         <img src="assets/nossa-fabrica.jpg" alt="Nossa fábrica" loading="lazy" decoding="async"
              onerror="this.remove()">
-        <svg class="placeholder" viewBox="0 0 256 200" aria-hidden="true"><use href="#logo-mark"></use></svg>
+        <svg class="placeholder" viewBox="0 0 920 740" aria-hidden="true"><use href="#logo-mark"></use></svg>
       </figure>
     </div>
   </section>
@@ -1246,7 +1248,38 @@ h2.title{font-size:var(--step-h2)}
       <div class="resellers__art" aria-hidden="true">
         <div class="resellers__box">
           <svg class="wave"><use href="#wave"></use></svg>
-          <svg class="mark" viewBox="0 0 256 200"><use href="#logo-mark"></use></svg>
+          <svg class="box-drip" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><use href="#drip-path"></use></svg>
+          <svg class="resellers__scene" viewBox="0 0 640 545" preserveAspectRatio="xMidYMax meet">
+            <ellipse cx="320" cy="518" rx="235" ry="16" fill="#14242B" opacity=".12"/>
+            <g class="scene-pops">
+              <g transform="rotate(-8 132 330)">
+                <rect x="95" y="112" width="74" height="220" rx="37" fill="#E3242B"/>
+                <rect x="112" y="140" width="24" height="60" rx="12" fill="#fff" opacity=".28"/>
+              </g>
+              <g transform="rotate(-3 226 330)">
+                <rect x="189" y="88" width="74" height="244" rx="37" fill="#1A8CB4"/>
+                <rect x="206" y="116" width="24" height="60" rx="12" fill="#fff" opacity=".3"/>
+              </g>
+              <g transform="rotate(1 320 330)">
+                <rect x="283" y="122" width="74" height="210" rx="37" fill="#F3C395"/>
+                <rect x="300" y="150" width="24" height="60" rx="12" fill="#fff" opacity=".45"/>
+              </g>
+              <g transform="rotate(5 414 330)">
+                <rect x="377" y="96" width="74" height="236" rx="37" fill="#0A4E68"/>
+                <rect x="394" y="124" width="24" height="60" rx="12" fill="#fff" opacity=".3"/>
+              </g>
+              <g transform="rotate(10 508 330)">
+                <rect x="471" y="132" width="74" height="200" rx="37" fill="#E3242B"/>
+                <rect x="488" y="160" width="24" height="60" rx="12" fill="#fff" opacity=".28"/>
+              </g>
+            </g>
+            <rect x="72" y="292" width="496" height="46" rx="23" fill="#C01A21"/>
+            <rect x="86" y="326" width="468" height="174" rx="30" fill="#E3242B"/>
+            <rect x="205" y="352" width="230" height="126" rx="18" fill="#fff"/>
+            <svg x="250" y="362" width="140" height="113" viewBox="0 0 920 740" aria-hidden="true">
+              <use href="#logo-mark"></use>
+            </svg>
+          </svg>
         </div>
       </div>
     </div>
@@ -1305,7 +1338,7 @@ h2.title{font-size:var(--step-h2)}
     <div class="footer__top">
       <div>
         <a class="logo" href="#topo" aria-label="Mr Ice Sorvetes e Açaí, início da página">
-          <svg class="logo__mark" viewBox="0 0 256 200" style="color:#fff" role="img" aria-hidden="true"><use href="#logo-mark-mono"></use></svg>
+          <svg class="logo__mark" viewBox="0 0 920 740" style="color:#fff" role="img" aria-hidden="true"><use href="#logo-mark-mono"></use></svg>
           <span class="logo__type">
             <span class="logo__word"><span class="mr">r.</span>Ice</span>
             <span class="logo__tag">Sorvetes <span class="amp">&amp;</span> Açaí</span>

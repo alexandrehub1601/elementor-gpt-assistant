@@ -11,10 +11,10 @@
   MR ICE — Landing page (arquivo único, sem dependências além do kit Adobe Fonts).
 
   PENDÊNCIAS PARA PUBLICAR:
-  1. Fontes .... trocar o PRIMEIRO nome de --font-display e --font-body pelos nomes
-     reais das famílias do kit Adobe dfs7hqs (Adobe Fonts > Web Projects > kit >
-     "Using fonts in CSS"). O kit só serve as fontes em domínios cadastrados no
-     projeto: para testar local, abra via http://localhost, não por file://.
+  1. Fontes .... já apontam para o kit dfs7hqs (roca / sirenia / rotulo-variable).
+     O kit só serve as fontes em domínios cadastrados no projeto web da Adobe:
+     para testar local abra via http://localhost, nunca por file://, e cadastre
+     o domínio final antes de publicar.
   2. Logo ...... o lockup do header/rodapé é uma reconstrução vetorial; substituir
      pelos arquivos oficiais (símbolos #logo-mark e #logo-mark-mono).
   3. Fotos ..... colocar a foto da fábrica em assets/nossa-fabrica.jpg (o bloco já
@@ -71,9 +71,12 @@
   --white:#fff;
 
   /* Tipografia */
-  /* 1o nome = fonte do kit Adobe (TROCAR pelo nome real); os demais sao fallback */
-  --font-display:"brandon-grotesque","Poppins","Futura","Trebuchet MS",system-ui,sans-serif;
-  --font-body:"proxima-nova","Nunito Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  /* Kit Adobe dfs7hqs — roca (títulos), sirenia (texto), rotulo-variable (labels).
+     Para trocar os papéis, basta reordenar estas três linhas.
+     Pesos disponíveis: roca e sirenia 400/700 (+itálicos); rotulo 200–1000. */
+  --font-display:"roca","Poppins","Futura","Trebuchet MS",system-ui,sans-serif;
+  --font-body:"sirenia","Nunito Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --font-label:"rotulo-variable","roca","Poppins",system-ui,sans-serif;
 
   /* Escala */
   --step-eyebrow:clamp(.72rem,.68rem + .2vw,.8rem);
@@ -111,7 +114,7 @@ body{
 img{max-width:100%;display:block}
 svg{display:block}
 a{color:inherit}
-h1,h2,h3,h4{font-family:var(--font-display);font-weight:800;line-height:1.04;letter-spacing:-.015em;margin:0}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;line-height:1.04;letter-spacing:-.015em;margin:0}
 p{margin:0}
 ul{margin:0;padding:0;list-style:none}
 button{font:inherit;color:inherit}
@@ -138,7 +141,7 @@ html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 12px)}
 /* ---------- Tipografia utilitária ---------- */
 .eyebrow{
   display:inline-flex;align-items:center;gap:.5rem;
-  font-family:var(--font-display);font-weight:800;
+  font-family:var(--font-label);font-weight:800;
   font-size:var(--step-eyebrow);letter-spacing:.14em;text-transform:uppercase;
   color:var(--red-dark);margin-bottom:1rem;
 }
@@ -159,7 +162,7 @@ h2.title{font-size:var(--step-h2);max-width:16ch}
   min-height:52px;padding:.85rem 1.6rem;
   background:var(--btn-bg);color:var(--btn-fg);border:2px solid var(--btn-bd);
   border-radius:var(--pill);
-  font-family:var(--font-display);font-weight:800;font-size:1rem;letter-spacing:.005em;
+  font-family:var(--font-display);font-weight:700;font-size:1rem;letter-spacing:.005em;
   text-decoration:none;cursor:pointer;
   transition:transform .18s var(--ease),box-shadow .18s var(--ease),background-color .18s var(--ease),border-color .18s var(--ease),color .18s var(--ease);
   box-shadow:0 10px 22px -14px rgba(227,36,43,.9);
@@ -207,9 +210,9 @@ h2.title{font-size:var(--step-h2);max-width:16ch}
 .logo{display:flex;align-items:flex-start;text-decoration:none;flex:none}
 .logo__mark{width:auto;height:52px;flex:none;margin-right:-14px}
 .logo__type{display:flex;flex-direction:column;line-height:1;padding-top:9px}
-.logo__word{font-family:var(--font-display);font-weight:800;font-size:1.75rem;letter-spacing:-.035em;color:var(--blue)}
+.logo__word{font-family:var(--font-display);font-weight:700;font-size:1.75rem;letter-spacing:-.035em;color:var(--blue)}
 .logo__word .mr{color:var(--red)}
-.logo__tag{font-family:var(--font-display);font-weight:700;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-dark);margin-top:.5em;padding-left:3.4em}
+.logo__tag{font-family:var(--font-label);font-weight:700;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-dark);margin-top:.5em;padding-left:3.4em}
 .logo__tag .amp{color:var(--red)}
 
 .nav{margin-left:auto;display:none;align-items:center;gap:.35rem}
@@ -283,15 +286,8 @@ h2.title{font-size:var(--step-h2);max-width:16ch}
 .hero__pops .pop:nth-child(3){transform:rotate(11deg) translateY(18px)}
 /* contorno branco para as ilustrações lerem sobre o pattern */
 .pop :is(path,rect,circle){stroke:#fff;stroke-width:9;stroke-linejoin:round;paint-order:stroke fill}
-.hero__badge{
-  position:absolute;right:-6px;bottom:8%;
-  background:#fff;border-radius:var(--radius-sm);
-  padding:.9rem 1.15rem;box-shadow:var(--shadow);
-  display:flex;align-items:center;gap:.7rem;max-width:230px;
-}
-.hero__badge .num{font-family:var(--font-display);font-weight:800;font-size:1.9rem;color:var(--red);line-height:1}
-.hero__badge span{font-size:.86rem;line-height:1.3;color:var(--muted);font-weight:600}
-@media (max-width:640px){.hero__badge{right:0;padding:.75rem .9rem;max-width:200px}}
+
+@media (max-width:640px){}
 
 /* ---------- Sobre ---------- */
 .about{background:var(--white)}
@@ -365,14 +361,14 @@ h2.title{font-size:var(--step-h2);max-width:16ch}
 .card__selo{
   position:absolute;top:1rem;left:1rem;
   background:#fff;color:var(--accent);
-  font-family:var(--font-display);font-weight:800;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+  font-family:var(--font-label);font-weight:800;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
   padding:.4rem .75rem;border-radius:var(--pill);box-shadow:var(--shadow-sm);
 }
 .card__body{padding:1.4rem 1.5rem 1.6rem;display:flex;flex-direction:column;gap:.85rem;flex:1}
-.card__kicker{font-size:.84rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.card__kicker{font-family:var(--font-label);font-size:.84rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .card h3{font-size:var(--step-h3);color:var(--accent)}
 .card__note{font-size:.92rem;color:var(--muted);font-style:italic}
-.card__label{font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.card__label{font-family:var(--font-label);font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .chips{display:flex;flex-wrap:wrap;gap:.4rem}
 .chip{
   background:var(--cream);border:1px solid var(--line);border-radius:var(--pill);
@@ -392,7 +388,7 @@ h2.title{font-size:var(--step-h2);max-width:16ch}
 .city:first-of-type{margin-top:0}
 .city__name{
   display:inline-flex;align-items:center;gap:.6rem;
-  font-family:var(--font-display);font-weight:800;font-size:var(--step-h3);
+  font-family:var(--font-display);font-weight:700;font-size:var(--step-h3);
   color:var(--blue-deep);margin-bottom:1.25rem;
 }
 .city__name .icon{width:22px;height:22px;color:var(--red)}
@@ -410,8 +406,8 @@ h2.title{font-size:var(--step-h2);max-width:16ch}
 .store__meta{display:grid;gap:.7rem;font-size:.95rem;color:var(--muted)}
 .store__meta div{display:flex;gap:.65rem;align-items:flex-start}
 .store__meta .icon{width:18px;height:18px;flex:none;margin-top:.25rem;color:var(--blue)}
-.store__meta strong{display:block;color:var(--ink);font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.15rem}
-.store__meta a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;font-weight:600;color:var(--muted)}
+.store__meta strong{display:block;font-family:var(--font-label);color:var(--ink);font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.15rem}
+.store__meta a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;font-weight:700;color:var(--muted)}
 .store__meta a:hover{color:var(--red);text-decoration:underline}
 .store .btn-row{margin-top:auto;padding-top:.4rem}
 .store .btn{flex:1 1 auto}
@@ -497,7 +493,7 @@ h2.title{font-size:var(--step-h2);max-width:16ch}
 .social:hover{background:#fff;color:var(--blue-deep);border-color:#fff;transform:translateY(-3px)}
 .social .icon{width:24px;height:24px}
 .footer__nav{display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;padding-block:1.75rem;border-top:1px solid rgba(255,255,255,.18)}
-.footer__nav a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;text-decoration:none;font-weight:600;color:rgba(255,255,255,.88);font-size:.95rem}
+.footer__nav a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;text-decoration:none;font-weight:700;color:rgba(255,255,255,.88);font-size:.95rem}
 .footer__nav a:hover{color:#fff;text-decoration:underline}
 .footer__bottom{
   display:flex;flex-wrap:wrap;gap:.6rem 1.5rem;justify-content:space-between;align-items:center;
@@ -505,7 +501,7 @@ h2.title{font-size:var(--step-h2);max-width:16ch}
   font-size:.9rem;color:rgba(255,255,255,.8);
 }
 .footer__legal{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
-.footer__legal a{display:inline-flex;align-items:center;min-height:44px;color:rgba(255,255,255,.9);text-decoration:none}
+.footer__legal a{display:inline-flex;align-items:center;min-height:44px;font-weight:700;color:rgba(255,255,255,.9);text-decoration:none}
 .footer__legal a:hover{text-decoration:underline;color:#fff}
 .footer__legal .sep{opacity:.5}
 

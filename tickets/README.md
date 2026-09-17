@@ -41,8 +41,16 @@ Crie uma conta grátis em <https://developer.ticketmaster.com>, crie um app e
 copie a **Consumer Key** da Discovery API.
 
 ### 2) Confirmar os IDs dos eventos
-Os IDs que estão na config vieram das URLs. Se a Discovery API não reconhecer
-algum deles, o bot avisa no log e você acha o ID certo assim:
+Os IDs que estão na config vieram das URLs. Para conferir **pelo navegador**,
+abra (trocando `SUA_CHAVE`):
+
+```
+https://app.ticketmaster.com/discovery/v2/events/23006528B9383998.json?apikey=SUA_CHAVE
+https://app.ticketmaster.com/discovery/v2/events/72zs3kweso14.json?apikey=SUA_CHAVE
+```
+
+Se voltar um monte de JSON com o nome do show, o ID está certo. Se voltar erro
+404, o ID precisa ser trocado — pelo terminal:
 
 ```bash
 export TICKETMASTER_API_KEY=sua_chave
@@ -82,7 +90,15 @@ crie os secrets:
 `TICKETMASTER_API_KEY`, `MAIL_FROM`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`
 (ou `RESEND_API_KEY`, com a variable `MAIL_TRANSPORT=resend`).
 
-Dois avisos honestos sobre essa opção:
+Depois, em **Actions » Monitor de ingressos » Run workflow**, você pode disparar
+na hora escolhendo o modo:
+- `test` — manda o e-mail de teste para todos os destinatários;
+- `once` — faz uma verificação real.
+
+Três avisos honestos sobre essa opção:
+- o agendamento **só funciona com o workflow na branch principal** (`main`) —
+  enquanto estiver só na branch de trabalho, dá para rodar no botão, mas não
+  sozinho de 10 em 10 minutos;
 - agendamento no GitHub é "melhor esforço" e **atrasa em horários de pico** — às
   vezes 20–30 minutos;
 - workflows agendados são **desativados após 60 dias sem commits** no repositório.

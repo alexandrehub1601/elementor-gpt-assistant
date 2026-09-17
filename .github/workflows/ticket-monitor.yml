@@ -5,8 +5,17 @@ on:
     # A cada 10 minutos. O GitHub trata agendamentos como "melhor esforço" e
     # costuma atrasar em horários de pico — para vigilância minuto a minuto,
     # rode "npm run tickets:watch" num servidor próprio.
+    # Atenção: agendamento só funciona com este arquivo na branch principal.
     - cron: "*/10 * * * *"
   workflow_dispatch:
+    inputs:
+      modo:
+        description: "O que fazer nesta execução"
+        type: choice
+        default: once
+        options:
+          - once   # verificar disponibilidade de verdade
+          - test   # mandar e-mail de teste para todos os destinatários
 
 concurrency:
   group: ticket-monitor
@@ -45,10 +54,11 @@ jobs:
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           TZ: America/Sao_Paulo
-        run: npm run tickets:once
+        run: node tickets/src/run.js ${{ inputs.modo || 'once' }}
 
       - name: Guardar estado
-        if: always()
+        # O modo "test" não produz estado real de disponibilidade.
+        if: always() && (inputs.modo || 'once') == 'once'
         uses: actions/cache/save@v4
         with:
           path: tickets/.state

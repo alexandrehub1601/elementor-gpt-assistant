@@ -6,533 +6,505 @@
 <title>Mr Ice Sorvetes, açaís e sabores para todos os momentos.</title>
 <meta name="description" content="Fabricação própria, mais de 50 sabores no self-service e opções para diferentes momentos e preferências.">
 <meta name="theme-color" content="#E3242B">
-
-<!--
-  MR ICE — Landing page (arquivo único, sem dependências além do kit Adobe Fonts).
-
-  PENDÊNCIAS PARA PUBLICAR:
-  1. Fontes .... já apontam para o kit dfs7hqs (roca / sirenia / rotulo-variable).
-     O kit só serve as fontes em domínios cadastrados no projeto web da Adobe:
-     para testar local abra via http://localhost, nunca por file://, e cadastre
-     o domínio final antes de publicar.
-  2. Logo ...... o lockup do header/rodapé é uma reconstrução vetorial; substituir
-     pelos arquivos oficiais (símbolos #logo-mark e #logo-mark-mono).
-  3. Fotos ..... colocar a foto da fábrica em assets/nossa-fabrica.jpg (o bloco já
-     tem fallback com o pattern da marca) e, se quiser, fotos de produto no lugar
-     das ilustrações dos cards.
-  4. Links ..... definir destino de "Quero ser revendedor", "Baixar apresentação
-     comercial", perfis sociais, Política de Privacidade e Termos de Uso.
-  5. FAQ ....... as respostas ainda não constam no documento de copy.
--->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Mr Ice Sorvetes, açaís e sabores para todos os momentos.">
 <meta property="og:description" content="Fabricação própria, mais de 50 sabores no self-service e opções para diferentes momentos e preferências.">
 <meta property="og:locale" content="pt_BR">
 
+<!--
+  MR ICE — Landing page (arquivo único).
+
+  ARQUIVOS A COLOCAR NA PASTA assets/ :
+    assets/logo-mr-ice.png .......... logo oficial colorido (header)
+    assets/logo-mr-ice-branco.png ... logo oficial em branco (rodapé)
+    assets/hero.jpg ................. foto de fundo do topo
+    assets/nossa-fabrica.jpg ........ foto da fábrica
+  Enquanto um arquivo não existir, a página mostra um fallback da marca no lugar
+  (nada quebra). Nenhuma outra dependência além do kit Adobe Fonts.
+
+  PENDENTE NA COPY: respostas do FAQ e destino dos links "Quero ser revendedor",
+  "Baixar apresentação comercial", redes sociais e páginas legais.
+-->
+
 <link rel="preconnect" href="https://use.typekit.net" crossorigin>
 <link rel="stylesheet" href="https://use.typekit.net/dfs7hqs.css">
-
-<!-- REDE DE SEGURANÇA: se o kit da Adobe não carregar (domínio não cadastrado,
-     arquivo aberto em file://), a página usa fontes de desenho equivalente em
-     vez de cair em Arial/Trebuchet. Assim que os nomes reais das famílias do kit
-     estiverem em --font-display / --font-body, estas 3 linhas podem sair. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito+Sans:wght@400;600;700&display=swap">
 
 <style>
-/* ==========================================================================
-   MR ICE — Landing Page
-   Identidade: vermelho / azul / creme do palito, formas arredondadas de picolé
-   e o pattern de listras onduladas da marca.
-
-   FONTES: o kit Adobe dfs7hqs está carregado acima. Substitua os nomes de
-   família abaixo pelos nomes reais das fontes do kit (Adobe Fonts > Kit > Using
-   fonts in CSS) — as demais entradas da pilha são apenas fallback.
-   ========================================================================== */
-
+/* =========================================================
+   TOKENS — identidade Mr Ice
+   Kit Adobe dfs7hqs: roca (títulos), rotulo-variable (texto e labels),
+   sirenia (itálicos). Google Fonts entra só como rede de segurança.
+   ========================================================= */
 :root{
-  /* Marca */
   --red:#E3242B;
   --red-dark:#C01A21;
   --red-tint:#FDECEC;
   --blue:#1A8CB4;
-  --blue-dark:#0E6F92;      /* usado quando há texto branco em cima (contraste AA) */
+  --blue-dark:#0E6F92;
   --blue-deep:#0A4E68;
+  --blue-950:#073A4E;
   --blue-tint:#E8F4F9;
-  --tan:#F3C395;            /* palito */
+  --tan:#F3C395;
   --tan-tint:#FDF3E8;
 
-  /* Neutros */
-  --ink:#14242B;
-  --muted:#52646C;
-  --line:rgba(20,36,43,.10);
-  --cream:#FFF8F2;
   --white:#fff;
+  --cream:#FFF8F2;
+  --ink:#14242B;
+  --ink-muted:#54666E;
+  --on-dark:#fff;
+  --on-dark-muted:rgba(255,255,255,.76);
+  --line-light:rgba(20,36,43,.12);
+  --line-dark:rgba(255,255,255,.16);
 
-  /* Tipografia */
-  /* Kit Adobe dfs7hqs: roca nos títulos, rotulo-variable no texto corrido e nos
-     labels, sirenia apenas nos itálicos (a rotulo não tem itálico real).
-     Pesos: roca 400/700 (+itálico); rotulo 200 a 1000; sirenia 400/700 (+itálico). */
   --font-display:"roca","Poppins","Futura","Trebuchet MS",system-ui,sans-serif;
   --font-body:"rotulo-variable","Nunito Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  --font-label:"rotulo-variable","roca","Poppins",system-ui,sans-serif;
+  --font-label:"rotulo-variable","Poppins",system-ui,sans-serif;
   --font-accent:"sirenia",Georgia,"Times New Roman",serif;
 
-  /* Escala */
-  --step-eyebrow:clamp(.72rem,.68rem + .2vw,.8rem);
-  --step-body:clamp(1.06rem,1rem + .3vw,1.2rem);
-  --step-lead:clamp(1.12rem,1.05rem + .45vw,1.35rem);
-  --step-h3:clamp(1.15rem,1.05rem + .5vw,1.4rem);
-  --step-h2:clamp(1.9rem,1.35rem + 2.4vw,3.35rem);
-  --step-h1:clamp(2.2rem,1.5rem + 3vw,3.75rem);
-
-  /* Espaço / forma */
-  --gutter:clamp(1.25rem,4vw,2.5rem);
-  --section:clamp(4rem,8vw,7.5rem);
-  --radius:26px;
-  --radius-sm:16px;
+  --container:1200px;
+  --gutter:clamp(20px,4vw,40px);
+  --section-y:clamp(72px,9vw,128px);
+  --radius:16px;
+  --radius-lg:26px;
   --pill:999px;
-  --shadow-sm:0 2px 10px rgba(20,36,43,.05);
-  --shadow:0 18px 44px -24px rgba(20,36,43,.35);
-  --shadow-lg:0 34px 70px -34px rgba(20,36,43,.45);
-  --ease:cubic-bezier(.22,.7,.3,1);
-  --header-h:76px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --shadow-card:0 1px 2px rgba(20,36,43,.04),0 16px 38px -16px rgba(20,36,43,.22);
+  --header-h:84px;
 }
 
+/* =========================================================
+   BASE
+   ========================================================= */
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:calc(var(--header-h) + 16px)}
 body{
-  margin:0;
-  background:var(--white);
-  color:var(--ink);
-  font-family:var(--font-body);
-  font-size:var(--step-body);
-  line-height:1.65;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
+  margin:0;background:var(--white);color:var(--ink);
+  font-family:var(--font-body);font-size:17px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;
 }
-img{max-width:100%;display:block}
-svg{display:block}
-a{color:inherit}
-h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;line-height:1.06;letter-spacing:-.015em;margin:0;text-wrap:balance}
-p{margin:0}
+img,svg{display:block;max-width:100%}
+img{height:auto}
+h1,h2,h3,h4,p{margin:0}
 ul{margin:0;padding:0;list-style:none}
+a{color:inherit}
+b,strong{font-weight:700}
 button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
+[hidden]{display:none!important}
 
-html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 12px)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:16px;top:-64px;z-index:200;background:var(--red);color:#fff;padding:12px 20px;border-radius:var(--pill);font-weight:700;text-decoration:none}
+.skip:focus{top:16px}
+
+.container{width:100%;max-width:calc(var(--container) + var(--gutter)*2);margin-inline:auto;padding-inline:var(--gutter)}
+.section{position:relative;padding-block:var(--section-y)}
+.section--cream{background:var(--cream)}
+.section--deep{background:var(--blue-deep);color:var(--on-dark)}
+.section--red{background:var(--red);color:var(--on-dark)}
+.nb{white-space:nowrap}
+
+/* Tipografia */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:14px;
+  font-family:var(--font-label);font-weight:700;font-size:12.5px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--red-dark);
+}
+.section--deep .eyebrow,.section--red .eyebrow,.hero .eyebrow{color:#fff}
+.h1,.h2,.h3{font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;text-wrap:balance}
+.h1{font-size:clamp(2.15rem,1.2rem + 3vw,3.6rem);line-height:1.06}
+.h2{font-size:clamp(1.9rem,1.2rem + 2.2vw,2.95rem);line-height:1.1}
+.h3{font-size:1.28rem;line-height:1.28;letter-spacing:-.01em}
+.lead{font-size:clamp(1.08rem,1rem + .35vw,1.25rem);line-height:1.72;color:var(--ink-muted)}
+.section--deep .lead,.section--red .lead,.hero .lead{color:var(--on-dark-muted)}
+.section-head{max-width:760px;margin-bottom:clamp(40px,5vw,64px)}
+.section-head .h2{margin-top:20px}
+.split-head{display:grid;gap:clamp(24px,5vw,72px);align-items:end;margin-bottom:clamp(40px,6vw,72px)}
+@media (min-width:900px){.split-head{grid-template-columns:1.05fr .95fr}}
+
+/* Botões */
+.btn{
+  --h:56px;--bg:var(--red);--fg:#fff;--bd:var(--red);
+  display:inline-flex;align-items:center;justify-content:center;gap:12px;
+  min-height:var(--h);padding:0 26px;border-radius:var(--pill);
+  background:var(--bg);color:var(--fg);border:2px solid var(--bd);
+  font-family:var(--font-label);font-weight:700;font-size:13.5px;
+  letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease),background-color .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease);
+  touch-action:manipulation;box-shadow:0 12px 28px -16px rgba(227,36,43,.85);
+}
+.btn .icon{width:18px;height:18px;transition:transform .25s var(--ease)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 18px 34px -18px rgba(227,36,43,.9)}
+.btn:hover .icon{transform:translateX(3px)}
+.btn:active{transform:translateY(0) scale(.99)}
+.btn--blue{--bg:var(--blue-dark);--bd:var(--blue-dark);box-shadow:0 12px 28px -16px rgba(14,111,146,.85)}
+.btn--blue:hover{--bg:var(--blue-deep);--bd:var(--blue-deep)}
+.btn--ghost{--bg:transparent;--fg:var(--ink);--bd:rgba(20,36,43,.4);box-shadow:none}
+.btn--ghost:hover{--bd:var(--ink)}
+.btn--light{--bg:#fff;--fg:var(--red);--bd:#fff;box-shadow:0 14px 30px -18px rgba(0,0,0,.6)}
+.btn--outline-light{--bg:transparent;--fg:#fff;--bd:rgba(255,255,255,.55);box-shadow:none}
+.btn--outline-light:hover{--bd:#fff;--bg:rgba(255,255,255,.12)}
+.btn--sm{--h:46px;padding:0 18px;font-size:12px;letter-spacing:.1em}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px}
+
+/* Ícones */
+.icon{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.icon-box{
+  display:grid;place-items:center;flex:none;
+  width:56px;height:56px;border-radius:18px;
+  border:1px solid rgba(227,36,43,.28);color:var(--red);
+  background:linear-gradient(160deg,rgba(227,36,43,.10),rgba(227,36,43,0));
+  transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease);
+}
+.icon-box--blue{border-color:rgba(26,140,180,.3);color:var(--blue-dark);background:linear-gradient(160deg,rgba(26,140,180,.12),rgba(26,140,180,0))}
+.section--deep .icon-box,.section--red .icon-box{color:#fff;border-color:var(--line-dark);background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,0))}
+
+/* Motivo gráfico da marca ao fundo */
+.motif{position:absolute;pointer-events:none;z-index:0;opacity:.06;color:currentColor}
+.motif use{fill:currentColor}
+.section > .container{position:relative;z-index:1}
+
+/* Pattern de ondas e divisória de sorvete */
+.wave{display:block;width:100%;height:100%}
+.wave-strip{height:clamp(44px,6vw,80px);overflow:hidden;line-height:0}
+.drip{position:absolute;top:-1px;left:0;width:100%;z-index:3;height:clamp(26px,3.6vw,54px);pointer-events:none}
+.drip use{fill:currentColor}
+.has-drip{padding-top:calc(var(--section-y) + clamp(26px,3.6vw,54px))}
+
+/* Reveal */
+.js .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.js .reveal.is-in{opacity:1;transform:none}
+.js .reveal[data-d="1"]{transition-delay:.08s}
+.js .reveal[data-d="2"]{transition-delay:.16s}
+.js .reveal[data-d="3"]{transition-delay:.24s}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .js .reveal{opacity:1;transform:none;transition:none}
+  *{transition-duration:.01ms!important;animation-duration:.01ms!important}
 }
 
-:where(a,button,summary,input,[tabindex]):focus-visible{
-  outline:3px solid var(--blue-dark);
-  outline-offset:3px;
-  border-radius:6px;
-}
-
-.container{width:min(1200px,100% - var(--gutter)*2);margin-inline:auto}
-.narrow{width:min(760px,100%)}
-.section{padding-block:var(--section)}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.skip-link{position:absolute;left:12px;top:-64px;z-index:200;background:var(--red);color:#fff;padding:12px 20px;border-radius:var(--pill);font-weight:700;transition:top .18s var(--ease)}
-.skip-link:focus{top:12px}
-
-/* ---------- Tipografia utilitária ---------- */
-.eyebrow{
-  display:inline-flex;align-items:center;
-  font-family:var(--font-label);font-weight:800;
-  font-size:var(--step-eyebrow);letter-spacing:.14em;text-transform:uppercase;
-  color:var(--red-dark);margin-bottom:1rem;
-}
-.eyebrow--blue{color:var(--blue-dark)}
-.eyebrow--light{color:rgba(255,255,255,.9)}
-h2.title{font-size:var(--step-h2)}
-.nb{white-space:nowrap}
-.lead{font-size:var(--step-lead);color:var(--muted);line-height:1.6;max-width:62ch}
-.section-head{margin-bottom:clamp(2rem,4vw,3.25rem)}
-.section-head--split{display:grid;gap:1.5rem;align-items:end}
-@media (min-width:900px){.section-head--split{grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:3rem}}
-
-/* ---------- Botões ---------- */
-.btn{
-  --btn-bg:var(--red);--btn-fg:#fff;--btn-bd:var(--red);
-  display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
-  min-height:52px;padding:.85rem 1.6rem;
-  background:var(--btn-bg);color:var(--btn-fg);border:2px solid var(--btn-bd);
-  border-radius:var(--pill);
-  font-family:var(--font-display);font-weight:700;font-size:1rem;letter-spacing:.005em;
-  text-decoration:none;cursor:pointer;
-  transition:transform .18s var(--ease),box-shadow .18s var(--ease),background-color .18s var(--ease),border-color .18s var(--ease),color .18s var(--ease);
-  box-shadow:0 10px 22px -14px rgba(227,36,43,.9);
-  touch-action:manipulation;
-}
-.btn:hover{transform:translateY(-2px);box-shadow:0 16px 28px -16px rgba(227,36,43,.95)}
-.btn:active{transform:translateY(0)}
-.btn .icon{width:20px;height:20px;flex:none}
-.btn--blue{--btn-bg:var(--blue-dark);--btn-bd:var(--blue-dark);box-shadow:0 10px 22px -14px rgba(14,111,146,.9)}
-.btn--blue:hover{--btn-bg:var(--blue-deep);--btn-bd:var(--blue-deep)}
-.btn--ghost{--btn-bg:transparent;--btn-fg:var(--ink);--btn-bd:rgba(20,36,43,.42);box-shadow:none}
-.btn--ghost:hover{--btn-bd:var(--ink);box-shadow:var(--shadow-sm)}
-.btn--ghost-blue{--btn-bg:transparent;--btn-fg:var(--blue-dark);--btn-bd:rgba(14,111,146,.55);box-shadow:none}
-.btn--ghost-blue:hover{--btn-bg:var(--blue-tint);--btn-bd:var(--blue-dark)}
-.btn--light{--btn-bg:#fff;--btn-fg:var(--red);--btn-bd:#fff;box-shadow:0 14px 30px -18px rgba(0,0,0,.6)}
-.btn--light:hover{--btn-fg:var(--red-dark)}
-.btn--outline-light{--btn-bg:transparent;--btn-fg:#fff;--btn-bd:rgba(255,255,255,.65);box-shadow:none}
-.btn--outline-light:hover{--btn-bd:#fff;--btn-bg:rgba(255,255,255,.12)}
-.btn--sm{min-height:46px;padding:.6rem 1.15rem;font-size:.95rem}
-.btn-row{display:flex;flex-wrap:wrap;gap:.75rem}
-.btn-row--secondary{gap:.75rem}
-@media (max-width:600px){
-  .hero .btn-row > .btn,.hero .btn-row--secondary{width:100%}
-  .hero .btn-row--secondary .btn{flex:1 1 100%}
-  .resellers .btn-row .btn{width:100%}
-}
-
-/* ---------- Pattern de ondas ---------- */
-.wave{display:block;width:100%;height:100%}
-.wave-band{position:relative;overflow:hidden;line-height:0}
-.wave-strip{height:clamp(46px,7vw,86px);overflow:hidden}
-.wave-strip .wave{height:100%;width:100%}
-
-/* ---------- Divisória de sorvete ---------- */
-.drip{
-  position:absolute;top:-1px;left:0;width:100%;z-index:3;
-  height:clamp(26px,3.6vw,54px);display:block;pointer-events:none;
-}
-.drip use{fill:currentColor}
-.has-drip{position:relative;padding-top:calc(var(--section) + clamp(26px,3.6vw,54px))}
-
-/* ---------- Header ---------- */
+/* =========================================================
+   HEADER
+   ========================================================= */
 .header{
-  position:sticky;top:0;z-index:100;
-  background:rgba(255,255,255,.92);
-  backdrop-filter:saturate(1.4) blur(10px);
-  -webkit-backdrop-filter:saturate(1.4) blur(10px);
-  border-bottom:1px solid transparent;
-  transition:border-color .2s var(--ease),box-shadow .2s var(--ease);
+  position:fixed;inset:0 0 auto;z-index:100;padding-block:18px;
+  transition:background .35s var(--ease),box-shadow .35s var(--ease),padding .35s var(--ease);
 }
-.header.is-stuck{border-bottom-color:var(--line);box-shadow:0 10px 30px -26px rgba(20,36,43,.8)}
-.header__inner{display:flex;align-items:center;gap:1rem;min-height:var(--header-h)}
-.logo{display:flex;align-items:flex-start;text-decoration:none;flex:none}
-.logo__mark{width:auto;height:54px;flex:none;margin-right:-19px}
-.logo__type{display:flex;flex-direction:column;line-height:1;padding-top:10px}
-.logo__word{font-family:var(--font-display);font-weight:700;font-size:1.75rem;letter-spacing:-.035em;color:var(--blue)}
-.logo__word .mr{color:var(--red)}
-.logo__tag{font-family:var(--font-label);font-weight:700;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-dark);margin-top:.5em;padding-left:3.4em}
-.logo__tag .amp{color:var(--red)}
+.header.is-scrolled{
+  background:rgba(255,255,255,.94);
+  -webkit-backdrop-filter:saturate(150%) blur(12px);backdrop-filter:saturate(150%) blur(12px);
+  box-shadow:0 1px 0 var(--line-light),0 10px 30px -26px rgba(20,36,43,.9);
+  padding-block:10px;
+}
+.header__row{display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;text-decoration:none;flex:none}
+.brand__logo{height:56px;width:auto;transition:height .35s var(--ease)}
+.header.is-scrolled .brand__logo{height:46px}
+.header .brand__logo--dark{display:none}
+.header .brand__fallback:not([hidden]) ~ .brand__logo,.brand__fallback:not([hidden]) + .brand__logo{display:none}
+.header.is-scrolled .brand__logo--light{display:none}
+.header.is-scrolled .brand__logo--dark{display:block}
+.header .brand__fallback .mark{color:#fff}
+.header .brand__word,.header .brand__tag{color:#fff}
+.header .brand__word .mr,.header .brand__tag .amp{color:var(--tan)}
+.header.is-scrolled .brand__fallback .mark{color:var(--red)}
+.header.is-scrolled .brand__word{color:var(--blue)}
+.header.is-scrolled .brand__tag{color:var(--blue-dark)}
+.header.is-scrolled .brand__word .mr,.header.is-scrolled .brand__tag .amp{color:var(--red)}
+.brand__fallback{display:flex;align-items:flex-start}
+.brand__fallback .mark{height:52px;width:auto;margin-right:-19px}
+.brand__type{display:flex;flex-direction:column;line-height:1;padding-top:10px}
+.brand__word{font-family:var(--font-display);font-weight:700;font-size:1.72rem;letter-spacing:-.035em;color:var(--blue)}
+.brand__word .mr{color:var(--red)}
+.brand__tag{font-family:var(--font-label);font-weight:700;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-dark);margin-top:.5em;padding-left:3.4em}
+.brand__tag .amp{color:var(--red)}
 
-.nav{margin-left:auto;display:none;align-items:center;gap:.35rem}
+.nav{margin-left:auto;display:none;align-items:center;gap:2px}
 .nav a{
-  display:inline-flex;align-items:center;min-height:44px;padding:.55rem .7rem;border-radius:var(--pill);text-decoration:none;
-  font-family:var(--font-label);font-weight:700;font-size:.92rem;color:var(--ink);
-  text-transform:uppercase;letter-spacing:.07em;
-  transition:background-color .18s var(--ease),color .18s var(--ease);
+  display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:var(--pill);
+  font-family:var(--font-label);font-weight:700;font-size:12.5px;letter-spacing:.12em;
+  text-transform:uppercase;text-decoration:none;color:#fff;
+  transition:color .25s var(--ease),background-color .25s var(--ease);
 }
-.nav a:hover{background:var(--red-tint);color:var(--red)}
-.header .btn{flex:none}
+.header.is-scrolled .nav a{color:var(--ink)}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.18)}
+.header.is-scrolled .nav a:hover{color:var(--red);background:var(--red-tint)}
 .header__cta{display:none}
 .nav-toggle{
   margin-left:auto;display:inline-flex;align-items:center;justify-content:center;
-  width:48px;height:48px;border-radius:var(--pill);border:2px solid var(--line);
-  background:#fff;cursor:pointer;color:var(--ink);
+  width:48px;height:48px;border-radius:var(--pill);cursor:pointer;
+  border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.16);color:#fff;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
 }
-.nav-toggle .icon{width:24px;height:24px}
+.header.is-scrolled .nav-toggle{border-color:var(--line-light);background:#fff;color:var(--ink)}
+.nav-toggle .icon{width:24px;height:24px;stroke-width:2}
 .nav-toggle .icon--close{display:none}
 .nav-toggle[aria-expanded="true"] .icon--menu{display:none}
 .nav-toggle[aria-expanded="true"] .icon--close{display:block}
 
-.mobile-nav{
-  display:none;border-top:1px solid var(--line);background:#fff;
-  padding:1rem var(--gutter) 1.5rem;
-}
+.mobile-nav{display:none;margin-top:14px;padding:12px 18px 20px;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-card)}
 .mobile-nav.is-open{display:block}
 .mobile-nav a{
   display:flex;align-items:center;min-height:52px;text-decoration:none;
-  font-family:var(--font-label);font-weight:700;font-size:1rem;
-  text-transform:uppercase;letter-spacing:.07em;
-  border-bottom:1px solid var(--line);
+  font-family:var(--font-label);font-weight:700;font-size:13px;letter-spacing:.12em;
+  text-transform:uppercase;border-bottom:1px solid var(--line-light);
 }
-.mobile-nav .btn{width:100%;margin-top:1rem}
-
-@media (min-width:1140px){
+.mobile-nav .btn{width:100%;margin-top:16px}
+@media (min-width:1120px){
   .nav{display:flex}
   .header__cta{display:inline-flex}
   .nav-toggle{display:none}
   .mobile-nav{display:none!important}
 }
 
-/* ---------- Hero ---------- */
-.hero{position:relative;overflow:hidden;background:var(--white);padding-top:clamp(2.5rem,5vw,4rem)}
-.hero__grid{display:grid;gap:clamp(2.5rem,5vw,4rem);align-items:center}
-@media (min-width:980px){.hero__grid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}}
-.hero h1{font-size:var(--step-h1);letter-spacing:-.025em;max-width:19ch}
-.hero h1 .brand{color:var(--red)}
-.hero h1 .accent{color:var(--blue)}
-.hero__lead{margin-top:1.35rem;font-size:var(--step-lead);color:var(--muted);max-width:52ch}
-.hero .btn-row{margin-top:2rem}
-.pin{
-  display:inline-flex;align-items:center;gap:.55rem;margin-top:2rem;
-  padding:.6rem 1.15rem;border-radius:var(--pill);
-  background:var(--blue-tint);color:var(--blue-deep);
-  font-family:var(--font-display);font-weight:700;font-size:.95rem;
+/* =========================================================
+   01 — HERO
+   ========================================================= */
+.hero{
+  position:relative;isolation:isolate;display:flex;align-items:flex-end;
+  min-height:min(100svh,920px);background:var(--blue-deep);color:var(--on-dark);overflow:hidden;
+  padding-top:clamp(140px,16vw,200px);padding-bottom:clamp(72px,9vw,120px);
 }
-.pin .icon{width:19px;height:19px;color:var(--red)}
-.pin .sep{opacity:.35;padding-inline:.15rem}
-
-.hero__art{position:relative;aspect-ratio:1/1;max-width:560px;margin-inline:auto;width:100%}
-.hero__arch{
-  position:absolute;inset:0;
-  border-radius:var(--pill) var(--pill) 40px 40px;
-  overflow:hidden;background:var(--cream);
-  box-shadow:var(--shadow-lg);
+.hero__bg{position:absolute;inset:0;z-index:-3;margin:0;background:var(--blue-deep)}
+.hero__bg img{width:100%;height:100%;object-fit:cover;object-position:center}
+.hero__pattern{position:absolute;inset:0;z-index:-3;opacity:.45}
+.hero__fade{
+  position:absolute;inset:0;z-index:-1;pointer-events:none;background:
+    linear-gradient(90deg,rgba(7,58,78,.96) 0%,rgba(7,58,78,.92) 32%,rgba(7,58,78,.66) 52%,rgba(7,58,78,.18) 76%,rgba(7,58,78,.05) 100%),
+    linear-gradient(0deg,rgba(7,58,78,.92) 0%,rgba(7,58,78,.35) 26%,rgba(7,58,78,0) 52%),
+    linear-gradient(180deg,rgba(7,58,78,.78) 0%,rgba(7,58,78,0) 26%);
 }
-.hero__arch .wave{position:absolute;inset:0;width:100%;height:100%}
-.hero__pops{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:clamp(.25rem,1.5vw,1rem)}
-.hero__pops .pop{width:clamp(96px,23%,158px);filter:drop-shadow(0 26px 30px rgba(20,36,43,.3))}
-.hero__pops .pop:nth-child(1){transform:rotate(-10deg) translateY(16px)}
-.hero__pops .pop:nth-child(2){transform:rotate(2deg) translateY(-22px) scale(1.1)}
-.hero__pops .pop:nth-child(3){transform:rotate(11deg) translateY(18px)}
-/* contorno branco para as ilustrações lerem sobre o pattern */
-.pop :is(path,rect,circle){stroke:#fff;stroke-width:9;stroke-linejoin:round;paint-order:stroke fill}
-
-@media (max-width:640px){}
-
-/* ---------- Sobre ---------- */
-.about{background:var(--white)}
-.about__grid{display:grid;gap:clamp(2rem,4vw,3.5rem);align-items:start}
-@media (min-width:900px){.about__grid{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}}
-.about__text p + p{margin-top:1.1rem}
-.about__text p{color:var(--muted);font-size:var(--step-lead);line-height:1.7}
-.topics{display:grid;gap:1rem}
-@media (min-width:560px){.topics{grid-template-columns:1fr 1fr}}
-.topic{
-  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
-  padding:1.6rem 1.5rem;box-shadow:var(--shadow-sm);
-  transition:transform .2s var(--ease),box-shadow .2s var(--ease),border-color .2s var(--ease);
+.hero .drip{top:auto;bottom:-1px;transform:scaleY(-1);color:#fff}
+.hero .motif{color:#fff;opacity:.1;width:min(56vw,620px);right:-6%;bottom:-10%}
+.hero__grid{position:relative;z-index:1;display:grid;gap:clamp(32px,5vw,72px);align-items:end}
+@media (min-width:980px){.hero__grid{grid-template-columns:minmax(0,660px) 1fr}}
+.hero .eyebrow{margin-bottom:26px}
+.hero .eyebrow .sep{opacity:.5;padding-inline:4px}
+.hero h1{margin-bottom:24px;max-width:18ch}
+.hero .lead{max-width:52ch;margin-bottom:36px}
+.hero .btn-row{gap:14px}
+@media (max-width:640px){
+  .hero .btn-row .btn,.resellers .btn-row .btn{width:100%}
+  .btn{padding:0 20px;font-size:12.5px}
 }
-.topic:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:transparent}
-.topic__icon{
-  width:54px;height:54px;border-radius:18px;display:grid;place-items:center;
-  background:var(--red-tint);color:var(--red);margin-bottom:1.1rem;
-}
-.topic:nth-child(2n) .topic__icon{background:var(--blue-tint);color:var(--blue-dark)}
-.topic__icon .icon{width:28px;height:28px}
-.topic h3{font-size:var(--step-h3);margin-bottom:.45rem}
-.topic p{color:var(--muted);font-size:.98rem;line-height:1.6}
 
-/* ---------- Banner fábrica ---------- */
-.factory{position:relative;background:var(--cream);overflow:hidden}
-.factory__inner{position:relative;display:grid;gap:clamp(1.75rem,4vw,3rem);align-items:center}
-@media (min-width:900px){.factory__inner{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}}
-.factory h2{font-size:var(--step-h2)}
+/* =========================================================
+   02 — SOBRE
+   ========================================================= */
+.about__grid{display:grid;gap:clamp(36px,6vw,88px);align-items:start}
+@media (min-width:980px){.about__grid{grid-template-columns:.88fr 1.12fr}}
+.about__intro .h2{margin:20px 0 22px}
+.about__intro p + p{margin-top:16px}
+.rows{border-top:1px solid var(--line-light)}
+.row{display:grid;grid-template-columns:56px 1fr;gap:24px;padding:30px 0;border-bottom:1px solid var(--line-light)}
+.row h3{color:var(--red-dark);margin:6px 0 8px}
+.row p{color:var(--ink-muted);font-size:16px}
+.row:hover .icon-box{background:var(--red);color:#fff;border-color:transparent}
+.row:nth-child(even):hover .icon-box{background:var(--blue-dark)}
+
+/* =========================================================
+   03 — FÁBRICA
+   ========================================================= */
+.factory{position:relative;overflow:hidden;background:var(--cream)}
+.factory__grid{display:grid;gap:clamp(28px,5vw,64px);align-items:center}
+@media (min-width:900px){.factory__grid{grid-template-columns:.8fr 1.2fr}}
 .factory__photo{
-  position:relative;aspect-ratio:16/10;border-radius:32px;overflow:hidden;
-  background:var(--white);box-shadow:var(--shadow-lg);display:grid;place-items:center;
+  position:relative;aspect-ratio:16/10;border-radius:var(--radius-lg);overflow:hidden;
+  background:var(--white);box-shadow:var(--shadow-card);margin:0;display:grid;place-items:center;
 }
-.factory__photo .wave{position:absolute;inset:0;width:100%;height:100%}
-.factory__photo img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.factory__photo .placeholder{position:relative;width:clamp(110px,24%,190px);filter:drop-shadow(0 18px 24px rgba(20,36,43,.22))}
+.factory__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.factory__photo .wave{position:absolute;inset:0}
+.factory__photo .placeholder{position:relative;width:clamp(110px,24%,190px)}
+.factory__photo .placeholder svg{width:100%;height:auto;filter:drop-shadow(0 18px 24px rgba(20,36,43,.22))}
 .factory__photo .placeholder :is(path,rect){stroke:#fff;stroke-width:10;stroke-linejoin:round;paint-order:stroke fill}
 
-/* ---------- Produtos ---------- */
-.products{background:var(--cream)}
-.filters{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:clamp(1.75rem,3vw,2.5rem)}
+/* =========================================================
+   04 — PRODUTOS
+   ========================================================= */
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:clamp(28px,4vw,40px)}
 .filter{
-  min-height:46px;padding:.55rem 1.25rem;border-radius:var(--pill);
-  border:2px solid rgba(20,36,43,.24);background:#fff;cursor:pointer;
-  font-family:var(--font-display);font-weight:700;font-size:.97rem;color:var(--ink);
-  transition:background-color .18s var(--ease),color .18s var(--ease),border-color .18s var(--ease),transform .18s var(--ease);
+  min-height:46px;padding:0 20px;border-radius:var(--pill);cursor:pointer;
+  border:1px solid rgba(20,36,43,.22);background:#fff;color:var(--ink);
+  font-family:var(--font-label);font-weight:700;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;
+  transition:background-color .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease);
   touch-action:manipulation;
 }
 .filter:hover{border-color:var(--red);color:var(--red)}
 .filter[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff}
-.product-grid{display:grid;gap:1.25rem;align-items:start}
+.product-grid{display:grid;gap:20px;align-items:start}
 @media (min-width:680px){.product-grid{grid-template-columns:1fr 1fr}}
 @media (min-width:1040px){.product-grid{grid-template-columns:repeat(3,1fr)}}
 .card{
   --accent:var(--red);--accent-tint:var(--red-tint);
-  display:flex;flex-direction:column;
-  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-  overflow:hidden;box-shadow:var(--shadow-sm);
-  transition:transform .2s var(--ease),box-shadow .2s var(--ease);
+  position:relative;display:flex;flex-direction:column;overflow:hidden;
+  background:#fff;border:1px solid var(--line-light);border-radius:var(--radius-lg);
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease);
 }
-.card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.card::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease);z-index:2}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-card);border-color:transparent}
+.card:hover::before{transform:scaleX(1)}
 .card--blue{--accent:var(--blue-dark);--accent-tint:var(--blue-tint)}
 .card--deep{--accent:var(--blue-deep);--accent-tint:#E4F0F5}
 .card--tan{--accent:var(--red);--accent-tint:var(--tan-tint)}
-.card__art{
-  position:relative;background:var(--accent-tint);
-  padding:1.75rem 1.5rem 1.25rem;display:flex;align-items:flex-end;justify-content:center;
-  min-height:180px;
-}
+.card__art{position:relative;background:var(--accent-tint);padding:26px 24px 18px;display:flex;align-items:flex-end;justify-content:center;min-height:176px}
 .card__art .illo{width:clamp(84px,32%,112px);height:auto;color:var(--accent)}
 .card__selo{
-  position:absolute;top:1rem;left:1rem;
-  background:#fff;color:var(--accent);
-  font-family:var(--font-label);font-weight:800;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
-  padding:.4rem .75rem;border-radius:var(--pill);box-shadow:var(--shadow-sm);
+  position:absolute;top:16px;left:16px;background:#fff;color:var(--accent);
+  font-family:var(--font-label);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  padding:7px 12px;border-radius:var(--pill);box-shadow:0 1px 2px rgba(20,36,43,.08);
 }
-.card__body{padding:1.4rem 1.5rem 1.6rem;display:flex;flex-direction:column;gap:.85rem;flex:1}
-.card__kicker{font-family:var(--font-label);font-size:.84rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.card h3{font-size:var(--step-h3);color:var(--accent)}
-.card__note{font-family:var(--font-accent);font-size:.96rem;color:var(--muted);font-style:italic}
-.card__label{font-family:var(--font-label);font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.chips{display:flex;flex-wrap:wrap;gap:.4rem}
-.chip{
-  background:var(--cream);border:1px solid var(--line);border-radius:var(--pill);
-  padding:.3rem .7rem;font-size:.85rem;color:var(--ink);line-height:1.45;
-}
-.card[hidden]{display:none}
+.card__body{padding:22px 24px 26px;display:flex;flex-direction:column;gap:12px;flex:1}
+.card__kicker{font-family:var(--font-label);font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-muted)}
+.card h3{color:var(--accent)}
+.card__note{font-family:var(--font-accent);font-style:italic;font-size:15px;color:var(--ink-muted)}
+.card__label{font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--cream);border:1px solid var(--line-light);border-radius:var(--pill);padding:5px 12px;font-size:14.5px;line-height:1.5}
 .complementos{
-  margin-top:1.75rem;background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-  padding:clamp(1.4rem,3vw,2rem);display:grid;gap:1rem;align-items:center;
+  margin-top:24px;display:grid;gap:18px;align-items:center;
+  background:#fff;border:1px solid var(--line-light);border-radius:var(--radius-lg);padding:clamp(24px,3vw,34px);
 }
-@media (min-width:760px){.complementos{grid-template-columns:auto minmax(0,1fr);gap:2rem}}
-.complementos h3{font-size:var(--step-h3);color:var(--blue-deep)}
+@media (min-width:760px){.complementos{grid-template-columns:auto 1fr;gap:40px}}
+.complementos h3{color:var(--blue-deep)}
 
-/* ---------- Lojas ---------- */
-.stores{background:var(--white)}
-.city{margin-top:clamp(2rem,4vw,3rem)}
+/* =========================================================
+   05 — LOJAS
+   ========================================================= */
+.city{margin-top:clamp(36px,5vw,56px)}
 .city:first-of-type{margin-top:0}
-.city__name{
-  display:inline-flex;align-items:center;gap:.6rem;
-  font-family:var(--font-display);font-weight:700;font-size:var(--step-h3);
-  color:var(--blue-deep);margin-bottom:1.25rem;
-}
+.city__name{display:inline-flex;align-items:center;gap:12px;color:var(--blue-deep);margin-bottom:22px}
 .city__name .icon{width:22px;height:22px;color:var(--red)}
-.store-grid{display:grid;gap:1.25rem;align-items:stretch}
+.store-grid{display:grid;gap:20px}
 @media (min-width:720px){.store-grid{grid-template-columns:1fr 1fr}}
 @media (min-width:1100px){.store-grid{grid-template-columns:repeat(3,1fr)}}
 .store{
-  display:flex;flex-direction:column;gap:1rem;
-  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
-  padding:1.6rem 1.5rem;box-shadow:var(--shadow-sm);
-  transition:transform .2s var(--ease),box-shadow .2s var(--ease);
+  position:relative;display:flex;flex-direction:column;gap:18px;overflow:hidden;
+  background:#fff;border:1px solid var(--line-light);border-radius:var(--radius-lg);padding:30px 26px;
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease);
 }
-.store:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
-.store h4{font-size:1.12rem;line-height:1.35;letter-spacing:-.01em}
-.store__meta{display:grid;gap:.7rem;font-size:.95rem;color:var(--muted)}
-.store__meta div{display:flex;gap:.65rem;align-items:flex-start}
-.store__meta .icon{width:18px;height:18px;flex:none;margin-top:.25rem;color:var(--blue)}
-.store__meta strong{display:block;font-family:var(--font-label);color:var(--ink);font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.15rem}
-.store__meta a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;font-weight:700;color:var(--muted)}
+.store::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+.store:hover{transform:translateY(-4px);box-shadow:var(--shadow-card);border-color:transparent}
+.store:hover::before{transform:scaleX(1)}
+.store h3{font-size:1.16rem;line-height:1.4}
+.store__meta{display:grid;gap:14px;font-size:15.5px;color:var(--ink-muted);margin:0}
+.store__meta > div{display:grid;grid-template-columns:22px 1fr;gap:14px;align-items:start}
+.store__meta .icon{width:20px;height:20px;color:var(--blue);margin-top:3px}
+.store__meta dt{font-family:var(--font-label);font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:2px}
+.store__meta dd{margin:0}
+.store__meta a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;font-weight:700;color:var(--ink-muted)}
 .store__meta a:hover{color:var(--red);text-decoration:underline}
-.store .btn-row{margin-top:auto;padding-top:.4rem}
+.store .btn-row{margin-top:auto;padding-top:4px}
 .store .btn{flex:1 1 auto}
 
-/* ---------- Delivery ---------- */
-.delivery{position:relative;background:var(--red);color:#fff;overflow:hidden;text-align:center}
-.delivery .wave{position:absolute;inset:0;width:100%;height:100%;opacity:.18;mix-blend-mode:luminosity}
-.delivery__inner{position:relative}
-.delivery h2{font-size:var(--step-h2);margin-inline:auto}
-.delivery p{margin-top:1.1rem;font-size:var(--step-lead);color:rgba(255,255,255,.92)}
-.cities{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-top:2rem}
-.city-toggle[aria-expanded="true"]{--btn-bg:rgba(255,255,255,.16);--btn-fg:#fff;--btn-bd:#fff}
-.city-toggle .icon{transition:transform .2s var(--ease)}
+/* =========================================================
+   06 — DELIVERY
+   ========================================================= */
+.delivery{position:relative;overflow:hidden;text-align:center}
+.delivery > .wave{position:absolute;inset:0;opacity:.16;mix-blend-mode:luminosity;z-index:0}
+.delivery .h2{margin:20px auto 16px}
+.delivery .lead{margin-inline:auto}
+.cities{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:32px}
+.city-toggle[aria-expanded="true"]{--bg:rgba(255,255,255,.18);--fg:#fff;--bd:#fff}
+.city-toggle .icon{transition:transform .25s var(--ease)}
 .city-toggle[aria-expanded="true"] .icon{transform:rotate(180deg)}
-.delivery__panel{display:none;margin-top:1.5rem}
+.delivery__panel{display:none;margin-top:24px}
 .delivery__panel.is-open{display:block}
-.delivery__links{
-  display:grid;gap:.75rem;width:min(760px,100%);margin-inline:auto;
-}
-@media (min-width:640px){.delivery__links{grid-template-columns:1fr 1fr}}
+.delivery__links{display:grid;gap:12px;width:min(820px,100%);margin-inline:auto}
+@media (min-width:680px){.delivery__links{grid-template-columns:1fr 1fr}}
 .ifood{
-  display:flex;align-items:center;gap:.85rem;text-align:left;
-  background:#fff;color:var(--ink);text-decoration:none;
-  border-radius:var(--radius-sm);padding:1rem 1.15rem;min-height:64px;
-  transition:transform .18s var(--ease),box-shadow .18s var(--ease);
+  display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;text-align:left;
+  background:#fff;color:var(--ink);text-decoration:none;border-radius:var(--radius);
+  padding:18px 20px;min-height:72px;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease);
   box-shadow:0 14px 30px -20px rgba(0,0,0,.6);
 }
 .ifood:hover{transform:translateY(-3px)}
-.ifood .icon{width:26px;height:26px;color:var(--red);flex:none}
-.ifood strong{display:block;font-family:var(--font-display);font-size:1rem}
-.ifood span{font-size:.86rem;color:var(--muted)}
+.ifood .icon{width:24px;height:24px;color:var(--red)}
+.ifood b{display:block;font-family:var(--font-display);font-size:16px;line-height:1.35}
+.ifood span span{font-family:var(--font-label);font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-muted)}
 
-/* ---------- Revendedores ---------- */
-.resellers{background:var(--cream);position:relative;overflow:hidden}
-.resellers__grid{display:grid;gap:clamp(2rem,4vw,3.5rem);align-items:center}
-@media (min-width:900px){.resellers__grid{grid-template-columns:minmax(0,1fr) minmax(0,.85fr)}}
-.benefits{display:grid;gap:.85rem;margin-top:1.75rem}
-.benefits li{display:flex;align-items:center;gap:.85rem;font-size:var(--step-lead);color:var(--ink)}
-.benefits .icon{width:26px;height:26px;padding:5px;border-radius:var(--pill);background:var(--red);color:#fff;flex:none}
-.resellers .btn-row{margin-top:2.25rem}
-.resellers__art{position:relative;display:grid;place-items:center}
-.resellers__box{
-  width:100%;aspect-ratio:4/3.4;border-radius:var(--radius);overflow:hidden;position:relative;
-  background:var(--white);box-shadow:var(--shadow-lg);
-}
-.resellers__box .wave{position:absolute;top:0;left:0;width:100%;height:34%}
-.resellers__box .box-drip{position:absolute;left:0;top:19%;width:100%;height:17%;transform:scaleY(-1);color:#fff}
-.resellers__box .box-drip use{fill:currentColor}
-.resellers__scene{position:absolute;inset:5% 8%;width:84%;height:90%}
+/* =========================================================
+   07 — REVENDEDORES
+   ========================================================= */
+.resellers{position:relative;overflow:hidden}
+.resellers .motif{color:#fff;width:min(70vw,780px);left:50%;transform:translateX(-50%);bottom:-34%;opacity:.07}
+.resellers__head{max-width:760px;margin-bottom:clamp(36px,5vw,56px)}
+.resellers__head .h2{margin:20px 0 20px}
+.pillars{display:grid;gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);border-radius:var(--radius-lg);overflow:hidden}
+@media (min-width:640px){.pillars{grid-template-columns:1fr 1fr}}
+@media (min-width:1040px){.pillars{grid-template-columns:repeat(4,1fr)}}
+.pillar{display:flex;flex-direction:column;gap:22px;padding:clamp(26px,3vw,38px);background:var(--blue-deep);transition:background .35s var(--ease)}
+.pillar:hover{background:var(--blue-950)}
+.pillar p{font-family:var(--font-display);font-size:1.12rem;line-height:1.35;letter-spacing:-.01em}
+.resellers .btn-row{margin-top:clamp(32px,4vw,48px)}
 
-/* ---------- FAQ ---------- */
-.faq{background:var(--white)}
-.faq__list{display:grid;gap:.75rem;width:min(860px,100%);margin-inline:auto}
-.faq__item{border:1px solid var(--line);border-radius:var(--radius-sm);background:#fff;overflow:hidden;transition:border-color .2s var(--ease),box-shadow .2s var(--ease)}
-.faq__item:hover{border-color:rgba(26,140,180,.5)}
+/* =========================================================
+   08 — FAQ
+   ========================================================= */
+.faq__list{border-top:1px solid var(--line-light);width:min(900px,100%)}
+.faq__item{border-bottom:1px solid var(--line-light)}
 .faq__q{
-  width:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;
-  padding:1.15rem 1.35rem;min-height:64px;background:none;border:0;cursor:pointer;text-align:left;
-  font-family:var(--font-display);font-weight:700;font-size:1.05rem;line-height:1.35;
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:26px 4px;min-height:72px;background:none;border:0;cursor:pointer;text-align:left;
+  font-family:var(--font-display);font-weight:700;font-size:clamp(1.05rem,1rem + .3vw,1.22rem);line-height:1.4;
+  transition:color .25s var(--ease);
 }
-.faq__q .icon{width:22px;height:22px;flex:none;color:var(--red);transition:transform .2s var(--ease)}
+.faq__q:hover{color:var(--red)}
+.faq__q .icon{width:22px;height:22px;flex:none;color:var(--red);stroke-width:2;transition:transform .3s var(--ease)}
 .faq__q[aria-expanded="true"]{color:var(--red)}
 .faq__q[aria-expanded="true"] .icon{transform:rotate(45deg)}
-.faq__a{padding:0 1.35rem 1.35rem;color:var(--muted);font-size:.98rem}
-.faq__a[hidden]{display:none}
-.faq__a .todo{
-  display:block;border-left:3px solid var(--tan);padding-left:.9rem;color:var(--muted);font-style:italic;
-}
+.faq__a{padding:0 4px 28px;max-width:70ch;color:var(--ink-muted)}
+.faq__a .todo{display:block;border-left:3px solid var(--tan);padding-left:16px;font-family:var(--font-accent);font-style:italic}
 
-/* ---------- Rodapé ---------- */
-.footer{position:relative;background:var(--blue-deep);color:#fff;padding-top:calc(clamp(3rem,6vw,4.5rem) + clamp(26px,3.6vw,54px))}
-.footer__top{display:grid;gap:2.5rem;padding-bottom:clamp(2.5rem,5vw,3.5rem)}
+/* =========================================================
+   09 — RODAPÉ
+   ========================================================= */
+.footer{position:relative;background:var(--blue-deep);color:var(--on-dark);padding-top:calc(clamp(56px,7vw,88px) + clamp(26px,3.6vw,54px));overflow:hidden}
+.footer .motif{color:#fff;width:min(46vw,460px);right:-6%;bottom:-18%;opacity:.05}
+.footer .container{position:relative;z-index:1}
+.footer__top{display:grid;gap:36px;padding-bottom:clamp(40px,5vw,60px)}
 @media (min-width:820px){.footer__top{grid-template-columns:minmax(0,1fr) auto;align-items:center}}
-.footer h2{font-size:clamp(1.5rem,1.1rem + 1.6vw,2.2rem)}
-.footer .logo__word,.footer .logo__tag{color:#fff}
-.footer .logo__word .mr{color:var(--tan)}
-.footer .logo__tag .amp{color:var(--tan)}
-.footer__socials{display:flex;gap:.75rem;flex-wrap:wrap}
+.footer .brand__logo{height:58px}
+.footer .brand__word,.footer .brand__tag{color:#fff}
+.footer .brand__word .mr,.footer .brand__tag .amp{color:var(--tan)}
+.footer .h2{margin-top:24px}
+.footer__socials{display:flex;gap:12px;flex-wrap:wrap}
 .social{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:56px;height:56px;border-radius:var(--pill);
-  border:2px solid rgba(255,255,255,.28);color:#fff;
-  transition:background-color .18s var(--ease),border-color .18s var(--ease),transform .18s var(--ease);
+  display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;
+  border-radius:var(--pill);border:1px solid var(--line-dark);color:#fff;
+  transition:background-color .25s var(--ease),color .25s var(--ease),transform .25s var(--ease),border-color .25s var(--ease);
 }
 .social:hover{background:#fff;color:var(--blue-deep);border-color:#fff;transform:translateY(-3px)}
 .social .icon{width:24px;height:24px}
-.footer__nav{display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;padding-block:1.75rem;border-top:1px solid rgba(255,255,255,.18)}
-.footer__nav a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;text-decoration:none;font-family:var(--font-label);font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.88);font-size:.9rem}
-.footer__nav a:hover{color:#fff;text-decoration:underline}
-.footer__bottom{
-  display:flex;flex-wrap:wrap;gap:.6rem 1.5rem;justify-content:space-between;align-items:center;
-  padding-block:1.6rem;border-top:1px solid rgba(255,255,255,.18);
-  font-size:.9rem;color:rgba(255,255,255,.8);
+.footer__nav{display:flex;flex-wrap:wrap;gap:4px 28px;padding-block:20px;border-top:1px solid var(--line-dark)}
+.footer__nav a{
+  display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;
+  font-family:var(--font-label);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;color:rgba(255,255,255,.85);
 }
-.footer__legal{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
-.footer__legal a{display:inline-flex;align-items:center;min-height:44px;font-weight:700;color:rgba(255,255,255,.9);text-decoration:none}
+.footer__nav a:hover{color:#fff}
+.footer__bottom{
+  display:flex;flex-wrap:wrap;gap:8px 28px;justify-content:space-between;align-items:center;
+  padding-block:22px;border-top:1px solid var(--line-dark);font-size:14.5px;color:var(--on-dark-muted);
+}
+.footer__legal{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.footer__legal a{display:inline-flex;align-items:center;min-height:44px;color:rgba(255,255,255,.9);text-decoration:none}
 .footer__legal a:hover{text-decoration:underline;color:#fff}
 .footer__legal .sep{opacity:.5}
-
-/* ---------- Reveal ---------- */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
-.reveal.is-in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
 </style>
 </head>
 
 <body>
-<a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
 
-<!-- ==========================================================================
-     SPRITE SVG — marca, pattern, ilustrações e ícones
-     A marca abaixo é uma reconstrução vetorial para o layout. Ao publicar,
-     substitua #logo-mark / #logo-mark-mono pelo arquivo oficial da Mr Ice.
-     ========================================================================== -->
+<!-- ============ SPRITE: marca, pattern, ilustrações e ícones ============ -->
 <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <path id="drip-path" d="M0 0H1200 V6a74.9 30 0 0 1 -149.9 0a59.4 18 0 0 1 -118.8 0a45.2 34 0 0 1 -90.3 0a74.3 22 0 0 1 -148.5 0a68.3 26 0 0 1 -136.6 0a74.9 15 0 0 1 -149.8 0a70.1 32 0 0 1 -140.2 0a68.4 20 0 0 1 -136.8 0a64.5 28 0 0 1 -129.0 0V0Z"/>
+
+  <symbol id="wave" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke-linecap="round"><path d="M-39 -90C-43 -86 -53 -72 -62 -63C-72 -54 -85 -45 -95 -36C-105 -27 -116 -18 -124 -9C-132 -0 -138 9 -144 18C-149 27 -152 36 -155 45C-158 54 -160 63 -163 72C-165 81 -168 89 -170 98C-173 107 -176 116 -178 125C-180 134 -182 143 -183 152C-185 161 -185 170 -185 179C-185 188 -184 197 -182 206C-181 215 -180 224 -178 233C-176 242 -174 251 -171 260C-168 269 -165 278 -159 287C-154 296 -147 305 -138 314C-129 323 -118 332 -106 341C-95 350 -81 359 -70 368C-60 377 -48 386 -43 395C-37 404 -34 413 -36 422C-38 431 -45 439 -53 448C-62 457 -74 466 -85 475C-95 484 -107 493 -116 502C-125 511 -133 520 -139 529C-145 538 -148 547 -152 556C-156 565 -158 574 -160 583C-163 592 -167 606 -168 610" stroke="#1A8CB4" stroke-width="8.5"/><path d="M-10 -90C-14 -86 -24 -72 -34 -63C-43 -54 -56 -45 -67 -36C-77 -27 -88 -18 -97 -9C-105 -0 -112 9 -117 18C-122 27 -125 36 -129 45C-132 54 -134 63 -137 72C-139 81 -142 89 -145 98C-147 107 -150 116 -152 125C-155 134 -157 143 -158 152C-159 161 -159 170 -159 179C-159 188 -158 197 -157 206C-156 215 -154 224 -152 233C-150 242 -148 251 -145 260C-142 269 -139 278 -133 287C-127 296 -120 305 -111 314C-102 323 -90 332 -78 341C-67 350 -52 359 -41 368C-31 377 -19 386 -13 395C-8 404 -5 413 -7 422C-9 431 -16 439 -24 448C-33 457 -46 466 -56 475C-67 484 -79 493 -88 502C-98 511 -105 520 -112 529C-118 538 -122 547 -126 556C-129 565 -131 574 -134 583C-137 592 -141 606 -142 610" stroke="#1A8CB4" stroke-width="8.5"/><path d="M19 -90C15 -86 5 -72 -5 -63C-15 -54 -28 -45 -39 -36C-50 -27 -61 -18 -69 -9C-78 -0 -85 9 -90 18C-96 27 -99 36 -102 45C-105 54 -108 63 -110 72C-113 81 -116 89 -119 98C-121 107 -124 116 -127 125C-129 134 -131 143 -132 152C-134 161 -134 170 -134 179C-134 188 -132 197 -131 206C-130 215 -129 224 -127 233C-125 242 -123 251 -119 260C-116 269 -112 278 -107 287C-101 296 -93 305 -84 314C-75 323 -62 332 -51 341C-39 350 -24 359 -13 368C-2 377 10 386 15 395C21 404 24 413 22 422C20 431 13 439 4 448C-4 457 -17 466 -28 475C-39 484 -51 493 -61 502C-70 511 -78 520 -85 529C-91 538 -95 547 -99 556C-103 565 -105 574 -108 583C-111 592 -115 606 -116 610" stroke="#1A8CB4" stroke-width="11.2"/><path d="M47 -90C43 -86 33 -72 24 -63C14 -54 0 -45 -11 -36C-22 -27 -33 -18 -42 -9C-51 -0 -58 9 -63 18C-69 27 -72 36 -76 45C-79 54 -81 63 -84 72C-87 81 -90 89 -93 98C-95 107 -99 116 -101 125C-103 134 -106 143 -107 152C-108 161 -108 170 -108 179C-108 188 -107 197 -106 206C-104 215 -103 224 -101 233C-99 242 -97 251 -93 260C-90 269 -86 278 -80 287C-74 296 -67 305 -57 314C-48 323 -35 332 -23 341C-11 350 4 359 15 368C27 377 38 386 44 395C50 404 52 413 51 422C49 431 41 439 33 448C24 457 11 466 0 475C-11 484 -24 493 -33 502C-43 511 -51 520 -58 529C-64 538 -69 547 -72 556C-76 565 -79 574 -82 583C-85 592 -89 606 -90 610" stroke="#1A8CB4" stroke-width="10.9"/><path d="M76 -90C72 -86 61 -72 52 -63C42 -54 28 -45 17 -36C6 -27 -6 -18 -15 -9C-24 -0 -31 9 -37 18C-42 27 -46 36 -49 45C-53 54 -55 63 -58 72C-61 81 -64 89 -67 98C-70 107 -73 116 -75 125C-78 134 -80 143 -81 152C-83 161 -83 170 -83 179C-82 188 -81 197 -80 206C-79 215 -77 224 -75 233C-73 242 -71 251 -67 260C-64 269 -60 278 -54 287C-48 296 -40 305 -30 314C-20 323 -8 332 5 341C17 350 32 359 44 368C55 377 66 386 72 395C78 404 81 413 79 422C77 431 69 439 61 448C53 457 39 466 28 475C17 484 4 493 -6 502C-16 511 -24 520 -31 529C-38 538 -42 547 -46 556C-50 565 -52 574 -55 583C-58 592 -62 606 -64 610" stroke="#1A8CB4" stroke-width="7.6"/><path d="M103 -90C99 -86 89 -72 80 -63C70 -54 56 -45 45 -36C33 -27 21 -18 12 -9C3 -0 -4 9 -10 18C-16 27 -19 36 -23 45C-26 54 -29 63 -32 72C-35 81 -38 89 -41 98C-44 107 -47 116 -49 125C-52 134 -54 143 -56 152C-57 161 -57 170 -57 179C-57 188 -56 197 -54 206C-53 215 -51 224 -49 233C-47 242 -45 251 -41 260C-38 269 -34 278 -28 287C-21 296 -13 305 -3 314C7 323 20 332 32 341C45 350 60 359 71 368C83 377 94 386 100 395C106 404 108 413 107 422C105 431 97 439 89 448C80 457 67 466 56 475C45 484 32 493 22 502C12 511 3 520 -4 529C-11 538 -15 547 -19 556C-24 565 -26 574 -29 583C-32 592 -36 606 -38 610" stroke="#E3242B" stroke-width="9.3"/><path d="M131 -90C127 -86 117 -72 107 -63C97 -54 83 -45 72 -36C61 -27 49 -18 40 -9C30 -0 23 9 17 18C11 27 8 36 4 45C0 54 -2 63 -5 72C-8 81 -11 89 -14 98C-17 107 -21 116 -24 125C-26 134 -29 143 -30 152C-31 161 -32 170 -31 179C-31 188 -30 197 -29 206C-27 215 -25 224 -23 233C-21 242 -19 251 -15 260C-12 269 -8 278 -1 287C5 296 14 305 24 314C34 323 47 332 60 341C72 350 88 359 99 368C110 377 122 386 127 395C133 404 136 413 134 422C132 431 125 439 116 448C108 457 95 466 83 475C72 484 59 493 49 502C39 511 30 520 23 529C16 538 12 547 7 556C3 565 1 574 -3 583C-6 592 -10 606 -11 610" stroke="#1A8CB4" stroke-width="11.5"/><path d="M158 -90C154 -86 144 -72 134 -63C125 -54 111 -45 100 -36C88 -27 76 -18 67 -9C57 -0 50 9 44 18C38 27 34 36 30 45C27 54 24 63 21 72C18 81 15 89 12 98C9 107 5 116 2 125C-0 134 -3 143 -4 152C-5 161 -6 170 -6 179C-5 188 -4 197 -3 206C-1 215 0 224 3 233C5 242 7 251 11 260C15 269 19 278 25 287C32 296 40 305 51 314C61 323 74 332 87 341C100 350 115 359 126 368C138 377 149 386 155 395C160 404 163 413 161 422C159 431 152 439 144 448C135 457 122 466 111 475C100 484 86 493 76 502C66 511 57 520 50 529C43 538 38 547 34 556C30 565 27 574 24 583C21 592 16 606 15 610" stroke="#1A8CB4" stroke-width="10.4"/><path d="M184 -90C181 -86 171 -72 161 -63C152 -54 138 -45 127 -36C115 -27 103 -18 94 -9C84 -0 77 9 71 18C65 27 61 36 57 45C53 54 51 63 48 72C44 81 41 89 38 98C35 107 31 116 29 125C26 134 23 143 22 152C21 161 20 170 20 179C21 188 22 197 23 206C25 215 27 224 29 233C31 242 33 251 37 260C41 269 45 278 52 287C59 296 67 305 78 314C88 323 102 332 114 341C127 350 142 359 153 368C165 377 176 386 181 395C187 404 189 413 188 422C186 431 179 439 171 448C162 457 149 466 138 475C127 484 113 493 103 502C93 511 84 520 77 529C70 538 65 547 61 556C56 565 54 574 50 583C47 592 43 606 41 610" stroke="#1A8CB4" stroke-width="6.8"/><path d="M211 -90C207 -86 198 -72 188 -63C179 -54 165 -45 154 -36C143 -27 130 -18 121 -9C112 -0 104 9 98 18C91 27 88 36 84 45C80 54 77 63 74 72C71 81 68 89 65 98C61 107 58 116 55 125C52 134 50 143 48 152C47 161 46 170 47 179C47 188 48 197 50 206C51 215 53 224 55 233C58 242 60 251 64 260C68 269 72 278 79 287C86 296 94 305 105 314C115 323 129 332 141 341C154 350 169 359 180 368C191 377 202 386 208 395C213 404 216 413 214 422C212 431 205 439 197 448C189 457 176 466 165 475C154 484 141 493 130 502C120 511 111 520 104 529C97 538 92 547 87 556C83 565 80 574 77 583C74 592 69 606 68 610" stroke="#E3242B" stroke-width="10.0"/><path d="M237 -90C233 -86 224 -72 215 -63C205 -54 192 -45 181 -36C170 -27 157 -18 148 -9C139 -0 131 9 125 18C118 27 115 36 111 45C107 54 104 63 101 72C98 81 94 89 91 98C88 107 84 116 81 125C79 134 76 143 75 152C73 161 73 170 73 179C73 188 74 197 76 206C77 215 79 224 82 233C84 242 86 251 90 260C94 269 99 278 105 287C112 296 121 305 132 314C142 323 156 332 168 341C181 350 196 359 207 368C218 377 228 386 234 395C239 404 241 413 240 422C238 431 231 439 223 448C215 457 203 466 192 475C181 484 168 493 157 502C147 511 138 520 131 529C124 538 119 547 114 556C110 565 107 574 104 583C101 592 96 606 94 610" stroke="#1A8CB4" stroke-width="11.5"/><path d="M263 -90C259 -86 250 -72 241 -63C232 -54 218 -45 207 -36C196 -27 184 -18 175 -9C166 -0 158 9 152 18C145 27 142 36 138 45C134 54 131 63 128 72C125 81 121 89 118 98C115 107 111 116 108 125C105 134 102 143 101 152C100 161 99 170 99 179C100 188 101 197 102 206C104 215 106 224 108 233C111 242 113 251 117 260C121 269 125 278 132 287C139 296 148 305 159 314C169 323 183 332 195 341C208 350 222 359 233 368C244 377 254 386 260 395C265 404 267 413 265 422C264 431 257 439 249 448C242 457 229 466 218 475C207 484 194 493 184 502C174 511 165 520 158 529C151 538 146 547 141 556C137 565 134 574 131 583C127 592 123 606 121 610" stroke="#1A8CB4" stroke-width="9.7"/><path d="M288 -90C284 -86 276 -72 267 -63C258 -54 245 -45 234 -36C223 -27 211 -18 202 -9C193 -0 185 9 179 18C172 27 169 36 165 45C161 54 158 63 155 72C152 81 148 89 145 98C142 107 138 116 135 125C132 134 129 143 128 152C126 161 126 170 126 179C126 188 128 197 129 206C131 215 133 224 135 233C138 242 140 251 144 260C148 269 152 278 159 287C166 296 175 305 186 314C196 323 210 332 222 341C234 350 249 359 259 368C270 377 280 386 285 395C290 404 292 413 291 422C289 431 283 439 275 448C267 457 255 466 245 475C234 484 221 493 211 502C201 511 192 520 185 529C178 538 173 547 168 556C164 565 161 574 158 583C154 592 150 606 148 610" stroke="#1A8CB4" stroke-width="7.1"/><path d="M313 -90C310 -86 301 -72 292 -63C284 -54 271 -45 260 -36C250 -27 238 -18 229 -9C220 -0 212 9 206 18C200 27 196 36 192 45C188 54 185 63 182 72C179 81 175 89 172 98C169 107 165 116 162 125C159 134 156 143 155 152C153 161 153 170 153 179C153 188 155 197 156 206C158 215 160 224 162 233C165 242 167 251 171 260C175 269 180 278 186 287C193 296 202 305 213 314C223 323 236 332 248 341C261 350 275 359 285 368C295 377 305 386 310 395C315 404 318 413 316 422C314 431 308 439 301 448C293 457 281 466 271 475C261 484 248 493 238 502C228 511 219 520 212 529C205 538 200 547 195 556C191 565 188 574 185 583C182 592 177 606 175 610" stroke="#1A8CB4" stroke-width="10.6"/><path d="M338 -90C335 -86 327 -72 318 -63C309 -54 297 -45 287 -36C276 -27 265 -18 256 -9C247 -0 239 9 233 18C227 27 223 36 219 45C215 54 212 63 209 72C206 81 203 89 199 98C196 107 192 116 189 125C186 134 183 143 182 152C180 161 180 170 180 179C180 188 182 197 183 206C185 215 187 224 189 233C192 242 194 251 198 260C202 269 207 278 214 287C221 296 229 305 240 314C250 323 263 332 275 341C287 350 301 359 311 368C321 377 330 386 335 395C340 404 342 413 341 422C339 431 333 439 326 448C319 457 307 466 297 475C287 484 274 493 265 502C255 511 246 520 239 529C232 538 227 547 223 556C218 565 215 574 212 583C209 592 204 606 202 610" stroke="#1A8CB4" stroke-width="11.4"/><path d="M363 -90C360 -86 352 -72 343 -63C335 -54 323 -45 313 -36C303 -27 291 -18 282 -9C274 -0 266 9 260 18C254 27 250 36 246 45C242 54 240 63 236 72C233 81 230 89 227 98C223 107 219 116 216 125C214 134 211 143 209 152C208 161 207 170 208 179C208 188 209 197 211 206C212 215 214 224 217 233C219 242 222 251 226 260C230 269 234 278 241 287C248 296 257 305 267 314C277 323 290 332 301 341C313 350 327 359 336 368C346 377 356 386 360 395C365 404 367 413 366 422C364 431 358 439 351 448C344 457 333 466 323 475C313 484 301 493 291 502C282 511 273 520 266 529C259 538 254 547 250 556C245 565 243 574 239 583C236 592 231 606 230 610" stroke="#1A8CB4" stroke-width="9.0"/><path d="M388 -90C385 -86 377 -72 369 -63C361 -54 349 -45 339 -36C329 -27 318 -18 309 -9C300 -0 293 9 287 18C281 27 277 36 274 45C270 54 267 63 264 72C261 81 257 89 254 98C251 107 247 116 244 125C241 134 238 143 237 152C235 161 235 170 235 179C235 188 237 197 238 206C240 215 242 224 244 233C247 242 249 251 253 260C257 269 262 278 268 287C275 296 284 305 294 314C304 323 316 332 328 341C339 350 352 359 362 368C372 377 381 386 385 395C390 404 392 413 390 422C389 431 383 439 376 448C369 457 359 466 349 475C339 484 327 493 318 502C309 511 300 520 293 529C286 538 281 547 277 556C273 565 270 574 267 583C264 592 259 606 257 610" stroke="#1A8CB4" stroke-width="8.0"/><path d="M413 -90C409 -86 402 -72 394 -63C386 -54 375 -45 365 -36C355 -27 344 -18 336 -9C327 -0 320 9 314 18C308 27 305 36 301 45C297 54 295 63 291 72C288 81 285 89 282 98C278 107 275 116 272 125C269 134 266 143 265 152C263 161 263 170 263 179C263 188 265 197 266 206C268 215 270 224 272 233C275 242 277 251 281 260C285 269 289 278 296 287C303 296 311 305 321 314C331 323 343 332 354 341C365 350 378 359 387 368C397 377 405 386 410 395C415 404 416 413 415 422C413 431 408 439 401 448C395 457 384 466 375 475C365 484 354 493 344 502C335 511 327 520 320 529C313 538 309 547 304 556C300 565 298 574 294 583C291 592 287 606 285 610" stroke="#1A8CB4" stroke-width="11.0"/><path d="M437 -90C434 -86 427 -72 419 -63C411 -54 400 -45 391 -36C381 -27 371 -18 363 -9C354 -0 347 9 341 18C336 27 332 36 328 45C325 54 322 63 319 72C316 81 313 89 310 98C306 107 303 116 300 125C297 134 294 143 293 152C291 161 291 170 291 179C291 188 293 197 294 206C296 215 298 224 300 233C302 242 305 251 309 260C313 269 317 278 323 287C330 296 338 305 348 314C357 323 370 332 380 341C391 350 404 359 413 368C422 377 430 386 435 395C439 404 441 413 439 422C438 431 433 439 426 448C420 457 409 466 400 475C391 484 380 493 371 502C362 511 354 520 347 529C341 538 336 547 332 556C328 565 325 574 322 583C319 592 314 606 313 610" stroke="#1A8CB4" stroke-width="11.1"/><path d="M462 -90C459 -86 452 -72 444 -63C437 -54 426 -45 417 -36C408 -27 397 -18 389 -9C381 -0 374 9 369 18C363 27 360 36 356 45C352 54 350 63 347 72C344 81 341 89 338 98C334 107 331 116 328 125C325 134 322 143 321 152C320 161 319 170 319 179C320 188 321 197 322 206C324 215 326 224 328 233C331 242 333 251 337 260C340 269 345 278 351 287C358 296 366 305 375 314C384 323 396 332 407 341C417 350 429 359 438 368C447 377 455 386 459 395C464 404 465 413 464 422C463 431 457 439 451 448C445 457 435 466 426 475C417 484 406 493 397 502C389 511 381 520 374 529C368 538 363 547 359 556C355 565 353 574 350 583C347 592 342 606 341 610" stroke="#1A8CB4" stroke-width="8.2"/><path d="M486 -90C483 -86 477 -72 469 -63C462 -54 452 -45 443 -36C434 -27 424 -18 416 -9C408 -0 401 9 396 18C391 27 387 36 384 45C380 54 378 63 375 72C372 81 369 89 366 98C362 107 359 116 356 125C353 134 351 143 349 152C348 161 348 170 348 179C348 188 349 197 351 206C352 215 354 224 356 233C359 242 361 251 365 260C368 269 373 278 379 287C385 296 393 305 402 314C411 323 423 332 433 341C443 350 455 359 463 368C472 377 480 386 484 395C488 404 490 413 489 422C487 431 482 439 476 448C470 457 460 466 452 475C443 484 432 493 424 502C415 511 407 520 401 529C395 538 391 547 387 556C383 565 380 574 377 583C374 592 370 606 369 610" stroke="#E3242B" stroke-width="8.8"/><path d="M511 -90C508 -86 501 -72 494 -63C487 -54 477 -45 469 -36C460 -27 450 -18 443 -9C435 -0 428 9 423 18C418 27 415 36 411 45C408 54 405 63 403 72C400 81 397 89 394 98C391 107 387 116 384 125C382 134 379 143 378 152C376 161 376 170 376 179C376 188 378 197 379 206C381 215 382 224 385 233C387 242 389 251 393 260C396 269 401 278 407 287C413 296 420 305 429 314C438 323 449 332 459 341C469 350 480 359 489 368C497 377 505 386 509 395C513 404 514 413 513 422C512 431 507 439 501 448C495 457 486 466 477 475C469 484 458 493 450 502C442 511 434 520 428 529C422 538 418 547 414 556C411 565 408 574 405 583C402 592 398 606 397 610" stroke="#1A8CB4" stroke-width="11.3"/><path d="M536 -90C533 -86 526 -72 520 -63C513 -54 503 -45 494 -36C486 -27 477 -18 469 -9C462 -0 456 9 451 18C445 27 442 36 439 45C435 54 433 63 430 72C428 81 425 89 422 98C419 107 415 116 413 125C410 134 408 143 406 152C405 161 405 170 405 179C405 188 406 197 408 206C409 215 411 224 413 233C415 242 417 251 421 260C425 269 428 278 434 287C440 296 448 305 456 314C465 323 476 332 485 341C495 350 506 359 514 368C522 377 530 386 534 395C538 404 539 413 538 422C537 431 532 439 526 448C520 457 511 466 503 475C495 484 485 493 477 502C469 511 461 520 456 529C450 538 446 547 442 556C438 565 436 574 433 583C430 592 426 606 425 610" stroke="#1A8CB4" stroke-width="10.7"/><path d="M561 -90C558 -86 552 -72 545 -63C538 -54 529 -45 520 -36C512 -27 503 -18 496 -9C489 -0 483 9 478 18C473 27 470 36 466 45C463 54 461 63 458 72C456 81 453 89 450 98C447 107 444 116 441 125C439 134 436 143 435 152C434 161 433 170 434 179C434 188 435 197 436 206C438 215 439 224 442 233C444 242 446 251 449 260C453 269 456 278 462 287C468 296 475 305 483 314C492 323 502 332 511 341C521 350 531 359 539 368C547 377 555 386 558 395C562 404 564 413 563 422C561 431 557 439 551 448C545 457 536 466 529 475C521 484 511 493 503 502C496 511 488 520 483 529C477 538 473 547 469 556C466 565 464 574 461 583C458 592 454 606 453 610" stroke="#1A8CB4" stroke-width="7.3"/><path d="M586 -90C583 -86 577 -72 570 -63C564 -54 554 -45 546 -36C538 -27 530 -18 523 -9C516 -0 510 9 505 18C500 27 497 36 494 45C491 54 489 63 486 72C484 81 481 89 478 98C475 107 472 116 470 125C467 134 465 143 464 152C462 161 462 170 462 179C462 188 464 197 465 206C466 215 468 224 470 233C472 242 474 251 477 260C481 269 484 278 490 287C495 296 502 305 510 314C518 323 529 332 538 341C547 350 557 359 565 368C572 377 580 386 584 395C587 404 589 413 588 422C587 431 582 439 576 448C571 457 562 466 554 475C547 484 537 493 530 502C522 511 515 520 510 529C504 538 501 547 497 556C493 565 491 574 489 583C486 592 482 606 481 610" stroke="#1A8CB4" stroke-width="9.6"/><path d="M611 -90C608 -86 602 -72 596 -63C589 -54 580 -45 572 -36C565 -27 556 -18 549 -9C543 -0 537 9 532 18C528 27 525 36 522 45C519 54 517 63 514 72C512 81 509 89 506 98C504 107 500 116 498 125C496 134 494 143 492 152C491 161 491 170 491 179C491 188 492 197 494 206C495 215 496 224 498 233C500 242 502 251 506 260C509 269 512 278 518 287C523 296 530 305 537 314C545 323 555 332 564 341C573 350 583 359 590 368C598 377 605 386 609 395C613 404 614 413 613 422C612 431 607 439 602 448C596 457 588 466 580 475C573 484 563 493 556 502C549 511 542 520 537 529C532 538 528 547 525 556C521 565 519 574 516 583C514 592 510 606 509 610" stroke="#1A8CB4" stroke-width="11.5"/><path d="M636 -90C634 -86 628 -72 621 -63C615 -54 606 -45 599 -36C591 -27 583 -18 576 -9C570 -0 564 9 560 18C555 27 552 36 549 45C546 54 544 63 542 72C539 81 537 89 534 98C532 107 529 116 527 125C524 134 522 143 521 152C520 161 519 170 520 179C520 188 521 197 522 206C523 215 525 224 527 233C529 242 531 251 534 260C537 269 540 278 545 287C550 296 557 305 565 314C572 323 582 332 590 341C599 350 609 359 616 368C624 377 631 386 634 395C638 404 640 413 638 422C637 431 633 439 627 448C622 457 614 466 606 475C599 484 590 493 583 502C576 511 569 520 564 529C559 538 555 547 552 556C549 565 547 574 544 583C542 592 538 606 537 610" stroke="#1A8CB4" stroke-width="10.2"/><path d="M662 -90C660 -86 654 -72 647 -63C641 -54 632 -45 625 -36C617 -27 609 -18 603 -9C597 -0 591 9 587 18C582 27 580 36 577 45C574 54 572 63 570 72C567 81 565 89 562 98C560 107 557 116 555 125C553 134 551 143 549 152C548 161 548 170 548 179C548 188 549 197 550 206C552 215 553 224 555 233C557 242 559 251 562 260C565 269 568 278 573 287C578 296 584 305 592 314C599 323 608 332 617 341C625 350 635 359 642 368C649 377 657 386 660 395C664 404 665 413 664 422C663 431 659 439 653 448C648 457 640 466 632 475C625 484 616 493 609 502C602 511 596 520 591 529C586 538 583 547 579 556C576 565 574 574 572 583C569 592 566 606 565 610" stroke="#1A8CB4" stroke-width="6.6"/><path d="M688 -90C686 -86 680 -72 673 -63C667 -54 659 -45 651 -36C644 -27 636 -18 630 -9C623 -0 618 9 614 18C610 27 607 36 604 45C601 54 600 63 597 72C595 81 593 89 590 98C588 107 585 116 583 125C581 134 579 143 578 152C577 161 576 170 576 179C577 188 578 197 579 206C580 215 581 224 583 233C585 242 587 251 590 260C592 269 596 278 601 287C605 296 612 305 619 314C626 323 635 332 643 341C651 350 661 359 668 368C676 377 683 386 686 395C690 404 691 413 690 422C689 431 685 439 679 448C674 457 666 466 659 475C651 484 643 493 636 502C629 511 623 520 618 529C613 538 610 547 607 556C604 565 602 574 599 583C597 592 594 606 593 610" stroke="#E3242B" stroke-width="10.2"/><path d="M715 -90C712 -86 706 -72 700 -63C694 -54 685 -45 678 -36C671 -27 663 -18 656 -9C650 -0 645 9 641 18C637 27 634 36 632 45C629 54 627 63 625 72C623 81 620 89 618 98C616 107 613 116 611 125C609 134 607 143 606 152C605 161 605 170 605 179C605 188 606 197 607 206C608 215 609 224 611 233C613 242 615 251 617 260C620 269 623 278 628 287C633 296 639 305 646 314C653 323 662 332 670 341C678 350 688 359 695 368C702 377 709 386 713 395C716 404 718 413 717 422C715 431 711 439 706 448C700 457 692 466 685 475C678 484 669 493 663 502C656 511 650 520 645 529C640 538 637 547 634 556C631 565 629 574 627 583C625 592 621 606 620 610" stroke="#1A8CB4" stroke-width="11.5"/><path d="M741 -90C739 -86 733 -72 727 -63C720 -54 712 -45 704 -36C697 -27 689 -18 683 -9C677 -0 672 9 668 18C664 27 662 36 659 45C656 54 655 63 652 72C650 81 648 89 646 98C643 107 641 116 639 125C637 134 635 143 634 152C633 161 633 170 633 179C633 188 634 197 635 206C636 215 637 224 639 233C641 242 642 251 645 260C648 269 651 278 655 287C660 296 666 305 673 314C680 323 688 332 697 341C705 350 714 359 721 368C729 377 736 386 739 395C743 404 745 413 743 422C742 431 738 439 732 448C727 457 719 466 712 475C705 484 696 493 690 502C683 511 677 520 672 529C668 538 664 547 661 556C658 565 657 574 654 583C652 592 649 606 648 610" stroke="#1A8CB4" stroke-width="9.5"/><path d="M769 -90C766 -86 760 -72 753 -63C747 -54 738 -45 731 -36C724 -27 716 -18 710 -9C704 -0 699 9 695 18C691 27 689 36 686 45C684 54 682 63 680 72C678 81 675 89 673 98C671 107 668 116 666 125C665 134 663 143 662 152C661 161 660 170 661 179C661 188 662 197 663 206C664 215 665 224 667 233C668 242 670 251 673 260C675 269 678 278 683 287C687 296 693 305 700 314C707 323 715 332 723 341C731 350 741 359 748 368C755 377 763 386 766 395C770 404 772 413 771 422C769 431 765 439 759 448C754 457 746 466 738 475C731 484 723 493 716 502C710 511 704 520 699 529C695 538 692 547 689 556C686 565 684 574 682 583C680 592 676 606 675 610" stroke="#1A8CB4" stroke-width="7.4"/><path d="M796 -90C793 -86 787 -72 781 -63C774 -54 766 -45 758 -36C751 -27 743 -18 737 -9C731 -0 726 9 722 18C718 27 716 36 713 45C711 54 709 63 707 72C705 81 703 89 701 98C698 107 696 116 694 125C692 134 690 143 689 152C688 161 688 170 688 179C688 188 689 197 690 206C691 215 693 224 694 233C696 242 697 251 700 260C703 269 705 278 710 287C714 296 720 305 727 314C734 323 742 332 750 341C758 350 768 359 775 368C783 377 790 386 794 395C798 404 799 413 798 422C797 431 792 439 787 448C781 457 773 466 766 475C758 484 750 493 743 502C737 511 731 520 726 529C722 538 719 547 716 556C713 565 711 574 709 583C707 592 704 606 703 610" stroke="#E3242B" stroke-width="10.8"/><path d="M824 -90C821 -86 815 -72 808 -63C802 -54 793 -45 785 -36C778 -27 770 -18 764 -9C758 -0 753 9 749 18C745 27 743 36 740 45C738 54 736 63 734 72C732 81 730 89 728 98C726 107 723 116 721 125C719 134 718 143 717 152C716 161 715 170 716 179C716 188 717 197 718 206C719 215 720 224 721 233C723 242 725 251 727 260C730 269 733 278 737 287C741 296 747 305 754 314C761 323 769 332 777 341C786 350 795 359 803 368C810 377 818 386 822 395C826 404 827 413 826 422C825 431 820 439 814 448C809 457 800 466 793 475C785 484 777 493 770 502C764 511 758 520 753 529C749 538 746 547 743 556C740 565 738 574 736 583C734 592 731 606 730 610" stroke="#1A8CB4" stroke-width="11.3"/><path d="M852 -90C849 -86 843 -72 836 -63C829 -54 820 -45 813 -36C805 -27 797 -18 791 -9C785 -0 780 9 776 18C772 27 770 36 767 45C765 54 763 63 761 72C759 81 757 89 755 98C753 107 750 116 748 125C747 134 745 143 744 152C743 161 743 170 743 179C743 188 744 197 745 206C746 215 747 224 749 233C750 242 752 251 754 260C757 269 760 278 764 287C768 296 774 305 781 314C788 323 796 332 805 341C813 350 823 359 831 368C838 377 846 386 850 395C854 404 856 413 854 422C853 431 848 439 842 448C837 457 828 466 820 475C813 484 804 493 797 502C791 511 785 520 780 529C776 538 773 547 770 556C767 565 765 574 763 583C761 592 758 606 757 610" stroke="#1A8CB4" stroke-width="8.7"/><path d="M881 -90C878 -86 871 -72 864 -63C857 -54 848 -45 840 -36C833 -27 825 -18 818 -9C812 -0 807 9 803 18C799 27 797 36 794 45C792 54 790 63 788 72C786 81 784 89 782 98C780 107 777 116 775 125C773 134 772 143 771 152C770 161 770 170 770 179C770 188 771 197 772 206C773 215 774 224 775 233C777 242 778 251 781 260C784 269 786 278 791 287C795 296 801 305 808 314C815 323 823 332 832 341C840 350 851 359 858 368C866 377 874 386 878 395C883 404 884 413 883 422C882 431 876 439 871 448C865 457 856 466 848 475C840 484 831 493 825 502C818 511 812 520 807 529C803 538 800 547 797 556C794 565 792 574 790 583C788 592 785 606 784 610" stroke="#1A8CB4" stroke-width="8.3"/><path d="M910 -90C907 -86 899 -72 892 -63C885 -54 876 -45 868 -36C860 -27 852 -18 846 -9C839 -0 834 9 830 18C826 27 824 36 821 45C819 54 817 63 815 72C813 81 811 89 808 98C806 107 804 116 802 125C800 134 798 143 797 152C797 161 796 170 796 179C797 188 797 197 798 206C799 215 801 224 802 233C804 242 805 251 808 260C810 269 813 278 818 287C822 296 828 305 835 314C842 323 851 332 859 341C868 350 879 359 887 368C895 377 903 386 907 395C912 404 914 413 912 422C911 431 905 439 899 448C893 457 884 466 876 475C868 484 859 493 852 502C845 511 839 520 834 529C829 538 826 547 823 556C821 565 819 574 817 583C815 592 811 606 810 610" stroke="#1A8CB4" stroke-width="11.2"/><path d="M939 -90C936 -86 928 -72 921 -63C914 -54 904 -45 896 -36C888 -27 879 -18 873 -9C866 -0 861 9 857 18C853 27 850 36 848 45C845 54 844 63 841 72C839 81 837 89 835 98C833 107 830 116 828 125C827 134 825 143 824 152C823 161 823 170 823 179C823 188 824 197 825 206C826 215 827 224 829 233C830 242 832 251 834 260C837 269 840 278 844 287C849 296 855 305 862 314C869 323 878 332 887 341C896 350 907 359 915 368C923 377 932 386 937 395C941 404 943 413 942 422C940 431 934 439 928 448C922 457 912 466 904 475C896 484 886 493 879 502C872 511 866 520 861 529C856 538 853 547 850 556C847 565 846 574 843 583C841 592 838 606 837 610" stroke="#1A8CB4" stroke-width="11.0"/><path d="M969 -90C966 -86 957 -72 950 -63C942 -54 932 -45 924 -36C915 -27 907 -18 900 -9C893 -0 888 9 884 18C880 27 877 36 874 45C872 54 870 63 868 72C866 81 864 89 861 98C859 107 857 116 855 125C853 134 851 143 850 152C849 161 849 170 849 179C849 188 850 197 851 206C852 215 853 224 855 233C857 242 858 251 861 260C863 269 866 278 871 287C876 296 881 305 889 314C896 323 905 332 914 341C924 350 935 359 944 368C952 377 961 386 966 395C971 404 973 413 971 422C970 431 964 439 957 448C951 457 940 466 932 475C924 484 914 493 907 502C899 511 893 520 888 529C883 538 880 547 877 556C874 565 872 574 870 583C868 592 865 606 864 610" stroke="#1A8CB4" stroke-width="7.9"/><path d="M998 -90C995 -86 987 -72 979 -63C971 -54 960 -45 952 -36C943 -27 934 -18 927 -9C920 -0 915 9 911 18C906 27 904 36 901 45C898 54 897 63 894 72C892 81 890 89 888 98C885 107 883 116 881 125C879 134 877 143 876 152C875 161 875 170 875 179C875 188 876 197 877 206C878 215 880 224 881 233C883 242 884 251 887 260C890 269 893 278 897 287C902 296 908 305 916 314C923 323 933 332 942 341C952 350 963 359 972 368C981 377 991 386 996 395C1000 404 1003 413 1001 422C1000 431 993 439 986 448C980 457 969 466 960 475C952 484 942 493 934 502C927 511 920 520 915 529C910 538 907 547 904 556C900 565 899 574 896 583C894 592 891 606 890 610" stroke="#1A8CB4" stroke-width="9.1"/><path d="M1028 -90C1025 -86 1016 -72 1008 -63C1000 -54 989 -45 980 -36C971 -27 962 -18 954 -9C947 -0 942 9 937 18C933 27 930 36 928 45C925 54 923 63 921 72C918 81 916 89 914 98C912 107 909 116 907 125C905 134 903 143 902 152C901 161 901 170 901 179C901 188 902 197 903 206C904 215 906 224 907 233C909 242 911 251 913 260C916 269 919 278 924 287C929 296 935 305 943 314C950 323 960 332 970 341C980 350 992 359 1001 368C1010 377 1020 386 1025 395C1030 404 1033 413 1031 422C1029 431 1023 439 1016 448C1009 457 998 466 989 475C980 484 969 493 962 502C954 511 947 520 942 529C937 538 933 547 930 556C927 565 925 574 923 583C920 592 917 606 916 610" stroke="#1A8CB4" stroke-width="11.4"/><path d="M1058 -90C1055 -86 1046 -72 1037 -63C1029 -54 1017 -45 1008 -36C999 -27 989 -18 982 -9C975 -0 969 9 964 18C960 27 957 36 954 45C951 54 949 63 947 72C945 81 942 89 940 98C938 107 935 116 933 125C931 134 929 143 928 152C927 161 927 170 927 179C927 188 928 197 929 206C930 215 932 224 933 233C935 242 937 251 939 260C942 269 945 278 950 287C955 296 962 305 969 314C977 323 988 332 998 341C1008 350 1021 359 1030 368C1040 377 1050 386 1055 395C1060 404 1063 413 1061 422C1059 431 1053 439 1045 448C1038 457 1027 466 1017 475C1008 484 997 493 989 502C981 511 974 520 969 529C963 538 960 547 957 556C953 565 952 574 949 583C947 592 943 606 942 610" stroke="#1A8CB4" stroke-width="10.5"/><path d="M1088 -90C1084 -86 1075 -72 1066 -63C1058 -54 1046 -45 1036 -36C1026 -27 1017 -18 1009 -9C1002 -0 996 9 991 18C986 27 983 36 981 45C978 54 976 63 973 72C971 81 969 89 966 98C964 107 961 116 959 125C957 134 955 143 954 152C953 161 953 170 953 179C953 188 954 197 955 206C956 215 957 224 959 233C961 242 963 251 965 260C968 269 971 278 977 287C982 296 988 305 996 314C1005 323 1015 332 1026 341C1036 350 1049 359 1059 368C1069 377 1080 386 1085 395C1090 404 1093 413 1091 422C1089 431 1082 439 1075 448C1067 457 1055 466 1046 475C1036 484 1025 493 1017 502C1008 511 1001 520 996 529C990 538 987 547 983 556C980 565 978 574 975 583C973 592 970 606 968 610" stroke="#1A8CB4" stroke-width="7.0"/><path d="M1118 -90C1114 -86 1105 -72 1096 -63C1087 -54 1074 -45 1064 -36C1054 -27 1044 -18 1036 -9C1029 -0 1023 9 1018 18C1013 27 1010 36 1007 45C1004 54 1002 63 1000 72C997 81 995 89 992 98C990 107 987 116 985 125C983 134 981 143 980 152C979 161 978 170 978 179C979 188 980 197 981 206C982 215 983 224 985 233C987 242 988 251 991 260C994 269 998 278 1003 287C1008 296 1015 305 1023 314C1032 323 1043 332 1054 341C1064 350 1078 359 1088 368C1098 377 1109 386 1115 395C1120 404 1123 413 1121 422C1119 431 1112 439 1104 448C1096 457 1084 466 1074 475C1064 484 1053 493 1044 502C1036 511 1028 520 1023 529C1017 538 1013 547 1010 556C1006 565 1004 574 1002 583C999 592 996 606 994 610" stroke="#E3242B" stroke-width="9.8"/><path d="M1148 -90C1144 -86 1134 -72 1125 -63C1115 -54 1103 -45 1092 -36C1082 -27 1072 -18 1064 -9C1056 -0 1050 9 1045 18C1039 27 1036 36 1033 45C1030 54 1028 63 1026 72C1023 81 1021 89 1018 98C1015 107 1013 116 1010 125C1008 134 1006 143 1005 152C1004 161 1004 170 1004 179C1004 188 1005 197 1006 206C1007 215 1009 224 1011 233C1013 242 1014 251 1017 260C1020 269 1024 278 1029 287C1035 296 1042 305 1050 314C1059 323 1070 332 1081 341C1093 350 1107 359 1117 368C1127 377 1139 386 1144 395C1150 404 1152 413 1151 422C1149 431 1142 439 1134 448C1126 457 1113 466 1103 475C1092 484 1081 493 1072 502C1063 511 1055 520 1050 529C1044 538 1040 547 1036 556C1033 565 1031 574 1028 583C1025 592 1022 606 1021 610" stroke="#1A8CB4" stroke-width="11.5"/><path d="M1177 -90C1173 -86 1163 -72 1154 -63C1144 -54 1131 -45 1121 -36C1110 -27 1099 -18 1091 -9C1083 -0 1076 9 1071 18C1066 27 1063 36 1060 45C1057 54 1054 63 1052 72C1049 81 1047 89 1044 98C1041 107 1038 116 1036 125C1034 134 1032 143 1031 152C1030 161 1029 170 1029 179C1030 188 1031 197 1032 206C1033 215 1034 224 1036 233C1038 242 1040 251 1043 260C1046 269 1050 278 1055 287C1061 296 1068 305 1077 314C1086 323 1098 332 1109 341C1121 350 1135 359 1146 368C1157 377 1168 386 1174 395C1179 404 1182 413 1180 422C1178 431 1171 439 1163 448C1155 457 1142 466 1131 475C1121 484 1109 493 1099 502C1090 511 1083 520 1076 529C1070 538 1066 547 1063 556C1059 565 1057 574 1054 583C1052 592 1048 606 1047 610" stroke="#1A8CB4" stroke-width="9.9"/><path d="M1206 -90C1202 -86 1192 -72 1182 -63C1173 -54 1159 -45 1149 -36C1138 -27 1127 -18 1118 -9C1110 -0 1103 9 1098 18C1093 27 1089 36 1086 45C1083 54 1081 63 1078 72C1075 81 1073 89 1070 98C1067 107 1064 116 1062 125C1060 134 1057 143 1056 152C1055 161 1055 170 1055 179C1055 188 1056 197 1057 206C1059 215 1060 224 1062 233C1064 242 1066 251 1069 260C1072 269 1076 278 1082 287C1088 296 1095 305 1104 314C1113 323 1125 332 1137 341C1149 350 1163 359 1174 368C1185 377 1197 386 1203 395C1208 404 1211 413 1209 422C1207 431 1200 439 1192 448C1183 457 1170 466 1159 475C1149 484 1136 493 1127 502C1118 511 1110 520 1103 529C1097 538 1093 547 1089 556C1085 565 1083 574 1080 583C1078 592 1074 606 1073 610" stroke="#1A8CB4" stroke-width="6.9"/><path d="M1235 -90C1231 -86 1221 -72 1211 -63C1201 -54 1188 -45 1177 -36C1166 -27 1154 -18 1146 -9C1137 -0 1130 9 1125 18C1119 27 1116 36 1113 45C1109 54 1107 63 1104 72C1101 81 1099 89 1096 98C1093 107 1090 116 1088 125C1085 134 1083 143 1082 152C1081 161 1080 170 1080 179C1081 188 1082 197 1083 206C1084 215 1086 224 1088 233C1090 242 1092 251 1095 260C1098 269 1102 278 1108 287C1114 296 1121 305 1131 314C1140 323 1153 332 1165 341C1177 350 1192 359 1203 368C1214 377 1226 386 1231 395C1237 404 1240 413 1238 422C1236 431 1229 439 1220 448C1212 457 1199 466 1188 475C1177 484 1164 493 1155 502C1145 511 1137 520 1130 529C1124 538 1120 547 1116 556C1112 565 1110 574 1107 583C1104 592 1100 606 1099 610" stroke="#1A8CB4" stroke-width="10.4"/><path d="M1263 -90C1259 -86 1249 -72 1239 -63C1229 -54 1216 -45 1205 -36C1194 -27 1182 -18 1173 -9C1164 -0 1157 9 1151 18C1146 27 1143 36 1139 45C1135 54 1133 63 1130 72C1128 81 1125 89 1122 98C1119 107 1116 116 1113 125C1111 134 1109 143 1107 152C1106 161 1106 170 1106 179C1106 188 1107 197 1109 206C1110 215 1111 224 1114 233C1116 242 1118 251 1121 260C1124 269 1128 278 1134 287C1140 296 1148 305 1158 314C1168 323 1180 332 1192 341C1205 350 1220 359 1231 368C1242 377 1254 386 1260 395C1266 404 1268 413 1266 422C1264 431 1257 439 1249 448C1240 457 1227 466 1216 475C1205 484 1192 493 1182 502C1172 511 1164 520 1157 529C1150 538 1146 547 1142 556C1138 565 1136 574 1133 583C1130 592 1126 606 1125 610" stroke="#1A8CB4" stroke-width="11.4"/><path d="M1291 -90C1287 -86 1277 -72 1267 -63C1257 -54 1243 -45 1232 -36C1221 -27 1209 -18 1200 -9C1191 -0 1184 9 1178 18C1172 27 1169 36 1165 45C1162 54 1160 63 1157 72C1154 81 1151 89 1148 98C1145 107 1142 116 1139 125C1137 134 1134 143 1133 152C1132 161 1131 170 1132 179C1132 188 1133 197 1134 206C1135 215 1137 224 1139 233C1141 242 1143 251 1147 260C1151 269 1154 278 1161 287C1167 296 1175 305 1185 314C1195 323 1208 332 1220 341C1232 350 1248 359 1259 368C1270 377 1282 386 1288 395C1294 404 1296 413 1294 422C1292 431 1285 439 1277 448C1268 457 1255 466 1244 475C1232 484 1219 493 1209 502C1199 511 1191 520 1184 529C1177 538 1173 547 1169 556C1165 565 1162 574 1159 583C1156 592 1152 606 1151 610" stroke="#1A8CB4" stroke-width="9.2"/><path d="M1319 -90C1315 -86 1305 -72 1295 -63C1285 -54 1271 -45 1260 -36C1249 -27 1237 -18 1227 -9C1218 -0 1211 9 1205 18C1199 27 1196 36 1192 45C1188 54 1186 63 1183 72C1180 81 1177 89 1174 98C1171 107 1167 116 1165 125C1162 134 1160 143 1159 152C1157 161 1157 170 1157 179C1157 188 1159 197 1160 206C1161 215 1163 224 1165 233C1167 242 1169 251 1173 260C1177 269 1181 278 1187 287C1194 296 1202 305 1212 314C1222 323 1235 332 1248 341C1260 350 1275 359 1287 368C1298 377 1309 386 1315 395C1321 404 1324 413 1322 422C1320 431 1313 439 1304 448C1296 457 1282 466 1271 475C1260 484 1247 493 1237 502C1227 511 1218 520 1211 529C1204 538 1200 547 1195 556C1191 565 1189 574 1186 583C1183 592 1178 606 1177 610" stroke="#1A8CB4" stroke-width="7.7"/><path d="M1346 -90C1342 -86 1332 -72 1322 -63C1313 -54 1299 -45 1287 -36C1276 -27 1264 -18 1255 -9C1245 -0 1238 9 1232 18C1226 27 1222 36 1219 45C1215 54 1212 63 1209 72C1206 81 1203 89 1200 98C1197 107 1193 116 1191 125C1188 134 1186 143 1184 152C1183 161 1183 170 1183 179C1183 188 1184 197 1186 206C1187 215 1189 224 1191 233C1193 242 1196 251 1199 260C1203 269 1207 278 1214 287C1220 296 1228 305 1239 314C1249 323 1262 332 1275 341C1287 350 1303 359 1314 368C1325 377 1337 386 1343 395C1348 404 1351 413 1349 422C1347 431 1340 439 1332 448C1323 457 1310 466 1299 475C1287 484 1274 493 1264 502C1254 511 1245 520 1238 529C1231 538 1226 547 1222 556C1218 565 1215 574 1212 583C1209 592 1205 606 1203 610" stroke="#E3242B" stroke-width="10.9"/><path d="M1373 -90C1369 -86 1359 -72 1349 -63C1340 -54 1326 -45 1315 -36C1303 -27 1291 -18 1282 -9C1272 -0 1265 9 1259 18C1253 27 1249 36 1245 45C1241 54 1239 63 1236 72C1233 81 1230 89 1226 98C1223 107 1220 116 1217 125C1214 134 1212 143 1210 152C1209 161 1209 170 1209 179C1209 188 1210 197 1212 206C1213 215 1215 224 1217 233C1220 242 1222 251 1226 260C1229 269 1233 278 1240 287C1247 296 1255 305 1266 314C1276 323 1290 332 1302 341C1315 350 1330 359 1341 368C1353 377 1364 386 1369 395C1375 404 1378 413 1376 422C1374 431 1367 439 1359 448C1350 457 1337 466 1326 475C1315 484 1301 493 1291 502C1281 511 1272 520 1265 529C1258 538 1253 547 1249 556C1244 565 1242 574 1239 583C1235 592 1231 606 1229 610" stroke="#1A8CB4" stroke-width="11.2"/><path d="M1399 -90C1395 -86 1386 -72 1376 -63C1367 -54 1353 -45 1342 -36C1331 -27 1318 -18 1309 -9C1299 -0 1292 9 1286 18C1280 27 1276 36 1272 45C1268 54 1266 63 1262 72C1259 81 1256 89 1253 98C1250 107 1246 116 1243 125C1240 134 1238 143 1237 152C1235 161 1235 170 1235 179C1235 188 1236 197 1238 206C1239 215 1241 224 1244 233C1246 242 1248 251 1252 260C1256 269 1260 278 1267 287C1274 296 1282 305 1293 314C1303 323 1317 332 1329 341C1342 350 1357 359 1368 368C1379 377 1390 386 1396 395C1402 404 1404 413 1402 422C1400 431 1394 439 1385 448C1377 457 1364 466 1353 475C1342 484 1329 493 1318 502C1308 511 1299 520 1292 529C1285 538 1280 547 1276 556C1271 565 1269 574 1265 583C1262 592 1257 606 1256 610" stroke="#1A8CB4" stroke-width="8.5"/></g></symbol>
+
   <symbol id="logo-mark" viewBox="0 0 920 740">
     <g fill="none" stroke="#E3242B" stroke-width="130">
       <path d="M65 475V195a130 130 0 0 1 260 0v280"/>
@@ -550,11 +522,6 @@ h2.title{font-size:var(--step-h2)}
     <path d="M130 475h130v180a65 65 0 0 1-130 0z" fill="currentColor"/>
   </symbol>
 
-  <path id="drip-path" d="M0 0H1200 V6a74.9 30 0 0 1 -149.9 0a59.4 18 0 0 1 -118.8 0a45.2 34 0 0 1 -90.3 0a74.3 22 0 0 1 -148.5 0a68.3 26 0 0 1 -136.6 0a74.9 15 0 0 1 -149.8 0a70.1 32 0 0 1 -140.2 0a68.4 20 0 0 1 -136.8 0a64.5 28 0 0 1 -129.0 0V0Z"/>
-
-  <symbol id="wave" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke-linecap="round"><path d="M-39 -90C-43 -86 -53 -72 -62 -63C-72 -54 -85 -45 -95 -36C-105 -27 -116 -18 -124 -9C-132 -0 -138 9 -144 18C-149 27 -152 36 -155 45C-158 54 -160 63 -163 72C-165 81 -168 89 -170 98C-173 107 -176 116 -178 125C-180 134 -182 143 -183 152C-185 161 -185 170 -185 179C-185 188 -184 197 -182 206C-181 215 -180 224 -178 233C-176 242 -174 251 -171 260C-168 269 -165 278 -159 287C-154 296 -147 305 -138 314C-129 323 -118 332 -106 341C-95 350 -81 359 -70 368C-60 377 -48 386 -43 395C-37 404 -34 413 -36 422C-38 431 -45 439 -53 448C-62 457 -74 466 -85 475C-95 484 -107 493 -116 502C-125 511 -133 520 -139 529C-145 538 -148 547 -152 556C-156 565 -158 574 -160 583C-163 592 -167 606 -168 610" stroke="#1A8CB4" stroke-width="8.5"/><path d="M-10 -90C-14 -86 -24 -72 -34 -63C-43 -54 -56 -45 -67 -36C-77 -27 -88 -18 -97 -9C-105 -0 -112 9 -117 18C-122 27 -125 36 -129 45C-132 54 -134 63 -137 72C-139 81 -142 89 -145 98C-147 107 -150 116 -152 125C-155 134 -157 143 -158 152C-159 161 -159 170 -159 179C-159 188 -158 197 -157 206C-156 215 -154 224 -152 233C-150 242 -148 251 -145 260C-142 269 -139 278 -133 287C-127 296 -120 305 -111 314C-102 323 -90 332 -78 341C-67 350 -52 359 -41 368C-31 377 -19 386 -13 395C-8 404 -5 413 -7 422C-9 431 -16 439 -24 448C-33 457 -46 466 -56 475C-67 484 -79 493 -88 502C-98 511 -105 520 -112 529C-118 538 -122 547 -126 556C-129 565 -131 574 -134 583C-137 592 -141 606 -142 610" stroke="#1A8CB4" stroke-width="8.5"/><path d="M19 -90C15 -86 5 -72 -5 -63C-15 -54 -28 -45 -39 -36C-50 -27 -61 -18 -69 -9C-78 -0 -85 9 -90 18C-96 27 -99 36 -102 45C-105 54 -108 63 -110 72C-113 81 -116 89 -119 98C-121 107 -124 116 -127 125C-129 134 -131 143 -132 152C-134 161 -134 170 -134 179C-134 188 -132 197 -131 206C-130 215 -129 224 -127 233C-125 242 -123 251 -119 260C-116 269 -112 278 -107 287C-101 296 -93 305 -84 314C-75 323 -62 332 -51 341C-39 350 -24 359 -13 368C-2 377 10 386 15 395C21 404 24 413 22 422C20 431 13 439 4 448C-4 457 -17 466 -28 475C-39 484 -51 493 -61 502C-70 511 -78 520 -85 529C-91 538 -95 547 -99 556C-103 565 -105 574 -108 583C-111 592 -115 606 -116 610" stroke="#1A8CB4" stroke-width="11.2"/><path d="M47 -90C43 -86 33 -72 24 -63C14 -54 0 -45 -11 -36C-22 -27 -33 -18 -42 -9C-51 -0 -58 9 -63 18C-69 27 -72 36 -76 45C-79 54 -81 63 -84 72C-87 81 -90 89 -93 98C-95 107 -99 116 -101 125C-103 134 -106 143 -107 152C-108 161 -108 170 -108 179C-108 188 -107 197 -106 206C-104 215 -103 224 -101 233C-99 242 -97 251 -93 260C-90 269 -86 278 -80 287C-74 296 -67 305 -57 314C-48 323 -35 332 -23 341C-11 350 4 359 15 368C27 377 38 386 44 395C50 404 52 413 51 422C49 431 41 439 33 448C24 457 11 466 0 475C-11 484 -24 493 -33 502C-43 511 -51 520 -58 529C-64 538 -69 547 -72 556C-76 565 -79 574 -82 583C-85 592 -89 606 -90 610" stroke="#1A8CB4" stroke-width="10.9"/><path d="M76 -90C72 -86 61 -72 52 -63C42 -54 28 -45 17 -36C6 -27 -6 -18 -15 -9C-24 -0 -31 9 -37 18C-42 27 -46 36 -49 45C-53 54 -55 63 -58 72C-61 81 -64 89 -67 98C-70 107 -73 116 -75 125C-78 134 -80 143 -81 152C-83 161 -83 170 -83 179C-82 188 -81 197 -80 206C-79 215 -77 224 -75 233C-73 242 -71 251 -67 260C-64 269 -60 278 -54 287C-48 296 -40 305 -30 314C-20 323 -8 332 5 341C17 350 32 359 44 368C55 377 66 386 72 395C78 404 81 413 79 422C77 431 69 439 61 448C53 457 39 466 28 475C17 484 4 493 -6 502C-16 511 -24 520 -31 529C-38 538 -42 547 -46 556C-50 565 -52 574 -55 583C-58 592 -62 606 -64 610" stroke="#1A8CB4" stroke-width="7.6"/><path d="M103 -90C99 -86 89 -72 80 -63C70 -54 56 -45 45 -36C33 -27 21 -18 12 -9C3 -0 -4 9 -10 18C-16 27 -19 36 -23 45C-26 54 -29 63 -32 72C-35 81 -38 89 -41 98C-44 107 -47 116 -49 125C-52 134 -54 143 -56 152C-57 161 -57 170 -57 179C-57 188 -56 197 -54 206C-53 215 -51 224 -49 233C-47 242 -45 251 -41 260C-38 269 -34 278 -28 287C-21 296 -13 305 -3 314C7 323 20 332 32 341C45 350 60 359 71 368C83 377 94 386 100 395C106 404 108 413 107 422C105 431 97 439 89 448C80 457 67 466 56 475C45 484 32 493 22 502C12 511 3 520 -4 529C-11 538 -15 547 -19 556C-24 565 -26 574 -29 583C-32 592 -36 606 -38 610" stroke="#E3242B" stroke-width="9.3"/><path d="M131 -90C127 -86 117 -72 107 -63C97 -54 83 -45 72 -36C61 -27 49 -18 40 -9C30 -0 23 9 17 18C11 27 8 36 4 45C0 54 -2 63 -5 72C-8 81 -11 89 -14 98C-17 107 -21 116 -24 125C-26 134 -29 143 -30 152C-31 161 -32 170 -31 179C-31 188 -30 197 -29 206C-27 215 -25 224 -23 233C-21 242 -19 251 -15 260C-12 269 -8 278 -1 287C5 296 14 305 24 314C34 323 47 332 60 341C72 350 88 359 99 368C110 377 122 386 127 395C133 404 136 413 134 422C132 431 125 439 116 448C108 457 95 466 83 475C72 484 59 493 49 502C39 511 30 520 23 529C16 538 12 547 7 556C3 565 1 574 -3 583C-6 592 -10 606 -11 610" stroke="#1A8CB4" stroke-width="11.5"/><path d="M158 -90C154 -86 144 -72 134 -63C125 -54 111 -45 100 -36C88 -27 76 -18 67 -9C57 -0 50 9 44 18C38 27 34 36 30 45C27 54 24 63 21 72C18 81 15 89 12 98C9 107 5 116 2 125C-0 134 -3 143 -4 152C-5 161 -6 170 -6 179C-5 188 -4 197 -3 206C-1 215 0 224 3 233C5 242 7 251 11 260C15 269 19 278 25 287C32 296 40 305 51 314C61 323 74 332 87 341C100 350 115 359 126 368C138 377 149 386 155 395C160 404 163 413 161 422C159 431 152 439 144 448C135 457 122 466 111 475C100 484 86 493 76 502C66 511 57 520 50 529C43 538 38 547 34 556C30 565 27 574 24 583C21 592 16 606 15 610" stroke="#1A8CB4" stroke-width="10.4"/><path d="M184 -90C181 -86 171 -72 161 -63C152 -54 138 -45 127 -36C115 -27 103 -18 94 -9C84 -0 77 9 71 18C65 27 61 36 57 45C53 54 51 63 48 72C44 81 41 89 38 98C35 107 31 116 29 125C26 134 23 143 22 152C21 161 20 170 20 179C21 188 22 197 23 206C25 215 27 224 29 233C31 242 33 251 37 260C41 269 45 278 52 287C59 296 67 305 78 314C88 323 102 332 114 341C127 350 142 359 153 368C165 377 176 386 181 395C187 404 189 413 188 422C186 431 179 439 171 448C162 457 149 466 138 475C127 484 113 493 103 502C93 511 84 520 77 529C70 538 65 547 61 556C56 565 54 574 50 583C47 592 43 606 41 610" stroke="#1A8CB4" stroke-width="6.8"/><path d="M211 -90C207 -86 198 -72 188 -63C179 -54 165 -45 154 -36C143 -27 130 -18 121 -9C112 -0 104 9 98 18C91 27 88 36 84 45C80 54 77 63 74 72C71 81 68 89 65 98C61 107 58 116 55 125C52 134 50 143 48 152C47 161 46 170 47 179C47 188 48 197 50 206C51 215 53 224 55 233C58 242 60 251 64 260C68 269 72 278 79 287C86 296 94 305 105 314C115 323 129 332 141 341C154 350 169 359 180 368C191 377 202 386 208 395C213 404 216 413 214 422C212 431 205 439 197 448C189 457 176 466 165 475C154 484 141 493 130 502C120 511 111 520 104 529C97 538 92 547 87 556C83 565 80 574 77 583C74 592 69 606 68 610" stroke="#E3242B" stroke-width="10.0"/><path d="M237 -90C233 -86 224 -72 215 -63C205 -54 192 -45 181 -36C170 -27 157 -18 148 -9C139 -0 131 9 125 18C118 27 115 36 111 45C107 54 104 63 101 72C98 81 94 89 91 98C88 107 84 116 81 125C79 134 76 143 75 152C73 161 73 170 73 179C73 188 74 197 76 206C77 215 79 224 82 233C84 242 86 251 90 260C94 269 99 278 105 287C112 296 121 305 132 314C142 323 156 332 168 341C181 350 196 359 207 368C218 377 228 386 234 395C239 404 241 413 240 422C238 431 231 439 223 448C215 457 203 466 192 475C181 484 168 493 157 502C147 511 138 520 131 529C124 538 119 547 114 556C110 565 107 574 104 583C101 592 96 606 94 610" stroke="#1A8CB4" stroke-width="11.5"/><path d="M263 -90C259 -86 250 -72 241 -63C232 -54 218 -45 207 -36C196 -27 184 -18 175 -9C166 -0 158 9 152 18C145 27 142 36 138 45C134 54 131 63 128 72C125 81 121 89 118 98C115 107 111 116 108 125C105 134 102 143 101 152C100 161 99 170 99 179C100 188 101 197 102 206C104 215 106 224 108 233C111 242 113 251 117 260C121 269 125 278 132 287C139 296 148 305 159 314C169 323 183 332 195 341C208 350 222 359 233 368C244 377 254 386 260 395C265 404 267 413 265 422C264 431 257 439 249 448C242 457 229 466 218 475C207 484 194 493 184 502C174 511 165 520 158 529C151 538 146 547 141 556C137 565 134 574 131 583C127 592 123 606 121 610" stroke="#1A8CB4" stroke-width="9.7"/><path d="M288 -90C284 -86 276 -72 267 -63C258 -54 245 -45 234 -36C223 -27 211 -18 202 -9C193 -0 185 9 179 18C172 27 169 36 165 45C161 54 158 63 155 72C152 81 148 89 145 98C142 107 138 116 135 125C132 134 129 143 128 152C126 161 126 170 126 179C126 188 128 197 129 206C131 215 133 224 135 233C138 242 140 251 144 260C148 269 152 278 159 287C166 296 175 305 186 314C196 323 210 332 222 341C234 350 249 359 259 368C270 377 280 386 285 395C290 404 292 413 291 422C289 431 283 439 275 448C267 457 255 466 245 475C234 484 221 493 211 502C201 511 192 520 185 529C178 538 173 547 168 556C164 565 161 574 158 583C154 592 150 606 148 610" stroke="#1A8CB4" stroke-width="7.1"/><path d="M313 -90C310 -86 301 -72 292 -63C284 -54 271 -45 260 -36C250 -27 238 -18 229 -9C220 -0 212 9 206 18C200 27 196 36 192 45C188 54 185 63 182 72C179 81 175 89 172 98C169 107 165 116 162 125C159 134 156 143 155 152C153 161 153 170 153 179C153 188 155 197 156 206C158 215 160 224 162 233C165 242 167 251 171 260C175 269 180 278 186 287C193 296 202 305 213 314C223 323 236 332 248 341C261 350 275 359 285 368C295 377 305 386 310 395C315 404 318 413 316 422C314 431 308 439 301 448C293 457 281 466 271 475C261 484 248 493 238 502C228 511 219 520 212 529C205 538 200 547 195 556C191 565 188 574 185 583C182 592 177 606 175 610" stroke="#1A8CB4" stroke-width="10.6"/><path d="M338 -90C335 -86 327 -72 318 -63C309 -54 297 -45 287 -36C276 -27 265 -18 256 -9C247 -0 239 9 233 18C227 27 223 36 219 45C215 54 212 63 209 72C206 81 203 89 199 98C196 107 192 116 189 125C186 134 183 143 182 152C180 161 180 170 180 179C180 188 182 197 183 206C185 215 187 224 189 233C192 242 194 251 198 260C202 269 207 278 214 287C221 296 229 305 240 314C250 323 263 332 275 341C287 350 301 359 311 368C321 377 330 386 335 395C340 404 342 413 341 422C339 431 333 439 326 448C319 457 307 466 297 475C287 484 274 493 265 502C255 511 246 520 239 529C232 538 227 547 223 556C218 565 215 574 212 583C209 592 204 606 202 610" stroke="#1A8CB4" stroke-width="11.4"/><path d="M363 -90C360 -86 352 -72 343 -63C335 -54 323 -45 313 -36C303 -27 291 -18 282 -9C274 -0 266 9 260 18C254 27 250 36 246 45C242 54 240 63 236 72C233 81 230 89 227 98C223 107 219 116 216 125C214 134 211 143 209 152C208 161 207 170 208 179C208 188 209 197 211 206C212 215 214 224 217 233C219 242 222 251 226 260C230 269 234 278 241 287C248 296 257 305 267 314C277 323 290 332 301 341C313 350 327 359 336 368C346 377 356 386 360 395C365 404 367 413 366 422C364 431 358 439 351 448C344 457 333 466 323 475C313 484 301 493 291 502C282 511 273 520 266 529C259 538 254 547 250 556C245 565 243 574 239 583C236 592 231 606 230 610" stroke="#1A8CB4" stroke-width="9.0"/><path d="M388 -90C385 -86 377 -72 369 -63C361 -54 349 -45 339 -36C329 -27 318 -18 309 -9C300 -0 293 9 287 18C281 27 277 36 274 45C270 54 267 63 264 72C261 81 257 89 254 98C251 107 247 116 244 125C241 134 238 143 237 152C235 161 235 170 235 179C235 188 237 197 238 206C240 215 242 224 244 233C247 242 249 251 253 260C257 269 262 278 268 287C275 296 284 305 294 314C304 323 316 332 328 341C339 350 352 359 362 368C372 377 381 386 385 395C390 404 392 413 390 422C389 431 383 439 376 448C369 457 359 466 349 475C339 484 327 493 318 502C309 511 300 520 293 529C286 538 281 547 277 556C273 565 270 574 267 583C264 592 259 606 257 610" stroke="#1A8CB4" stroke-width="8.0"/><path d="M413 -90C409 -86 402 -72 394 -63C386 -54 375 -45 365 -36C355 -27 344 -18 336 -9C327 -0 320 9 314 18C308 27 305 36 301 45C297 54 295 63 291 72C288 81 285 89 282 98C278 107 275 116 272 125C269 134 266 143 265 152C263 161 263 170 263 179C263 188 265 197 266 206C268 215 270 224 272 233C275 242 277 251 281 260C285 269 289 278 296 287C303 296 311 305 321 314C331 323 343 332 354 341C365 350 378 359 387 368C397 377 405 386 410 395C415 404 416 413 415 422C413 431 408 439 401 448C395 457 384 466 375 475C365 484 354 493 344 502C335 511 327 520 320 529C313 538 309 547 304 556C300 565 298 574 294 583C291 592 287 606 285 610" stroke="#1A8CB4" stroke-width="11.0"/><path d="M437 -90C434 -86 427 -72 419 -63C411 -54 400 -45 391 -36C381 -27 371 -18 363 -9C354 -0 347 9 341 18C336 27 332 36 328 45C325 54 322 63 319 72C316 81 313 89 310 98C306 107 303 116 300 125C297 134 294 143 293 152C291 161 291 170 291 179C291 188 293 197 294 206C296 215 298 224 300 233C302 242 305 251 309 260C313 269 317 278 323 287C330 296 338 305 348 314C357 323 370 332 380 341C391 350 404 359 413 368C422 377 430 386 435 395C439 404 441 413 439 422C438 431 433 439 426 448C420 457 409 466 400 475C391 484 380 493 371 502C362 511 354 520 347 529C341 538 336 547 332 556C328 565 325 574 322 583C319 592 314 606 313 610" stroke="#1A8CB4" stroke-width="11.1"/><path d="M462 -90C459 -86 452 -72 444 -63C437 -54 426 -45 417 -36C408 -27 397 -18 389 -9C381 -0 374 9 369 18C363 27 360 36 356 45C352 54 350 63 347 72C344 81 341 89 338 98C334 107 331 116 328 125C325 134 322 143 321 152C320 161 319 170 319 179C320 188 321 197 322 206C324 215 326 224 328 233C331 242 333 251 337 260C340 269 345 278 351 287C358 296 366 305 375 314C384 323 396 332 407 341C417 350 429 359 438 368C447 377 455 386 459 395C464 404 465 413 464 422C463 431 457 439 451 448C445 457 435 466 426 475C417 484 406 493 397 502C389 511 381 520 374 529C368 538 363 547 359 556C355 565 353 574 350 583C347 592 342 606 341 610" stroke="#1A8CB4" stroke-width="8.2"/><path d="M486 -90C483 -86 477 -72 469 -63C462 -54 452 -45 443 -36C434 -27 424 -18 416 -9C408 -0 401 9 396 18C391 27 387 36 384 45C380 54 378 63 375 72C372 81 369 89 366 98C362 107 359 116 356 125C353 134 351 143 349 152C348 161 348 170 348 179C348 188 349 197 351 206C352 215 354 224 356 233C359 242 361 251 365 260C368 269 373 278 379 287C385 296 393 305 402 314C411 323 423 332 433 341C443 350 455 359 463 368C472 377 480 386 484 395C488 404 490 413 489 422C487 431 482 439 476 448C470 457 460 466 452 475C443 484 432 493 424 502C415 511 407 520 401 529C395 538 391 547 387 556C383 565 380 574 377 583C374 592 370 606 369 610" stroke="#E3242B" stroke-width="8.8"/><path d="M511 -90C508 -86 501 -72 494 -63C487 -54 477 -45 469 -36C460 -27 450 -18 443 -9C435 -0 428 9 423 18C418 27 415 36 411 45C408 54 405 63 403 72C400 81 397 89 394 98C391 107 387 116 384 125C382 134 379 143 378 152C376 161 376 170 376 179C376 188 378 197 379 206C381 215 382 224 385 233C387 242 389 251 393 260C396 269 401 278 407 287C413 296 420 305 429 314C438 323 449 332 459 341C469 350 480 359 489 368C497 377 505 386 509 395C513 404 514 413 513 422C512 431 507 439 501 448C495 457 486 466 477 475C469 484 458 493 450 502C442 511 434 520 428 529C422 538 418 547 414 556C411 565 408 574 405 583C402 592 398 606 397 610" stroke="#1A8CB4" stroke-width="11.3"/><path d="M536 -90C533 -86 526 -72 520 -63C513 -54 503 -45 494 -36C486 -27 477 -18 469 -9C462 -0 456 9 451 18C445 27 442 36 439 45C435 54 433 63 430 72C428 81 425 89 422 98C419 107 415 116 413 125C410 134 408 143 406 152C405 161 405 170 405 179C405 188 406 197 408 206C409 215 411 224 413 233C415 242 417 251 421 260C425 269 428 278 434 287C440 296 448 305 456 314C465 323 476 332 485 341C495 350 506 359 514 368C522 377 530 386 534 395C538 404 539 413 538 422C537 431 532 439 526 448C520 457 511 466 503 475C495 484 485 493 477 502C469 511 461 520 456 529C450 538 446 547 442 556C438 565 436 574 433 583C430 592 426 606 425 610" stroke="#1A8CB4" stroke-width="10.7"/><path d="M561 -90C558 -86 552 -72 545 -63C538 -54 529 -45 520 -36C512 -27 503 -18 496 -9C489 -0 483 9 478 18C473 27 470 36 466 45C463 54 461 63 458 72C456 81 453 89 450 98C447 107 444 116 441 125C439 134 436 143 435 152C434 161 433 170 434 179C434 188 435 197 436 206C438 215 439 224 442 233C444 242 446 251 449 260C453 269 456 278 462 287C468 296 475 305 483 314C492 323 502 332 511 341C521 350 531 359 539 368C547 377 555 386 558 395C562 404 564 413 563 422C561 431 557 439 551 448C545 457 536 466 529 475C521 484 511 493 503 502C496 511 488 520 483 529C477 538 473 547 469 556C466 565 464 574 461 583C458 592 454 606 453 610" stroke="#1A8CB4" stroke-width="7.3"/><path d="M586 -90C583 -86 577 -72 570 -63C564 -54 554 -45 546 -36C538 -27 530 -18 523 -9C516 -0 510 9 505 18C500 27 497 36 494 45C491 54 489 63 486 72C484 81 481 89 478 98C475 107 472 116 470 125C467 134 465 143 464 152C462 161 462 170 462 179C462 188 464 197 465 206C466 215 468 224 470 233C472 242 474 251 477 260C481 269 484 278 490 287C495 296 502 305 510 314C518 323 529 332 538 341C547 350 557 359 565 368C572 377 580 386 584 395C587 404 589 413 588 422C587 431 582 439 576 448C571 457 562 466 554 475C547 484 537 493 530 502C522 511 515 520 510 529C504 538 501 547 497 556C493 565 491 574 489 583C486 592 482 606 481 610" stroke="#1A8CB4" stroke-width="9.6"/><path d="M611 -90C608 -86 602 -72 596 -63C589 -54 580 -45 572 -36C565 -27 556 -18 549 -9C543 -0 537 9 532 18C528 27 525 36 522 45C519 54 517 63 514 72C512 81 509 89 506 98C504 107 500 116 498 125C496 134 494 143 492 152C491 161 491 170 491 179C491 188 492 197 494 206C495 215 496 224 498 233C500 242 502 251 506 260C509 269 512 278 518 287C523 296 530 305 537 314C545 323 555 332 564 341C573 350 583 359 590 368C598 377 605 386 609 395C613 404 614 413 613 422C612 431 607 439 602 448C596 457 588 466 580 475C573 484 563 493 556 502C549 511 542 520 537 529C532 538 528 547 525 556C521 565 519 574 516 583C514 592 510 606 509 610" stroke="#1A8CB4" stroke-width="11.5"/><path d="M636 -90C634 -86 628 -72 621 -63C615 -54 606 -45 599 -36C591 -27 583 -18 576 -9C570 -0 564 9 560 18C555 27 552 36 549 45C546 54 544 63 542 72C539 81 537 89 534 98C532 107 529 116 527 125C524 134 522 143 521 152C520 161 519 170 520 179C520 188 521 197 522 206C523 215 525 224 527 233C529 242 531 251 534 260C537 269 540 278 545 287C550 296 557 305 565 314C572 323 582 332 590 341C599 350 609 359 616 368C624 377 631 386 634 395C638 404 640 413 638 422C637 431 633 439 627 448C622 457 614 466 606 475C599 484 590 493 583 502C576 511 569 520 564 529C559 538 555 547 552 556C549 565 547 574 544 583C542 592 538 606 537 610" stroke="#1A8CB4" stroke-width="10.2"/><path d="M662 -90C660 -86 654 -72 647 -63C641 -54 632 -45 625 -36C617 -27 609 -18 603 -9C597 -0 591 9 587 18C582 27 580 36 577 45C574 54 572 63 570 72C567 81 565 89 562 98C560 107 557 116 555 125C553 134 551 143 549 152C548 161 548 170 548 179C548 188 549 197 550 206C552 215 553 224 555 233C557 242 559 251 562 260C565 269 568 278 573 287C578 296 584 305 592 314C599 323 608 332 617 341C625 350 635 359 642 368C649 377 657 386 660 395C664 404 665 413 664 422C663 431 659 439 653 448C648 457 640 466 632 475C625 484 616 493 609 502C602 511 596 520 591 529C586 538 583 547 579 556C576 565 574 574 572 583C569 592 566 606 565 610" stroke="#1A8CB4" stroke-width="6.6"/><path d="M688 -90C686 -86 680 -72 673 -63C667 -54 659 -45 651 -36C644 -27 636 -18 630 -9C623 -0 618 9 614 18C610 27 607 36 604 45C601 54 600 63 597 72C595 81 593 89 590 98C588 107 585 116 583 125C581 134 579 143 578 152C577 161 576 170 576 179C577 188 578 197 579 206C580 215 581 224 583 233C585 242 587 251 590 260C592 269 596 278 601 287C605 296 612 305 619 314C626 323 635 332 643 341C651 350 661 359 668 368C676 377 683 386 686 395C690 404 691 413 690 422C689 431 685 439 679 448C674 457 666 466 659 475C651 484 643 493 636 502C629 511 623 520 618 529C613 538 610 547 607 556C604 565 602 574 599 583C597 592 594 606 593 610" stroke="#E3242B" stroke-width="10.2"/><path d="M715 -90C712 -86 706 -72 700 -63C694 -54 685 -45 678 -36C671 -27 663 -18 656 -9C650 -0 645 9 641 18C637 27 634 36 632 45C629 54 627 63 625 72C623 81 620 89 618 98C616 107 613 116 611 125C609 134 607 143 606 152C605 161 605 170 605 179C605 188 606 197 607 206C608 215 609 224 611 233C613 242 615 251 617 260C620 269 623 278 628 287C633 296 639 305 646 314C653 323 662 332 670 341C678 350 688 359 695 368C702 377 709 386 713 395C716 404 718 413 717 422C715 431 711 439 706 448C700 457 692 466 685 475C678 484 669 493 663 502C656 511 650 520 645 529C640 538 637 547 634 556C631 565 629 574 627 583C625 592 621 606 620 610" stroke="#1A8CB4" stroke-width="11.5"/><path d="M741 -90C739 -86 733 -72 727 -63C720 -54 712 -45 704 -36C697 -27 689 -18 683 -9C677 -0 672 9 668 18C664 27 662 36 659 45C656 54 655 63 652 72C650 81 648 89 646 98C643 107 641 116 639 125C637 134 635 143 634 152C633 161 633 170 633 179C633 188 634 197 635 206C636 215 637 224 639 233C641 242 642 251 645 260C648 269 651 278 655 287C660 296 666 305 673 314C680 323 688 332 697 341C705 350 714 359 721 368C729 377 736 386 739 395C743 404 745 413 743 422C742 431 738 439 732 448C727 457 719 466 712 475C705 484 696 493 690 502C683 511 677 520 672 529C668 538 664 547 661 556C658 565 657 574 654 583C652 592 649 606 648 610" stroke="#1A8CB4" stroke-width="9.5"/><path d="M769 -90C766 -86 760 -72 753 -63C747 -54 738 -45 731 -36C724 -27 716 -18 710 -9C704 -0 699 9 695 18C691 27 689 36 686 45C684 54 682 63 680 72C678 81 675 89 673 98C671 107 668 116 666 125C665 134 663 143 662 152C661 161 660 170 661 179C661 188 662 197 663 206C664 215 665 224 667 233C668 242 670 251 673 260C675 269 678 278 683 287C687 296 693 305 700 314C707 323 715 332 723 341C731 350 741 359 748 368C755 377 763 386 766 395C770 404 772 413 771 422C769 431 765 439 759 448C754 457 746 466 738 475C731 484 723 493 716 502C710 511 704 520 699 529C695 538 692 547 689 556C686 565 684 574 682 583C680 592 676 606 675 610" stroke="#1A8CB4" stroke-width="7.4"/><path d="M796 -90C793 -86 787 -72 781 -63C774 -54 766 -45 758 -36C751 -27 743 -18 737 -9C731 -0 726 9 722 18C718 27 716 36 713 45C711 54 709 63 707 72C705 81 703 89 701 98C698 107 696 116 694 125C692 134 690 143 689 152C688 161 688 170 688 179C688 188 689 197 690 206C691 215 693 224 694 233C696 242 697 251 700 260C703 269 705 278 710 287C714 296 720 305 727 314C734 323 742 332 750 341C758 350 768 359 775 368C783 377 790 386 794 395C798 404 799 413 798 422C797 431 792 439 787 448C781 457 773 466 766 475C758 484 750 493 743 502C737 511 731 520 726 529C722 538 719 547 716 556C713 565 711 574 709 583C707 592 704 606 703 610" stroke="#E3242B" stroke-width="10.8"/><path d="M824 -90C821 -86 815 -72 808 -63C802 -54 793 -45 785 -36C778 -27 770 -18 764 -9C758 -0 753 9 749 18C745 27 743 36 740 45C738 54 736 63 734 72C732 81 730 89 728 98C726 107 723 116 721 125C719 134 718 143 717 152C716 161 715 170 716 179C716 188 717 197 718 206C719 215 720 224 721 233C723 242 725 251 727 260C730 269 733 278 737 287C741 296 747 305 754 314C761 323 769 332 777 341C786 350 795 359 803 368C810 377 818 386 822 395C826 404 827 413 826 422C825 431 820 439 814 448C809 457 800 466 793 475C785 484 777 493 770 502C764 511 758 520 753 529C749 538 746 547 743 556C740 565 738 574 736 583C734 592 731 606 730 610" stroke="#1A8CB4" stroke-width="11.3"/><path d="M852 -90C849 -86 843 -72 836 -63C829 -54 820 -45 813 -36C805 -27 797 -18 791 -9C785 -0 780 9 776 18C772 27 770 36 767 45C765 54 763 63 761 72C759 81 757 89 755 98C753 107 750 116 748 125C747 134 745 143 744 152C743 161 743 170 743 179C743 188 744 197 745 206C746 215 747 224 749 233C750 242 752 251 754 260C757 269 760 278 764 287C768 296 774 305 781 314C788 323 796 332 805 341C813 350 823 359 831 368C838 377 846 386 850 395C854 404 856 413 854 422C853 431 848 439 842 448C837 457 828 466 820 475C813 484 804 493 797 502C791 511 785 520 780 529C776 538 773 547 770 556C767 565 765 574 763 583C761 592 758 606 757 610" stroke="#1A8CB4" stroke-width="8.7"/><path d="M881 -90C878 -86 871 -72 864 -63C857 -54 848 -45 840 -36C833 -27 825 -18 818 -9C812 -0 807 9 803 18C799 27 797 36 794 45C792 54 790 63 788 72C786 81 784 89 782 98C780 107 777 116 775 125C773 134 772 143 771 152C770 161 770 170 770 179C770 188 771 197 772 206C773 215 774 224 775 233C777 242 778 251 781 260C784 269 786 278 791 287C795 296 801 305 808 314C815 323 823 332 832 341C840 350 851 359 858 368C866 377 874 386 878 395C883 404 884 413 883 422C882 431 876 439 871 448C865 457 856 466 848 475C840 484 831 493 825 502C818 511 812 520 807 529C803 538 800 547 797 556C794 565 792 574 790 583C788 592 785 606 784 610" stroke="#1A8CB4" stroke-width="8.3"/><path d="M910 -90C907 -86 899 -72 892 -63C885 -54 876 -45 868 -36C860 -27 852 -18 846 -9C839 -0 834 9 830 18C826 27 824 36 821 45C819 54 817 63 815 72C813 81 811 89 808 98C806 107 804 116 802 125C800 134 798 143 797 152C797 161 796 170 796 179C797 188 797 197 798 206C799 215 801 224 802 233C804 242 805 251 808 260C810 269 813 278 818 287C822 296 828 305 835 314C842 323 851 332 859 341C868 350 879 359 887 368C895 377 903 386 907 395C912 404 914 413 912 422C911 431 905 439 899 448C893 457 884 466 876 475C868 484 859 493 852 502C845 511 839 520 834 529C829 538 826 547 823 556C821 565 819 574 817 583C815 592 811 606 810 610" stroke="#1A8CB4" stroke-width="11.2"/><path d="M939 -90C936 -86 928 -72 921 -63C914 -54 904 -45 896 -36C888 -27 879 -18 873 -9C866 -0 861 9 857 18C853 27 850 36 848 45C845 54 844 63 841 72C839 81 837 89 835 98C833 107 830 116 828 125C827 134 825 143 824 152C823 161 823 170 823 179C823 188 824 197 825 206C826 215 827 224 829 233C830 242 832 251 834 260C837 269 840 278 844 287C849 296 855 305 862 314C869 323 878 332 887 341C896 350 907 359 915 368C923 377 932 386 937 395C941 404 943 413 942 422C940 431 934 439 928 448C922 457 912 466 904 475C896 484 886 493 879 502C872 511 866 520 861 529C856 538 853 547 850 556C847 565 846 574 843 583C841 592 838 606 837 610" stroke="#1A8CB4" stroke-width="11.0"/><path d="M969 -90C966 -86 957 -72 950 -63C942 -54 932 -45 924 -36C915 -27 907 -18 900 -9C893 -0 888 9 884 18C880 27 877 36 874 45C872 54 870 63 868 72C866 81 864 89 861 98C859 107 857 116 855 125C853 134 851 143 850 152C849 161 849 170 849 179C849 188 850 197 851 206C852 215 853 224 855 233C857 242 858 251 861 260C863 269 866 278 871 287C876 296 881 305 889 314C896 323 905 332 914 341C924 350 935 359 944 368C952 377 961 386 966 395C971 404 973 413 971 422C970 431 964 439 957 448C951 457 940 466 932 475C924 484 914 493 907 502C899 511 893 520 888 529C883 538 880 547 877 556C874 565 872 574 870 583C868 592 865 606 864 610" stroke="#1A8CB4" stroke-width="7.9"/><path d="M998 -90C995 -86 987 -72 979 -63C971 -54 960 -45 952 -36C943 -27 934 -18 927 -9C920 -0 915 9 911 18C906 27 904 36 901 45C898 54 897 63 894 72C892 81 890 89 888 98C885 107 883 116 881 125C879 134 877 143 876 152C875 161 875 170 875 179C875 188 876 197 877 206C878 215 880 224 881 233C883 242 884 251 887 260C890 269 893 278 897 287C902 296 908 305 916 314C923 323 933 332 942 341C952 350 963 359 972 368C981 377 991 386 996 395C1000 404 1003 413 1001 422C1000 431 993 439 986 448C980 457 969 466 960 475C952 484 942 493 934 502C927 511 920 520 915 529C910 538 907 547 904 556C900 565 899 574 896 583C894 592 891 606 890 610" stroke="#1A8CB4" stroke-width="9.1"/><path d="M1028 -90C1025 -86 1016 -72 1008 -63C1000 -54 989 -45 980 -36C971 -27 962 -18 954 -9C947 -0 942 9 937 18C933 27 930 36 928 45C925 54 923 63 921 72C918 81 916 89 914 98C912 107 909 116 907 125C905 134 903 143 902 152C901 161 901 170 901 179C901 188 902 197 903 206C904 215 906 224 907 233C909 242 911 251 913 260C916 269 919 278 924 287C929 296 935 305 943 314C950 323 960 332 970 341C980 350 992 359 1001 368C1010 377 1020 386 1025 395C1030 404 1033 413 1031 422C1029 431 1023 439 1016 448C1009 457 998 466 989 475C980 484 969 493 962 502C954 511 947 520 942 529C937 538 933 547 930 556C927 565 925 574 923 583C920 592 917 606 916 610" stroke="#1A8CB4" stroke-width="11.4"/><path d="M1058 -90C1055 -86 1046 -72 1037 -63C1029 -54 1017 -45 1008 -36C999 -27 989 -18 982 -9C975 -0 969 9 964 18C960 27 957 36 954 45C951 54 949 63 947 72C945 81 942 89 940 98C938 107 935 116 933 125C931 134 929 143 928 152C927 161 927 170 927 179C927 188 928 197 929 206C930 215 932 224 933 233C935 242 937 251 939 260C942 269 945 278 950 287C955 296 962 305 969 314C977 323 988 332 998 341C1008 350 1021 359 1030 368C1040 377 1050 386 1055 395C1060 404 1063 413 1061 422C1059 431 1053 439 1045 448C1038 457 1027 466 1017 475C1008 484 997 493 989 502C981 511 974 520 969 529C963 538 960 547 957 556C953 565 952 574 949 583C947 592 943 606 942 610" stroke="#1A8CB4" stroke-width="10.5"/><path d="M1088 -90C1084 -86 1075 -72 1066 -63C1058 -54 1046 -45 1036 -36C1026 -27 1017 -18 1009 -9C1002 -0 996 9 991 18C986 27 983 36 981 45C978 54 976 63 973 72C971 81 969 89 966 98C964 107 961 116 959 125C957 134 955 143 954 152C953 161 953 170 953 179C953 188 954 197 955 206C956 215 957 224 959 233C961 242 963 251 965 260C968 269 971 278 977 287C982 296 988 305 996 314C1005 323 1015 332 1026 341C1036 350 1049 359 1059 368C1069 377 1080 386 1085 395C1090 404 1093 413 1091 422C1089 431 1082 439 1075 448C1067 457 1055 466 1046 475C1036 484 1025 493 1017 502C1008 511 1001 520 996 529C990 538 987 547 983 556C980 565 978 574 975 583C973 592 970 606 968 610" stroke="#1A8CB4" stroke-width="7.0"/><path d="M1118 -90C1114 -86 1105 -72 1096 -63C1087 -54 1074 -45 1064 -36C1054 -27 1044 -18 1036 -9C1029 -0 1023 9 1018 18C1013 27 1010 36 1007 45C1004 54 1002 63 1000 72C997 81 995 89 992 98C990 107 987 116 985 125C983 134 981 143 980 152C979 161 978 170 978 179C979 188 980 197 981 206C982 215 983 224 985 233C987 242 988 251 991 260C994 269 998 278 1003 287C1008 296 1015 305 1023 314C1032 323 1043 332 1054 341C1064 350 1078 359 1088 368C1098 377 1109 386 1115 395C1120 404 1123 413 1121 422C1119 431 1112 439 1104 448C1096 457 1084 466 1074 475C1064 484 1053 493 1044 502C1036 511 1028 520 1023 529C1017 538 1013 547 1010 556C1006 565 1004 574 1002 583C999 592 996 606 994 610" stroke="#E3242B" stroke-width="9.8"/><path d="M1148 -90C1144 -86 1134 -72 1125 -63C1115 -54 1103 -45 1092 -36C1082 -27 1072 -18 1064 -9C1056 -0 1050 9 1045 18C1039 27 1036 36 1033 45C1030 54 1028 63 1026 72C1023 81 1021 89 1018 98C1015 107 1013 116 1010 125C1008 134 1006 143 1005 152C1004 161 1004 170 1004 179C1004 188 1005 197 1006 206C1007 215 1009 224 1011 233C1013 242 1014 251 1017 260C1020 269 1024 278 1029 287C1035 296 1042 305 1050 314C1059 323 1070 332 1081 341C1093 350 1107 359 1117 368C1127 377 1139 386 1144 395C1150 404 1152 413 1151 422C1149 431 1142 439 1134 448C1126 457 1113 466 1103 475C1092 484 1081 493 1072 502C1063 511 1055 520 1050 529C1044 538 1040 547 1036 556C1033 565 1031 574 1028 583C1025 592 1022 606 1021 610" stroke="#1A8CB4" stroke-width="11.5"/><path d="M1177 -90C1173 -86 1163 -72 1154 -63C1144 -54 1131 -45 1121 -36C1110 -27 1099 -18 1091 -9C1083 -0 1076 9 1071 18C1066 27 1063 36 1060 45C1057 54 1054 63 1052 72C1049 81 1047 89 1044 98C1041 107 1038 116 1036 125C1034 134 1032 143 1031 152C1030 161 1029 170 1029 179C1030 188 1031 197 1032 206C1033 215 1034 224 1036 233C1038 242 1040 251 1043 260C1046 269 1050 278 1055 287C1061 296 1068 305 1077 314C1086 323 1098 332 1109 341C1121 350 1135 359 1146 368C1157 377 1168 386 1174 395C1179 404 1182 413 1180 422C1178 431 1171 439 1163 448C1155 457 1142 466 1131 475C1121 484 1109 493 1099 502C1090 511 1083 520 1076 529C1070 538 1066 547 1063 556C1059 565 1057 574 1054 583C1052 592 1048 606 1047 610" stroke="#1A8CB4" stroke-width="9.9"/><path d="M1206 -90C1202 -86 1192 -72 1182 -63C1173 -54 1159 -45 1149 -36C1138 -27 1127 -18 1118 -9C1110 -0 1103 9 1098 18C1093 27 1089 36 1086 45C1083 54 1081 63 1078 72C1075 81 1073 89 1070 98C1067 107 1064 116 1062 125C1060 134 1057 143 1056 152C1055 161 1055 170 1055 179C1055 188 1056 197 1057 206C1059 215 1060 224 1062 233C1064 242 1066 251 1069 260C1072 269 1076 278 1082 287C1088 296 1095 305 1104 314C1113 323 1125 332 1137 341C1149 350 1163 359 1174 368C1185 377 1197 386 1203 395C1208 404 1211 413 1209 422C1207 431 1200 439 1192 448C1183 457 1170 466 1159 475C1149 484 1136 493 1127 502C1118 511 1110 520 1103 529C1097 538 1093 547 1089 556C1085 565 1083 574 1080 583C1078 592 1074 606 1073 610" stroke="#1A8CB4" stroke-width="6.9"/><path d="M1235 -90C1231 -86 1221 -72 1211 -63C1201 -54 1188 -45 1177 -36C1166 -27 1154 -18 1146 -9C1137 -0 1130 9 1125 18C1119 27 1116 36 1113 45C1109 54 1107 63 1104 72C1101 81 1099 89 1096 98C1093 107 1090 116 1088 125C1085 134 1083 143 1082 152C1081 161 1080 170 1080 179C1081 188 1082 197 1083 206C1084 215 1086 224 1088 233C1090 242 1092 251 1095 260C1098 269 1102 278 1108 287C1114 296 1121 305 1131 314C1140 323 1153 332 1165 341C1177 350 1192 359 1203 368C1214 377 1226 386 1231 395C1237 404 1240 413 1238 422C1236 431 1229 439 1220 448C1212 457 1199 466 1188 475C1177 484 1164 493 1155 502C1145 511 1137 520 1130 529C1124 538 1120 547 1116 556C1112 565 1110 574 1107 583C1104 592 1100 606 1099 610" stroke="#1A8CB4" stroke-width="10.4"/><path d="M1263 -90C1259 -86 1249 -72 1239 -63C1229 -54 1216 -45 1205 -36C1194 -27 1182 -18 1173 -9C1164 -0 1157 9 1151 18C1146 27 1143 36 1139 45C1135 54 1133 63 1130 72C1128 81 1125 89 1122 98C1119 107 1116 116 1113 125C1111 134 1109 143 1107 152C1106 161 1106 170 1106 179C1106 188 1107 197 1109 206C1110 215 1111 224 1114 233C1116 242 1118 251 1121 260C1124 269 1128 278 1134 287C1140 296 1148 305 1158 314C1168 323 1180 332 1192 341C1205 350 1220 359 1231 368C1242 377 1254 386 1260 395C1266 404 1268 413 1266 422C1264 431 1257 439 1249 448C1240 457 1227 466 1216 475C1205 484 1192 493 1182 502C1172 511 1164 520 1157 529C1150 538 1146 547 1142 556C1138 565 1136 574 1133 583C1130 592 1126 606 1125 610" stroke="#1A8CB4" stroke-width="11.4"/><path d="M1291 -90C1287 -86 1277 -72 1267 -63C1257 -54 1243 -45 1232 -36C1221 -27 1209 -18 1200 -9C1191 -0 1184 9 1178 18C1172 27 1169 36 1165 45C1162 54 1160 63 1157 72C1154 81 1151 89 1148 98C1145 107 1142 116 1139 125C1137 134 1134 143 1133 152C1132 161 1131 170 1132 179C1132 188 1133 197 1134 206C1135 215 1137 224 1139 233C1141 242 1143 251 1147 260C1151 269 1154 278 1161 287C1167 296 1175 305 1185 314C1195 323 1208 332 1220 341C1232 350 1248 359 1259 368C1270 377 1282 386 1288 395C1294 404 1296 413 1294 422C1292 431 1285 439 1277 448C1268 457 1255 466 1244 475C1232 484 1219 493 1209 502C1199 511 1191 520 1184 529C1177 538 1173 547 1169 556C1165 565 1162 574 1159 583C1156 592 1152 606 1151 610" stroke="#1A8CB4" stroke-width="9.2"/><path d="M1319 -90C1315 -86 1305 -72 1295 -63C1285 -54 1271 -45 1260 -36C1249 -27 1237 -18 1227 -9C1218 -0 1211 9 1205 18C1199 27 1196 36 1192 45C1188 54 1186 63 1183 72C1180 81 1177 89 1174 98C1171 107 1167 116 1165 125C1162 134 1160 143 1159 152C1157 161 1157 170 1157 179C1157 188 1159 197 1160 206C1161 215 1163 224 1165 233C1167 242 1169 251 1173 260C1177 269 1181 278 1187 287C1194 296 1202 305 1212 314C1222 323 1235 332 1248 341C1260 350 1275 359 1287 368C1298 377 1309 386 1315 395C1321 404 1324 413 1322 422C1320 431 1313 439 1304 448C1296 457 1282 466 1271 475C1260 484 1247 493 1237 502C1227 511 1218 520 1211 529C1204 538 1200 547 1195 556C1191 565 1189 574 1186 583C1183 592 1178 606 1177 610" stroke="#1A8CB4" stroke-width="7.7"/><path d="M1346 -90C1342 -86 1332 -72 1322 -63C1313 -54 1299 -45 1287 -36C1276 -27 1264 -18 1255 -9C1245 -0 1238 9 1232 18C1226 27 1222 36 1219 45C1215 54 1212 63 1209 72C1206 81 1203 89 1200 98C1197 107 1193 116 1191 125C1188 134 1186 143 1184 152C1183 161 1183 170 1183 179C1183 188 1184 197 1186 206C1187 215 1189 224 1191 233C1193 242 1196 251 1199 260C1203 269 1207 278 1214 287C1220 296 1228 305 1239 314C1249 323 1262 332 1275 341C1287 350 1303 359 1314 368C1325 377 1337 386 1343 395C1348 404 1351 413 1349 422C1347 431 1340 439 1332 448C1323 457 1310 466 1299 475C1287 484 1274 493 1264 502C1254 511 1245 520 1238 529C1231 538 1226 547 1222 556C1218 565 1215 574 1212 583C1209 592 1205 606 1203 610" stroke="#E3242B" stroke-width="10.9"/><path d="M1373 -90C1369 -86 1359 -72 1349 -63C1340 -54 1326 -45 1315 -36C1303 -27 1291 -18 1282 -9C1272 -0 1265 9 1259 18C1253 27 1249 36 1245 45C1241 54 1239 63 1236 72C1233 81 1230 89 1226 98C1223 107 1220 116 1217 125C1214 134 1212 143 1210 152C1209 161 1209 170 1209 179C1209 188 1210 197 1212 206C1213 215 1215 224 1217 233C1220 242 1222 251 1226 260C1229 269 1233 278 1240 287C1247 296 1255 305 1266 314C1276 323 1290 332 1302 341C1315 350 1330 359 1341 368C1353 377 1364 386 1369 395C1375 404 1378 413 1376 422C1374 431 1367 439 1359 448C1350 457 1337 466 1326 475C1315 484 1301 493 1291 502C1281 511 1272 520 1265 529C1258 538 1253 547 1249 556C1244 565 1242 574 1239 583C1235 592 1231 606 1229 610" stroke="#1A8CB4" stroke-width="11.2"/><path d="M1399 -90C1395 -86 1386 -72 1376 -63C1367 -54 1353 -45 1342 -36C1331 -27 1318 -18 1309 -9C1299 -0 1292 9 1286 18C1280 27 1276 36 1272 45C1268 54 1266 63 1262 72C1259 81 1256 89 1253 98C1250 107 1246 116 1243 125C1240 134 1238 143 1237 152C1235 161 1235 170 1235 179C1235 188 1236 197 1238 206C1239 215 1241 224 1244 233C1246 242 1248 251 1252 260C1256 269 1260 278 1267 287C1274 296 1282 305 1293 314C1303 323 1317 332 1329 341C1342 350 1357 359 1368 368C1379 377 1390 386 1396 395C1402 404 1404 413 1402 422C1400 431 1394 439 1385 448C1377 457 1364 466 1353 475C1342 484 1329 493 1318 502C1308 511 1299 520 1292 529C1285 538 1280 547 1276 556C1271 565 1269 574 1265 583C1262 592 1257 606 1256 610" stroke="#1A8CB4" stroke-width="8.5"/></g></symbol>
-
-  <!-- Ilustrações de produto -->
   <symbol id="illo-picole" viewBox="0 0 120 220">
     <rect x="52" y="150" width="16" height="66" rx="8" fill="#F3C395"/>
     <path d="M22 62a38 38 0 0 1 76 0v84a22 22 0 0 1-22 22H44a22 22 0 0 1-22-22z" fill="currentColor"/>
@@ -581,216 +548,189 @@ h2.title{font-size:var(--step-h2)}
     <circle cx="60" cy="52" r="26" fill="currentColor" opacity=".85"/>
   </symbol>
 
-  <!-- Ícones -->
-  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>
-  </symbol>
-  <symbol id="i-scooter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="5.5" cy="17.5" r="3"/><circle cx="18.5" cy="17.5" r="3"/>
-    <path d="M8.5 17.5h7M15 4h3l2 9.5"/><path d="M5.5 14.5V11a3 3 0 0 1 3-3h4"/>
-  </symbol>
-  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
-  </symbol>
-  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z"/>
-  </symbol>
-  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4 12.5l5.5 5.5L20 6.5"/>
-  </symbol>
-  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
-    <path d="M12 5v14M5 12h14"/>
-  </symbol>
-  <symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M6 9l6 6 6-6"/>
-  </symbol>
-  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M5 12h14M13 6l6 6-6 6"/>
-  </symbol>
-  <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19h14"/>
-  </symbol>
-  <symbol id="i-factory" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M3 20V10l6 4V10l6 4V6h6v14z"/><path d="M8 20v-3M13 20v-3M18 20v-3"/>
-  </symbol>
-  <symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 3l1.8 4.7L18.5 9.5 13.8 11.3 12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M18.5 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>
-  </symbol>
-  <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 20s-7.5-4.6-7.5-9.6A4.4 4.4 0 0 1 12 7.4a4.4 4.4 0 0 1 7.5 3c0 5-7.5 9.6-7.5 9.6z"/>
-  </symbol>
-  <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M20 4s.8 9-4.4 12.6C11.6 19.3 6 18.5 6 18.5S5 9.9 10.2 6.6C13.6 4.5 20 4 20 4z"/><path d="M15 9l-9 11"/>
-  </symbol>
-  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
-    <path d="M4 7h16M4 12h16M4 17h16"/>
-  </symbol>
-  <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
-    <path d="M6 6l12 12M18 6L6 18"/>
-  </symbol>
-  <symbol id="i-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" stroke="none"/>
-  </symbol>
-  <symbol id="i-tiktok" viewBox="0 0 24 24">
-    <path fill="currentColor" d="M16.2 2.5h-3v12.2a2.7 2.7 0 1 1-2.2-2.7V8.9a5.8 5.8 0 1 0 5.2 5.8V9.1a7.1 7.1 0 0 0 4 1.3V7.3a4.2 4.2 0 0 1-4-4.8z"/>
-  </symbol>
-  <symbol id="i-facebook" viewBox="0 0 24 24">
-    <path fill="currentColor" d="M14.4 22v-8.3h2.8l.5-3.3h-3.3V8.3c0-.9.3-1.6 1.7-1.6h1.7V3.7c-.8-.1-1.8-.2-2.8-.2-2.8 0-4.6 1.7-4.6 4.7v2.2H7.5v3.3h2.9V22z"/>
-  </symbol>
+  <!-- Ícones: 24x24, traço 1.5 -->
+  <symbol id="i-factory" viewBox="0 0 24 24"><path d="M3 20V10.5l6 3.5v-3.5l6 3.5V5h5v15z"/><path d="M8 20v-3.5M13 20v-3.5M18 20v-3.5M3 20h18"/></symbol>
+  <symbol id="i-flavors" viewBox="0 0 24 24"><path d="M12 3.2l1.9 4.9 4.9 1.9-4.9 1.9L12 16.8l-1.9-4.9L5.2 10l4.9-1.9z"/><path d="M18.4 15.2l.8 2.1 2.1.8-2.1.8-.8 2.1-.8-2.1-2.1-.8 2.1-.8z"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 4s.9 9.2-4.4 12.8C11.7 19.4 6 18.6 6 18.6S5 9.8 10.3 6.5C13.7 4.4 20 4 20 4z"/><path d="M15.2 8.8L5.5 20"/></symbol>
+  <symbol id="i-cone" viewBox="0 0 24 24"><path d="M8.2 10.6h7.6L12.6 21a.7.7 0 0 1-1.2 0z"/><path d="M6.6 10.6a5.4 5.4 0 0 1 10.8 0"/><path d="M8.4 7.2a3.6 3.6 0 0 1 7.2 0"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10.2c0 5.8-8 11.8-8 11.8s-8-6-8-11.8a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M12 7v5.2l3.3 2"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.4 3h3.1l1.5 4-2 1.5a12.2 12.2 0 0 0 6.5 6.5l1.5-2 4 1.5v3.1a2 2 0 0 1-2.2 2A17.2 17.2 0 0 1 4.4 5.2 2 2 0 0 1 6.4 3z"/></symbol>
+  <symbol id="i-scooter" viewBox="0 0 24 24"><circle cx="5.6" cy="17.4" r="3"/><circle cx="18.4" cy="17.4" r="3"/><path d="M8.6 17.4h6.8M15 4.6h3.2l2.1 9.8"/><path d="M5.6 14.4v-3.2a3 3 0 0 1 3-3h4.2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.4l5.1 5.1L19.8 7.3"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5.2v13.6M5.2 12h13.6"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9.4l6 6 6-6"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4.6 12h14.8M13.2 5.8L19.4 12l-6.2 6.2"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7.4 10.4L12 15l4.6-4.6M5 19.4h14"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M3.6 7.6L12 3.6l8.4 4v8.8L12 20.4l-8.4-4z"/><path d="M3.6 7.6L12 11.6l8.4-4M12 11.6v8.8"/></symbol>
+  <symbol id="i-handshake" viewBox="0 0 24 24"><path d="M3 9.5l3-2.5 3.6 1.2 2.4-.8 2.4.8L18 7l3 2.5v5L18 17l-2.6-2.2"/><path d="M9.6 8.2l-2.4 2.6a1.7 1.7 0 0 0 2.4 2.4l1-1 3 2.8a1.6 1.6 0 0 0 2.3-2.2"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24"><path d="M4 10.5V20h16v-9.5"/><path d="M3.2 10.5A2.8 2.8 0 0 0 8 8.6a2.8 2.8 0 0 0 4.4 2.3A2.8 2.8 0 0 0 16.8 8.6a2.8 2.8 0 0 0 4.8 1.9L19.8 4H4.2z"/><path d="M10 20v-5h4v5"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5.4"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-tiktok" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M16.2 2.5h-3v12.2a2.7 2.7 0 1 1-2.2-2.7V8.9a5.8 5.8 0 1 0 5.2 5.8V9.1a7.1 7.1 0 0 0 4 1.3V7.3a4.2 4.2 0 0 1-4-4.8z"/></symbol>
+  <symbol id="i-facebook" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M14.4 22v-8.3h2.8l.5-3.3h-3.3V8.3c0-.9.3-1.6 1.7-1.6h1.7V3.7c-.8-.1-1.8-.2-2.8-.2-2.8 0-4.6 1.7-4.6 4.7v2.2H7.5v3.3h2.9V22z"/></symbol>
 </svg>
 
-<!-- ========================== HEADER ========================== -->
+<!-- ============ HEADER ============ -->
 <header class="header" id="topo">
-  <div class="container header__inner">
-    <!-- Substituir pela arte oficial do logo (SVG/PNG) quando publicar -->
-    <a class="logo" href="#topo" aria-label="Mr Ice Sorvetes e Açaí, início da página">
-      <svg class="logo__mark" viewBox="0 0 920 740" role="img" aria-hidden="true"><use href="#logo-mark"></use></svg>
-      <span class="logo__type">
-        <span class="logo__word"><span class="mr">r.</span>Ice</span>
-        <span class="logo__tag">Sorvetes <span class="amp">&amp;</span> Açaí</span>
-      </span>
-    </a>
+  <div class="container">
+    <div class="header__row">
+      <a class="brand" href="#topo" aria-label="Mr Ice Sorvetes e Açaí, início da página">
+        <!-- LOGO OFICIAL: assets/logo-mr-ice-branco.png (sobre o topo) e assets/logo-mr-ice.png (barra branca) -->
+        <img class="brand__logo brand__logo--light" src="assets/logo-mr-ice-branco.png" alt="Mr Ice Sorvetes e Açaí"
+             width="220" height="80" fetchpriority="high"
+             onerror="this.hidden=true;this.parentNode.querySelector('.brand__fallback').hidden=false">
+        <img class="brand__logo brand__logo--dark" src="assets/logo-mr-ice.png" alt="" aria-hidden="true"
+             width="220" height="80" fetchpriority="high" onerror="this.hidden=true">
+        <span class="brand__fallback" hidden>
+          <svg class="mark" viewBox="0 0 920 740" aria-hidden="true"><use href="#logo-mark-mono"></use></svg>
+          <span class="brand__type">
+            <span class="brand__word"><span class="mr">r.</span>Ice</span>
+            <span class="brand__tag">Sorvetes <span class="amp">&amp;</span> Açaí</span>
+          </span>
+        </span>
+      </a>
 
-    <nav class="nav" aria-label="Navegação principal">
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#sobre">Sobre</a>
+        <a href="#produtos">Produtos</a>
+        <a href="#lojas">Lojas</a>
+        <a href="#delivery">Delivery</a>
+        <a href="#revendedores">Revendedores</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <a class="btn btn--sm header__cta" href="#delivery">
+        <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg>
+        Peça pelo delivery
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-mobile" aria-label="Abrir menu">
+        <svg class="icon icon--menu" aria-hidden="true"><use href="#i-menu"></use></svg>
+        <svg class="icon icon--close" aria-hidden="true"><use href="#i-close"></use></svg>
+      </button>
+    </div>
+
+    <nav class="mobile-nav" id="menu-mobile" aria-label="Navegação principal (mobile)">
       <a href="#sobre">Sobre</a>
       <a href="#produtos">Produtos</a>
       <a href="#lojas">Lojas</a>
       <a href="#delivery">Delivery</a>
       <a href="#revendedores">Revendedores</a>
       <a href="#faq">FAQ</a>
+      <a class="btn" href="#delivery">
+        <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg>
+        Peça pelo delivery
+      </a>
     </nav>
-
-    <a class="btn btn--sm header__cta" href="#delivery">
-      <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg>
-      Peça pelo delivery
-    </a>
-
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-mobile" aria-label="Abrir menu">
-      <svg class="icon icon--menu" aria-hidden="true"><use href="#i-menu"></use></svg>
-      <svg class="icon icon--close" aria-hidden="true"><use href="#i-close"></use></svg>
-    </button>
   </div>
-
-  <nav class="mobile-nav" id="menu-mobile" aria-label="Navegação principal (mobile)">
-    <a href="#sobre">Sobre</a>
-    <a href="#produtos">Produtos</a>
-    <a href="#lojas">Lojas</a>
-    <a href="#delivery">Delivery</a>
-    <a href="#revendedores">Revendedores</a>
-    <a href="#faq">FAQ</a>
-    <a class="btn" href="#delivery">
-      <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg>
-      Peça pelo delivery
-    </a>
-  </nav>
 </header>
 
 <main id="conteudo">
 
-  <!-- ========================== HERO ========================== -->
-  <section class="hero section">
+  <!-- ============ 01 — HERO ============ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <!-- FOTO DO TOPO: coloque o arquivo em assets/hero.jpg -->
+    <figure class="hero__bg">
+      <img src="assets/hero.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async"
+           onerror="this.closest('.hero__bg').hidden=true">
+    </figure>
+    <svg class="hero__pattern wave" aria-hidden="true"><use href="#wave"></use></svg>
+    <div class="hero__fade" aria-hidden="true"></div>
+    <svg class="motif" viewBox="0 0 920 740" aria-hidden="true"><use href="#logo-mark-mono"></use></svg>
+    <svg class="drip" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><use href="#drip-path"></use></svg>
+
     <div class="container hero__grid">
       <div>
-        <h1><span class="brand nb">Mr Ice</span> Sorvetes, açaís e sabores para todos os momentos.</h1>
-        <p class="hero__lead">Fabricação própria, mais de 50 sabores no self-service e opções para diferentes momentos e preferências.</p>
-
-        <div class="btn-row">
-          <a class="btn" href="#produtos">
-            Conheça nossos produtos
-            <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
-          </a>
-          <span class="btn-row btn-row--secondary">
-            <a class="btn btn--ghost" href="#lojas">
-              <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
-              Encontre uma loja
-            </a>
-            <a class="btn btn--ghost-blue" href="#delivery">
-              <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg>
-              Peça pelo delivery
-            </a>
-          </span>
-        </div>
-
-        <p class="pin">
-          <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
-          Bragança Paulista <span class="sep" aria-hidden="true">|</span> Atibaia
+        <p class="eyebrow reveal">
+          <svg class="icon" aria-hidden="true" style="width:18px;height:18px"><use href="#i-pin"></use></svg>
+          <span class="nb">Bragança Paulista</span><span class="sep" aria-hidden="true">|</span><span class="nb">Atibaia</span>
         </p>
-      </div>
-
-      <div class="hero__art" aria-hidden="true">
-        <div class="hero__arch">
-          <svg class="wave"><use href="#wave"></use></svg>
-        </div>
-        <div class="hero__pops">
-          <svg class="pop" viewBox="0 0 120 220" style="color:#E3242B"><use href="#illo-picole"></use></svg>
-          <svg class="pop" viewBox="0 0 140 220" style="color:#0A4E68"><use href="#illo-acai"></use></svg>
-          <svg class="pop" viewBox="0 0 120 220" style="color:#1A8CB4"><use href="#illo-picole"></use></svg>
+        <h1 class="h1 reveal" data-d="1" id="hero-title"><span class="nb">Mr Ice</span> Sorvetes, açaís e sabores para todos os momentos.</h1>
+        <p class="lead reveal" data-d="2">Fabricação própria, mais de 50 sabores no self-service e opções para diferentes momentos e preferências.</p>
+        <div class="btn-row reveal" data-d="3">
+          <a class="btn" href="#produtos">Conheça nossos produtos <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+          <a class="btn btn--outline-light" href="#lojas"><svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg> Encontre uma loja</a>
+          <a class="btn btn--outline-light" href="#delivery"><svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg> Peça pelo delivery</a>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="wave-band wave-strip" aria-hidden="true"><svg class="wave"><use href="#wave"></use></svg></div>
-
-  <!-- ========================== SOBRE ========================== -->
-  <section class="about section" id="sobre">
+  <!-- ============ 02 — SOBRE ============ -->
+  <section class="section about" id="sobre" aria-labelledby="sobre-title">
     <div class="container about__grid">
-      <div class="about__text">
-        <h2 class="title">Sobre o <span class="nb">Mr Ice</span></h2>
-        <p style="margin-top:1.5rem">O Mr Ice é uma sorveteria feita para toda a família, um lugar onde pessoas se encontram para criar momentos especiais e aproveitar uma experiência completa. Aqui, cada cliente monta a combinação do seu jeito.</p>
-        <p>Somos uma marca autêntica, inquieta e apaixonada pelo que faz. Buscamos evoluir continuamente, ouvindo nossos clientes e aperfeiçoando cada detalhe da experiência para entregar sempre algo melhor do que ontem. Gostamos de inovar, testar novas ideias e ser pioneiros no que fazemos, sem perder a essência de acolher, surpreender e fazer parte dos momentos mais felizes das famílias.</p>
+      <div class="about__intro">
+        <p class="eyebrow reveal">Sobre</p>
+        <h2 class="h2 reveal" id="sobre-title">Sobre o <span class="nb">Mr Ice</span></h2>
+        <p class="lead reveal" data-d="1">O Mr Ice é uma sorveteria feita para toda a família, um lugar onde pessoas se encontram para criar momentos especiais e aproveitar uma experiência completa. Aqui, cada cliente monta a combinação do seu jeito.</p>
+        <p class="lead reveal" data-d="2">Somos uma marca autêntica, inquieta e apaixonada pelo que faz. Buscamos evoluir continuamente, ouvindo nossos clientes e aperfeiçoando cada detalhe da experiência para entregar sempre algo melhor do que ontem. Gostamos de inovar, testar novas ideias e ser pioneiros no que fazemos, sem perder a essência de acolher, surpreender e fazer parte dos momentos mais felizes das famílias.</p>
       </div>
 
-      <ul class="topics">
-        <li class="topic reveal">
-          <div class="topic__icon"><svg class="icon" aria-hidden="true"><use href="#i-factory"></use></svg></div>
-          <h3>Fabricação própria</h3>
-          <p>Produção própria e desenvolvimento dos produtos Mr Ice.</p>
+      <ul class="rows">
+        <li class="row reveal">
+          <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-factory"></use></svg></span>
+          <div>
+            <h3 class="h3">Fabricação própria</h3>
+            <p>Produção própria e desenvolvimento dos produtos Mr Ice.</p>
+          </div>
         </li>
-        <li class="topic reveal">
-          <div class="topic__icon"><svg class="icon" aria-hidden="true"><use href="#i-sparkles"></use></svg></div>
-          <h3>Mais de 50 sabores</h3>
-          <p>Variedade para diferentes gostos e momentos.</p>
+        <li class="row reveal" data-d="1">
+          <span class="icon-box icon-box--blue"><svg class="icon" aria-hidden="true"><use href="#i-flavors"></use></svg></span>
+          <div>
+            <h3 class="h3">Mais de 50 sabores</h3>
+            <p>Variedade para diferentes gostos e momentos.</p>
+          </div>
         </li>
-        <li class="topic reveal">
-          <div class="topic__icon"><svg class="icon" aria-hidden="true"><use href="#i-leaf"></use></svg></div>
-          <h3>Opções para diferentes preferências</h3>
-          <p>Linha Zero Adição de Açúcar, opções sem lactose, sorbets etc., desde que cada alegação seja validada produto a produto.</p>
+        <li class="row reveal" data-d="2">
+          <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-leaf"></use></svg></span>
+          <div>
+            <h3 class="h3">Opções para diferentes preferências</h3>
+            <p>Linha Zero Adição de Açúcar, opções sem lactose, sorbets etc., desde que cada alegação seja validada produto a produto.</p>
+          </div>
         </li>
-        <li class="topic reveal">
-          <div class="topic__icon"><svg class="icon" aria-hidden="true"><use href="#i-heart"></use></svg></div>
-          <h3>Do clássico ao diferente</h3>
-          <p>Portfólio amplo entre picolés, potes, açaís e sorbets.</p>
+        <li class="row reveal" data-d="3">
+          <span class="icon-box icon-box--blue"><svg class="icon" aria-hidden="true"><use href="#i-cone"></use></svg></span>
+          <div>
+            <h3 class="h3">Do clássico ao diferente</h3>
+            <p>Portfólio amplo entre picolés, potes, açaís e sorbets.</p>
+          </div>
         </li>
       </ul>
     </div>
   </section>
 
-  <!-- ========================== BANNER FÁBRICA ========================== -->
-  <section class="factory section" aria-labelledby="fabrica-title">
-    <div class="container factory__inner">
+  <div class="wave-strip" aria-hidden="true"><svg class="wave"><use href="#wave"></use></svg></div>
+
+  <!-- ============ 03 — FÁBRICA ============ -->
+  <section class="section factory" aria-labelledby="fabrica-title">
+    <div class="container factory__grid">
       <div>
-        <h2 id="fabrica-title">Nossa fábrica</h2>
+        <p class="eyebrow reveal">Fabricação própria</p>
+        <h2 class="h2 reveal" id="fabrica-title" style="margin-top:20px">Nossa fábrica</h2>
       </div>
-      <figure class="factory__photo" style="margin:0">
+      <figure class="factory__photo reveal" data-d="1">
         <svg class="wave" aria-hidden="true"><use href="#wave"></use></svg>
-        <!-- Troque o src pela foto da fábrica enviada pela cliente -->
+        <!-- FOTO DA FÁBRICA: coloque o arquivo em assets/nossa-fabrica.jpg -->
         <img src="assets/nossa-fabrica.jpg" alt="Nossa fábrica" loading="lazy" decoding="async"
              onerror="this.remove()">
-        <svg class="placeholder" viewBox="0 0 920 740" aria-hidden="true"><use href="#logo-mark"></use></svg>
+        <span class="placeholder" aria-hidden="true">
+          <svg viewBox="0 0 920 740"><use href="#logo-mark"></use></svg>
+        </span>
       </figure>
     </div>
   </section>
 
-  <!-- ========================== PRODUTOS ========================== -->
-  <section class="products section" id="produtos">
+  <!-- ============ 04 — PRODUTOS ============ -->
+  <section class="section section--cream products" id="produtos" aria-labelledby="produtos-title">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Produtos</p>
-        <h2 class="title">Nossas linhas de Produtos:</h2>
+        <p class="eyebrow reveal">Produtos</p>
+        <h2 class="h2 reveal" id="produtos-title">Nossas linhas de Produtos:</h2>
       </div>
 
-      <div class="filters" role="group" aria-label="Filtrar produtos por categoria">
+      <div class="filters reveal" role="group" aria-label="Filtrar produtos por categoria">
         <button class="filter" type="button" data-filter="todos" aria-pressed="true">Todos</button>
         <button class="filter" type="button" data-filter="picoles" aria-pressed="false">Picolés</button>
         <button class="filter" type="button" data-filter="potes" aria-pressed="false">Potes</button>
@@ -808,7 +748,7 @@ h2.title{font-size:var(--step-h2)}
           </div>
           <div class="card__body">
             <p class="card__kicker">Picolés à Base de Leite</p>
-            <h3>Linha Puro Creme</h3>
+            <h3 class="h3">Linha Puro Creme</h3>
             <p class="card__label">Produtos</p>
             <ul class="chips">
               <li class="chip">Amendoim</li><li class="chip">Banana</li><li class="chip">Blue Ice</li>
@@ -821,14 +761,14 @@ h2.title{font-size:var(--step-h2)}
           </div>
         </article>
 
-        <article class="card card--blue reveal" data-cat="picoles">
+        <article class="card card--blue reveal" data-d="1" data-cat="picoles">
           <div class="card__art">
             <span class="card__selo">Leve e Refrescante</span>
             <svg class="illo" viewBox="0 0 120 220" aria-hidden="true"><use href="#illo-picole"></use></svg>
           </div>
           <div class="card__body">
             <p class="card__kicker">Picolés à Base de Água</p>
-            <h3>Linha Ice Fresh</h3>
+            <h3 class="h3">Linha Ice Fresh</h3>
             <p class="card__label">Produtos</p>
             <ul class="chips">
               <li class="chip">Abacaxi</li><li class="chip">Açaí</li><li class="chip">Limão</li>
@@ -838,14 +778,14 @@ h2.title{font-size:var(--step-h2)}
           </div>
         </article>
 
-        <article class="card reveal" data-cat="picoles">
+        <article class="card reveal" data-d="2" data-cat="picoles">
           <div class="card__art">
             <span class="card__selo">Casquinha Crocante</span>
             <svg class="illo" viewBox="0 0 120 220" aria-hidden="true"><use href="#illo-casquinha"></use></svg>
           </div>
           <div class="card__body">
             <p class="card__kicker">Picolés Skimo</p>
-            <h3>Linha Supreme</h3>
+            <h3 class="h3">Linha Supreme</h3>
             <p class="card__label">Produtos</p>
             <ul class="chips">
               <li class="chip">Brigadeiro</li><li class="chip">Tentação</li><li class="chip">Tradicional</li>
@@ -860,7 +800,7 @@ h2.title{font-size:var(--step-h2)}
           </div>
           <div class="card__body">
             <p class="card__kicker">Potes 1,8 L</p>
-            <h3>Linha Momentos</h3>
+            <h3 class="h3">Linha Momentos</h3>
             <p class="card__label">Produtos</p>
             <ul class="chips">
               <li class="chip">Avelã</li><li class="chip">Leitinho Paris</li><li class="chip">Leitinho Rocher</li>
@@ -870,14 +810,14 @@ h2.title{font-size:var(--step-h2)}
           </div>
         </article>
 
-        <article class="card card--blue reveal" data-cat="potes">
+        <article class="card card--blue reveal" data-d="1" data-cat="potes">
           <div class="card__art">
             <span class="card__selo">Sabores Tradicionais</span>
             <svg class="illo" viewBox="0 0 150 220" aria-hidden="true"><use href="#illo-pote"></use></svg>
           </div>
           <div class="card__body">
             <p class="card__kicker">Potes 1 L Clássicos</p>
-            <h3>Linha Clássicos</h3>
+            <h3 class="h3">Linha Clássicos</h3>
             <p class="card__label">Produtos</p>
             <ul class="chips">
               <li class="chip">Abacaxi</li><li class="chip">Brigadeiro</li><li class="chip">Creme</li>
@@ -886,14 +826,14 @@ h2.title{font-size:var(--step-h2)}
           </div>
         </article>
 
-        <article class="card card--deep reveal" data-cat="potes">
+        <article class="card card--deep reveal" data-d="2" data-cat="potes">
           <div class="card__art">
             <span class="card__selo">Mais Amados</span>
             <svg class="illo" viewBox="0 0 150 220" aria-hidden="true"><use href="#illo-pote"></use></svg>
           </div>
           <div class="card__body">
             <p class="card__kicker">Potes 1 L Trufados</p>
-            <h3>Linha Trufado</h3>
+            <h3 class="h3">Linha Trufado</h3>
             <p class="card__label">Produtos</p>
             <ul class="chips">
               <li class="chip">Banoffee</li><li class="chip">Camafeu de Nozes</li><li class="chip">Chocolate com Pedaços</li>
@@ -911,7 +851,7 @@ h2.title{font-size:var(--step-h2)}
           </div>
           <div class="card__body">
             <p class="card__kicker">Potes 300 g</p>
-            <h3>Linha Medida Certa</h3>
+            <h3 class="h3">Linha Medida Certa</h3>
             <p class="card__label">Produtos</p>
             <ul class="chips">
               <li class="chip">Abacaxi</li><li class="chip">Avelã</li><li class="chip">Maracujá</li>
@@ -920,14 +860,14 @@ h2.title{font-size:var(--step-h2)}
           </div>
         </article>
 
-        <article class="card card--blue reveal" data-cat="zero">
+        <article class="card card--blue reveal" data-d="1" data-cat="zero">
           <div class="card__art">
             <span class="card__selo">Zero Adição de Açúcar</span>
             <svg class="illo" viewBox="0 0 150 220" aria-hidden="true"><use href="#illo-pote"></use></svg>
           </div>
           <div class="card__body">
             <p class="card__kicker">Linha Zero</p>
-            <h3>Linha Equilíbrio</h3>
+            <h3 class="h3">Linha Equilíbrio</h3>
             <p class="card__label">Produtos</p>
             <ul class="chips">
               <li class="chip">Chocotrufa</li><li class="chip">Coco</li><li class="chip">Ninho Trufado</li>
@@ -935,14 +875,14 @@ h2.title{font-size:var(--step-h2)}
           </div>
         </article>
 
-        <article class="card card--deep reveal" data-cat="acais">
+        <article class="card card--deep reveal" data-d="2" data-cat="acais">
           <div class="card__art">
             <span class="card__selo">Sabor Intenso 34% de Polpa</span>
             <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
           </div>
           <div class="card__body">
             <p class="card__kicker">Linha Momento Açaí</p>
-            <h3>Açaí Tradicional</h3>
+            <h3 class="h3">Açaí Tradicional</h3>
           </div>
         </article>
 
@@ -953,29 +893,29 @@ h2.title{font-size:var(--step-h2)}
           </div>
           <div class="card__body">
             <p class="card__kicker">Linha Momento Açaí</p>
-            <h3>Açaí com Leitinho</h3>
+            <h3 class="h3">Açaí com Leitinho</h3>
           </div>
         </article>
 
-        <article class="card card--deep reveal" data-cat="acais">
+        <article class="card card--deep reveal" data-d="1" data-cat="acais">
           <div class="card__art">
             <span class="card__selo">Refrescância Frutada</span>
             <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
           </div>
           <div class="card__body">
             <p class="card__kicker">Linha Momento Açaí</p>
-            <h3>Açaí com Morango</h3>
+            <h3 class="h3">Açaí com Morango</h3>
           </div>
         </article>
 
-        <article class="card card--deep reveal" data-cat="acais">
+        <article class="card card--deep reveal" data-d="2" data-cat="acais">
           <div class="card__art">
             <span class="card__selo">Sabor Marcante</span>
             <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
           </div>
           <div class="card__body">
             <p class="card__kicker">Linha Momento Açaí</p>
-            <h3>Açaí com Avelã</h3>
+            <h3 class="h3">Açaí com Avelã</h3>
           </div>
         </article>
 
@@ -986,18 +926,18 @@ h2.title{font-size:var(--step-h2)}
           </div>
           <div class="card__body">
             <p class="card__kicker">Linha Açaí Todo Dia</p>
-            <h3>Copinho Açaí 200 g</h3>
+            <h3 class="h3">Copinho Açaí 200 g</h3>
           </div>
         </article>
 
-        <article class="card reveal" data-cat="sorbet">
+        <article class="card reveal" data-d="1" data-cat="sorbet">
           <div class="card__art">
             <span class="card__selo">Feito com Cuidado</span>
             <svg class="illo" viewBox="0 0 120 220" aria-hidden="true"><use href="#illo-picole"></use></svg>
           </div>
           <div class="card__body">
             <p class="card__kicker">Sorbet</p>
-            <h3>Linha Sorbet</h3>
+            <h3 class="h3">Linha Sorbet</h3>
             <p class="card__note">Disponível exclusivamente no self-service</p>
             <p class="card__label">Produtos</p>
             <ul class="chips">
@@ -1010,10 +950,10 @@ h2.title{font-size:var(--step-h2)}
 
       <div class="complementos reveal">
         <div>
-          <h3>Complementos</h3>
+          <h3 class="h3">Complementos</h3>
         </div>
         <div>
-          <p class="card__label" style="margin-bottom:.5rem">Produtos</p>
+          <p class="card__label" style="margin-bottom:10px">Produtos</p>
           <ul class="chips">
             <li class="chip">Cascão</li><li class="chip">Casquinha</li><li class="chip">Cestinha</li>
             <li class="chip">Cremes</li><li class="chip">Coberturas</li>
@@ -1023,83 +963,76 @@ h2.title{font-size:var(--step-h2)}
     </div>
   </section>
 
-  <div class="wave-band wave-strip" aria-hidden="true"><svg class="wave"><use href="#wave"></use></svg></div>
-
-  <!-- ========================== LOJAS ========================== -->
-  <section class="stores section" id="lojas">
+  <!-- ============ 05 — LOJAS ============ -->
+  <section class="section stores" id="lojas" aria-labelledby="lojas-title">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Lojas</p>
-        <h2 class="title">Conheça as lojas <span class="nb">Mr Ice</span></h2>
+        <p class="eyebrow reveal">Lojas</p>
+        <h2 class="h2 reveal" id="lojas-title">Conheça as lojas <span class="nb">Mr Ice</span></h2>
       </div>
 
       <div class="city">
-        <h3 class="city__name">
-          <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
+        <h3 class="h3 city__name reveal">
+          <svg class="icon" aria-hidden="true"><use href="#i-store"></use></svg>
           Lojas em Atibaia:
         </h3>
         <div class="store-grid">
 
           <article class="store reveal">
-            <h4>Av. São João, 1075 - Centro.</h4>
-            <div class="store__meta">
+            <h3 class="h3">Av. São João, 1075 - Centro.</h3>
+            <dl class="store__meta">
               <div>
                 <svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>
-                <p><strong>Horários</strong>Domingo a Segunda das 10h às 20h<br>Sábados das 10h às 20h30</p>
+                <div><dt>Horários</dt><dd>Domingo a Segunda das 10h às 20h<br>Sábados das 10h às 20h30</dd></div>
               </div>
               <div>
                 <svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>
-                <p><strong>Telefone</strong><a href="tel:+551144021373">(11) 4402-1373</a></p>
+                <div><dt>Telefone</dt><dd><a href="tel:+551144021373">(11) 4402-1373</a></dd></div>
               </div>
-            </div>
+            </dl>
             <div class="btn-row">
               <a class="btn btn--sm btn--ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=Av.%20S%C3%A3o%20Jo%C3%A3o%2C%201075%20-%20Centro%2C%20Atibaia%20-%20SP" target="_blank" rel="noopener">
-                <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
-                Como chegar
+                <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg> Como chegar
               </a>
               <a class="btn btn--sm" href="https://www.ifood.com.br/delivery/atibaia-sp/mr-ice-sorvetes-e-acai---sao-joao-centro/1fffda62-7503-4354-87de-c5e46fdae44c" target="_blank" rel="noopener">
-                <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg>
-                Pedir pelo delivery
+                <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg> Pedir pelo delivery
               </a>
             </div>
           </article>
 
-          <article class="store reveal">
-            <h4>Alameda Prof. Lucas Nogueira Garcez, 2525 - Jardim Paulista.</h4>
-            <div class="store__meta">
+          <article class="store reveal" data-d="1">
+            <h3 class="h3">Alameda Prof. Lucas Nogueira Garcez, 2525 - Jardim Paulista.</h3>
+            <dl class="store__meta">
               <div>
                 <svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>
-                <p><strong>Horários</strong>Domingo a quinta das 12h às 21h30<br>Sextas e sábados das 12h às 22h30</p>
+                <div><dt>Horários</dt><dd>Domingo a quinta das 12h às 21h30<br>Sextas e sábados das 12h às 22h30</dd></div>
               </div>
               <div>
                 <svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>
-                <p><strong>Telefone</strong><a href="tel:+551144133668">(11) 4413-3668</a></p>
+                <div><dt>Telefone</dt><dd><a href="tel:+551144133668">(11) 4413-3668</a></dd></div>
               </div>
-            </div>
+            </dl>
             <div class="btn-row">
               <a class="btn btn--sm btn--ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=Alameda%20Prof.%20Lucas%20Nogueira%20Garcez%2C%202525%20-%20Jardim%20Paulista%2C%20Atibaia%20-%20SP" target="_blank" rel="noopener">
-                <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
-                Como chegar
+                <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg> Como chegar
               </a>
               <a class="btn btn--sm" href="https://www.ifood.com.br/delivery/atibaia-sp/mr-ice-sorvetes-e-acai---av-lucas-vila-helena/5c54cb21-9d9d-44e4-a810-0d22faa8a640" target="_blank" rel="noopener">
-                <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg>
-                Pedir pelo delivery
+                <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg> Pedir pelo delivery
               </a>
             </div>
           </article>
 
-          <article class="store reveal">
-            <h4>R. José Píres de Oliveira, 2521 - Tanque.</h4>
-            <div class="store__meta">
+          <article class="store reveal" data-d="2">
+            <h3 class="h3">R. José Píres de Oliveira, 2521 - Tanque.</h3>
+            <dl class="store__meta">
               <div>
                 <svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>
-                <p><strong>Horários</strong>Todos os dias das 10h às 18h</p>
+                <div><dt>Horários</dt><dd>Todos os dias das 10h às 18h</dd></div>
               </div>
-            </div>
+            </dl>
             <div class="btn-row">
               <a class="btn btn--sm btn--ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=R.%20Jos%C3%A9%20Pires%20de%20Oliveira%2C%202521%20-%20Tanque%2C%20Atibaia%20-%20SP" target="_blank" rel="noopener">
-                <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
-                Como chegar
+                <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg> Como chegar
               </a>
             </div>
           </article>
@@ -1108,56 +1041,52 @@ h2.title{font-size:var(--step-h2)}
       </div>
 
       <div class="city">
-        <h3 class="city__name">
-          <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
+        <h3 class="h3 city__name reveal">
+          <svg class="icon" aria-hidden="true"><use href="#i-store"></use></svg>
           Lojas em Bragança:
         </h3>
         <div class="store-grid">
 
           <article class="store reveal">
-            <h4>Av. Antonio Pires Pimentel, 2172 - Centro.</h4>
-            <div class="store__meta">
+            <h3 class="h3">Av. Antonio Pires Pimentel, 2172 - Centro.</h3>
+            <dl class="store__meta">
               <div>
                 <svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>
-                <p><strong>Horários</strong>Segunda a Sexta das 10h às 21h30<br>Sábados das 10h às 22h<br>Domingos das 10h às 21h</p>
+                <div><dt>Horários</dt><dd>Segunda a Sexta das 10h às 21h30<br>Sábados das 10h às 22h<br>Domingos das 10h às 21h</dd></div>
               </div>
               <div>
                 <svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>
-                <p><strong>Telefone</strong><a href="tel:+551134033300">(11) 3403-3300</a></p>
+                <div><dt>Telefone</dt><dd><a href="tel:+551134033300">(11) 3403-3300</a></dd></div>
               </div>
-            </div>
+            </dl>
             <div class="btn-row">
               <a class="btn btn--sm btn--ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=Av.%20Antonio%20Pires%20Pimentel%2C%202172%20-%20Centro%2C%20Bragan%C3%A7a%20Paulista%20-%20SP" target="_blank" rel="noopener">
-                <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
-                Como chegar
+                <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg> Como chegar
               </a>
               <a class="btn btn--sm" href="https://www.ifood.com.br/delivery/braganca-paulista-sp/mr-ice-sorvete-e-acai---pires-centro/d85c0060-74ab-4269-84d7-11c2baba729d" target="_blank" rel="noopener">
-                <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg>
-                Pedir pelo delivery
+                <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg> Pedir pelo delivery
               </a>
             </div>
           </article>
 
-          <article class="store reveal">
-            <h4>Av. dos Imigrantes, 3500 - Jardim America.</h4>
-            <div class="store__meta">
+          <article class="store reveal" data-d="1">
+            <h3 class="h3">Av. dos Imigrantes, 3500 - Jardim America.</h3>
+            <dl class="store__meta">
               <div>
                 <svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>
-                <p><strong>Horários</strong>Todos os dias das 11h às 20h</p>
+                <div><dt>Horários</dt><dd>Todos os dias das 11h às 20h</dd></div>
               </div>
               <div>
                 <svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>
-                <p><strong>Telefone</strong><a href="tel:+551140322718">(11) 4032-2718</a></p>
+                <div><dt>Telefone</dt><dd><a href="tel:+551140322718">(11) 4032-2718</a></dd></div>
               </div>
-            </div>
+            </dl>
             <div class="btn-row">
               <a class="btn btn--sm btn--ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=Av.%20dos%20Imigrantes%2C%203500%20-%20Jardim%20America%2C%20Bragan%C3%A7a%20Paulista%20-%20SP" target="_blank" rel="noopener">
-                <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
-                Como chegar
+                <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg> Como chegar
               </a>
               <a class="btn btn--sm" href="https://www.ifood.com.br/delivery/braganca-paulista-sp/mr-ice-sorvetes-e-acai---imigrantes-jardim-sao-lourenco/a4b85055-457a-46db-a4cd-c6b5ea70e7c6" target="_blank" rel="noopener">
-                <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg>
-                Pedir pelo delivery
+                <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg> Pedir pelo delivery
               </a>
             </div>
           </article>
@@ -1167,23 +1096,21 @@ h2.title{font-size:var(--step-h2)}
     </div>
   </section>
 
-  <!-- ========================== DELIVERY ========================== -->
-  <section class="delivery section has-drip" id="delivery">
+  <!-- ============ 06 — DELIVERY ============ -->
+  <section class="section section--red delivery has-drip" id="delivery" aria-labelledby="delivery-title">
     <svg class="drip" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:#fff"><use href="#drip-path"></use></svg>
     <svg class="wave" aria-hidden="true"><use href="#wave"></use></svg>
-    <div class="container delivery__inner">
-      <p class="eyebrow eyebrow--light" style="justify-content:center">Delivery</p>
-      <h2>Seu <span class="nb">Mr Ice</span> onde você estiver.</h2>
-      <p>Peça pelo delivery</p>
+    <div class="container">
+      <p class="eyebrow reveal">Delivery</p>
+      <h2 class="h2 reveal" id="delivery-title">Seu <span class="nb">Mr Ice</span> onde você estiver.</h2>
+      <p class="lead reveal" data-d="1">Peça pelo delivery</p>
 
-      <div class="cities">
+      <div class="cities reveal" data-d="2">
         <button class="btn btn--light city-toggle" type="button" aria-expanded="false" aria-controls="delivery-braganca">
-          Bragança Paulista
-          <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg>
+          Bragança Paulista <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg>
         </button>
         <button class="btn btn--outline-light city-toggle" type="button" aria-expanded="false" aria-controls="delivery-atibaia">
-          Atibaia
-          <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg>
+          Atibaia <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg>
         </button>
       </div>
 
@@ -1191,11 +1118,11 @@ h2.title{font-size:var(--step-h2)}
         <div class="delivery__links">
           <a class="ifood" href="https://www.ifood.com.br/delivery/braganca-paulista-sp/mr-ice-sorvete-e-acai---pires-centro/d85c0060-74ab-4269-84d7-11c2baba729d" target="_blank" rel="noopener">
             <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg>
-            <span><strong>Av. Antonio Pires Pimentel, 2172 - Centro.</strong><span>Pedir pelo delivery</span></span>
+            <span><b>Av. Antonio Pires Pimentel, 2172 - Centro.</b><span>Pedir pelo delivery</span></span>
           </a>
           <a class="ifood" href="https://www.ifood.com.br/delivery/braganca-paulista-sp/mr-ice-sorvetes-e-acai---imigrantes-jardim-sao-lourenco/a4b85055-457a-46db-a4cd-c6b5ea70e7c6" target="_blank" rel="noopener">
             <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg>
-            <span><strong>Av. dos Imigrantes, 3500 - Jardim America.</strong><span>Pedir pelo delivery</span></span>
+            <span><b>Av. dos Imigrantes, 3500 - Jardim America.</b><span>Pedir pelo delivery</span></span>
           </a>
         </div>
       </div>
@@ -1204,96 +1131,64 @@ h2.title{font-size:var(--step-h2)}
         <div class="delivery__links">
           <a class="ifood" href="https://www.ifood.com.br/delivery/atibaia-sp/mr-ice-sorvetes-e-acai---sao-joao-centro/1fffda62-7503-4354-87de-c5e46fdae44c" target="_blank" rel="noopener">
             <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg>
-            <span><strong>Av. São João, 1075 - Centro.</strong><span>Pedir pelo delivery</span></span>
+            <span><b>Av. São João, 1075 - Centro.</b><span>Pedir pelo delivery</span></span>
           </a>
           <a class="ifood" href="https://www.ifood.com.br/delivery/atibaia-sp/mr-ice-sorvetes-e-acai---av-lucas-vila-helena/5c54cb21-9d9d-44e4-a810-0d22faa8a640" target="_blank" rel="noopener">
             <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg>
-            <span><strong>Alameda Prof. Lucas Nogueira Garcez, 2525 - Jardim Paulista.</strong><span>Pedir pelo delivery</span></span>
+            <span><b>Alameda Prof. Lucas Nogueira Garcez, 2525 - Jardim Paulista.</b><span>Pedir pelo delivery</span></span>
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ========================== REVENDEDORES ========================== -->
-  <section class="resellers section has-drip" id="revendedores">
-    <svg class="drip" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:#E3242B"><use href="#drip-path"></use></svg>
-    <div class="container resellers__grid">
-      <div>
-        <p class="eyebrow">Revendedores</p>
-        <h2 class="title">Seja um revendedor <span class="nb">Mr Ice</span></h2>
-
-        <p class="lead" style="margin-top:1.25rem">Benefícios de fazer parte:</p>
-        <ul class="benefits">
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg> fabricação própria;</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg> variedade de produtos;</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg> oportunidade de renda extra;</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg> atendimento comercial.</li>
-        </ul>
-
-        <div class="btn-row">
-          <!-- TODO: definir destino (WhatsApp comercial ou formulário) -->
-          <a class="btn" href="#">
-            Quero ser revendedor
-            <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
-          </a>
-          <!-- TODO: apontar para o PDF da apresentação comercial -->
-          <a class="btn btn--ghost" href="#">
-            <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
-            Baixar apresentação comercial
-          </a>
-        </div>
-      </div>
-
-      <div class="resellers__art" aria-hidden="true">
-        <div class="resellers__box">
-          <svg class="wave"><use href="#wave"></use></svg>
-          <svg class="box-drip" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><use href="#drip-path"></use></svg>
-          <svg class="resellers__scene" viewBox="0 0 640 545" preserveAspectRatio="xMidYMax meet">
-            <ellipse cx="320" cy="518" rx="235" ry="16" fill="#14242B" opacity=".12"/>
-            <g class="scene-pops">
-              <g transform="rotate(-8 132 330)">
-                <rect x="95" y="112" width="74" height="220" rx="37" fill="#E3242B"/>
-                <rect x="112" y="140" width="24" height="60" rx="12" fill="#fff" opacity=".28"/>
-              </g>
-              <g transform="rotate(-3 226 330)">
-                <rect x="189" y="88" width="74" height="244" rx="37" fill="#1A8CB4"/>
-                <rect x="206" y="116" width="24" height="60" rx="12" fill="#fff" opacity=".3"/>
-              </g>
-              <g transform="rotate(1 320 330)">
-                <rect x="283" y="122" width="74" height="210" rx="37" fill="#F3C395"/>
-                <rect x="300" y="150" width="24" height="60" rx="12" fill="#fff" opacity=".45"/>
-              </g>
-              <g transform="rotate(5 414 330)">
-                <rect x="377" y="96" width="74" height="236" rx="37" fill="#0A4E68"/>
-                <rect x="394" y="124" width="24" height="60" rx="12" fill="#fff" opacity=".3"/>
-              </g>
-              <g transform="rotate(10 508 330)">
-                <rect x="471" y="132" width="74" height="200" rx="37" fill="#E3242B"/>
-                <rect x="488" y="160" width="24" height="60" rx="12" fill="#fff" opacity=".28"/>
-              </g>
-            </g>
-            <rect x="72" y="292" width="496" height="46" rx="23" fill="#C01A21"/>
-            <rect x="86" y="326" width="468" height="174" rx="30" fill="#E3242B"/>
-            <rect x="205" y="352" width="230" height="126" rx="18" fill="#fff"/>
-            <svg x="250" y="362" width="140" height="113" viewBox="0 0 920 740" aria-hidden="true">
-              <use href="#logo-mark"></use>
-            </svg>
-          </svg>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================== FAQ ========================== -->
-  <section class="faq section" id="faq">
+  <!-- ============ 07 — REVENDEDORES ============ -->
+  <section class="section section--deep resellers" id="revendedores" aria-labelledby="revendedores-title">
+    <svg class="motif" viewBox="0 0 920 740" aria-hidden="true"><use href="#logo-mark-mono"></use></svg>
     <div class="container">
-      <div class="section-head" style="text-align:center">
-        <p class="eyebrow" style="justify-content:center">FAQ</p>
-        <h2 class="title" style="margin-inline:auto">Perguntas Frequentes</h2>
+      <div class="resellers__head">
+        <p class="eyebrow reveal">Revendedores</p>
+        <h2 class="h2 reveal" id="revendedores-title">Seja um revendedor <span class="nb">Mr Ice</span></h2>
+        <p class="lead reveal" data-d="1">Benefícios de fazer parte:</p>
       </div>
 
-      <div class="faq__list">
+      <ul class="pillars reveal" data-d="2">
+        <li class="pillar">
+          <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-factory"></use></svg></span>
+          <p>fabricação própria;</p>
+        </li>
+        <li class="pillar">
+          <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-box"></use></svg></span>
+          <p>variedade de produtos;</p>
+        </li>
+        <li class="pillar">
+          <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-store"></use></svg></span>
+          <p>oportunidade de renda extra;</p>
+        </li>
+        <li class="pillar">
+          <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-handshake"></use></svg></span>
+          <p>atendimento comercial.</p>
+        </li>
+      </ul>
+
+      <div class="btn-row reveal" data-d="3">
+        <!-- TODO: definir destino (WhatsApp comercial ou formulário) -->
+        <a class="btn btn--light" href="#">Quero ser revendedor <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
+        <!-- TODO: apontar para o PDF da apresentação comercial -->
+        <a class="btn btn--outline-light" href="#"><svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg> Baixar apresentação comercial</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 08 — FAQ ============ -->
+  <section class="section section--cream faq" id="faq" aria-labelledby="faq-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow reveal">FAQ</p>
+        <h2 class="h2 reveal" id="faq-title">Perguntas Frequentes</h2>
+      </div>
+
+      <div class="faq__list reveal">
         <div class="faq__item">
           <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-1">Onde encontro os produtos Mr Ice?<svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></h3>
           <div class="faq__a" id="faq-1" hidden><span class="todo">Resposta a ser preenchida pelo time de copy.</span></div>
@@ -1331,20 +1226,27 @@ h2.title{font-size:var(--step-h2)}
   </section>
 </main>
 
-<!-- ========================== RODAPÉ ========================== -->
-<footer class="footer has-drip">
-  <svg class="drip" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:#fff"><use href="#drip-path"></use></svg>
+<!-- ============ RODAPÉ ============ -->
+<footer class="footer">
+  <svg class="drip" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:#FFF8F2"><use href="#drip-path"></use></svg>
+  <svg class="motif" viewBox="0 0 920 740" aria-hidden="true"><use href="#logo-mark-mono"></use></svg>
   <div class="container">
     <div class="footer__top">
       <div>
-        <a class="logo" href="#topo" aria-label="Mr Ice Sorvetes e Açaí, início da página">
-          <svg class="logo__mark" viewBox="0 0 920 740" style="color:#fff" role="img" aria-hidden="true"><use href="#logo-mark-mono"></use></svg>
-          <span class="logo__type">
-            <span class="logo__word"><span class="mr">r.</span>Ice</span>
-            <span class="logo__tag">Sorvetes <span class="amp">&amp;</span> Açaí</span>
+        <a class="brand" href="#topo" aria-label="Mr Ice Sorvetes e Açaí, início da página">
+          <!-- LOGO OFICIAL EM BRANCO: coloque o arquivo em assets/logo-mr-ice-branco.png -->
+          <img class="brand__logo" src="assets/logo-mr-ice-branco.png" alt="Mr Ice Sorvetes e Açaí"
+               width="220" height="80" loading="lazy"
+               onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+          <span class="brand__fallback" hidden>
+            <svg class="mark" viewBox="0 0 920 740" style="color:#fff" aria-hidden="true"><use href="#logo-mark-mono"></use></svg>
+            <span class="brand__type">
+              <span class="brand__word"><span class="mr">r.</span>Ice</span>
+              <span class="brand__tag">Sorvetes <span class="amp">&amp;</span> Açaí</span>
+            </span>
           </span>
         </a>
-        <h2 style="margin-top:1.5rem">Siga o <span class="nb">Mr Ice</span></h2>
+        <h2 class="h2">Siga o <span class="nb">Mr Ice</span></h2>
       </div>
 
       <div class="footer__socials">
@@ -1376,18 +1278,15 @@ h2.title{font-size:var(--step-h2)}
 </footer>
 
 <script>
+document.documentElement.classList.add('js');
 (function () {
   'use strict';
 
-  /* Header sticky state */
   var header = document.querySelector('.header');
-  var onScroll = function () {
-    header.classList.toggle('is-stuck', window.scrollY > 8);
-  };
+  var onScroll = function () { header.classList.toggle('is-scrolled', window.scrollY > 24); };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  /* Menu mobile */
   var toggle = document.querySelector('.nav-toggle');
   var mobileNav = document.getElementById('menu-mobile');
   toggle.addEventListener('click', function () {
@@ -1395,6 +1294,7 @@ h2.title{font-size:var(--step-h2)}
     toggle.setAttribute('aria-expanded', String(!open));
     toggle.setAttribute('aria-label', open ? 'Abrir menu' : 'Fechar menu');
     mobileNav.classList.toggle('is-open', !open);
+    if (!open) header.classList.add('is-scrolled');
   });
   mobileNav.addEventListener('click', function (e) {
     if (e.target.closest('a')) {
@@ -1404,7 +1304,6 @@ h2.title{font-size:var(--step-h2)}
     }
   });
 
-  /* Filtros de produto */
   var filters = document.querySelectorAll('.filter');
   var cards = document.querySelectorAll('#grid-produtos .card');
   filters.forEach(function (btn) {
@@ -1417,7 +1316,6 @@ h2.title{font-size:var(--step-h2)}
     });
   });
 
-  /* FAQ */
   document.querySelectorAll('.faq__q').forEach(function (q) {
     q.addEventListener('click', function () {
       var open = q.getAttribute('aria-expanded') === 'true';
@@ -1426,7 +1324,6 @@ h2.title{font-size:var(--step-h2)}
     });
   });
 
-  /* Delivery por cidade */
   var cityToggles = document.querySelectorAll('.city-toggle');
   cityToggles.forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -1442,7 +1339,6 @@ h2.title{font-size:var(--step-h2)}
     });
   });
 
-  /* Reveal on scroll */
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var items = document.querySelectorAll('.reveal');
   if (reduced || !('IntersectionObserver' in window)) {
@@ -1450,16 +1346,10 @@ h2.title{font-size:var(--step-h2)}
   } else {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-in');
-          io.unobserve(entry.target);
-        }
+        if (entry.isIntersecting) { entry.target.classList.add('is-in'); io.unobserve(entry.target); }
       });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
-    items.forEach(function (el, i) {
-      el.style.transitionDelay = (i % 4) * 60 + 'ms';
-      io.observe(el);
-    });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    items.forEach(function (el) { io.observe(el); });
   }
 })();
 </script>

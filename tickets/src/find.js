@@ -31,9 +31,12 @@ if (!res.ok) {
 const data = await res.json();
 const events = data?._embedded?.events || [];
 if (!events.length) {
-  console.log("Nenhum evento encontrado para essa busca.");
+  console.log(`Nenhum evento encontrado para "${keyword}"${countryCode ? " em " + countryCode : ""}.`);
+  console.log("Tente sem filtro de país, ou com menos palavras (ex.: só o nome do artista).");
   process.exit(0);
 }
+
+console.log(`${events.length} evento(s) encontrado(s) para "${keyword}"${countryCode ? " em " + countryCode : ""}:\n`);
 
 for (const ev of events) {
   const venue = ev._embedded?.venues?.[0];
@@ -49,3 +52,5 @@ for (const ev of events) {
     ].join("\n"),
   );
 }
+
+console.log('Copie o campo "id:" do show desejado para "discoveryId" em tickets/events.config.json.');

@@ -16,6 +16,15 @@ on:
         options:
           - once   # verificar disponibilidade de verdade
           - test   # mandar e-mail de teste para todos os destinatários
+          - find   # procurar o ID de um evento na Discovery API
+      busca:
+        description: "Só no modo find: nome do show a procurar"
+        type: string
+        default: "harry styles"
+      pais:
+        description: "Só no modo find: código do país (GB, IT, US...). Vazio = todos"
+        type: string
+        default: ""
 
 concurrency:
   group: ticket-monitor
@@ -54,7 +63,22 @@ jobs:
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           TZ: America/Sao_Paulo
-        run: node tickets/src/run.js ${{ inputs.modo || 'once' }}
+          # A Ticketmaster bloqueia (HTTP 403) conexões vindas de datacenter,
+          # e o runner do GitHub é datacenter. Insistir na página pública daqui
+          # só geraria requisição recusada a cada 10 min, então fica só a API
+          # oficial. Rodando "watch" numa máquina própria, remova esta linha.
+          TICKETS_PAGE_PROBE: "0"
+          # Passados como env (e não interpolados no script) para que texto
+          # livre digitado no formulário não vire comando de shell.
+          MODO: ${{ inputs.modo || 'once' }}
+          BUSCA: ${{ inputs.busca }}
+          PAIS: ${{ inputs.pais }}
+        run: |
+          if [ "$MODO" = "find" ]; then
+            node tickets/src/find.js "$BUSCA" "$PAIS"
+          else
+            node tickets/src/run.js "$MODO"
+          fi
 
       - name: Guardar estado
         # O modo "test" não produz estado real de disponibilidade.

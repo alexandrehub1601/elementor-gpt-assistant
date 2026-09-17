@@ -1,0 +1,55 @@
+name: Monitor de ingressos (Ticketmaster)
+
+on:
+  schedule:
+    # A cada 10 minutos. O GitHub trata agendamentos como "melhor esforço" e
+    # costuma atrasar em horários de pico — para vigilância minuto a minuto,
+    # rode "npm run tickets:watch" num servidor próprio.
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: ticket-monitor
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Instalar dependência de e-mail
+        run: npm install nodemailer@^6.9.14 --no-save --no-audit --no-fund
+
+      # Sem isso, cada execução começaria "sem memória" e reenviaria o mesmo alerta.
+      - name: Restaurar estado anterior
+        uses: actions/cache/restore@v4
+        with:
+          path: tickets/.state
+          key: ticket-state-${{ github.run_id }}
+          restore-keys: ticket-state-
+
+      - name: Verificar disponibilidade
+        env:
+          TICKETMASTER_API_KEY: ${{ secrets.TICKETMASTER_API_KEY }}
+          MAIL_TRANSPORT: ${{ vars.MAIL_TRANSPORT || 'smtp' }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          TZ: America/Sao_Paulo
+        run: npm run tickets:once
+
+      - name: Guardar estado
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: tickets/.state
+          key: ticket-state-${{ github.run_id }}

@@ -72,10 +72,14 @@ export function interpret(data) {
   const startsInFuture =
     publicSale.startDateTime && Date.parse(publicSale.startDateTime) > Date.now();
 
+  // IMPORTANTE: "onsale" na Discovery API quer dizer "o evento está dentro da
+  // janela de venda", e NÃO "existe ingresso em estoque agora". Um show lotado
+  // segue marcado como onsale. Por isso esta sonda nunca devolve AVAILABLE
+  // sozinha: o máximo que ela afirma é ONSALE (janela aberta, estoque
+  // desconhecido). Quem afirma estoque é a sonda de página, com offers.availability.
   let status = "UNKNOWN";
   if (ONSALE_CODES.has(code)) {
-    // "onsale" com a venda ainda por abrir = anunciado, mas nada à venda agora.
-    status = startsInFuture ? "UNAVAILABLE" : "AVAILABLE";
+    status = startsInFuture ? "UNAVAILABLE" : "ONSALE";
   } else if (OFFSALE_CODES.has(code)) {
     status = "UNAVAILABLE";
   }
@@ -86,8 +90,30 @@ export function interpret(data) {
     probe: "discovery",
     status,
     detail: facts.join("\n"),
-    raw: { code, priceRanges: data?.priceRanges || [], url: data?.url },
+    raw: {
+      code,
+      priceRanges: data?.priceRanges || [],
+      url: data?.url,
+      signature: signatureOf(data, code),
+    },
   };
+}
+
+/**
+ * Impressão digital grosseira do que a API conta sobre o evento. Mudou a
+ * impressão digital => alguma coisa mexeu (voltou a ter preço publicado, a
+ * janela de venda mudou, o status mudou) e vale um aviso.
+ *
+ * De propósito NÃO inclui os valores de preço: preço dinâmico oscila o dia
+ * inteiro e viraria spam.
+ */
+export function signatureOf(data, code = String(data?.dates?.status?.code || "").toLowerCase()) {
+  return [
+    `code=${code || "?"}`,
+    `precos=${(data?.priceRanges || []).length}`,
+    `abre=${data?.sales?.public?.startDateTime || "-"}`,
+    `fecha=${data?.sales?.public?.endDateTime || "-"}`,
+  ].join(" | ");
 }
 
 export async function fetchWithTimeout(url, { timeoutMs = 15000, ...init } = {}) {

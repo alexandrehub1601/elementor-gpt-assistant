@@ -66,12 +66,20 @@ function requireEnv(name) {
   return v;
 }
 
-export function buildAlert(event, result, reason) {
+export function buildAlert(event, result, reason, kind = "available") {
   const when = new Date().toLocaleString("pt-BR", { timeZone: process.env.TZ || "America/Sao_Paulo" });
-  const subject = `🎟️ Ingresso disponível: ${event.name}`;
+  const isChange = kind === "change";
+
+  const subject = isChange
+    ? `👀 Mexeu algo no show: ${event.name}`
+    : `🎟️ Ingresso disponível: ${event.name}`;
+
+  const headline = isChange
+    ? `A Ticketmaster mudou alguma informação de ${event.name}. Pode ser lote novo, revenda liberada ou só ajuste do site — vale abrir e conferir.`
+    : `Apareceu ingresso para ${event.name} (${reason}).`;
 
   const text = [
-    `Apareceu ingresso para ${event.name} (${reason}).`,
+    headline,
     "",
     `Comprar: ${event.url}`,
     "",
@@ -80,14 +88,17 @@ export function buildAlert(event, result, reason) {
     "",
     `Verificado em ${when}.`,
     "",
-    "Corra — a disponibilidade na Ticketmaster muda em segundos.",
-    "Este é um aviso automático; a compra continua sendo feita por você, no site oficial.",
+    isChange
+      ? "Aviso automático de mudança — não é garantia de que há ingresso à venda."
+      : "Corra — a disponibilidade na Ticketmaster muda em segundos.",
+    "A compra continua sendo feita por você, no site oficial.",
   ].join("\n");
 
   const html = `
 <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px">
-  <h2 style="margin:0 0 4px">🎟️ Ingresso disponível</h2>
-  <p style="margin:0 0 16px;color:#555">${escapeHtml(event.name)} — ${escapeHtml(reason)}</p>
+  <h2 style="margin:0 0 4px">${isChange ? "👀 Mexeu algo no show" : "🎟️ Ingresso disponível"}</h2>
+  <p style="margin:0 0 16px;color:#555">${escapeHtml(event.name)}</p>
+  <p style="margin:0 0 16px">${escapeHtml(headline)}</p>
   <p style="margin:0 0 20px">
     <a href="${escapeHtml(event.url)}"
        style="background:#026cdf;color:#fff;padding:12px 20px;border-radius:6px;text-decoration:none;display:inline-block">

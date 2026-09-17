@@ -3,7 +3,7 @@
 // Testa a lógica de decisão sem tocar na rede (respostas da Ticketmaster são simuladas).
 
 import assert from "node:assert/strict";
-import { interpret } from "../src/probes/discovery.js";
+import { interpret, signatureOf } from "../src/probes/discovery.js";
 import { readJsonLd } from "../src/probes/page.js";
 import { shouldNotify } from "../src/state.js";
 import { stripQueueToken } from "../src/config.js";
@@ -21,15 +21,25 @@ function t(name, fn) {
 }
 
 console.log("Discovery API:");
-t("onsale com venda já aberta => AVAILABLE", () => {
+t("onsale com venda já aberta => ONSALE (nunca AVAILABLE)", () => {
   const r = interpret({
     name: "Harry Styles",
     dates: { status: { code: "onsale" }, start: { localDate: "2027-08-28" } },
     sales: { public: { startDateTime: "2026-01-01T10:00:00Z" } },
     priceRanges: [{ type: "standard", currency: "GBP", min: 60, max: 250 }],
   });
-  assert.equal(r.status, "AVAILABLE");
+  // "onsale" = janela de venda aberta. NÃO quer dizer que existe ingresso.
+  assert.equal(r.status, "ONSALE");
   assert.match(r.detail, /60–250 GBP/);
+});
+
+t("assinatura ignora oscilação de preço, mas nota preço que aparece", () => {
+  const base = { dates: { status: { code: "onsale" } }, sales: { public: {} } };
+  const semPreco = signatureOf({ ...base, priceRanges: [] });
+  const comPreco = signatureOf({ ...base, priceRanges: [{ min: 60, max: 250 }] });
+  const precoOutro = signatureOf({ ...base, priceRanges: [{ min: 75, max: 400 }] });
+  assert.notEqual(semPreco, comPreco, "preço aparecendo tem que mudar a assinatura");
+  assert.equal(comPreco, precoOutro, "preço dinâmico oscilando não pode virar e-mail");
 });
 
 t("onsale com venda no futuro => UNAVAILABLE", () => {
@@ -86,6 +96,34 @@ t("disponível há mais que renotifyHours => reavisa", () => {
 t("indisponível nunca notifica", () => {
   assert.equal(shouldNotify({ status: "AVAILABLE" }, { status: "UNAVAILABLE" }, 6).notify, false);
   assert.equal(shouldNotify(undefined, { status: "BLOCKED" }, 6).notify, false);
+});
+
+t("ONSALE sozinho NÃO dispara e-mail", () => {
+  // O caso real: os dois shows já estão "onsale" e esgotados. Se isso virasse
+  // alerta, 5 pessoas receberiam alarme falso na primeira execução.
+  const r = { status: "ONSALE", signature: "code=onsale | precos=0 | abre=- | fecha=-" };
+  assert.equal(shouldNotify(undefined, r, 6).notify, false);
+  assert.equal(shouldNotify({ status: "ONSALE", signature: r.signature }, r, 6).notify, false);
+});
+
+t("assinatura mudou => avisa como mudança", () => {
+  const prev = { status: "ONSALE", signature: "code=onsale | precos=0 | abre=- | fecha=-" };
+  const now = { status: "ONSALE", signature: "code=onsale | precos=2 | abre=- | fecha=-" };
+  const d = shouldNotify(prev, now, 6);
+  assert.equal(d.notify, true);
+  assert.equal(d.kind, "change");
+});
+
+t("primeira execução nunca avisa de mudança", () => {
+  const now = { status: "ONSALE", signature: "code=onsale | precos=2 | abre=- | fecha=-" };
+  assert.equal(shouldNotify(undefined, now, 6).notify, false);
+});
+
+t("estoque confirmado é sempre alerta de disponível", () => {
+  const prev = { status: "ONSALE", signature: "code=onsale | precos=0 | abre=- | fecha=-" };
+  const d = shouldNotify(prev, { status: "AVAILABLE", signature: prev.signature }, 6);
+  assert.equal(d.notify, true);
+  assert.equal(d.kind, "available");
 });
 
 t("voltou a ficar disponível depois de sumir => notifica de novo", () => {

@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mr Ice Sorvetes, açaís e sabores para todos os momentos.</title>
+<title>Mr. Ice Sorvetes, açaís e sabores para todos os momentos.</title>
 <meta name="description" content="Fabricação própria, mais de 50 sabores no self-service e opções para diferentes momentos e preferências.">
 <meta name="theme-color" content="#E3242B">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Mr Ice Sorvetes, açaís e sabores para todos os momentos.">
+<meta property="og:title" content="Mr. Ice Sorvetes, açaís e sabores para todos os momentos.">
 <meta property="og:description" content="Fabricação própria, mais de 50 sabores no self-service e opções para diferentes momentos e preferências.">
 <meta property="og:locale" content="pt_BR">
 
@@ -34,7 +34,7 @@
 
 <style>
 /* =========================================================
-   TOKENS — identidade Mr Ice
+   TOKENS — identidade Mr. Ice
    Kit Adobe dfs7hqs: roca (títulos), rotulo-variable (texto e labels),
    sirenia (itálicos). Google Fonts entra só como rede de segurança.
    ========================================================= */
@@ -202,10 +202,10 @@ button{font:inherit;color:inherit}
 .brand{display:flex;align-items:center;text-decoration:none;flex:none}
 .brand__logo{height:56px;width:auto;transition:height .35s var(--ease)}
 .header.is-scrolled .brand__logo{height:46px}
-.header .brand__logo--dark{display:none}
-.header .brand__fallback:not([hidden]) ~ .brand__logo,.brand__fallback:not([hidden]) + .brand__logo{display:none}
-.header.is-scrolled .brand__logo--light{display:none}
-.header.is-scrolled .brand__logo--dark{display:block}
+/* sobre o topo escuro o logo oficial entra em branco; na barra branca, colorido */
+.header .brand__logo{filter:brightness(0) invert(1);transition:height .35s var(--ease),filter .35s var(--ease)}
+.header.is-scrolled .brand__logo{filter:none}
+.footer .brand__logo{filter:brightness(0) invert(1)}
 .header .brand__fallback .mark{color:#fff}
 .header .brand__word,.header .brand__tag{color:#fff}
 .header .brand__word .mr,.header .brand__tag .amp{color:var(--tan)}
@@ -437,13 +437,16 @@ button{font:inherit;color:inherit}
 @media (min-width:1040px){.pillars{grid-template-columns:repeat(4,1fr)}}
 .pillar{display:flex;flex-direction:column;gap:22px;padding:clamp(26px,3vw,38px);background:var(--blue-deep);transition:background .35s var(--ease)}
 .pillar:hover{background:var(--blue-950)}
-.pillar p{font-family:var(--font-display);font-size:1.12rem;line-height:1.35;letter-spacing:-.01em}
+.pillar h3{margin-bottom:10px}
+.pillar p{color:var(--on-dark-muted);font-size:15.5px;line-height:1.7}
 .resellers .btn-row{margin-top:clamp(32px,4vw,48px)}
 
 /* =========================================================
    08 — FAQ
    ========================================================= */
-.faq__list{border-top:1px solid var(--line-light);width:min(900px,100%)}
+.faq__list{border-top:1px solid var(--line-light);width:min(860px,100%);margin-inline:auto}
+.faq .section-head{margin-inline:auto;text-align:center}
+.faq .section-head .eyebrow{justify-content:center}
 .faq__item{border-bottom:1px solid var(--line-light)}
 .faq__q{
   width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;
@@ -576,13 +579,11 @@ button{font:inherit;color:inherit}
 <header class="header" id="topo">
   <div class="container">
     <div class="header__row">
-      <a class="brand" href="#topo" aria-label="Mr Ice Sorvetes e Açaí, início da página">
-        <!-- LOGO OFICIAL: assets/logo-mr-ice-branco.png (sobre o topo) e assets/logo-mr-ice.png (barra branca) -->
-        <img class="brand__logo brand__logo--light" src="assets/logo-mr-ice-branco.png" alt="Mr Ice Sorvetes e Açaí"
+      <a class="brand" href="#topo" aria-label="Mr. Ice Sorvetes e Açaí, início da página">
+        <!-- LOGO OFICIAL (arquivo do site da Mr. Ice) -->
+        <img class="brand__logo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Mr_Ice_Logotipo-01.png" alt="Mr. Ice Sorvetes e Açaí"
              width="220" height="80" fetchpriority="high"
-             onerror="this.hidden=true;this.parentNode.querySelector('.brand__fallback').hidden=false">
-        <img class="brand__logo brand__logo--dark" src="assets/logo-mr-ice.png" alt="" aria-hidden="true"
-             width="220" height="80" fetchpriority="high" onerror="this.hidden=true">
+             onerror="this.hidden=true;this.nextElementSibling.hidden=false">
         <span class="brand__fallback" hidden>
           <svg class="mark" viewBox="0 0 920 740" aria-hidden="true"><use href="#logo-mark-mono"></use></svg>
           <span class="brand__type">
@@ -631,9 +632,9 @@ button{font:inherit;color:inherit}
 
   <!-- ============ 01 — HERO ============ -->
   <section class="hero" aria-labelledby="hero-title">
-    <!-- FOTO DO TOPO: coloque o arquivo em assets/hero.jpg -->
+    <!-- FOTO DO TOPO (arquivo do site da Mr. Ice) -->
     <figure class="hero__bg">
-      <img src="assets/hero.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async"
+      <img src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/0001_.png" alt="" width="1920" height="1080" fetchpriority="high" decoding="async"
            onerror="this.closest('.hero__bg').hidden=true">
     </figure>
     <svg class="hero__pattern wave" aria-hidden="true"><use href="#wave"></use></svg>
@@ -647,7 +648,7 @@ button{font:inherit;color:inherit}
           <svg class="icon" aria-hidden="true" style="width:18px;height:18px"><use href="#i-pin"></use></svg>
           <span class="nb">Bragança Paulista</span><span class="sep" aria-hidden="true">|</span><span class="nb">Atibaia</span>
         </p>
-        <h1 class="h1 reveal" data-d="1" id="hero-title"><span class="nb">Mr Ice</span> Sorvetes, açaís e sabores para todos os momentos.</h1>
+        <h1 class="h1 reveal" data-d="1" id="hero-title"><span class="nb">Mr. Ice</span> Sorvetes, açaís e sabores para todos os momentos.</h1>
         <p class="lead reveal" data-d="2">Fabricação própria, mais de 50 sabores no self-service e opções para diferentes momentos e preferências.</p>
         <div class="btn-row reveal" data-d="3">
           <a class="btn" href="#produtos">Conheça nossos produtos <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
@@ -663,8 +664,8 @@ button{font:inherit;color:inherit}
     <div class="container about__grid">
       <div class="about__intro">
         <p class="eyebrow reveal">Sobre</p>
-        <h2 class="h2 reveal" id="sobre-title">Sobre o <span class="nb">Mr Ice</span></h2>
-        <p class="lead reveal" data-d="1">O Mr Ice é uma sorveteria feita para toda a família, um lugar onde pessoas se encontram para criar momentos especiais e aproveitar uma experiência completa. Aqui, cada cliente monta a combinação do seu jeito.</p>
+        <h2 class="h2 reveal" id="sobre-title">Sobre o <span class="nb">Mr. Ice</span></h2>
+        <p class="lead reveal" data-d="1">O Mr. Ice é uma sorveteria feita para toda a família, um lugar onde pessoas se encontram para criar momentos especiais e aproveitar uma experiência completa. Aqui, cada cliente monta a combinação do seu jeito.</p>
         <p class="lead reveal" data-d="2">Somos uma marca autêntica, inquieta e apaixonada pelo que faz. Buscamos evoluir continuamente, ouvindo nossos clientes e aperfeiçoando cada detalhe da experiência para entregar sempre algo melhor do que ontem. Gostamos de inovar, testar novas ideias e ser pioneiros no que fazemos, sem perder a essência de acolher, surpreender e fazer parte dos momentos mais felizes das famílias.</p>
       </div>
 
@@ -673,7 +674,7 @@ button{font:inherit;color:inherit}
           <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-factory"></use></svg></span>
           <div>
             <h3 class="h3">Fabricação própria</h3>
-            <p>Produção própria e desenvolvimento dos produtos Mr Ice.</p>
+            <p>Produção própria e desenvolvimento dos produtos Mr. Ice.</p>
           </div>
         </li>
         <li class="row reveal" data-d="1">
@@ -968,7 +969,7 @@ button{font:inherit;color:inherit}
     <div class="container">
       <div class="section-head">
         <p class="eyebrow reveal">Lojas</p>
-        <h2 class="h2 reveal" id="lojas-title">Conheça as lojas <span class="nb">Mr Ice</span></h2>
+        <h2 class="h2 reveal" id="lojas-title">Conheça as lojas <span class="nb">Mr. Ice</span></h2>
       </div>
 
       <div class="city">
@@ -979,7 +980,7 @@ button{font:inherit;color:inherit}
         <div class="store-grid">
 
           <article class="store reveal">
-            <h3 class="h3">Av. São João, 1075 - Centro.</h3>
+            <h3 class="h3">Av. São João, 1075 - Centro</h3>
             <dl class="store__meta">
               <div>
                 <svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>
@@ -1001,7 +1002,7 @@ button{font:inherit;color:inherit}
           </article>
 
           <article class="store reveal" data-d="1">
-            <h3 class="h3">Alameda Prof. Lucas Nogueira Garcez, 2525 - Jardim Paulista.</h3>
+            <h3 class="h3">Alameda Prof. Lucas Nogueira Garcez, 2525 - Jardim Paulista</h3>
             <dl class="store__meta">
               <div>
                 <svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>
@@ -1023,7 +1024,7 @@ button{font:inherit;color:inherit}
           </article>
 
           <article class="store reveal" data-d="2">
-            <h3 class="h3">R. José Píres de Oliveira, 2521 - Tanque.</h3>
+            <h3 class="h3">R. José Píres de Oliveira, 2521 - Tanque</h3>
             <dl class="store__meta">
               <div>
                 <svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>
@@ -1048,7 +1049,7 @@ button{font:inherit;color:inherit}
         <div class="store-grid">
 
           <article class="store reveal">
-            <h3 class="h3">Av. Antonio Pires Pimentel, 2172 - Centro.</h3>
+            <h3 class="h3">Av. Antonio Pires Pimentel, 2172 - Centro</h3>
             <dl class="store__meta">
               <div>
                 <svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>
@@ -1070,7 +1071,7 @@ button{font:inherit;color:inherit}
           </article>
 
           <article class="store reveal" data-d="1">
-            <h3 class="h3">Av. dos Imigrantes, 3500 - Jardim America.</h3>
+            <h3 class="h3">Av. dos Imigrantes, 3500 - Jardim America</h3>
             <dl class="store__meta">
               <div>
                 <svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>
@@ -1102,7 +1103,7 @@ button{font:inherit;color:inherit}
     <svg class="wave" aria-hidden="true"><use href="#wave"></use></svg>
     <div class="container">
       <p class="eyebrow reveal">Delivery</p>
-      <h2 class="h2 reveal" id="delivery-title">Seu <span class="nb">Mr Ice</span> onde você estiver.</h2>
+      <h2 class="h2 reveal" id="delivery-title">Seu <span class="nb">Mr. Ice</span> onde você estiver.</h2>
       <p class="lead reveal" data-d="1">Peça pelo delivery</p>
 
       <div class="cities reveal" data-d="2">
@@ -1118,11 +1119,11 @@ button{font:inherit;color:inherit}
         <div class="delivery__links">
           <a class="ifood" href="https://www.ifood.com.br/delivery/braganca-paulista-sp/mr-ice-sorvete-e-acai---pires-centro/d85c0060-74ab-4269-84d7-11c2baba729d" target="_blank" rel="noopener">
             <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg>
-            <span><b>Av. Antonio Pires Pimentel, 2172 - Centro.</b><span>Pedir pelo delivery</span></span>
+            <span><b>Av. Antonio Pires Pimentel, 2172 - Centro</b><span>Pedir pelo delivery</span></span>
           </a>
           <a class="ifood" href="https://www.ifood.com.br/delivery/braganca-paulista-sp/mr-ice-sorvetes-e-acai---imigrantes-jardim-sao-lourenco/a4b85055-457a-46db-a4cd-c6b5ea70e7c6" target="_blank" rel="noopener">
             <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg>
-            <span><b>Av. dos Imigrantes, 3500 - Jardim America.</b><span>Pedir pelo delivery</span></span>
+            <span><b>Av. dos Imigrantes, 3500 - Jardim America</b><span>Pedir pelo delivery</span></span>
           </a>
         </div>
       </div>
@@ -1131,11 +1132,11 @@ button{font:inherit;color:inherit}
         <div class="delivery__links">
           <a class="ifood" href="https://www.ifood.com.br/delivery/atibaia-sp/mr-ice-sorvetes-e-acai---sao-joao-centro/1fffda62-7503-4354-87de-c5e46fdae44c" target="_blank" rel="noopener">
             <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg>
-            <span><b>Av. São João, 1075 - Centro.</b><span>Pedir pelo delivery</span></span>
+            <span><b>Av. São João, 1075 - Centro</b><span>Pedir pelo delivery</span></span>
           </a>
           <a class="ifood" href="https://www.ifood.com.br/delivery/atibaia-sp/mr-ice-sorvetes-e-acai---av-lucas-vila-helena/5c54cb21-9d9d-44e4-a810-0d22faa8a640" target="_blank" rel="noopener">
             <svg class="icon" aria-hidden="true"><use href="#i-scooter"></use></svg>
-            <span><b>Alameda Prof. Lucas Nogueira Garcez, 2525 - Jardim Paulista.</b><span>Pedir pelo delivery</span></span>
+            <span><b>Alameda Prof. Lucas Nogueira Garcez, 2525 - Jardim Paulista</b><span>Pedir pelo delivery</span></span>
           </a>
         </div>
       </div>
@@ -1148,26 +1149,42 @@ button{font:inherit;color:inherit}
     <div class="container">
       <div class="resellers__head">
         <p class="eyebrow reveal">Revendedores</p>
-        <h2 class="h2 reveal" id="revendedores-title">Seja um revendedor <span class="nb">Mr Ice</span></h2>
+        <h2 class="h2 reveal" id="revendedores-title">Seja um revendedor <span class="nb">Mr. Ice</span></h2>
         <p class="lead reveal" data-d="1">Benefícios de fazer parte:</p>
       </div>
 
       <ul class="pillars reveal" data-d="2">
         <li class="pillar">
           <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-factory"></use></svg></span>
-          <p>fabricação própria;</p>
+          <div>
+            <h3 class="h3">Fabricação própria</h3>
+            <!-- texto de apoio provisório (lorem ipsum) -->
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.</p>
+          </div>
         </li>
         <li class="pillar">
           <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-box"></use></svg></span>
-          <p>variedade de produtos;</p>
+          <div>
+            <h3 class="h3">Variedade de produtos</h3>
+            <!-- texto de apoio provisório (lorem ipsum) -->
+            <p>Tempor incididunt ut labore et dolore magna aliqua enim ad minim.</p>
+          </div>
         </li>
         <li class="pillar">
           <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-store"></use></svg></span>
-          <p>oportunidade de renda extra;</p>
+          <div>
+            <h3 class="h3">Oportunidade de renda extra</h3>
+            <!-- texto de apoio provisório (lorem ipsum) -->
+            <p>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+          </div>
         </li>
         <li class="pillar">
           <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-handshake"></use></svg></span>
-          <p>atendimento comercial.</p>
+          <div>
+            <h3 class="h3">Atendimento comercial</h3>
+            <!-- texto de apoio provisório (lorem ipsum) -->
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+          </div>
         </li>
       </ul>
 
@@ -1190,11 +1207,11 @@ button{font:inherit;color:inherit}
 
       <div class="faq__list reveal">
         <div class="faq__item">
-          <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-1">Onde encontro os produtos Mr Ice?<svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></h3>
+          <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-1">Onde encontro os produtos Mr. Ice?<svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></h3>
           <div class="faq__a" id="faq-1" hidden><span class="todo">Resposta a ser preenchida pelo time de copy.</span></div>
         </div>
         <div class="faq__item">
-          <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-2">O Mr Ice possui fabricação própria?<svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></h3>
+          <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-2">O Mr. Ice possui fabricação própria?<svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></h3>
           <div class="faq__a" id="faq-2" hidden><span class="todo">Resposta a ser preenchida pelo time de copy.</span></div>
         </div>
         <div class="faq__item">
@@ -1206,7 +1223,7 @@ button{font:inherit;color:inherit}
           <div class="faq__a" id="faq-4" hidden><span class="todo">Resposta a ser preenchida pelo time de copy.</span></div>
         </div>
         <div class="faq__item">
-          <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-5">O Mr Ice possui delivery?<svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></h3>
+          <h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="faq-5">O Mr. Ice possui delivery?<svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></button></h3>
           <div class="faq__a" id="faq-5" hidden><span class="todo">Resposta a ser preenchida pelo time de copy.</span></div>
         </div>
         <div class="faq__item">
@@ -1233,9 +1250,9 @@ button{font:inherit;color:inherit}
   <div class="container">
     <div class="footer__top">
       <div>
-        <a class="brand" href="#topo" aria-label="Mr Ice Sorvetes e Açaí, início da página">
-          <!-- LOGO OFICIAL EM BRANCO: coloque o arquivo em assets/logo-mr-ice-branco.png -->
-          <img class="brand__logo" src="assets/logo-mr-ice-branco.png" alt="Mr Ice Sorvetes e Açaí"
+        <a class="brand" href="#topo" aria-label="Mr. Ice Sorvetes e Açaí, início da página">
+          <!-- LOGO OFICIAL (fica branco por filtro sobre o azul) -->
+          <img class="brand__logo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Mr_Ice_Logotipo-01.png" alt="Mr. Ice Sorvetes e Açaí"
                width="220" height="80" loading="lazy"
                onerror="this.hidden=true;this.nextElementSibling.hidden=false">
           <span class="brand__fallback" hidden>
@@ -1246,14 +1263,14 @@ button{font:inherit;color:inherit}
             </span>
           </span>
         </a>
-        <h2 class="h2">Siga o <span class="nb">Mr Ice</span></h2>
+        <h2 class="h2">Siga o <span class="nb">Mr. Ice</span></h2>
       </div>
 
       <div class="footer__socials">
         <!-- TODO: apontar para os perfis oficiais -->
-        <a class="social" href="#" aria-label="Instagram do Mr Ice"><svg class="icon" aria-hidden="true"><use href="#i-instagram"></use></svg></a>
-        <a class="social" href="#" aria-label="TikTok do Mr Ice"><svg class="icon" aria-hidden="true"><use href="#i-tiktok"></use></svg></a>
-        <a class="social" href="#" aria-label="Facebook do Mr Ice"><svg class="icon" aria-hidden="true"><use href="#i-facebook"></use></svg></a>
+        <a class="social" href="#" aria-label="Instagram do Mr. Ice"><svg class="icon" aria-hidden="true"><use href="#i-instagram"></use></svg></a>
+        <a class="social" href="#" aria-label="TikTok do Mr. Ice"><svg class="icon" aria-hidden="true"><use href="#i-tiktok"></use></svg></a>
+        <a class="social" href="#" aria-label="Facebook do Mr. Ice"><svg class="icon" aria-hidden="true"><use href="#i-facebook"></use></svg></a>
       </div>
     </div>
 
@@ -1267,7 +1284,7 @@ button{font:inherit;color:inherit}
     </nav>
 
     <div class="footer__bottom">
-      <p>@2026 Mr Ice. Todos os direitos reservados.</p>
+      <p>@2026 Mr. Ice. Todos os direitos reservados.</p>
       <p class="footer__legal">
         <a href="#">Política de Privacidade</a>
         <span class="sep" aria-hidden="true">|</span>

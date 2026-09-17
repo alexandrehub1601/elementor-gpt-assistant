@@ -3,7 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "scripts": {
+    "tickets:once": "node tickets/src/run.js once",
+    "tickets:watch": "node tickets/src/run.js watch",
+    "tickets:test-email": "node tickets/src/run.js test",
+    "tickets:find": "node tickets/src/find.js",
+    "tickets:selftest": "node tickets/test/offline-test.js"
+  },
   "dependencies": {
     "openai": "^4.68.4"
+  },
+  "optionalDependencies": {
+    "nodemailer": "^6.9.14"
   }
 }

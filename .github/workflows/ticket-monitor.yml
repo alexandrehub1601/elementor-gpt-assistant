@@ -1,0 +1,65 @@
+name: Monitor de ingressos (Ticketmaster)
+
+on:
+  schedule:
+    # A cada 10 minutos. O GitHub trata agendamentos como "melhor esforço" e
+    # costuma atrasar em horários de pico — para vigilância minuto a minuto,
+    # rode "npm run tickets:watch" num servidor próprio.
+    # Atenção: agendamento só funciona com este arquivo na branch principal.
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: "O que fazer nesta execução"
+        type: choice
+        default: once
+        options:
+          - once   # verificar disponibilidade de verdade
+          - test   # mandar e-mail de teste para todos os destinatários
+
+concurrency:
+  group: ticket-monitor
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Instalar dependência de e-mail
+        run: npm install nodemailer@^6.9.14 --no-save --no-audit --no-fund
+
+      # Sem isso, cada execução começaria "sem memória" e reenviaria o mesmo alerta.
+      - name: Restaurar estado anterior
+        uses: actions/cache/restore@v4
+        with:
+          path: tickets/.state
+          key: ticket-state-${{ github.run_id }}
+          restore-keys: ticket-state-
+
+      - name: Verificar disponibilidade
+        env:
+          TICKETMASTER_API_KEY: ${{ secrets.TICKETMASTER_API_KEY }}
+          MAIL_TRANSPORT: ${{ vars.MAIL_TRANSPORT || 'smtp' }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          TZ: America/Sao_Paulo
+        run: node tickets/src/run.js ${{ inputs.modo || 'once' }}
+
+      - name: Guardar estado
+        # O modo "test" não produz estado real de disponibilidade.
+        if: always() && (inputs.modo || 'once') == 'once'
+        uses: actions/cache/save@v4
+        with:
+          path: tickets/.state
+          key: ticket-state-${{ github.run_id }}

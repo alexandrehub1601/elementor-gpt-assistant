@@ -72,3 +72,10 @@ Se quiser que o chat consulte seus PDFs/CSVs:
 
 ## Licença
 Livre para usar e modificar.
+
+---
+
+## Bot de alerta de ingressos (Ticketmaster)
+
+Este repositório também contém um monitor que avisa por e-mail quando aparece
+ingresso nos shows configurados. Guia completo em [`tickets/README.md`](./tickets/README.md).

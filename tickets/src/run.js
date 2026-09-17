@@ -33,7 +33,7 @@ export async function runOnce(cfg = loadConfig()) {
     let notified = false;
 
     if (decision.notify) {
-      const { subject, text, html } = buildAlert(event, result, decision.reason);
+      const { subject, text, html } = buildAlert(event, result, decision.reason, decision.kind);
       try {
         await sendMail({ to: event.recipients, subject, text, html });
         notified = true;

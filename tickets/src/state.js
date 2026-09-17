@@ -30,17 +30,29 @@ export function saveState(state, path = DEFAULT_STATE_PATH) {
  * enquanto continuar disponível (útil se o primeiro e-mail passou batido).
  */
 export function shouldNotify(previous, result, renotifyHours) {
-  if (result.status !== "AVAILABLE") return { notify: false };
-
-  if (!previous || previous.status !== "AVAILABLE") {
-    return { notify: true, reason: "ficou disponível" };
+  // 1) Estoque confirmado: o alerta que interessa.
+  if (result.status === "AVAILABLE") {
+    if (!previous || previous.status !== "AVAILABLE") {
+      return { notify: true, kind: "available", reason: "ficou disponível" };
+    }
+    if (renotifyHours > 0 && previous.notifiedAt) {
+      const elapsedH = (Date.now() - Date.parse(previous.notifiedAt)) / 3_600_000;
+      if (Number.isFinite(elapsedH) && elapsedH >= renotifyHours) {
+        return { notify: true, kind: "available", reason: `continua disponível há ${Math.floor(elapsedH)}h` };
+      }
+    }
+    return { notify: false };
   }
 
-  if (renotifyHours > 0 && previous.notifiedAt) {
-    const elapsedH = (Date.now() - Date.parse(previous.notifiedAt)) / 3_600_000;
-    if (Number.isFinite(elapsedH) && elapsedH >= renotifyHours) {
-      return { notify: true, reason: `continua disponível há ${Math.floor(elapsedH)}h` };
-    }
+  // 2) Sem confirmação de estoque, mas algo mexeu no evento (voltou a ter preço
+  //    publicado, mudou a janela de venda, mudou o status). Nunca no primeiro
+  //    ciclo: sem termo de comparação, tudo pareceria novidade.
+  if (previous?.signature && result.signature && previous.signature !== result.signature) {
+    return {
+      notify: true,
+      kind: "change",
+      reason: `mudou na Ticketmaster (antes: ${previous.signature} / agora: ${result.signature})`,
+    };
   }
 
   return { notify: false };
@@ -50,6 +62,7 @@ export function recordResult(state, eventId, result, notified) {
   const previous = state[eventId];
   state[eventId] = {
     status: result.status,
+    signature: result.signature ?? previous?.signature,
     detail: result.detail,
     checkedAt: new Date().toISOString(),
     notifiedAt: notified ? new Date().toISOString() : previous?.notifiedAt,

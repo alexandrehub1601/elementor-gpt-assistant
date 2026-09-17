@@ -17,20 +17,61 @@ ou destinatários, edite só esse arquivo.
 
 Duas sondas, nessa ordem:
 
-1. **Discovery API da Ticketmaster** (oficial, chave grátis). É a via suportada
-   pela própria Ticketmaster e a mais confiável. Lê o status do evento
-   (`onsale` / `offsale`), a data de abertura da venda e a faixa de preço.
-2. **Página pública do evento** (best-effort), só quando a API não dá resposta
-   conclusiva. Lê o bloco `application/ld+json` que a Ticketmaster publica na
-   página e olha `offers.availability` (`InStock` / `SoldOut`).
+1. **Discovery API da Ticketmaster** (oficial, chave grátis). Lê o status do
+   evento, a janela de venda e a faixa de preço.
+2. **Página pública do evento** (best-effort), só quando a API não é conclusiva.
+   Lê o `application/ld+json` da página e olha `offers.availability`.
 
 Se a segunda sonda cair na fila virtual (Queue-it) ou no anti-bot, o resultado é
-`BLOCKED` e o bot simplesmente espera o próximo ciclo. **Ele não tenta contornar
-fila, captcha nem bloqueio** — sem proxy rotativo, sem token de fila reaproveitado,
-sem compra automática. É um vigia que avisa você; a compra é sua, no site oficial.
+`BLOCKED` e o bot espera o próximo ciclo. **Ele não tenta contornar fila, captcha
+nem bloqueio** — sem proxy rotativo, sem token de fila reaproveitado, sem compra
+automática. É um vigia que avisa você; a compra é sua, no site oficial.
 
 > O `queueittoken` que estava na URL de Roma foi removido da config de propósito:
 > ele é pessoal, expira, e reutilizá-lo não funcionaria.
+
+### Os cinco status — e por que `onsale` não é boa notícia
+
+| Status | O que significa | Manda e-mail? |
+| --- | --- | --- |
+| `AVAILABLE` | **estoque confirmado** (`offers.availability: InStock`) | sim, o alerta principal |
+| `ONSALE` | janela de venda aberta, **estoque desconhecido** | não, sozinho |
+| `UNAVAILABLE` | esgotado, cancelado, ou venda ainda não aberta | não |
+| `BLOCKED` | a Ticketmaster recusou a conexão | não |
+| `UNKNOWN` | nenhuma sonda respondeu de forma útil | não |
+
+A distinção entre `AVAILABLE` e `ONSALE` é o coração do bot. Na Discovery API,
+`onsale` quer dizer apenas *"o evento está dentro da janela de venda"* — um show
+completamente esgotado continua marcado como `onsale` por meses. Tratar isso como
+disponibilidade encheria as caixas de entrada de alarme falso. Só a leitura de
+estoque da página vira `AVAILABLE`.
+
+### Alerta de mudança
+
+Como a API oficial não conta estoque, o bot guarda uma **impressão digital** do
+que ela informa: status, se existe faixa de preço publicada, e as datas da janela
+de venda. Quando essa impressão muda — preço reaparece, status vira outro, a
+janela se move — sai um e-mail de *"mexeu algo"*, que é um convite a olhar, não
+uma garantia de ingresso.
+
+Os valores de preço **não** entram na impressão digital de propósito: preço
+dinâmico oscila o dia inteiro e viraria spam. E a primeira execução nunca
+notifica, porque sem termo de comparação tudo pareceria novidade.
+
+### Onde rodar muda o que o bot enxerga
+
+A Ticketmaster responde **HTTP 403 para conexões vindas de datacenter** — o que
+inclui os servidores do GitHub Actions. Consequência prática:
+
+| Onde roda | API oficial | Sonda de página | O que você recebe |
+| --- | --- | --- | --- |
+| GitHub Actions | funciona | sempre 403 | alertas de **mudança** |
+| Máquina sua (casa, VPS residencial) | funciona | costuma funcionar | alertas de mudança **e de estoque** |
+
+Por isso o workflow define `TICKETS_PAGE_PROBE=0`: insistir a cada 10 minutos numa
+página que recusa a origem não traria informação nenhuma. Se quiser a detecção de
+estoque de verdade, rode `npm run tickets:watch` de um computador seu — ali a
+segunda sonda tem chance real de responder.
 
 ---
 
@@ -141,13 +182,15 @@ Variáveis de ambiente úteis: `DRY_RUN=1` (imprime em vez de enviar),
 npm run tickets:selftest
 ```
 
-Roda 13 verificações da lógica de decisão (status da API, leitura do JSON-LD,
-regra anti-spam de e-mail) sem tocar na rede.
+Roda 18 verificações da lógica de decisão (interpretação do status da API,
+impressão digital, leitura do JSON-LD, regra anti-spam) sem tocar na rede.
 
 ---
 
 ## Limites que você precisa saber
 
+- **Rodando só no GitHub, ele não detecta estoque** — veja a tabela acima. Lá ele
+  é um detector de mudanças, o que é útil, mas não é a mesma coisa.
 - **Um ingresso de revenda pode durar segundos.** Nenhum monitor por e-mail
   garante que você chegue a tempo; ele aumenta a chance, não a certeza.
 - **Ative também o alerta oficial da Ticketmaster** na página do evento

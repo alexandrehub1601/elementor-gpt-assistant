@@ -206,17 +206,12 @@ button{font:inherit;color:inherit}
 .brand{display:flex;align-items:center;text-decoration:none;flex:none;transition:filter .35s var(--ease)}
 .brand__logo{height:104px;width:auto;transition:height .35s var(--ease)}
 .header.is-scrolled .brand__logo{height:74px}
-/* O arquivo oficial do logo vem com fundo branco. O script no fim da página
-   recorta esse branco no navegador (canvas) e marca a imagem com data-knockout:
-   aí ela pode ir solta sobre a foto, em branco no topo e colorida na barra.
-   Se o recorte não for possível (imagem de outro domínio), a plaquinha branca
-   volta como plano B. */
-.brand__plate{display:inline-flex;align-items:center;justify-content:center;transition:padding .35s var(--ease),box-shadow .35s var(--ease)}
-.brand--plate .brand__plate{background:#fff;border-radius:16px;padding:8px 14px;box-shadow:0 14px 30px -20px rgba(0,0,0,.55)}
-.header.is-scrolled .brand--plate .brand__plate{padding:0 4px;box-shadow:none}
-.header .brand__logo[data-knockout]{filter:brightness(0) invert(1)}
-.header.is-scrolled .brand__logo[data-knockout]{filter:none}
-.footer .brand__logo[data-knockout]{filter:brightness(0) invert(1)}
+/* O arquivo oficial do logo vem com fundo branco. Sobre a foto e no rodapé ele
+   passa pelo filtro #logo-branco, que apaga esse branco e deixa a marca sólida;
+   na barra branca o filtro sai e o logo aparece colorido, com o próprio fundo
+   se fundindo à barra. */
+.header .brand__logo,.footer .brand__logo{filter:url(#logo-branco)}
+.header.is-scrolled .brand__logo{filter:none}
 .header .brand__fallback .mark{color:#fff}
 .header .brand__word,.header .brand__tag{color:#fff}
 .header .brand__word .mr,.header .brand__tag .amp{color:var(--tan)}
@@ -573,6 +568,15 @@ button{font:inherit;color:inherit}
     <circle cx="60" cy="52" r="26" fill="currentColor" opacity=".85"/>
   </symbol>
 
+  <!-- Transforma o fundo branco do arquivo do logo em transparência e devolve a
+       marca em branco: a opacidade vira o inverso do brilho de cada pixel. -->
+  <filter id="logo-branco" color-interpolation-filters="sRGB">
+    <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -0.333 -0.333 -0.334 0 1" result="branco"/>
+    <feComponentTransfer in="branco" result="marca"><feFuncA type="linear" slope="6" intercept="-0.45"/></feComponentTransfer>
+    <!-- mantém transparente o que já era transparente no arquivo -->
+    <feComposite in="marca" in2="SourceGraphic" operator="in"/>
+  </filter>
+
   <!-- Ícones: 24x24, traço 1.5 -->
   <symbol id="i-factory" viewBox="0 0 24 24"><path d="M3 20V10.5l6 3.5v-3.5l6 3.5V5h5v15z"/><path d="M8 20v-3.5M13 20v-3.5M18 20v-3.5M3 20h18"/></symbol>
   <symbol id="i-flavors" viewBox="0 0 24 24"><path d="M12 3.2l1.9 4.9 4.9 1.9-4.9 1.9L12 16.8l-1.9-4.9L5.2 10l4.9-1.9z"/><path d="M18.4 15.2l.8 2.1 2.1.8-2.1.8-.8 2.1-.8-2.1-2.1-.8 2.1-.8z"/></symbol>
@@ -605,9 +609,9 @@ button{font:inherit;color:inherit}
     <div class="header__row">
       <a class="brand" href="#topo" aria-label="Mr. Ice Sorvetes e Açaí, início da página">
         <!-- LOGO OFICIAL (arquivo do site da Mr. Ice) -->
-        <span class="brand__plate"><img class="brand__logo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Mr_Ice_Logotipo-01.png" alt="Mr. Ice Sorvetes e Açaí"
+        <img class="brand__logo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Mr_Ice_Logotipo-01.png" alt="Mr. Ice Sorvetes e Açaí"
              width="220" height="80" fetchpriority="high"
-             onerror="this.closest('.brand__plate').hidden=true;this.closest('.brand').querySelector('.brand__fallback').hidden=false"></span>
+             onerror="this.hidden=true;this.closest('.brand').querySelector('.brand__fallback').hidden=false">
         <span class="brand__fallback" hidden>
           <svg class="mark" viewBox="0 0 920 740" aria-hidden="true"><use href="#logo-mark-mono"></use></svg>
           <span class="brand__type">
@@ -1487,9 +1491,9 @@ button{font:inherit;color:inherit}
       <div>
         <a class="brand" href="#topo" aria-label="Mr. Ice Sorvetes e Açaí, início da página">
           <!-- LOGO OFICIAL (arquivo do site da Mr. Ice) -->
-          <span class="brand__plate"><img class="brand__logo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Mr_Ice_Logotipo-01.png" alt="Mr. Ice Sorvetes e Açaí"
+          <img class="brand__logo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Mr_Ice_Logotipo-01.png" alt="Mr. Ice Sorvetes e Açaí"
                width="220" height="80" loading="lazy"
-               onerror="this.closest('.brand__plate').hidden=true;this.closest('.brand').querySelector('.brand__fallback').hidden=false"></span>
+               onerror="this.hidden=true;this.closest('.brand').querySelector('.brand__fallback').hidden=false">
           <span class="brand__fallback" hidden>
             <svg class="mark" viewBox="0 0 920 740" style="color:#fff" aria-hidden="true"><use href="#logo-mark-mono"></use></svg>
             <span class="brand__type">
@@ -1533,47 +1537,6 @@ button{font:inherit;color:inherit}
 document.documentElement.classList.add('js');
 (function () {
   'use strict';
-
-  /* Recorta o fundo branco do logo oficial direto no navegador. Só funciona
-     quando a imagem é do mesmo domínio da página (é o caso no site da Mr. Ice);
-     se falhar, a marca volta para a plaquinha branca. */
-  (function () {
-    var logos = document.querySelectorAll('.brand__logo');
-    var run = function (img) {
-      try {
-        var w = img.naturalWidth, hgt = img.naturalHeight;
-        if (!w || !hgt) return false;
-        var c = document.createElement('canvas');
-        c.width = w; c.height = hgt;
-        var ctx = c.getContext('2d');
-        ctx.drawImage(img, 0, 0);
-        var data = ctx.getImageData(0, 0, w, hgt), p = data.data;
-        for (var i = 0; i < p.length; i += 4) {
-          var r = p[i], g = p[i + 1], b = p[i + 2];
-          var mx = Math.max(r, g, b), mn = Math.min(r, g, b);
-          if (mx - mn > 22) continue;            /* tem cor: preserva */
-          if (mx >= 246) { p[i + 3] = 0; }       /* branco: some */
-          else if (mx > 216) { p[i + 3] = Math.round(p[i + 3] * (246 - mx) / 30); }
-        }
-        ctx.putImageData(data, 0, 0);
-        img.src = c.toDataURL('image/png');
-        img.setAttribute('data-knockout', '');
-        return true;
-      } catch (e) { return false; }
-    };
-    logos.forEach(function (img) {
-      var go = function () {
-        if (!run(img)) {
-          var brand = img.closest('.brand');
-          if (brand) brand.classList.add('brand--plate');
-        }
-      };
-      if (img.complete && img.naturalWidth) go();
-      else { img.addEventListener('load', go); img.addEventListener('error', function () {
-        var brand = img.closest('.brand'); if (brand) brand.classList.add('brand--plate');
-      }); }
-    });
-  })();
 
   var header = document.querySelector('.header');
   var onScroll = function () { header.classList.toggle('is-scrolled', window.scrollY > 24); };

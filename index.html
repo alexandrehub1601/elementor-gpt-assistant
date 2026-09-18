@@ -203,18 +203,20 @@ button{font:inherit;color:inherit}
   padding-block:10px;
 }
 .header__row{display:flex;align-items:center;gap:20px}
-.brand{display:flex;align-items:center;text-decoration:none;flex:none}
-.brand__logo{height:84px;width:auto;transition:height .35s var(--ease)}
-.header.is-scrolled .brand__logo{height:66px}
-/* o arquivo do logo tem fundo branco, então ele vai sobre uma plaquinha branca:
-   sobre a foto e no rodapé ela aparece; na barra branca ela some no fundo */
-.brand__plate{
-  display:inline-flex;align-items:center;justify-content:center;
-  background:#fff;border-radius:16px;padding:8px 14px;
-  box-shadow:0 14px 30px -20px rgba(0,0,0,.55);
-  transition:padding .35s var(--ease),box-shadow .35s var(--ease);
-}
-.header.is-scrolled .brand__plate{padding:0 4px;box-shadow:none}
+.brand{display:flex;align-items:center;text-decoration:none;flex:none;transition:filter .35s var(--ease)}
+.brand__logo{height:104px;width:auto;transition:height .35s var(--ease)}
+.header.is-scrolled .brand__logo{height:74px}
+/* O arquivo oficial do logo vem com fundo branco. O script no fim da página
+   recorta esse branco no navegador (canvas) e marca a imagem com data-knockout:
+   aí ela pode ir solta sobre a foto, em branco no topo e colorida na barra.
+   Se o recorte não for possível (imagem de outro domínio), a plaquinha branca
+   volta como plano B. */
+.brand__plate{display:inline-flex;align-items:center;justify-content:center;transition:padding .35s var(--ease),box-shadow .35s var(--ease)}
+.brand--plate .brand__plate{background:#fff;border-radius:16px;padding:8px 14px;box-shadow:0 14px 30px -20px rgba(0,0,0,.55)}
+.header.is-scrolled .brand--plate .brand__plate{padding:0 4px;box-shadow:none}
+.header .brand__logo[data-knockout]{filter:brightness(0) invert(1)}
+.header.is-scrolled .brand__logo[data-knockout]{filter:none}
+.footer .brand__logo[data-knockout]{filter:brightness(0) invert(1)}
 .header .brand__fallback .mark{color:#fff}
 .header .brand__word,.header .brand__tag{color:#fff}
 .header .brand__word .mr,.header .brand__tag .amp{color:var(--tan)}
@@ -278,6 +280,11 @@ button{font:inherit;color:inherit}
 }
 .hero__bg{position:absolute;inset:0;z-index:-3;margin:0;background:var(--blue-deep)}
 .hero__bg img{width:100%;height:100%;object-fit:cover;object-position:center}
+.hero::before{
+  content:"";position:absolute;inset:0 0 auto;z-index:-1;pointer-events:none;
+  height:min(48%,340px);
+  background:linear-gradient(180deg,rgba(0,0,0,.66) 0%,rgba(0,0,0,.42) 34%,rgba(0,0,0,.16) 68%,rgba(0,0,0,0) 100%);
+}
 .hero .drip{top:auto;bottom:-1px;transform:scaleY(-1);color:#fff}
 .hero__grid{position:relative;z-index:1;display:grid;gap:clamp(32px,5vw,72px);align-items:end}
 @media (min-width:980px){.hero__grid{grid-template-columns:minmax(0,660px) 1fr}}
@@ -288,7 +295,7 @@ button{font:inherit;color:inherit}
 .hero__claim{display:block;margin-top:12px;font-size:clamp(1.5rem,1rem + 1.7vw,2.35rem);line-height:1.12;font-weight:700;color:rgba(255,255,255,.94)}
 .hero .lead{max-width:52ch;margin-bottom:36px}
 .hero .btn-row{gap:14px}
-@media (max-width:760px){.brand__logo{height:64px}.header.is-scrolled .brand__logo{height:52px}}
+@media (max-width:760px){.brand__logo{height:76px}.header.is-scrolled .brand__logo{height:58px}}
 @media (max-width:640px){
   .hero .btn-row .btn,.resellers .btn-row .btn{width:100%}
   .btn{padding:0 20px;font-size:12.5px}
@@ -484,7 +491,7 @@ button{font:inherit;color:inherit}
 .footer .motif{color:#fff;width:min(46vw,460px);right:-6%;bottom:-18%;opacity:.05}
 .footer .container{position:relative;z-index:1}
 .footer__top{display:grid;gap:28px;justify-items:start;padding-bottom:clamp(40px,5vw,60px)}
-.footer .brand__logo{height:88px}
+.footer .brand__logo{height:104px}
 .footer .brand__word,.footer .brand__tag{color:#fff}
 .footer .brand__word .mr,.footer .brand__tag .amp{color:var(--tan)}
 .footer .h2{margin-top:24px}
@@ -1526,6 +1533,47 @@ button{font:inherit;color:inherit}
 document.documentElement.classList.add('js');
 (function () {
   'use strict';
+
+  /* Recorta o fundo branco do logo oficial direto no navegador. Só funciona
+     quando a imagem é do mesmo domínio da página (é o caso no site da Mr. Ice);
+     se falhar, a marca volta para a plaquinha branca. */
+  (function () {
+    var logos = document.querySelectorAll('.brand__logo');
+    var run = function (img) {
+      try {
+        var w = img.naturalWidth, hgt = img.naturalHeight;
+        if (!w || !hgt) return false;
+        var c = document.createElement('canvas');
+        c.width = w; c.height = hgt;
+        var ctx = c.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        var data = ctx.getImageData(0, 0, w, hgt), p = data.data;
+        for (var i = 0; i < p.length; i += 4) {
+          var r = p[i], g = p[i + 1], b = p[i + 2];
+          var mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+          if (mx - mn > 22) continue;            /* tem cor: preserva */
+          if (mx >= 246) { p[i + 3] = 0; }       /* branco: some */
+          else if (mx > 216) { p[i + 3] = Math.round(p[i + 3] * (246 - mx) / 30); }
+        }
+        ctx.putImageData(data, 0, 0);
+        img.src = c.toDataURL('image/png');
+        img.setAttribute('data-knockout', '');
+        return true;
+      } catch (e) { return false; }
+    };
+    logos.forEach(function (img) {
+      var go = function () {
+        if (!run(img)) {
+          var brand = img.closest('.brand');
+          if (brand) brand.classList.add('brand--plate');
+        }
+      };
+      if (img.complete && img.naturalWidth) go();
+      else { img.addEventListener('load', go); img.addEventListener('error', function () {
+        var brand = img.closest('.brand'); if (brand) brand.classList.add('brand--plate');
+      }); }
+    });
+  })();
 
   var header = document.querySelector('.header');
   var onScroll = function () { header.classList.toggle('is-scrolled', window.scrollY > 24); };

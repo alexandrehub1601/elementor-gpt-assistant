@@ -363,7 +363,8 @@ button{font:inherit;color:inherit}
 .card--deep{--accent:var(--blue-deep);--accent-tint:#E4F0F5}
 .card--tan{--accent:var(--red);--accent-tint:var(--tan-tint)}
 .card__art{position:relative;overflow:hidden;background:var(--accent-tint);padding:26px 24px 18px;display:flex;align-items:flex-end;justify-content:center;aspect-ratio:16/11}
-.card__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:14px 12px 10px}
+.card__art.has-photo .illo{display:none}
 .card__art .illo{position:relative;width:clamp(96px,34%,128px);height:auto;color:var(--accent)}
 /* selo em formato de carimbo, com o texto em curva */
 .stamp{position:absolute;top:14px;right:14px;width:clamp(86px,26%,112px);transform:rotate(-9deg);color:var(--accent);z-index:2}
@@ -781,8 +782,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <article class="card card--tan reveal reveal" data-cat="picoles">
           <div class="card__art">
-            <!-- FOTO DO PRODUTO: assets/produtos/linha-puro-creme.jpg -->
-            <img class="card__photo" src="assets/produtos/linha-puro-creme.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+            <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Linha-Puro-Creme.png" alt="" loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 120 220" aria-hidden="true"><use href="#illo-picole"></use></svg>
             <span class="stamp">
             <svg viewBox="0 0 140 140" role="img">
@@ -814,8 +815,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <article class="card card--blue reveal reveal" data-cat="picoles">
           <div class="card__art">
-            <!-- FOTO DO PRODUTO: assets/produtos/linha-ice-fresh.jpg -->
-            <img class="card__photo" src="assets/produtos/linha-ice-fresh.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+            <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Linha-Ice-Fresh.png" alt="" loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 120 220" aria-hidden="true"><use href="#illo-picole"></use></svg>
             <span class="stamp">
             <svg viewBox="0 0 140 140" role="img">
@@ -844,8 +845,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <article class="card reveal reveal" data-cat="picoles">
           <div class="card__art">
-            <!-- FOTO DO PRODUTO: assets/produtos/linha-supreme.jpg -->
-            <img class="card__photo" src="assets/produtos/linha-supreme.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+            <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Skimo.png" alt="" loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 120 220" aria-hidden="true"><use href="#illo-casquinha"></use></svg>
             <span class="stamp">
             <svg viewBox="0 0 140 140" role="img">
@@ -872,8 +873,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <article class="card reveal reveal" data-cat="potes">
           <div class="card__art">
-            <!-- FOTO DO PRODUTO: assets/produtos/linha-momentos.jpg -->
-            <img class="card__photo" src="assets/produtos/linha-momentos.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+            <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Linha-Momentos.png" alt="" loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 150 220" aria-hidden="true"><use href="#illo-pote"></use></svg>
             <span class="stamp">
             <svg viewBox="0 0 140 140" role="img">
@@ -902,8 +903,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <article class="card card--blue reveal reveal" data-cat="potes">
           <div class="card__art">
-            <!-- FOTO DO PRODUTO: assets/produtos/linha-classicos.jpg -->
-            <img class="card__photo" src="assets/produtos/linha-classicos.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+            <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Linha-Classicos.png" alt="" loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 150 220" aria-hidden="true"><use href="#illo-pote"></use></svg>
             <span class="stamp">
             <svg viewBox="0 0 140 140" role="img">
@@ -931,8 +932,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <article class="card card--deep reveal reveal" data-cat="potes">
           <div class="card__art">
-            <!-- FOTO DO PRODUTO: assets/produtos/linha-trufado.jpg -->
-            <img class="card__photo" src="assets/produtos/linha-trufado.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+            <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Linha-Trufado.png" alt="" loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 150 220" aria-hidden="true"><use href="#illo-pote"></use></svg>
             <span class="stamp">
             <svg viewBox="0 0 140 140" role="img">
@@ -962,8 +963,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <article class="card reveal reveal" data-cat="potes">
           <div class="card__art">
-            <!-- FOTO DO PRODUTO: assets/produtos/linha-medida-certa.jpg -->
-            <img class="card__photo" src="assets/produtos/linha-medida-certa.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+            <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Linha-Medida-Certa.png" alt="" loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 150 220" aria-hidden="true"><use href="#illo-pote"></use></svg>
             <span class="stamp">
             <svg viewBox="0 0 140 140" role="img">
@@ -1019,8 +1020,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <article class="card card--deep reveal reveal" data-cat="acais">
           <div class="card__art">
-            <!-- FOTO DO PRODUTO: assets/produtos/acai-tradicional.jpg -->
-            <img class="card__photo" src="assets/produtos/acai-tradicional.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+            <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Acai-Tradicional.png" alt="" loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
             <span class="stamp">
             <svg viewBox="0 0 140 140" role="img">
@@ -1041,8 +1042,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <article class="card card--deep reveal reveal" data-cat="acais">
           <div class="card__art">
-            <!-- FOTO DO PRODUTO: assets/produtos/acai-com-leitinho.jpg -->
-            <img class="card__photo" src="assets/produtos/acai-com-leitinho.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+            <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Acai-Leitinho.png" alt="" loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
             <span class="stamp">
             <svg viewBox="0 0 140 140" role="img">
@@ -1063,8 +1064,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <article class="card card--deep reveal reveal" data-cat="acais">
           <div class="card__art">
-            <!-- FOTO DO PRODUTO: assets/produtos/acai-com-morango.jpg -->
-            <img class="card__photo" src="assets/produtos/acai-com-morango.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+            <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/acai-morango.png" alt="" loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
             <span class="stamp">
             <svg viewBox="0 0 140 140" role="img">
@@ -1085,8 +1086,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <article class="card card--deep reveal reveal" data-cat="acais">
           <div class="card__art">
-            <!-- FOTO DO PRODUTO: assets/produtos/acai-com-avela.jpg -->
-            <img class="card__photo" src="assets/produtos/acai-com-avela.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+            <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/acai-avela.png" alt="" loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
             <span class="stamp">
             <svg viewBox="0 0 140 140" role="img">
@@ -1107,8 +1108,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <article class="card card--blue reveal reveal" data-cat="acais">
           <div class="card__art">
-            <!-- FOTO DO PRODUTO: assets/produtos/copinho-acai-200-g.jpg -->
-            <img class="card__photo" src="assets/produtos/copinho-acai-200-g.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+            <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Acai-200ml.png" alt="" loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
             <span class="stamp">
             <svg viewBox="0 0 140 140" role="img">
@@ -1129,8 +1130,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <article class="card reveal reveal" data-cat="sorbet">
           <div class="card__art">
-            <!-- FOTO DO PRODUTO: assets/produtos/linha-sorbet.jpg -->
-            <img class="card__photo" src="assets/produtos/linha-sorbet.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+            <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Linha-Sorbet.png" alt="" loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 120 220" aria-hidden="true"><use href="#illo-picole"></use></svg>
             <span class="stamp">
             <svg viewBox="0 0 140 140" role="img">

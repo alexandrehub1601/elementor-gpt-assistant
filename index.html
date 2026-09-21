@@ -22,13 +22,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!--
   MR ICE — Landing page (arquivo único).
 
-  ARQUIVOS A COLOCAR NA PASTA assets/ :
-    assets/logo-mr-ice.png .......... logo oficial colorido (header)
-    assets/logo-mr-ice-branco.png ... logo oficial em branco (rodapé)
-    assets/hero.jpg ................. foto de fundo do topo
-    assets/nossa-fabrica.jpg ........ foto da fábrica
-  Enquanto um arquivo não existir, a página mostra um fallback da marca no lugar
-  (nada quebra). Nenhuma outra dependência além do kit Adobe Fonts.
+  As imagens (logo, foto do topo, fotos de produto e fachadas das lojas) são
+  servidas do próprio site da Mr. Ice. Se alguma sair do ar, a página mostra um
+  fallback da marca no lugar e nada quebra. Fora isso, a única dependência
+  externa é o kit Adobe Fonts.
 
   PENDENTE NA COPY: respostas do FAQ e destino dos links "Quero ser revendedor",
   "Baixar apresentação comercial", redes sociais e páginas legais.
@@ -318,21 +315,9 @@ button{font:inherit;color:inherit}
 .row:hover .icon-box{background:var(--red);color:#fff;border-color:transparent}
 .row:nth-child(even):hover .icon-box{background:var(--blue-dark)}
 
-/* =========================================================
-   03 — FÁBRICA
-   ========================================================= */
-.factory{position:relative;overflow:hidden;background:var(--cream)}
-.factory__grid{display:grid;gap:clamp(28px,5vw,64px);align-items:center}
-@media (min-width:900px){.factory__grid{grid-template-columns:.8fr 1.2fr}}
-.factory__photo{
   position:relative;aspect-ratio:16/10;border-radius:var(--radius-lg);overflow:hidden;
   background:var(--white);box-shadow:var(--shadow-card);margin:0;display:grid;place-items:center;
 }
-.factory__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.factory__photo .wave{position:absolute;inset:0}
-.factory__photo .placeholder{position:relative;width:clamp(110px,24%,190px)}
-.factory__photo .placeholder svg{width:100%;height:auto;filter:drop-shadow(0 18px 24px rgba(20,36,43,.22))}
-.factory__photo .placeholder :is(path,rect){stroke:#fff;stroke-width:10;stroke-linejoin:round;paint-order:stroke fill}
 
 /* =========================================================
    04 — PRODUTOS
@@ -377,9 +362,6 @@ button{font:inherit;color:inherit}
 .card__label{font-family:var(--font-label);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-muted)}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chip{background:var(--cream);border:1px solid var(--line-light);border-radius:var(--pill);padding:5px 12px;font-size:14.5px;line-height:1.5}
-.complementos-wrap{display:grid;gap:20px;margin-top:20px}
-@media (min-width:680px){.complementos-wrap{grid-template-columns:1fr 1fr}}
-@media (min-width:1040px){.complementos-wrap{grid-template-columns:repeat(3,1fr)}}
 
 /* =========================================================
    05 — LOJAS
@@ -735,25 +717,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="wave-strip" aria-hidden="true"><svg class="wave"><use href="#wave"></use></svg></div>
 
-  <!-- ============ 03 — FÁBRICA ============ -->
-  <section class="section factory" aria-labelledby="fabrica-title">
-    <div class="container factory__grid">
-      <div>
-        <p class="eyebrow reveal">Fabricação própria</p>
-        <h2 class="h2 reveal" id="fabrica-title" style="margin-top:20px">Nossa fábrica</h2>
-      </div>
-      <figure class="factory__photo reveal" data-d="1">
-        <svg class="wave" aria-hidden="true"><use href="#wave"></use></svg>
-        <!-- FOTO DA FÁBRICA: coloque o arquivo em assets/nossa-fabrica.jpg -->
-        <img src="assets/nossa-fabrica.jpg" alt="Nossa fábrica" loading="lazy" decoding="async"
-             onerror="this.remove()">
-        <span class="placeholder" aria-hidden="true">
-          <svg viewBox="0 0 920 740"><use href="#logo-mark"></use></svg>
-        </span>
-      </figure>
-    </div>
-  </section>
-
   <!-- ============ 04 — PRODUTOS ============ -->
   <section class="section section--cream products" id="produtos" aria-labelledby="produtos-title">
     <div class="container">
@@ -1012,25 +975,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       
       </div>
 
-      <div class="complementos-wrap">
-        <article class="card card--tan reveal">
-          <div class="card__art">
-            <!-- FOTO DOS COMPLEMENTOS: assets/produtos/complementos.jpg -->
-            <img class="card__photo" src="assets/produtos/complementos.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
-            <svg class="illo" viewBox="0 0 120 220" aria-hidden="true"><use href="#illo-casquinha"></use></svg>
-          </div>
-          <div class="card__body">
-            <h3 class="h3">Complementos</h3>
-            <button class="btn btn--sm btn--outline sabores-toggle" type="button" aria-expanded="false" aria-controls="sabores-complementos">
-              Sabores <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg>
-            </button>
-            <ul class="chips" id="sabores-complementos" hidden>
-            <li class="chip">Cascão</li><li class="chip">Casquinha</li><li class="chip">Cestinha</li>
-            <li class="chip">Cremes</li>
-          </ul>
-          </div>
-        </article>
-      </div>
     </div>
   </section>
 

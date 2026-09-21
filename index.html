@@ -209,14 +209,13 @@ button{font:inherit;color:inherit}
 }
 .header__row{display:flex;align-items:center;gap:20px}
 .brand{display:flex;align-items:center;text-decoration:none;flex:none;transition:filter .35s var(--ease)}
-.brand__logo{height:104px;width:auto;transition:height .35s var(--ease)}
-.header.is-scrolled .brand__logo{height:74px}
+.brand__logo{height:68px;width:auto;transition:height .35s var(--ease)}
+.header.is-scrolled .brand__logo{height:56px}
 /* O arquivo oficial do logo vem com fundo branco. Sobre a foto e no rodapé ele
    passa pelo filtro #logo-branco, que apaga esse branco e deixa a marca sólida;
    na barra branca o filtro sai e o logo aparece colorido, com o próprio fundo
    se fundindo à barra. */
-.header .brand__logo,.footer .brand__logo{filter:url(#logo-branco)}
-.header.is-scrolled .brand__logo{filter:none}
+.footer .brand__logo{filter:url(#logo-branco)}
 .header .brand__fallback .mark{color:#fff}
 .header .brand__word,.header .brand__tag{color:#fff}
 .header .brand__word .mr,.header .brand__tag .amp{color:var(--tan)}
@@ -295,7 +294,7 @@ button{font:inherit;color:inherit}
 .hero__claim{display:block;margin-top:12px;font-size:clamp(1.5rem,1rem + 1.7vw,2.35rem);line-height:1.12;font-weight:700;color:rgba(255,255,255,.94)}
 .hero .lead{max-width:52ch;margin-bottom:36px}
 .hero .btn-row{gap:14px}
-@media (max-width:760px){.brand__logo{height:76px}.header.is-scrolled .brand__logo{height:58px}}
+@media (max-width:760px){.brand__logo{height:56px}.header.is-scrolled .brand__logo{height:48px}}
 @media (max-width:640px){
   .hero .btn-row .btn,.resellers .btn-row .btn{width:100%}
   .btn{padding:0 20px;font-size:12.5px}
@@ -314,10 +313,6 @@ button{font:inherit;color:inherit}
 .row p{color:var(--ink-muted);font-size:16px}
 .row:hover .icon-box{background:var(--red);color:#fff;border-color:transparent}
 .row:nth-child(even):hover .icon-box{background:var(--blue-dark)}
-
-  position:relative;aspect-ratio:16/10;border-radius:var(--radius-lg);overflow:hidden;
-  background:var(--white);box-shadow:var(--shadow-card);margin:0;display:grid;place-items:center;
-}
 
 /* =========================================================
    04 — PRODUTOS
@@ -470,7 +465,7 @@ button{font:inherit;color:inherit}
 .footer .motif{color:#fff;width:min(46vw,460px);right:-6%;bottom:-18%;opacity:.05}
 .footer .container{position:relative;z-index:1}
 .footer__top{display:grid;gap:28px;justify-items:start;padding-bottom:clamp(40px,5vw,60px)}
-.footer .brand__logo{height:104px}
+.footer .brand__logo{height:86px}
 .footer .brand__word,.footer .brand__tag{color:#fff}
 .footer .brand__word .mr,.footer .brand__tag .amp{color:var(--tan)}
 .footer .h2{margin-top:24px}

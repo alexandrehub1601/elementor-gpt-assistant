@@ -363,16 +363,9 @@ button{font:inherit;color:inherit}
 .card--deep{--accent:var(--blue-deep);--accent-tint:#E4F0F5}
 .card--tan{--accent:var(--red);--accent-tint:var(--tan-tint)}
 .card__art{position:relative;overflow:hidden;background:var(--accent-tint);padding:26px 24px 18px;display:flex;align-items:flex-end;justify-content:center;aspect-ratio:16/11}
-.card__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:14px 12px 10px}
+.card__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .card__art.has-photo .illo{display:none}
 .card__art .illo{position:relative;width:clamp(96px,34%,128px);height:auto;color:var(--accent)}
-/* selo em formato de carimbo, com o texto em curva */
-.stamp{position:absolute;top:14px;right:14px;width:clamp(86px,26%,112px);transform:rotate(-9deg);color:var(--accent);z-index:2}
-.stamp svg{width:100%;height:auto;overflow:visible}
-.stamp__disc{fill:#fff;opacity:.94}
-.stamp__ring{fill:none;stroke:currentColor;stroke-width:3}
-.stamp__ring--thin{stroke-width:1.2}
-.stamp__text{fill:currentColor;font-family:var(--font-label);font-weight:700;letter-spacing:.14em;text-transform:uppercase}
 .card__format{font-family:var(--font-display);font-weight:700;font-size:1.06rem;line-height:1.3;color:var(--ink);letter-spacing:-.01em}
 .sabores-toggle{align-self:flex-start;margin-top:2px}
 .sabores-toggle .icon{width:16px;height:16px;transition:transform .25s var(--ease)}
@@ -785,16 +778,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Linha-Puro-Creme.png" alt="" loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 120 220" aria-hidden="true"><use href="#illo-picole"></use></svg>
-            <span class="stamp">
-            <svg viewBox="0 0 140 140" role="img">
-              <defs><path id="stamp-path-1" d="M70 122a52 52 0 1 1 .1 0"/></defs>
-              <circle class="stamp__disc" cx="70" cy="70" r="69"/>
-              <circle class="stamp__ring" cx="70" cy="70" r="67"/>
-              <circle class="stamp__ring stamp__ring--thin" cx="70" cy="70" r="43"/>
-              <text class="stamp__text" font-size="12.6"><textPath href="#stamp-path-1" startOffset="50%" text-anchor="middle">Leite Integral</textPath></text>
-              <use href="#illo-picole" transform="translate(56 50) scale(.24)"/>
-            </svg>
-          </span>
           </div>
           <div class="card__body">
             <p class="card__format">Picolés à Base de Leite</p>
@@ -818,16 +801,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Linha-Ice-Fresh.png" alt="" loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 120 220" aria-hidden="true"><use href="#illo-picole"></use></svg>
-            <span class="stamp">
-            <svg viewBox="0 0 140 140" role="img">
-              <defs><path id="stamp-path-2" d="M70 122a52 52 0 1 1 .1 0"/></defs>
-              <circle class="stamp__disc" cx="70" cy="70" r="69"/>
-              <circle class="stamp__ring" cx="70" cy="70" r="67"/>
-              <circle class="stamp__ring stamp__ring--thin" cx="70" cy="70" r="43"/>
-              <text class="stamp__text" font-size="11.4"><textPath href="#stamp-path-2" startOffset="50%" text-anchor="middle">Leve e Refrescante</textPath></text>
-              <use href="#illo-picole" transform="translate(56 50) scale(.24)"/>
-            </svg>
-          </span>
           </div>
           <div class="card__body">
             <p class="card__format">Picolés à Base de Água</p>
@@ -848,16 +821,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Skimo.png" alt="" loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 120 220" aria-hidden="true"><use href="#illo-casquinha"></use></svg>
-            <span class="stamp">
-            <svg viewBox="0 0 140 140" role="img">
-              <defs><path id="stamp-path-3" d="M70 122a52 52 0 1 1 .1 0"/></defs>
-              <circle class="stamp__disc" cx="70" cy="70" r="69"/>
-              <circle class="stamp__ring" cx="70" cy="70" r="67"/>
-              <circle class="stamp__ring stamp__ring--thin" cx="70" cy="70" r="43"/>
-              <text class="stamp__text" font-size="11.4"><textPath href="#stamp-path-3" startOffset="50%" text-anchor="middle">Casquinha Crocante</textPath></text>
-              <use href="#illo-picole" transform="translate(56 50) scale(.24)"/>
-            </svg>
-          </span>
           </div>
           <div class="card__body">
             <p class="card__format">Picolés Skimo</p>
@@ -876,16 +839,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Linha-Momentos.png" alt="" loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 150 220" aria-hidden="true"><use href="#illo-pote"></use></svg>
-            <span class="stamp">
-            <svg viewBox="0 0 140 140" role="img">
-              <defs><path id="stamp-path-4" d="M70 122a52 52 0 1 1 .1 0"/></defs>
-              <circle class="stamp__disc" cx="70" cy="70" r="69"/>
-              <circle class="stamp__ring" cx="70" cy="70" r="67"/>
-              <circle class="stamp__ring stamp__ring--thin" cx="70" cy="70" r="43"/>
-              <text class="stamp__text" font-size="11.4"><textPath href="#stamp-path-4" startOffset="50%" text-anchor="middle">Tamanho Família</textPath></text>
-              <use href="#illo-picole" transform="translate(56 50) scale(.24)"/>
-            </svg>
-          </span>
           </div>
           <div class="card__body">
             <p class="card__format">Potes 1,8 L</p>
@@ -906,16 +859,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Linha-Classicos.png" alt="" loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 150 220" aria-hidden="true"><use href="#illo-pote"></use></svg>
-            <span class="stamp">
-            <svg viewBox="0 0 140 140" role="img">
-              <defs><path id="stamp-path-5" d="M70 122a52 52 0 1 1 .1 0"/></defs>
-              <circle class="stamp__disc" cx="70" cy="70" r="69"/>
-              <circle class="stamp__ring" cx="70" cy="70" r="67"/>
-              <circle class="stamp__ring stamp__ring--thin" cx="70" cy="70" r="43"/>
-              <text class="stamp__text" font-size="11.4"><textPath href="#stamp-path-5" startOffset="50%" text-anchor="middle">Sabores Tradicionais</textPath></text>
-              <use href="#illo-picole" transform="translate(56 50) scale(.24)"/>
-            </svg>
-          </span>
           </div>
           <div class="card__body">
             <p class="card__format">Potes 1 L Clássicos</p>
@@ -935,16 +878,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Linha-Trufado.png" alt="" loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 150 220" aria-hidden="true"><use href="#illo-pote"></use></svg>
-            <span class="stamp">
-            <svg viewBox="0 0 140 140" role="img">
-              <defs><path id="stamp-path-6" d="M70 122a52 52 0 1 1 .1 0"/></defs>
-              <circle class="stamp__disc" cx="70" cy="70" r="69"/>
-              <circle class="stamp__ring" cx="70" cy="70" r="67"/>
-              <circle class="stamp__ring stamp__ring--thin" cx="70" cy="70" r="43"/>
-              <text class="stamp__text" font-size="12.6"><textPath href="#stamp-path-6" startOffset="50%" text-anchor="middle">Mais Amados</textPath></text>
-              <use href="#illo-picole" transform="translate(56 50) scale(.24)"/>
-            </svg>
-          </span>
           </div>
           <div class="card__body">
             <p class="card__format">Potes 1 L Trufados</p>
@@ -966,16 +899,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Linha-Medida-Certa.png" alt="" loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 150 220" aria-hidden="true"><use href="#illo-pote"></use></svg>
-            <span class="stamp">
-            <svg viewBox="0 0 140 140" role="img">
-              <defs><path id="stamp-path-7" d="M70 122a52 52 0 1 1 .1 0"/></defs>
-              <circle class="stamp__disc" cx="70" cy="70" r="69"/>
-              <circle class="stamp__ring" cx="70" cy="70" r="67"/>
-              <circle class="stamp__ring stamp__ring--thin" cx="70" cy="70" r="43"/>
-              <text class="stamp__text" font-size="11.4"><textPath href="#stamp-path-7" startOffset="50%" text-anchor="middle">Feito para Você</textPath></text>
-              <use href="#illo-picole" transform="translate(56 50) scale(.24)"/>
-            </svg>
-          </span>
           </div>
           <div class="card__body">
             <p class="card__format">Potes 300 g</p>
@@ -992,19 +915,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <article class="card card--blue reveal reveal" data-cat="zero">
           <div class="card__art">
-            <!-- FOTO DO PRODUTO: assets/produtos/linha-equilibrio.jpg -->
-            <img class="card__photo" src="assets/produtos/linha-equilibrio.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+            <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/linha-zero.png" alt="" loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 150 220" aria-hidden="true"><use href="#illo-pote"></use></svg>
-            <span class="stamp">
-            <svg viewBox="0 0 140 140" role="img">
-              <defs><path id="stamp-path-8" d="M70 122a52 52 0 1 1 .1 0"/></defs>
-              <circle class="stamp__disc" cx="70" cy="70" r="69"/>
-              <circle class="stamp__ring" cx="70" cy="70" r="67"/>
-              <circle class="stamp__ring stamp__ring--thin" cx="70" cy="70" r="43"/>
-              <text class="stamp__text" font-size="11.4"><textPath href="#stamp-path-8" startOffset="50%" text-anchor="middle">Zero Adição de Açúcar</textPath></text>
-              <use href="#illo-picole" transform="translate(56 50) scale(.24)"/>
-            </svg>
-          </span>
           </div>
           <div class="card__body">
             <p class="card__format">Linha Zero</p>
@@ -1023,16 +936,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Acai-Tradicional.png" alt="" loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
-            <span class="stamp">
-            <svg viewBox="0 0 140 140" role="img">
-              <defs><path id="stamp-path-9" d="M70 122a52 52 0 1 1 .1 0"/></defs>
-              <circle class="stamp__disc" cx="70" cy="70" r="69"/>
-              <circle class="stamp__ring" cx="70" cy="70" r="67"/>
-              <circle class="stamp__ring stamp__ring--thin" cx="70" cy="70" r="43"/>
-              <text class="stamp__text" font-size="9.8"><textPath href="#stamp-path-9" startOffset="50%" text-anchor="middle">Sabor Intenso 34% de Polpa</textPath></text>
-              <use href="#illo-picole" transform="translate(56 50) scale(.24)"/>
-            </svg>
-          </span>
           </div>
           <div class="card__body">
             <p class="card__format">Linha Momento Açaí</p>
@@ -1045,16 +948,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Acai-Leitinho.png" alt="" loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
-            <span class="stamp">
-            <svg viewBox="0 0 140 140" role="img">
-              <defs><path id="stamp-path-10" d="M70 122a52 52 0 1 1 .1 0"/></defs>
-              <circle class="stamp__disc" cx="70" cy="70" r="69"/>
-              <circle class="stamp__ring" cx="70" cy="70" r="67"/>
-              <circle class="stamp__ring stamp__ring--thin" cx="70" cy="70" r="43"/>
-              <text class="stamp__text" font-size="9.8"><textPath href="#stamp-path-10" startOffset="50%" text-anchor="middle">Cremosidade Surpreendente</textPath></text>
-              <use href="#illo-picole" transform="translate(56 50) scale(.24)"/>
-            </svg>
-          </span>
           </div>
           <div class="card__body">
             <p class="card__format">Linha Momento Açaí</p>
@@ -1067,16 +960,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/acai-morango.png" alt="" loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
-            <span class="stamp">
-            <svg viewBox="0 0 140 140" role="img">
-              <defs><path id="stamp-path-11" d="M70 122a52 52 0 1 1 .1 0"/></defs>
-              <circle class="stamp__disc" cx="70" cy="70" r="69"/>
-              <circle class="stamp__ring" cx="70" cy="70" r="67"/>
-              <circle class="stamp__ring stamp__ring--thin" cx="70" cy="70" r="43"/>
-              <text class="stamp__text" font-size="11.4"><textPath href="#stamp-path-11" startOffset="50%" text-anchor="middle">Refrescância Frutada</textPath></text>
-              <use href="#illo-picole" transform="translate(56 50) scale(.24)"/>
-            </svg>
-          </span>
           </div>
           <div class="card__body">
             <p class="card__format">Linha Momento Açaí</p>
@@ -1089,16 +972,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/acai-avela.png" alt="" loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
-            <span class="stamp">
-            <svg viewBox="0 0 140 140" role="img">
-              <defs><path id="stamp-path-12" d="M70 122a52 52 0 1 1 .1 0"/></defs>
-              <circle class="stamp__disc" cx="70" cy="70" r="69"/>
-              <circle class="stamp__ring" cx="70" cy="70" r="67"/>
-              <circle class="stamp__ring stamp__ring--thin" cx="70" cy="70" r="43"/>
-              <text class="stamp__text" font-size="12.6"><textPath href="#stamp-path-12" startOffset="50%" text-anchor="middle">Sabor Marcante</textPath></text>
-              <use href="#illo-picole" transform="translate(56 50) scale(.24)"/>
-            </svg>
-          </span>
           </div>
           <div class="card__body">
             <p class="card__format">Linha Momento Açaí</p>
@@ -1111,16 +984,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Acai-200ml.png" alt="" loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
-            <span class="stamp">
-            <svg viewBox="0 0 140 140" role="img">
-              <defs><path id="stamp-path-13" d="M70 122a52 52 0 1 1 .1 0"/></defs>
-              <circle class="stamp__disc" cx="70" cy="70" r="69"/>
-              <circle class="stamp__ring" cx="70" cy="70" r="67"/>
-              <circle class="stamp__ring stamp__ring--thin" cx="70" cy="70" r="43"/>
-              <text class="stamp__text" font-size="11.4"><textPath href="#stamp-path-13" startOffset="50%" text-anchor="middle">Na Medida Certa</textPath></text>
-              <use href="#illo-picole" transform="translate(56 50) scale(.24)"/>
-            </svg>
-          </span>
           </div>
           <div class="card__body">
             <p class="card__format">Linha Açaí Todo Dia</p>
@@ -1133,16 +996,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Linha-Sorbet.png" alt="" loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 120 220" aria-hidden="true"><use href="#illo-picole"></use></svg>
-            <span class="stamp">
-            <svg viewBox="0 0 140 140" role="img">
-              <defs><path id="stamp-path-14" d="M70 122a52 52 0 1 1 .1 0"/></defs>
-              <circle class="stamp__disc" cx="70" cy="70" r="69"/>
-              <circle class="stamp__ring" cx="70" cy="70" r="67"/>
-              <circle class="stamp__ring stamp__ring--thin" cx="70" cy="70" r="43"/>
-              <text class="stamp__text" font-size="11.4"><textPath href="#stamp-path-14" startOffset="50%" text-anchor="middle">Feito com Cuidado</textPath></text>
-              <use href="#illo-picole" transform="translate(56 50) scale(.24)"/>
-            </svg>
-          </span>
           </div>
           <div class="card__body">
             <p class="card__format">Sorbet</p>
@@ -1165,16 +1018,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- FOTO DOS COMPLEMENTOS: assets/produtos/complementos.jpg -->
             <img class="card__photo" src="assets/produtos/complementos.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 120 220" aria-hidden="true"><use href="#illo-casquinha"></use></svg>
-            <span class="stamp">
-            <svg viewBox="0 0 140 140" role="img">
-              <defs><path id="stamp-path-c" d="M70 122a52 52 0 1 1 .1 0"/></defs>
-              <circle class="stamp__disc" cx="70" cy="70" r="69"/>
-              <circle class="stamp__ring" cx="70" cy="70" r="67"/>
-              <circle class="stamp__ring stamp__ring--thin" cx="70" cy="70" r="43"/>
-              <text class="stamp__text" font-size="12.6"><textPath href="#stamp-path-c" startOffset="50%" text-anchor="middle">Para completar</textPath></text>
-              <use href="#illo-picole" transform="translate(56 50) scale(.24)"/>
-            </svg>
-          </span>
           </div>
           <div class="card__body">
             <h3 class="h3">Complementos</h3>
@@ -1183,7 +1026,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </button>
             <ul class="chips" id="sabores-complementos" hidden>
             <li class="chip">Cascão</li><li class="chip">Casquinha</li><li class="chip">Cestinha</li>
-            <li class="chip">Cremes</li><li class="chip">Coberturas</li>
+            <li class="chip">Cremes</li>
           </ul>
           </div>
         </article>

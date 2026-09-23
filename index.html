@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mr. Ice Sorvetes, açaís e sabores para todos os momentos.</title>
-<meta name="description" content="Fabricação própria, mais de 50 sabores no self-service e opções para diferentes momentos e preferências.">
+<meta name="description" content="Fabricação própria, mais de 50 sabores no self-service<br class="br-md"> e opções para diferentes momentos e preferências.">
 <meta name="theme-color" content="#E3242B">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Mr. Ice Sorvetes, açaís e sabores para todos os momentos.">
-<meta property="og:description" content="Fabricação própria, mais de 50 sabores no self-service e opções para diferentes momentos e preferências.">
+<meta property="og:description" content="Fabricação própria, mais de 50 sabores no self-service<br class="br-md"> e opções para diferentes momentos e preferências.">
 <meta property="og:locale" content="pt_BR">
 
 <!-- Google Tag Manager -->
@@ -293,6 +293,7 @@ button{font:inherit;color:inherit}
 .hero__brand{display:block;font-size:clamp(3.2rem,2rem + 4.6vw,5.6rem);line-height:.95;letter-spacing:-.035em}
 .hero__claim{display:block;margin-top:12px;font-size:clamp(1.5rem,1rem + 1.7vw,2.35rem);line-height:1.12;font-weight:700;color:rgba(255,255,255,.94)}
 .hero .lead{max-width:52ch;margin-bottom:36px}
+@media (max-width:760px){.br-md{display:none}}
 .hero .btn-row{gap:14px}
 @media (max-width:760px){.brand__logo{height:56px}.header.is-scrolled .brand__logo{height:48px}}
 @media (max-width:640px){
@@ -657,7 +658,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="nb">Atibaia</span><span class="sep" aria-hidden="true">|</span><span class="nb">Bragança Paulista</span>
         </p>
         <h1 class="h1 reveal" data-d="1" id="hero-title"><span class="hero__brand nb">Mr. Ice</span><span class="hero__claim">Sorvetes, açaís e sabores para todos os momentos.</span></h1>
-        <p class="lead reveal" data-d="2">Fabricação própria, mais de 50 sabores no self-service e opções para diferentes momentos e preferências.</p>
+        <p class="lead reveal" data-d="2">Fabricação própria, mais de 50 sabores no self-service<br class="br-md"> e opções para diferentes momentos e preferências.</p>
         <div class="btn-stack reveal" data-d="3">
           <a class="btn btn--outline" href="#produtos">Conheça nossos produtos <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
           <a class="btn btn--outline" href="#lojas"><svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg> Encontre uma loja</a>
@@ -889,63 +890,51 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </article>
 
-        <article class="card card--deep reveal reveal" data-cat="acais">
+        <article class="card card--deep reveal" data-cat="acais">
           <div class="card__art">
             <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Acai-Tradicional.png" alt="" loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
           </div>
           <div class="card__body">
-            <p class="card__format">Linha Momento Açaí</p>
-            <h3 class="h3">Açaí Tradicional</h3>
+            <p class="card__format">Açaí 1 L</p>
+            <h3 class="h3">Linha Momento Açaí</h3>
+            <button class="btn btn--sm btn--outline sabores-toggle" type="button" aria-expanded="false" aria-controls="sabores-acai-1l">
+              Sabores <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg>
+            </button>
+            <ul class="chips" id="sabores-acai-1l" hidden><li class="chip">Açaí Tradicional</li><li class="chip">Açaí com Leitinho</li></ul>
           </div>
         </article>
 
-        <article class="card card--deep reveal reveal" data-cat="acais">
+        <article class="card card--deep reveal" data-cat="acais">
           <div class="card__art">
             <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Acai-Leitinho.png" alt="" loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
           </div>
           <div class="card__body">
-            <p class="card__format">Linha Momento Açaí</p>
-            <h3 class="h3">Açaí com Leitinho</h3>
+            <p class="card__format">Açaí 2 L</p>
+            <h3 class="h3">Linha Momento Açaí</h3>
+            <button class="btn btn--sm btn--outline sabores-toggle" type="button" aria-expanded="false" aria-controls="sabores-acai-2l">
+              Sabores <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg>
+            </button>
+            <ul class="chips" id="sabores-acai-2l" hidden><li class="chip">Açaí Tradicional</li><li class="chip">Açaí com Leitinho</li><li class="chip">Açaí com Morango</li><li class="chip">Açaí com Avelã</li></ul>
           </div>
         </article>
 
-        <article class="card card--deep reveal reveal" data-cat="acais">
-          <div class="card__art">
-            <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/acai-morango.png" alt="" loading="lazy" decoding="async"
-                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
-            <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
-          </div>
-          <div class="card__body">
-            <p class="card__format">Linha Momento Açaí</p>
-            <h3 class="h3">Açaí com Morango</h3>
-          </div>
-        </article>
-
-        <article class="card card--deep reveal reveal" data-cat="acais">
-          <div class="card__art">
-            <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/acai-avela.png" alt="" loading="lazy" decoding="async"
-                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
-            <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
-          </div>
-          <div class="card__body">
-            <p class="card__format">Linha Momento Açaí</p>
-            <h3 class="h3">Açaí com Avelã</h3>
-          </div>
-        </article>
-
-        <article class="card card--blue reveal reveal" data-cat="acais">
+        <article class="card card--blue reveal" data-cat="acais">
           <div class="card__art">
             <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Acai-200ml.png" alt="" loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 140 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
           </div>
           <div class="card__body">
-            <p class="card__format">Linha Açaí Todo Dia</p>
-            <h3 class="h3">Copinho Açaí 200 g</h3>
+            <p class="card__format">Açaí 200 g</p>
+            <h3 class="h3">Linha Açaí Todo Dia</h3>
+            <button class="btn btn--sm btn--outline sabores-toggle" type="button" aria-expanded="false" aria-controls="sabores-acai-200g">
+              Sabores <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg>
+            </button>
+            <ul class="chips" id="sabores-acai-200g" hidden><li class="chip">Açaí Tradicional</li><li class="chip">Açaí com Leitinho</li></ul>
           </div>
         </article>
 
@@ -1301,10 +1290,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <div class="footer__socials">
-        <!-- TODO: apontar para os perfis oficiais -->
-        <a class="social" href="#" aria-label="Instagram do Mr. Ice"><svg class="icon" aria-hidden="true"><use href="#i-instagram"></use></svg></a>
-        <a class="social" href="#" aria-label="TikTok do Mr. Ice"><svg class="icon" aria-hidden="true"><use href="#i-tiktok"></use></svg></a>
-        <a class="social" href="#" aria-label="Facebook do Mr. Ice"><svg class="icon" aria-hidden="true"><use href="#i-facebook"></use></svg></a>
+        <a class="social" href="https://www.instagram.com/sorvetesmrice" target="_blank" rel="noopener" aria-label="Instagram do Mr. Ice"><svg class="icon" aria-hidden="true"><use href="#i-instagram"></use></svg></a>
+        <a class="social" href="https://www.tiktok.com/@sorvetesmrice" target="_blank" rel="noopener" aria-label="TikTok do Mr. Ice"><svg class="icon" aria-hidden="true"><use href="#i-tiktok"></use></svg></a>
+        <a class="social" href="https://www.facebook.com/share/1MCBN1za8N/" target="_blank" rel="noopener" aria-label="Facebook do Mr. Ice"><svg class="icon" aria-hidden="true"><use href="#i-facebook"></use></svg></a>
       </div>
     </div>
 

@@ -24,8 +24,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   MR ICE — Encontre sua loja (arquivo único).
 
   Mesmo sistema visual da landing page: tokens de cor, kit Adobe dfs7hqs
-  (roca nos títulos, rotulo nos textos e labels), logo oficial servido do site
-  da Mr. Ice, pattern de ondas ao fundo e a divisória de sorvete derretendo.
+  (roca nos títulos, rotulo nos textos e labels), logo oficial nas cores originais
+  servido do site da Mr. Ice, pattern de ondas ao fundo e a divisória de sorvete derretendo.
 
   IDA PARA O APP DO IFOOD: cada loja é um <a href> de verdade, sem
   target="_blank". O link do iFood é um universal link — quando a navegação
@@ -121,17 +121,17 @@ button{font:inherit;color:inherit}
 }
 @keyframes entrar{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
 
-/* Faixa vermelha com o logo oficial */
-.modal__crown{
-  position:relative;background:var(--red);
-  padding:clamp(24px,6vw,32px) 24px clamp(30px,7vw,38px);
-  display:grid;place-items:center;
-}
-.modal__crown .brand__logo{height:clamp(62px,15vw,76px);width:auto;filter:url(#logo-branco)}
+/* Faixa vermelha que derrete sobre o cartão — só decoração, sem o logo:
+   assim o arquivo do logo entra nas cores originais, sobre o branco do
+   cartão, e o fundo branco dele não aparece como caixa. */
+.modal__roof{position:relative;background:var(--red);height:clamp(40px,9vw,54px)}
+
+.brand{display:grid;place-items:center;margin-bottom:22px}
+.brand__logo{width:min(246px,76%);height:auto}
 /* Se o arquivo do logo não carregar, entra a marca em SVG */
-.brand__fallback{display:flex;align-items:center;gap:12px;color:#fff}
+.brand__fallback{display:flex;align-items:center;gap:12px;color:var(--red)}
 .brand__fallback .mark{width:46px;height:auto}
-.brand__word{font-family:var(--font-display);font-weight:700;font-size:1.6rem;letter-spacing:-.02em;line-height:1}
+.brand__word{font-family:var(--font-display);font-weight:700;font-size:1.6rem;letter-spacing:-.02em;line-height:1;color:var(--ink)}
 
 /* Divisória de sorvete derretendo, igual à da landing page */
 .drip{position:absolute;top:-1px;left:0;width:100%;height:clamp(18px,4.6vw,24px);z-index:3;pointer-events:none}
@@ -139,7 +139,7 @@ button{font:inherit;color:inherit}
 
 .modal__body{
   position:relative;background:var(--white);
-  padding:clamp(30px,7vw,38px) clamp(22px,6vw,34px) clamp(24px,6vw,30px);
+  padding:clamp(26px,6vw,34px) clamp(22px,6vw,34px) clamp(24px,6vw,30px);
   text-align:center;
 }
 
@@ -296,14 +296,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <path id="drip-path" d="M0 0H1200 V6a74.9 30 0 0 1 -149.9 0a59.4 18 0 0 1 -118.8 0a45.2 34 0 0 1 -90.3 0a74.3 22 0 0 1 -148.5 0a68.3 26 0 0 1 -136.6 0a74.9 15 0 0 1 -149.8 0a70.1 32 0 0 1 -140.2 0a68.4 20 0 0 1 -136.8 0a64.5 28 0 0 1 -129.0 0V0Z"/>
 
-  <!-- Transforma o fundo branco do arquivo do logo em transparência e devolve a
-       marca em branco: a opacidade vira o inverso do brilho de cada pixel. -->
-  <filter id="logo-branco" color-interpolation-filters="sRGB">
-    <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -0.333 -0.333 -0.334 0 1" result="branco"/>
-    <feComponentTransfer in="branco" result="marca"><feFuncA type="linear" slope="6" intercept="-0.45"/></feComponentTransfer>
-    <feComposite in="marca" in2="SourceGraphic" operator="in"/>
-  </filter>
-
   <!-- Ícones: 24x24, traço 1.5 -->
   <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
     <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10.2c0 5.8-8 11.8-8 11.8s-8-6-8-11.8a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
@@ -318,19 +310,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="titulo">
 
-    <div class="modal__crown">
-      <!-- LOGO OFICIAL (arquivo do site da Mr. Ice) -->
-      <img class="brand__logo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Mr_Ice_Logotipo-01-4.png"
-           alt="Mr. Ice Sorvetes e Açaí" width="220" height="80" fetchpriority="high"
-           onerror="this.hidden=true;this.nextElementSibling.hidden=false">
-      <span class="brand__fallback" hidden>
-        <svg class="mark" viewBox="0 0 920 740" aria-hidden="true"><use href="#logo-mark-mono"></use></svg>
-        <span class="brand__word">Mr. Ice</span>
-      </span>
-    </div>
+    <div class="modal__roof"></div>
 
     <div class="modal__body">
       <svg class="drip" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--red)"><use href="#drip-path"></use></svg>
+
+      <p class="brand">
+        <!-- LOGO OFICIAL (arquivo do site da Mr. Ice), nas cores originais -->
+        <img class="brand__logo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Mr_Ice_Logotipo-01-4.png"
+             alt="Mr. Ice Sorvetes e Açaí" width="1919" height="835" fetchpriority="high"
+             onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+        <span class="brand__fallback" hidden>
+          <svg class="mark" viewBox="0 0 920 740" aria-hidden="true"><use href="#logo-mark-mono"></use></svg>
+          <span class="brand__word">Mr. Ice</span>
+        </span>
+      </p>
 
       <p class="eyebrow">Pedido pelo iFood</p>
       <h1 id="titulo">Encontre sua loja</h1>

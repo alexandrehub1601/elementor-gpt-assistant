@@ -30,8 +30,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   IDA PARA O APP DO IFOOD: cada loja é um <a href> de verdade, sem
   target="_blank". O link do iFood é um universal link — quando a navegação
   acontece na própria aba, o sistema entrega para o app instalado; abrir em
-  nova aba faz o iOS cair no site. Quando a loja vem da geolocalização, a
-  navegação também é de primeiro nível (location.assign), pelo mesmo motivo.
+  nova aba faz o iOS cair no site.
+
+  LOJAS: as quatro unidades que têm loja no iFood, agrupadas por cidade
+  (Atibaia antes de Bragança). A geolocalização diz de qual cidade a pessoa
+  está mais perto e sobe esse grupo para o topo; a escolha da unidade fica com
+  ela, porque cada cidade tem mais de uma loja.
 -->
 
 <link rel="preconnect" href="https://use.typekit.net" crossorigin>
@@ -52,6 +56,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   --blue:#1A8CB4;
   --blue-dark:#0E6F92;
   --blue-deep:#0A4E68;
+  --blue-tint:#E8F4F9;
   --blue-950:#073A4E;
   --tan:#F3C395;
 
@@ -201,7 +206,7 @@ h1{
    LISTA DE LOJAS
    ========================================================= */
 .cidades{
-  display:none;flex-direction:column;gap:12px;
+  display:none;flex-direction:column;gap:18px;
   margin-top:22px;padding-top:22px;border-top:1px solid rgba(20,36,43,.12);
   text-align:left;
 }
@@ -211,9 +216,26 @@ h1{
   letter-spacing:.2em;text-transform:uppercase;color:var(--blue-dark);
   text-align:center;margin-bottom:2px;
 }
+
+/* Um grupo por cidade */
+.grupo{display:flex;flex-direction:column;gap:10px}
+.grupo__cidade{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--font-display);font-weight:700;font-size:1.02rem;
+  letter-spacing:-.01em;color:var(--blue-deep);
+}
+.grupo__cidade::after{content:"";flex:1;height:1px;background:rgba(20,36,43,.12)}
+.grupo__perto{
+  flex:none;padding:3px 10px;border-radius:var(--pill);
+  background:var(--red);color:#fff;
+  font-family:var(--font-label);font-weight:700;font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;
+}
+.grupo:not(.is-perto) .grupo__perto{display:none}
+.grupo.is-perto .cidade{border-color:rgba(227,36,43,.45)}
 .cidade{
-  display:flex;align-items:center;gap:14px;
-  min-height:72px;padding:14px 18px;
+  display:flex;align-items:center;gap:13px;
+  min-height:72px;padding:13px 15px;
   border:1px solid rgba(20,36,43,.14);border-radius:var(--radius);
   background:var(--white);color:var(--ink);text-decoration:none;cursor:pointer;
   text-align:left;
@@ -225,19 +247,19 @@ h1{
 }
 .cidade:focus-visible{border-color:var(--red)}
 .cidade__icone{
-  display:grid;place-items:center;flex:none;width:48px;height:48px;border-radius:15px;
+  display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:14px;
   border:1px solid rgba(227,36,43,.28);color:var(--red);
   background:linear-gradient(160deg,rgba(227,36,43,.10),rgba(227,36,43,0));
 }
-.cidade__icone .icon{width:24px;height:24px}
+.cidade__icone .icon{width:22px;height:22px}
 .cidade__texto{min-width:0}
 .cidade__cidade{
-  font-family:var(--font-display);font-weight:700;font-size:1.06rem;
-  line-height:1.2;letter-spacing:-.01em;
+  font-family:var(--font-display);font-weight:700;font-size:.95rem;
+  line-height:1.3;letter-spacing:-.01em;text-wrap:balance;
 }
 .cidade__bairro{
-  display:block;margin-top:2px;
-  font-size:.86rem;line-height:1.4;color:var(--ink-muted);
+  display:block;margin-top:3px;
+  font-size:.83rem;line-height:1.35;color:var(--ink-muted);
 }
 .cidade__seta{margin-left:auto;flex:none;color:var(--red)}
 .cidade__seta .icon{width:20px;height:20px}
@@ -246,12 +268,15 @@ h1{
    ESTADOS
    ========================================================= */
 .msg{
-  display:none;margin-top:18px;padding:14px 16px;
+  display:none;margin:22px 0 0;padding:14px 16px;
   border-radius:var(--radius);border:1px solid rgba(227,36,43,.24);
   background:var(--red-tint);color:var(--red-dark);
   font-size:.92rem;line-height:1.5;text-align:left;
 }
 .msg[data-aberto="1"]{display:block}
+.msg--info{
+  border-color:rgba(26,140,180,.3);background:var(--blue-tint);color:var(--blue-deep);
+}
 .loader{
   display:none;margin:18px auto 0;width:26px;height:26px;
   border:3px solid rgba(20,36,43,.12);border-top-color:var(--red);border-radius:50%;
@@ -339,31 +364,59 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="loader" id="loader" role="status" aria-live="polite"><span class="sr-only">Localizando você…</span></div>
 
+      <div class="msg" id="msg" role="alert"></div>
+
       <div class="cidades" id="cidades">
         <p class="cidades__titulo">Escolha a loja</p>
 
-        <a class="cidade" data-loja="atibaia" rel="noopener"
-           href="https://www.ifood.com.br/delivery/atibaia-sp/mr-ice-sorvetes-atibaia-centro/1fffda62-7503-4354-87de-c5e46fdae44c">
-          <span class="cidade__icone"><svg class="icon" aria-hidden="true"><use href="#i-store"></use></svg></span>
-          <span class="cidade__texto">
-            <span class="cidade__cidade">Atibaia</span>
-            <span class="cidade__bairro">Centro</span>
-          </span>
-          <span class="cidade__seta"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
-        </a>
+        <div class="grupo" data-cidade="atibaia">
+          <p class="grupo__cidade">Atibaia <span class="grupo__perto">Mais perto</span></p>
 
-        <a class="cidade" data-loja="braganca" rel="noopener"
-           href="https://www.ifood.com.br/delivery/braganca-paulista-sp/mr-ice-sorvetes-e-acai-jardim-sao-lourenco/a4b85055-457a-46db-a4cd-c6b5ea70e7c6?utm_medium=share">
-          <span class="cidade__icone"><svg class="icon" aria-hidden="true"><use href="#i-store"></use></svg></span>
-          <span class="cidade__texto">
-            <span class="cidade__cidade">Bragança Paulista</span>
-            <span class="cidade__bairro">Jardim São Lourenço</span>
-          </span>
-          <span class="cidade__seta"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
-        </a>
+          <a class="cidade" rel="noopener"
+             href="https://www.ifood.com.br/delivery/atibaia-sp/mr-ice-sorvetes-e-acai---sao-joao-centro/1fffda62-7503-4354-87de-c5e46fdae44c">
+            <span class="cidade__icone"><svg class="icon" aria-hidden="true"><use href="#i-store"></use></svg></span>
+            <span class="cidade__texto">
+              <span class="cidade__cidade">Av. São João, 1075</span>
+              <span class="cidade__bairro">Centro &middot; Atibaia</span>
+            </span>
+            <span class="cidade__seta"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+          </a>
+
+          <a class="cidade" rel="noopener"
+             href="https://www.ifood.com.br/delivery/atibaia-sp/mr-ice-sorvetes-e-acai---av-lucas-vila-helena/5c54cb21-9d9d-44e4-a810-0d22faa8a640">
+            <span class="cidade__icone"><svg class="icon" aria-hidden="true"><use href="#i-store"></use></svg></span>
+            <span class="cidade__texto">
+              <span class="cidade__cidade">Alameda Prof. Lucas Nogueira Garcez, 2525</span>
+              <span class="cidade__bairro">Jardim Paulista &middot; Atibaia</span>
+            </span>
+            <span class="cidade__seta"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+          </a>
+        </div>
+
+        <div class="grupo" data-cidade="braganca">
+          <p class="grupo__cidade">Bragança Paulista <span class="grupo__perto">Mais perto</span></p>
+
+          <a class="cidade" rel="noopener"
+             href="https://www.ifood.com.br/delivery/braganca-paulista-sp/mr-ice-sorvete-e-acai---pires-centro/d85c0060-74ab-4269-84d7-11c2baba729d">
+            <span class="cidade__icone"><svg class="icon" aria-hidden="true"><use href="#i-store"></use></svg></span>
+            <span class="cidade__texto">
+              <span class="cidade__cidade">Av. Antonio Pires Pimentel, 2172</span>
+              <span class="cidade__bairro">Centro &middot; Bragança Paulista</span>
+            </span>
+            <span class="cidade__seta"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+          </a>
+
+          <a class="cidade" rel="noopener"
+             href="https://www.ifood.com.br/delivery/braganca-paulista-sp/mr-ice-sorvetes-e-acai---imigrantes-jardim-sao-lourenco/a4b85055-457a-46db-a4cd-c6b5ea70e7c6">
+            <span class="cidade__icone"><svg class="icon" aria-hidden="true"><use href="#i-store"></use></svg></span>
+            <span class="cidade__texto">
+              <span class="cidade__cidade">Av. dos Imigrantes, 3500</span>
+              <span class="cidade__bairro">Jardim America &middot; Bragança Paulista</span>
+            </span>
+            <span class="cidade__seta"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
+          </a>
+        </div>
       </div>
-
-      <div class="msg" id="msg" role="alert"></div>
 
       <p class="privacidade">Sua localização é usada somente para identificar a loja mais próxima.</p>
     </div>
@@ -381,38 +434,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var msg = document.getElementById("msg");
   var rotuloBotao = btn.innerHTML;
 
-  // As lojas e os links vêm do próprio markup: o href de cada <a class="cidade">
-  // é a única fonte do endereço do iFood, então não há como o botão e o link
-  // apontarem para lugares diferentes.
-  var lojas = {};
-  Array.prototype.forEach.call(document.querySelectorAll(".cidade"), function (el) {
-    lojas[el.dataset.loja] = { el: el, url: el.href };
-  });
-
-  var coordenadas = {
-    atibaia:  { latitude: -23.1171, longitude: -46.5563 },
-    braganca: { latitude: -22.9527, longitude: -46.5419 }
+  // Centro aproximado de cada cidade: serve s\u00f3 para dizer de qual delas a
+  // pessoa est\u00e1 mais perto. A escolha da loja fica com ela, porque cada
+  // cidade tem mais de uma unidade no iFood.
+  var cidadesGeo = {
+    atibaia:  { latitude: -23.1171, longitude: -46.5563, nome: "Atibaia" },
+    braganca: { latitude: -22.9527, longitude: -46.5419, nome: "Bragan\u00e7a Paulista" }
   };
 
   function abrir(el) { el.setAttribute("data-aberto", "1"); }
   function fechar(el) { el.removeAttribute("data-aberto"); }
 
-  function mostrarMensagem(texto) {
+  function mostrarMensagem(texto, info) {
     msg.textContent = texto;
+    msg.classList.toggle("msg--info", !!info);
+    msg.setAttribute("role", info ? "status" : "alert");
     abrir(msg);
   }
 
   function mostrarCidades() {
     abrir(cidades);
-  }
-
-  // Navegação de primeiro nível, na própria aba: é assim que o iOS e o Android
-  // entregam o universal link do iFood para o aplicativo instalado. Abrir em
-  // nova aba (target="_blank") faz o link cair no site.
-  function abrirLoja(nome) {
-    var loja = lojas[nome];
-    if (!loja) return;
-    window.location.assign(loja.url);
   }
 
   function distanciaKm(lat1, lon1, lat2, lon2) {
@@ -425,6 +466,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   }
 
+  // Marca a cidade mais pr\u00f3xima e sobe o grupo dela para o topo da lista.
+  function destacarCidade(chave) {
+    var grupos = cidades.querySelectorAll(".grupo");
+    var alvo = null;
+    Array.prototype.forEach.call(grupos, function (g) {
+      var perto = g.dataset.cidade === chave;
+      g.classList.toggle("is-perto", perto);
+      if (perto) alvo = g;
+    });
+    if (alvo) cidades.insertBefore(alvo, cidades.querySelector(".grupo"));
+    return alvo;
+  }
+
   manual.addEventListener("click", function () {
     fechar(msg);
     mostrarCidades();
@@ -435,13 +489,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     fechar(msg);
 
     if (!navigator.geolocation) {
-      mostrarMensagem("Seu navegador não permite localização. Escolha sua cidade abaixo.");
+      mostrarMensagem("Seu navegador n\u00e3o permite localiza\u00e7\u00e3o. Escolha sua cidade abaixo.");
       mostrarCidades();
       return;
     }
 
     btn.disabled = true;
-    btn.textContent = "Localizando você...";
+    btn.textContent = "Localizando voc\u00ea...";
     abrir(loader);
 
     navigator.geolocation.getCurrentPosition(
@@ -449,20 +503,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         var lat = position.coords.latitude;
         var lon = position.coords.longitude;
 
-        var a = distanciaKm(lat, lon, coordenadas.atibaia.latitude, coordenadas.atibaia.longitude);
-        var b = distanciaKm(lat, lon, coordenadas.braganca.latitude, coordenadas.braganca.longitude);
+        var a = distanciaKm(lat, lon, cidadesGeo.atibaia.latitude, cidadesGeo.atibaia.longitude);
+        var b = distanciaKm(lat, lon, cidadesGeo.braganca.latitude, cidadesGeo.braganca.longitude);
+        var chave = a <= b ? "atibaia" : "braganca";
 
-        abrirLoja(a <= b ? "atibaia" : "braganca");
+        btn.disabled = false;
+        btn.innerHTML = rotuloBotao;
+        fechar(loader);
+
+        mostrarCidades();
+        var grupo = destacarCidade(chave);
+        mostrarMensagem("Voc\u00ea est\u00e1 mais perto de " + cidadesGeo[chave].nome +
+          ". Escolha a loja para abrir no iFood.", true);
+        if (grupo) grupo.querySelector(".cidade").focus();
       },
       function (error) {
         btn.disabled = false;
         btn.innerHTML = rotuloBotao;
         fechar(loader);
 
-        var texto = "Não foi possível identificar sua localização. Escolha sua cidade manualmente.";
+        var texto = "N\u00e3o foi poss\u00edvel identificar sua localiza\u00e7\u00e3o. Escolha sua cidade manualmente.";
 
         if (error.code === 1) {
-          texto = "Você bloqueou o acesso à localização. Escolha sua cidade manualmente ou permita a localização nas configurações do navegador.";
+          texto = "Voc\u00ea bloqueou o acesso \u00e0 localiza\u00e7\u00e3o. Escolha sua cidade manualmente ou permita a localiza\u00e7\u00e3o nas configura\u00e7\u00f5es do navegador.";
         }
 
         mostrarMensagem(texto);

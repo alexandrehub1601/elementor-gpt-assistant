@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Instrument+Sans:wght@400;500;600&display=swap">
 <style>
-/* Layout: faixa azul da marca no topo, posts em linhas (arte 4:5 à esquerda, legenda à direita), barra de retorno fixa embaixo */
+/* Layout: faixa azul da marca no topo, posts em linhas (arte 4:5 à esquerda, legenda à direita) */
 :root {
   --bg: #f3f5fb;
   --surface: #ffffff;
@@ -52,7 +52,6 @@ body {
   background: var(--bg); color: var(--fg);
   font-family: var(--font-body); font-size: 16px; line-height: 1.55;
   -webkit-font-smoothing: antialiased;
-  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
 }
 img { max-width: 100%; display: block; }
 [hidden] { display: none !important; }
@@ -81,15 +80,9 @@ img { max-width: 100%; display: block; }
 .masthead h1 span { color: var(--yellow); }
 .intro { max-width: 62ch; margin: 18px 0 0; font-size: 1.05rem; opacity: 0.92; }
 
-.tally { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
-.tally div {
-  border: 1px solid rgba(255,255,255,0.22); border-radius: 999px;
-  padding: 6px 14px; font-size: 0.88rem; font-variant-numeric: tabular-nums;
-}
-.tally b { font-family: var(--font-display); font-size: 1rem; margin-right: 4px; }
 
 /* Lista de posts */
-.posts { display: grid; gap: 28px; padding-block: 40px 20px; }
+.posts { display: grid; gap: 28px; padding-block: 40px 56px; }
 .post {
   display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: 32px;
   background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
@@ -112,10 +105,6 @@ img { max-width: 100%; display: block; }
   font-size: 1.55rem; line-height: 1.15; margin: 4px 0 0; text-wrap: balance;
 }
 
-.status { font-size: 0.8rem; font-weight: 600; border-radius: 999px; padding: 4px 12px; white-space: nowrap; }
-.status[data-s="pendente"] { background: var(--pending-bg); color: var(--pending); }
-.status[data-s="aprovado"] { background: var(--ok-bg); color: var(--ok); }
-.status[data-s="ajuste"] { background: var(--warn-bg); color: var(--warn); }
 
 .caption-label { font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 600; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 .caption {
@@ -131,37 +120,9 @@ img { max-width: 100%; display: block; }
 :root[data-theme="dark"] .link-btn { color: var(--yellow); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .link-btn { color: var(--yellow); } }
 
-.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--line); }
-.btn {
-  font: inherit; font-weight: 600; font-size: 0.95rem; cursor: pointer;
-  border-radius: 10px; padding: 11px 18px; border: 1.5px solid var(--line);
-  background: var(--surface); color: var(--fg); transition: background .15s, border-color .15s, color .15s;
-}
-.btn:hover { border-color: var(--muted); }
-.btn-approve[aria-pressed="true"] { background: var(--ok); border-color: var(--ok); color: var(--surface); }
-.btn-adjust[aria-pressed="true"] { background: var(--warn); border-color: var(--warn); color: var(--surface); }
-.note { display: grid; gap: 6px; }
-.note label { font-size: 0.85rem; font-weight: 600; }
-.note textarea {
-  font: inherit; font-size: 0.95rem; width: 100%; min-height: 96px; resize: vertical;
-  border-radius: 10px; border: 1.5px solid var(--line); background: var(--bg); color: var(--fg); padding: 10px 12px;
-}
 
-/* Barra de retorno */
-.dock {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
-  background: var(--surface); border-top: 1px solid var(--line);
-  padding: 14px 0 calc(14px + env(safe-area-inset-bottom, 0px));
-  box-shadow: 0 -8px 24px rgba(7, 18, 60, 0.08);
-}
-.dock .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.dock-summary { font-size: 0.92rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-.dock-summary b { color: var(--fg); }
-.dock-actions { display: flex; gap: 10px; flex-wrap: wrap; }
-.btn-primary { background: var(--yellow); border-color: var(--yellow); color: var(--on-yellow); }
-.btn-primary:hover { border-color: var(--fg); }
 .toast {
-  position: fixed; left: 50%; bottom: calc(92px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
+  position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
   background: var(--fg); color: var(--bg); padding: 10px 18px; border-radius: 999px; font-size: 0.9rem; z-index: 20;
 }
 
@@ -171,8 +132,6 @@ footer { color: var(--muted); font-size: 0.85rem; padding-block: 12px 32px; }
   .post { grid-template-columns: 1fr; gap: 20px; padding: 16px; }
   .art { max-width: 420px; }
   .wrap { padding-inline: 16px; }
-  .dock-actions { width: 100%; }
-  .dock-actions .btn { flex: 1; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
@@ -187,29 +146,13 @@ footer { color: var(--muted); font-size: 0.85rem; padding-block: 12px 32px; }
     </div>
     <h1>Cronograma de <span>Outubro</span></h1>
     <p class="intro">Em outubro, a comunicação da ETK reforça o portfólio para infraestrutura de telecomunicações: caixas de emenda óptica, CTOs em diferentes cores e bases CEO, sempre falando com quem trabalha em campo. O mês também aproxima o público dos canais de atendimento, lembra o cliente de conferir o estoque e fecha com um post temático de Halloween.</p>
-    <div class="tally" aria-live="polite">
-      <div><b id="t-total">9</b> posts</div>
-      <div><b id="t-ok">0</b> aprovados</div>
-      <div><b id="t-adj">0</b> com ajuste</div>
-      <div><b id="t-pend">9</b> pendentes</div>
-    </div>
   </div>
 </header>
 
 <main class="wrap">
   <div class="posts" id="posts"></div>
-  <footer>Revise cada post, aprove ou peça ajuste e, ao final, envie o retorno pelo botão abaixo.</footer>
 </main>
 
-<div class="dock">
-  <div class="wrap">
-    <div class="dock-summary" id="dock-summary"></div>
-    <div class="dock-actions">
-      <button class="btn" id="copy-feedback" type="button">Copiar retorno</button>
-      <a class="btn btn-primary" id="send-feedback" href="#" target="_blank" rel="noopener" style="text-decoration:none">Enviar pelo WhatsApp</a>
-    </div>
-  </div>
-</div>
 <div class="toast" id="toast" role="status" hidden></div>
 
 <script>
@@ -250,14 +193,6 @@ A ETK oferece soluções para diferentes aplicações em telecomunicações, aju
 Mais variedade significa mais possibilidades para escolher a solução adequada para cada projeto. E mais tranquilidade para quem precisa entregar qualidade, organização e eficiência em cada instalação. Conte com a ETK para fazer parte da sua próxima conexão.` },
 ];
 
-const STORE_KEY = "etk-aprovacao-outubro";
-const LABEL = { pendente: "Pendente", aprovado: "Aprovado", ajuste: "Ajuste solicitado" };
-let state = POSTS.map(() => ({ s: "pendente", nota: "" }));
-try {
-  const saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
-  if (Array.isArray(saved) && saved.length === POSTS.length) state = saved;
-} catch (e) {}
-const save = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) {} };
 
 const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const legenda = (p) => p.texto + "\n\n" + CONTATO;
@@ -273,7 +208,7 @@ list.innerHTML = POSTS.map((p, i) => `
     <div class="art">
       ${p.img
         ? `<img src="${p.img}" alt="Arte do post ${pad(i + 1)}: ${esc(p.titulo)}" loading="${i < 2 ? "eager" : "lazy"}" width="1080" height="1350">`
-        : `<div class="art-empty"><strong>Arte em produção</strong>A arte deste post será enviada em breve. A legenda já pode ser aprovada.</div>`}
+        : `<div class="art-empty"><strong>Arte em produção</strong>A arte deste post será enviada em breve.</div>`}
     </div>
     <div class="body">
       <div class="post-head">
@@ -281,52 +216,12 @@ list.innerHTML = POSTS.map((p, i) => `
           <div class="num">Post ${pad(i + 1)} de ${pad(POSTS.length)}</div>
           <h2>${esc(p.titulo)}</h2>
         </div>
-        <span class="status" data-role="status"></span>
       </div>
       <div class="caption-label">Legenda <button class="link-btn" type="button" data-role="copy">Copiar legenda</button></div>
       <p class="caption">${renderCaption(p)}</p>
-      <div class="actions">
-        <button class="btn btn-approve" type="button" data-role="approve" aria-pressed="false">Aprovar</button>
-        <button class="btn btn-adjust" type="button" data-role="adjust" aria-pressed="false">Solicitar ajuste</button>
-      </div>
-      <div class="note" data-role="note" hidden>
-        <label for="nota-${i}">O que precisa mudar?</label>
-        <textarea id="nota-${i}" placeholder="Descreva o ajuste na arte ou na legenda"></textarea>
-      </div>
     </div>
   </article>`).join("");
 
-function paint() {
-  document.querySelectorAll(".post").forEach((el) => {
-    const st = state[+el.dataset.i];
-    const badge = el.querySelector('[data-role="status"]');
-    badge.dataset.s = st.s; badge.textContent = LABEL[st.s];
-    el.querySelector('[data-role="approve"]').setAttribute("aria-pressed", st.s === "aprovado");
-    el.querySelector('[data-role="adjust"]').setAttribute("aria-pressed", st.s === "ajuste");
-    el.querySelector('[data-role="note"]').hidden = st.s !== "ajuste";
-    const ta = el.querySelector("textarea");
-    if (document.activeElement !== ta) ta.value = st.nota;
-  });
-  const ok = state.filter((s) => s.s === "aprovado").length;
-  const adj = state.filter((s) => s.s === "ajuste").length;
-  const pend = POSTS.length - ok - adj;
-  document.getElementById("t-ok").textContent = ok;
-  document.getElementById("t-adj").textContent = adj;
-  document.getElementById("t-pend").textContent = pend;
-  document.getElementById("dock-summary").innerHTML =
-    `<b>${ok}</b> aprovados · <b>${adj}</b> com ajuste · <b>${pend}</b> pendentes`;
-  document.getElementById("send-feedback").href = "https://wa.me/?text=" + encodeURIComponent(feedbackText());
-}
-
-function feedbackText() {
-  const lines = ["Retorno do cronograma de outubro – ETK", ""];
-  POSTS.forEach((p, i) => {
-    const st = state[i];
-    lines.push(`Post ${pad(i + 1)} – ${p.titulo}: ${LABEL[st.s]}`);
-    if (st.s === "ajuste" && st.nota.trim()) lines.push(`   Ajuste: ${st.nota.trim()}`);
-  });
-  return lines.join("\n");
-}
 
 let toastTimer;
 function toast(msg) {
@@ -347,23 +242,9 @@ async function copy(text, okMsg) {
 list.addEventListener("click", (e) => {
   const btn = e.target.closest("button"); if (!btn) return;
   const i = +btn.closest(".post").dataset.i;
-  const role = btn.dataset.role;
-  if (role === "copy") return copy(legenda(POSTS[i]), "Legenda copiada");
-  if (role === "approve") state[i].s = state[i].s === "aprovado" ? "pendente" : "aprovado";
-  if (role === "adjust") {
-    state[i].s = state[i].s === "ajuste" ? "pendente" : "ajuste";
-    if (state[i].s === "ajuste") setTimeout(() => document.getElementById("nota-" + i).focus(), 0);
-  }
-  save(); paint();
+  if (btn.dataset.role === "copy") copy(legenda(POSTS[i]), "Legenda copiada");
 });
-list.addEventListener("input", (e) => {
-  if (e.target.tagName !== "TEXTAREA") return;
-  state[+e.target.closest(".post").dataset.i].nota = e.target.value;
-  save(); paint();
-});
-document.getElementById("copy-feedback").addEventListener("click", () => copy(feedbackText(), "Retorno copiado"));
 
-paint();
 </script>
 </body>
 </html>

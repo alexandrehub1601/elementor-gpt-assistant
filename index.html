@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Filtter.Co — Crescimento com método</title>
+<meta name="description" content="Diagnóstico profundo, posicionamento de marca e planejamento comercial conectado ao marketing para empresas prontas para escalar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..900;1,62..125,300..900&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   Filtter.Co — Landing
+   Estrutura pensada para Elementor: cada <section> = 1 container,
+   classes prefixadas com "ft-" e CSS/JS autocontidos.
+   ========================================================== */
+:root{
+  --ft-navy:#0F2236;
+  --ft-navy-2:#16304A;
+  --ft-paper:#F2F4F1;
+  --ft-white:#FFFFFF;
+  --ft-steel:#5D6D7B;
+  --ft-steel-l:#9AA8B4;
+  --ft-line:#D5DAD6;
+  --ft-line-d:rgba(242,244,241,.14);
+  --ft-signal:#F2B233;
+  --ft-ok:#2F7D5B;
+  --ft-err:#B3402E;
+
+  --ft-font:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+
+  --ft-s1:.5rem; --ft-s2:1rem; --ft-s3:1.5rem; --ft-s4:2rem; --ft-s5:3rem; --ft-s6:4.5rem; --ft-s7:7rem;
+  --ft-max:1240px;
+  --ft-gutter:clamp(1rem,4vw,3rem);
+  --ft-radius-s:6px;
+  --ft-radius-m:14px;
+  --ft-ease:cubic-bezier(.2,.7,.2,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+section[id]{scroll-margin-top:72px}
+body{
+  margin:0;background:var(--ft-paper);color:var(--ft-navy);
+  font-family:var(--ft-font);font-size:1.0625rem;line-height:1.6;
+  font-variation-settings:"wdth" 100;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ft-signal);outline-offset:3px;border-radius:4px}
+.ft-skip{position:absolute;left:-999px;top:0;background:var(--ft-signal);color:var(--ft-navy);padding:.75rem 1rem;z-index:100;font-weight:700}
+.ft-skip:focus{left:1rem;top:1rem}
+.ft-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.ft-wrap{max-width:var(--ft-max);margin:0 auto;padding-inline:var(--ft-gutter)}
+
+/* ---------- Tipografia ---------- */
+.ft-display{
+  font-variation-settings:"wdth" 118;font-weight:800;
+  font-size:clamp(2.6rem,7.4vw,6.4rem);line-height:.95;letter-spacing:-.035em;margin:0;
+}
+.ft-h2{
+  font-variation-settings:"wdth" 115;font-weight:750;
+  font-size:clamp(2rem,4.4vw,3.6rem);line-height:1;letter-spacing:-.03em;margin:0;
+}
+.ft-h3{
+  font-variation-settings:"wdth" 110;font-weight:700;
+  font-size:clamp(1.25rem,1.8vw,1.55rem);line-height:1.15;letter-spacing:-.015em;margin:0;
+}
+.ft-lead{font-size:clamp(1.125rem,1.5vw,1.3rem);line-height:1.55;max-width:38ch;margin:0}
+.ft-muted{color:var(--ft-steel)}
+
+/* ---------- Botões ---------- */
+.ft-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  min-height:52px;padding:0 1.6rem;border-radius:999px;border:0;cursor:pointer;
+  font:inherit;font-weight:700;font-size:1rem;text-decoration:none;
+  font-variation-settings:"wdth" 108;
+  transition:background-color .2s var(--ft-ease),color .2s var(--ft-ease),transform .2s var(--ft-ease);
+}
+.ft-btn--signal{background:var(--ft-signal);color:var(--ft-navy)}
+.ft-btn--signal:hover{background:#FFC64F}
+.ft-btn--navy{background:var(--ft-navy);color:var(--ft-paper)}
+.ft-btn--navy:hover{background:var(--ft-navy-2)}
+.ft-btn--ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
+.ft-btn--ghost:hover{background:rgba(127,140,150,.12)}
+.ft-btn:active{transform:translateY(1px)}
+.ft-btn svg{width:18px;height:18px;flex:none}
+
+/* ---------- Header ---------- */
+.ft-header{
+  position:sticky;top:0;z-index:50;background:rgba(15,34,54,.92);
+  backdrop-filter:saturate(140%) blur(10px);-webkit-backdrop-filter:saturate(140%) blur(10px);
+  color:var(--ft-paper);border-bottom:1px solid var(--ft-line-d);
+}
+.ft-header__in{display:flex;align-items:center;justify-content:space-between;gap:var(--ft-s3);height:72px}
+.ft-logo{display:inline-flex;align-items:baseline;text-decoration:none;font-weight:800;font-size:1.6rem;letter-spacing:-.04em;font-variation-settings:"wdth" 120}
+.ft-logo b{font-weight:800;color:var(--ft-signal)}
+.ft-logo span{font-weight:500;font-size:.95rem;color:var(--ft-steel-l);margin-left:2px;letter-spacing:0}
+.ft-nav{display:flex;gap:var(--ft-s4);align-items:center}
+.ft-nav a{text-decoration:none;font-size:.95rem;color:var(--ft-steel-l);padding:.5rem 0;transition:color .2s}
+.ft-nav a:hover{color:var(--ft-paper)}
+.ft-header .ft-btn{min-height:44px;padding:0 1.2rem;font-size:.95rem}
+.ft-nav .ft-btn{display:none}
+.ft-menu-btn{display:none;background:none;border:0;color:inherit;width:44px;height:44px;cursor:pointer;padding:10px}
+.ft-menu-btn span{display:block;height:2px;background:currentColor;margin:5px 0;transition:transform .25s var(--ft-ease),opacity .2s}
+.ft-menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ft-menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+.ft-menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ---------- Hero ---------- */
+.ft-hero{background:var(--ft-navy);color:var(--ft-paper);overflow:hidden;position:relative}
+.ft-hero__in{
+  display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--ft-s5);
+  align-items:end;padding-block:clamp(3.5rem,8vw,7rem) clamp(3rem,6vw,5.5rem);
+}
+.ft-hero__kicker{display:flex;align-items:center;gap:.6rem;color:var(--ft-steel-l);font-size:.95rem;margin:0 0 var(--ft-s4)}
+.ft-hero__kicker i{width:8px;height:8px;border-radius:50%;background:var(--ft-signal);display:inline-block}
+.ft-hero .ft-display{max-width:11ch}
+.ft-hero .ft-display em{font-style:normal;color:var(--ft-steel-l);font-weight:300;font-variation-settings:"wdth" 100}
+.ft-hero__text{margin-top:var(--ft-s4);color:#C9D2DA}
+.ft-hero__ctas{display:flex;flex-wrap:wrap;gap:var(--ft-s2);margin-top:var(--ft-s5)}
+
+/* O filtro: grade de empresas que se reduz às selecionadas */
+.ft-sieve{position:relative;align-self:stretch;display:flex;flex-direction:column;justify-content:flex-end;gap:var(--ft-s3)}
+.ft-sieve__grid{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(8px,1.2vw,14px);
+  aspect-ratio:12/8;width:100%;
+}
+.ft-sieve__dot{
+  border-radius:50%;background:var(--ft-steel-l);opacity:.55;aspect-ratio:1;align-self:center;justify-self:center;width:100%;
+  transition:opacity .9s var(--ft-ease),transform .9s var(--ft-ease),background-color .6s var(--ft-ease);
+}
+.ft-sieve.is-filtered .ft-sieve__dot{opacity:.1;transform:scale(.55)}
+.ft-sieve.is-filtered .ft-sieve__dot.is-kept{opacity:1;transform:scale(1.15);background:var(--ft-signal)}
+.ft-sieve__caption{
+  display:flex;justify-content:space-between;align-items:baseline;gap:var(--ft-s2);
+  border-top:1px solid var(--ft-line-d);padding-top:var(--ft-s2);font-size:.95rem;color:var(--ft-steel-l)
+}
+.ft-sieve__caption strong{color:var(--ft-paper);font-weight:600}
+
+/* ---------- Pilares (faixa) ---------- */
+.ft-pillars{background:var(--ft-navy);color:var(--ft-paper);border-top:1px solid var(--ft-line-d)}
+.ft-pillars ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr)}
+.ft-pillars li{padding:var(--ft-s4) var(--ft-s3) var(--ft-s4) 0;border-right:1px solid var(--ft-line-d)}
+.ft-pillars li:last-child{border-right:0}
+.ft-pillars li + li{padding-left:var(--ft-s3)}
+.ft-pillars h3{font-size:1.05rem;font-weight:700;margin:0 0 .35rem;font-variation-settings:"wdth" 110}
+.ft-pillars p{margin:0;font-size:.95rem;color:var(--ft-steel-l);line-height:1.5}
+
+/* ---------- Seções base ---------- */
+.ft-section{padding-block:clamp(4.5rem,10vw,8.5rem)}
+.ft-head{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--ft-s5);align-items:end;margin-bottom:clamp(2.5rem,6vw,5rem)}
+.ft-head p{margin:0}
+
+/* ---------- Manifesto ---------- */
+.ft-manifest{background:var(--ft-paper)}
+.ft-manifest__in{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:var(--ft-s5)}
+.ft-manifest__label{font-weight:600;color:var(--ft-steel);padding-top:.6rem;border-top:2px solid var(--ft-navy);margin:0;font-size:.95rem}
+.ft-manifest__quote{
+  font-variation-settings:"wdth" 105;font-weight:500;
+  font-size:clamp(1.6rem,3.2vw,2.6rem);line-height:1.18;letter-spacing:-.02em;margin:0;max-width:24ch;
+}
+.ft-manifest__body{margin-top:var(--ft-s4);display:grid;grid-template-columns:1fr 1fr;gap:var(--ft-s4);max-width:760px}
+.ft-manifest__body p{margin:0;color:var(--ft-steel)}
+
+/* ---------- Método ---------- */
+.ft-method{background:var(--ft-white);border-block:1px solid var(--ft-line)}
+.ft-steps{list-style:none;margin:0;padding:0;counter-reset:step}
+.ft-step{
+  display:grid;grid-template-columns:120px minmax(0,5fr) minmax(0,6fr);gap:var(--ft-s4);
+  padding-block:var(--ft-s4);border-top:1px solid var(--ft-line);align-items:baseline;
+}
+.ft-step:last-child{border-bottom:1px solid var(--ft-line)}
+.ft-step__n{
+  font-variation-settings:"wdth" 125;font-weight:800;font-size:clamp(2rem,3.4vw,3rem);line-height:1;
+  color:var(--ft-line);letter-spacing:-.04em;font-feature-settings:"tnum";transition:color .3s var(--ft-ease)
+}
+.ft-step:hover .ft-step__n{color:var(--ft-navy)}
+.ft-step p{margin:0;color:var(--ft-steel);max-width:52ch}
+
+/* ---------- Para quem é ---------- */
+.ft-fit{background:var(--ft-paper)}
+.ft-fit__grid{display:grid;grid-template-columns:7fr 5fr;gap:var(--ft-s3);align-items:start}
+.ft-fit__card{border-radius:var(--ft-radius-m);padding:clamp(1.75rem,3.5vw,3rem)}
+.ft-fit__card--yes{background:var(--ft-navy);color:var(--ft-paper)}
+.ft-fit__card--no{background:transparent;box-shadow:inset 0 0 0 1.5px var(--ft-line)}
+.ft-fit__card h3{margin-bottom:var(--ft-s4)}
+.ft-fit__list{list-style:none;margin:0;padding:0;display:grid;gap:var(--ft-s2)}
+.ft-fit__list li{display:grid;grid-template-columns:28px 1fr;gap:.75rem;align-items:start;line-height:1.45}
+.ft-fit__list svg{width:22px;height:22px;margin-top:1px}
+.ft-fit__card--yes svg{color:var(--ft-signal)}
+.ft-fit__card--no svg{color:var(--ft-steel-l)}
+.ft-fit__card--no li{color:var(--ft-steel)}
+.ft-fit__req{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--ft-s3);
+  margin-top:var(--ft-s5);padding-top:var(--ft-s4);border-top:1px solid var(--ft-line-d)
+}
+.ft-fit__req dt{font-size:.9rem;color:var(--ft-steel-l);margin-bottom:.25rem}
+.ft-fit__req dd{margin:0;font-variation-settings:"wdth" 118;font-weight:750;font-size:clamp(1.5rem,2.6vw,2.2rem);letter-spacing:-.03em;line-height:1.05}
+.ft-fit__req dd small{display:block;font-size:.9rem;font-weight:400;letter-spacing:0;color:var(--ft-steel-l);font-variation-settings:"wdth" 100;margin-top:.25rem}
+
+/* ---------- Cases ---------- */
+.ft-cases{background:var(--ft-white);border-top:1px solid var(--ft-line)}
+.ft-case-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--ft-s3)}
+.ft-case{
+  display:flex;flex-direction:column;border-radius:var(--ft-radius-m);background:var(--ft-paper);
+  overflow:hidden;min-height:100%;
+}
+.ft-case__visual{aspect-ratio:4/3;position:relative;background:var(--ft-navy);color:var(--ft-paper);overflow:hidden}
+.ft-case__visual svg{position:absolute;inset:0;width:100%;height:100%}
+.ft-case__tag{
+  position:absolute;left:1rem;top:1rem;font-size:.85rem;font-weight:600;
+  background:var(--ft-paper);color:var(--ft-navy);padding:.3rem .7rem;border-radius:999px
+}
+.ft-case__body{padding:var(--ft-s4) var(--ft-s3);display:flex;flex-direction:column;gap:var(--ft-s2);flex:1}
+.ft-case__body p{margin:0;color:var(--ft-steel);font-size:1rem}
+.ft-case__did{margin:auto 0 0;padding:var(--ft-s2) 0 0;border-top:1px solid var(--ft-line);list-style:none;display:flex;flex-wrap:wrap;gap:.4rem}
+.ft-case__did li{font-size:.85rem;padding:.25rem .65rem;border-radius:999px;box-shadow:inset 0 0 0 1px var(--ft-line);color:var(--ft-navy)}
+
+/* ---------- Aplicação (form em passos) ---------- */
+.ft-apply{background:var(--ft-navy);color:var(--ft-paper)}
+.ft-apply__in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(2rem,6vw,6rem);align-items:start}
+.ft-apply__aside .ft-lead{color:#C9D2DA;margin-top:var(--ft-s3)}
+.ft-apply__promise{list-style:none;margin:var(--ft-s5) 0 0;padding:0;display:grid;gap:var(--ft-s3)}
+.ft-apply__promise li{display:grid;grid-template-columns:28px 1fr;gap:.75rem;color:#C9D2DA;font-size:1rem}
+.ft-apply__promise strong{display:block;color:var(--ft-paper);font-weight:650}
+.ft-apply__promise svg{width:22px;height:22px;color:var(--ft-signal);margin-top:2px}
+
+.ft-form{
+  background:var(--ft-paper);color:var(--ft-navy);border-radius:var(--ft-radius-m);
+  padding:clamp(1.5rem,3.5vw,2.75rem);position:relative;
+}
+.ft-progress{display:flex;justify-content:space-between;align-items:center;gap:var(--ft-s2);margin-bottom:var(--ft-s4)}
+.ft-progress__count{font-size:.9rem;color:var(--ft-steel);font-feature-settings:"tnum"}
+.ft-progress__bar{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;flex:1;max-width:240px}
+.ft-progress__bar span{height:4px;border-radius:2px;background:var(--ft-line);transition:background-color .35s var(--ft-ease)}
+.ft-progress__bar span.is-done{background:var(--ft-navy)}
+.ft-progress__bar span.is-current{background:var(--ft-signal)}
+
+.ft-stepper{border:0;margin:0;padding:0;min-width:0}
+.ft-stepper[hidden]{display:none}
+.ft-stepper legend{padding:0;margin-bottom:.4rem;font-variation-settings:"wdth" 112;font-weight:750;font-size:clamp(1.4rem,2.4vw,1.9rem);letter-spacing:-.02em;line-height:1.1}
+.ft-stepper .ft-hint{margin:0 0 var(--ft-s4);color:var(--ft-steel);font-size:.98rem}
+.ft-stepper.is-in{animation:ftIn .45s var(--ft-ease)}
+@keyframes ftIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+
+.ft-choices{display:grid;gap:.6rem}
+.ft-choices--2{grid-template-columns:1fr 1fr}
+.ft-choice{position:relative}
+.ft-choice input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.ft-choice label{
+  display:flex;align-items:center;gap:.85rem;min-height:56px;padding:.8rem 1rem;border-radius:var(--ft-radius-s);
+  background:var(--ft-white);box-shadow:inset 0 0 0 1.5px var(--ft-line);cursor:pointer;font-weight:550;
+  transition:box-shadow .2s var(--ft-ease),background-color .2s var(--ft-ease);
+}
+.ft-choice label::before{
+  content:"";width:18px;height:18px;border-radius:50%;flex:none;box-shadow:inset 0 0 0 1.5px var(--ft-steel-l);
+  transition:box-shadow .2s var(--ft-ease),background-color .2s;
+}
+.ft-choice label:hover{box-shadow:inset 0 0 0 1.5px var(--ft-steel)}
+.ft-choice input:checked + label{box-shadow:inset 0 0 0 2px var(--ft-navy)}
+.ft-choice input:checked + label::before{box-shadow:inset 0 0 0 5px var(--ft-navy);background:var(--ft-white)}
+.ft-choice input:focus-visible + label{outline:3px solid var(--ft-signal);outline-offset:2px}
+
+.ft-field{display:grid;gap:.4rem;margin-bottom:var(--ft-s3)}
+.ft-field label{font-weight:600;font-size:.95rem}
+.ft-field input,.ft-field select,.ft-field textarea{
+  font:inherit;color:var(--ft-navy);background:var(--ft-white);border:0;border-radius:var(--ft-radius-s);
+  box-shadow:inset 0 0 0 1.5px var(--ft-line);min-height:52px;padding:.75rem 1rem;width:100%;
+  transition:box-shadow .2s var(--ft-ease);
+}
+.ft-field textarea{min-height:120px;resize:vertical;line-height:1.5}
+.ft-field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%230F2236' stroke-width='2'%3E%3Cpath d='M2 5l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem}
+.ft-field input:hover,.ft-field select:hover,.ft-field textarea:hover{box-shadow:inset 0 0 0 1.5px var(--ft-steel-l)}
+.ft-field input:focus,.ft-field select:focus,.ft-field textarea:focus{outline:none;box-shadow:inset 0 0 0 2px var(--ft-navy)}
+.ft-field [aria-invalid="true"]{box-shadow:inset 0 0 0 2px var(--ft-err)}
+.ft-row{display:grid;grid-template-columns:1fr 1fr;gap:0 var(--ft-s2)}
+.ft-error{color:var(--ft-err);font-size:.9rem;margin:var(--ft-s2) 0 0;min-height:1.4em;font-weight:500}
+.ft-consent{font-size:.88rem;color:var(--ft-steel);margin:0}
+
+.ft-form__nav{display:flex;justify-content:space-between;align-items:center;gap:var(--ft-s2);margin-top:var(--ft-s4);padding-top:var(--ft-s3);border-top:1px solid var(--ft-line)}
+.ft-back{background:none;border:0;font:inherit;font-weight:600;color:var(--ft-steel);cursor:pointer;padding:.75rem .25rem;min-height:44px;display:inline-flex;gap:.4rem;align-items:center}
+.ft-back:hover{color:var(--ft-navy)}
+.ft-back[hidden]{visibility:hidden;display:inline-flex}
+.ft-back svg{width:16px;height:16px}
+
+.ft-notice{
+  margin-top:var(--ft-s3);padding:1rem 1.1rem;border-radius:var(--ft-radius-s);background:#FFF4DC;color:#5A4110;font-size:.95rem;line-height:1.5
+}
+.ft-notice[hidden],.ft-form__nav[hidden],.ft-progress[hidden]{display:none}
+
+.ft-done{text-align:left}
+.ft-done[hidden]{display:none}
+.ft-done__icon{width:56px;height:56px;border-radius:50%;background:var(--ft-navy);color:var(--ft-signal);display:grid;place-items:center;margin-bottom:var(--ft-s3)}
+.ft-done__icon svg{width:26px;height:26px}
+.ft-done h3{font-variation-settings:"wdth" 112;font-weight:750;font-size:clamp(1.5rem,2.6vw,2rem);letter-spacing:-.02em;margin:0 0 .5rem;line-height:1.1}
+.ft-done p{color:var(--ft-steel);margin:0 0 var(--ft-s2)}
+.ft-done ol{margin:var(--ft-s3) 0 0;padding-left:1.2rem;color:var(--ft-steel)}
+.ft-done li{margin-bottom:.4rem}
+
+/* ---------- FAQ ---------- */
+.ft-faq{background:var(--ft-paper)}
+.ft-faq__in{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:var(--ft-s5)}
+.ft-faq details{border-top:1px solid var(--ft-line)}
+.ft-faq details:last-child{border-bottom:1px solid var(--ft-line)}
+.ft-faq summary{
+  list-style:none;cursor:pointer;padding:var(--ft-s3) 0;display:flex;justify-content:space-between;gap:var(--ft-s3);
+  font-weight:650;font-size:1.15rem;font-variation-settings:"wdth" 106;align-items:center
+}
+.ft-faq summary::-webkit-details-marker{display:none}
+.ft-faq summary i{width:28px;height:28px;flex:none;position:relative;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--ft-line)}
+.ft-faq summary i::before,.ft-faq summary i::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:var(--ft-navy);transform:translate(-50%,-50%);transition:transform .25s var(--ft-ease)}
+.ft-faq summary i::after{transform:translate(-50%,-50%) rotate(90deg)}
+.ft-faq details[open] summary i::after{transform:translate(-50%,-50%) rotate(0)}
+.ft-faq details p{margin:0 0 var(--ft-s3);color:var(--ft-steel);max-width:62ch}
+
+/* ---------- Footer ---------- */
+.ft-footer{background:var(--ft-navy);color:var(--ft-steel-l);border-top:1px solid var(--ft-line-d)}
+.ft-footer__big{
+  padding-block:clamp(3rem,7vw,6rem) var(--ft-s5);display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);gap:var(--ft-s4);align-items:end
+}
+.ft-footer__big p{
+  margin:0;color:var(--ft-paper);font-variation-settings:"wdth" 120;font-weight:800;letter-spacing:-.035em;
+  font-size:clamp(2rem,5vw,4.2rem);line-height:1
+}
+.ft-footer__big .ft-btn{justify-self:end}
+.ft-footer__bar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--ft-s2);padding-block:var(--ft-s3);border-top:1px solid var(--ft-line-d);font-size:.9rem}
+.ft-footer__bar nav{display:flex;gap:var(--ft-s3);flex-wrap:wrap}
+.ft-footer__bar a{text-decoration:none}
+.ft-footer__bar a:hover{color:var(--ft-paper)}
+
+/* ---------- Responsivo ---------- */
+@media (max-width:1024px){
+  .ft-hero__in{grid-template-columns:1fr;gap:var(--ft-s5)}
+  .ft-sieve{max-width:560px}
+  .ft-pillars ul{grid-template-columns:1fr 1fr}
+  .ft-pillars li:nth-child(2){border-right:0}
+  .ft-pillars li:nth-child(3){padding-left:0}
+  .ft-pillars li:nth-child(n+3){border-top:1px solid var(--ft-line-d)}
+  .ft-head,.ft-manifest__in,.ft-faq__in,.ft-apply__in{grid-template-columns:1fr}
+  .ft-head{gap:var(--ft-s3)}
+  .ft-fit__grid{grid-template-columns:1fr}
+  .ft-case-list{grid-template-columns:1fr 1fr}
+  .ft-case:last-child{grid-column:1/-1}
+  .ft-case:last-child .ft-case__visual{aspect-ratio:16/7}
+}
+@media (max-width:860px){
+  .ft-nav,.ft-header .ft-btn{display:none}
+  .ft-menu-btn{display:block}
+  .ft-header.is-open .ft-nav{
+    display:flex;flex-direction:column;align-items:flex-start;gap:0;position:absolute;left:0;right:0;top:72px;
+    background:var(--ft-navy);padding:var(--ft-s2) var(--ft-gutter) var(--ft-s4);border-bottom:1px solid var(--ft-line-d)
+  }
+  .ft-header.is-open .ft-nav a{font-size:1.25rem;padding:.8rem 0;width:100%;color:var(--ft-paper);border-bottom:1px solid var(--ft-line-d)}
+  .ft-header.is-open .ft-nav .ft-btn{display:inline-flex;margin-top:var(--ft-s3);border:0;width:100%;color:var(--ft-navy)}
+  .ft-step{grid-template-columns:64px 1fr;gap:var(--ft-s1) var(--ft-s3)}
+  .ft-step p{grid-column:2}
+  .ft-manifest__body{grid-template-columns:1fr}
+  .ft-footer__big{grid-template-columns:1fr}
+  .ft-footer__big .ft-btn{justify-self:start}
+}
+@media (max-width:640px){
+  .ft-pillars ul{grid-template-columns:1fr}
+  .ft-pillars li,.ft-pillars li + li{padding:var(--ft-s3) 0;border-right:0}
+  .ft-pillars li + li{border-top:1px solid var(--ft-line-d)}
+  .ft-case-list{grid-template-columns:1fr}
+  .ft-case:last-child .ft-case__visual{aspect-ratio:4/3}
+  .ft-choices--2,.ft-row,.ft-fit__req{grid-template-columns:1fr}
+  .ft-hero__ctas .ft-btn{width:100%}
+  .ft-sieve__caption{flex-direction:column;gap:.25rem}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<a class="ft-skip" href="#conteudo">Pular para o conteúdo</a>
+
+<!-- ============ HEADER ============ -->
+<header class="ft-header" id="topo">
+  <div class="ft-wrap ft-header__in">
+    <a class="ft-logo" href="#topo" aria-label="Filtter.Co, início">filtter<b>.</b><span>co</span></a>
+    <nav class="ft-nav" id="ft-nav" aria-label="Principal">
+      <a href="#metodo">Método</a>
+      <a href="#para-quem">Para quem é</a>
+      <a href="#cases">Cases</a>
+      <a href="#faq">Dúvidas</a>
+      <a class="ft-btn ft-btn--signal" href="#aplicar">Aplicar para o diagnóstico</a>
+    </nav>
+    <a class="ft-btn ft-btn--signal" href="#aplicar">Aplicar para o diagnóstico</a>
+    <button class="ft-menu-btn" type="button" aria-expanded="false" aria-controls="ft-nav" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="conteudo">
+
+<!-- ============ HERO ============ -->
+<section class="ft-hero" aria-labelledby="hero-title">
+  <div class="ft-wrap ft-hero__in">
+    <div>
+      <p class="ft-hero__kicker"><i aria-hidden="true"></i>Marketing e crescimento para empresas já validadas</p>
+      <h1 class="ft-display" id="hero-title">Crescer é método. <em>Não é sorte.</em></h1>
+      <p class="ft-lead ft-hero__text">Unimos diagnóstico profundo do negócio, posicionamento de marca e planejamento comercial conectado ao marketing para que sua empresa escale de forma consistente.</p>
+      <div class="ft-hero__ctas">
+        <a class="ft-btn ft-btn--signal" href="#aplicar">Aplicar para o diagnóstico</a>
+        <a class="ft-btn ft-btn--ghost" href="#metodo">Conhecer o método</a>
+      </div>
+    </div>
+
+    <figure class="ft-sieve" id="ft-sieve" aria-label="Ilustração: de 96 empresas, poucas seguem no filtro" style="margin:0">
+      <div class="ft-sieve__grid" aria-hidden="true"></div>
+      <figcaption class="ft-sieve__caption">
+        <span>Atendemos poucas empresas por vez.</span>
+        <strong>De propósito.</strong>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ PILARES ============ -->
+<section class="ft-pillars" aria-label="Como olhamos para o seu negócio">
+  <div class="ft-wrap">
+    <ul>
+      <li><h3>Posicionamento</h3><p>Como o mercado percebe sua marca e por que escolhe você.</p></li>
+      <li><h3>Operação</h3><p>Se a estrutura aguenta a demanda que o marketing vai gerar.</p></li>
+      <li><h3>Vendas</h3><p>Como o lead vira cliente, e onde ele se perde no caminho.</p></li>
+      <li><h3>Digital</h3><p>Mídia, conteúdo e dados trabalhando para a mesma meta.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ MANIFESTO ============ -->
+<section class="ft-section ft-manifest" aria-labelledby="manifest-title">
+  <div class="ft-wrap ft-manifest__in">
+    <p class="ft-manifest__label" id="manifest-title">Nossa visão</p>
+    <div>
+      <p class="ft-manifest__quote">Marketing não resolve um negócio desorganizado. Ele acelera o que já existe, inclusive os problemas.</p>
+      <div class="ft-manifest__body">
+        <p>Por isso não começamos por anúncios. Começamos entendendo como sua empresa vende, entrega e se posiciona, para só então definir onde investir.</p>
+        <p>O resultado é um plano em que marca, time comercial e mídia puxam na mesma direção, com metas claras e acompanhamento próximo a cada mês.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MÉTODO ============ -->
+<section class="ft-section ft-method" id="metodo" aria-labelledby="metodo-title">
+  <div class="ft-wrap">
+    <div class="ft-head">
+      <h2 class="ft-h2" id="metodo-title">Cinco etapas, uma direção.</h2>
+      <p class="ft-lead ft-muted">Cada etapa depende da anterior. É isso que torna o crescimento previsível em vez de pontual.</p>
+    </div>
+    <ol class="ft-steps">
+      <li class="ft-step">
+        <span class="ft-step__n" aria-hidden="true">01</span>
+        <h3 class="ft-h3">Diagnóstico profundo do negócio</h3>
+        <p>Analisamos números, processos, time, concorrência e histórico de marketing para entender o que trava o crescimento hoje.</p>
+      </li>
+      <li class="ft-step">
+        <span class="ft-step__n" aria-hidden="true">02</span>
+        <h3 class="ft-h3">Posicionamento de marca forte</h3>
+        <p>Definimos o que torna sua empresa a escolha óbvia para o cliente certo, e como comunicar isso em todos os pontos de contato.</p>
+      </li>
+      <li class="ft-step">
+        <span class="ft-step__n" aria-hidden="true">03</span>
+        <h3 class="ft-h3">Planejamento comercial conectado ao marketing</h3>
+        <p>Metas, funil e rotina comercial desenhados junto com a estratégia de marketing, para que nenhum lead seja desperdiçado.</p>
+      </li>
+      <li class="ft-step">
+        <span class="ft-step__n" aria-hidden="true">04</span>
+        <h3 class="ft-h3">Execução orientada por dados</h3>
+        <p>Campanhas, conteúdo e mídia rodando com indicadores definidos desde o primeiro dia. Decidimos pelo que os números mostram.</p>
+      </li>
+      <li class="ft-step">
+        <span class="ft-step__n" aria-hidden="true">05</span>
+        <h3 class="ft-h3">Acompanhamento próximo</h3>
+        <p>Reuniões recorrentes, relatórios claros e ajustes contínuos. Você sabe o que está sendo feito e por quê.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ PARA QUEM É ============ -->
+<section class="ft-section ft-fit" id="para-quem" aria-labelledby="fit-title">
+  <div class="ft-wrap">
+    <div class="ft-head">
+      <h2 class="ft-h2" id="fit-title">Somos seletivos. Isso protege o seu resultado.</h2>
+      <p class="ft-lead ft-muted">Só aceitamos projetos em que o método tem condições reais de funcionar.</p>
+    </div>
+    <div class="ft-fit__grid">
+      <article class="ft-fit__card ft-fit__card--yes">
+        <h3 class="ft-h3">É para você se a sua empresa</h3>
+        <ul class="ft-fit__list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Já tem operação estruturada, com time ou processos prontos para atender mais clientes.</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Quer crescer de forma metódica e consistente, não com picos isolados.</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Enxerga marketing como investimento estratégico, não como despesa.</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Tem vontade real de escalar e dominar o seu posicionamento no mercado.</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Está aberta a ouvir, aplicar e evoluir as estratégias.</li>
+        </ul>
+        <dl class="ft-fit__req">
+          <div><dt>Faturamento mensal</dt><dd>+ R$ 50 mil</dd></div>
+          <div><dt>Investimento em marketing</dt><dd>R$ 2 a 3 mil<small>por mês, no mínimo</small></dd></div>
+        </dl>
+      </article>
+      <article class="ft-fit__card ft-fit__card--no">
+        <h3 class="ft-h3">Não é para quem</h3>
+        <ul class="ft-fit__list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg>É uma startup ainda sem validação de mercado.</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg>Procura uma fórmula rápida na internet.</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg>Quer apenas alguém para postar nas redes sociais.</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg>Não tem estrutura para atender mais demanda agora.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CASES ============ -->
+<section class="ft-section ft-cases" id="cases" aria-labelledby="cases-title">
+  <div class="ft-wrap">
+    <div class="ft-head">
+      <h2 class="ft-h2" id="cases-title">Negócios reais, mercados diferentes.</h2>
+      <p class="ft-lead ft-muted">O método se adapta ao setor. A disciplina é a mesma.</p>
+    </div>
+    <div class="ft-case-list">
+      <!-- Troque o SVG por uma foto do cliente (4:3) no Elementor -->
+      <article class="ft-case">
+        <div class="ft-case__visual" aria-hidden="true">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="400" height="300" fill="#0F2236"/><g fill="none" stroke="#2A4560" stroke-width="1.5"><circle cx="300" cy="170" r="150"/><circle cx="300" cy="170" r="110"/><circle cx="300" cy="170" r="70"/></g><circle cx="300" cy="170" r="30" fill="#F2B233"/></svg>
+          <span class="ft-case__tag">Salão de beleza</span>
+        </div>
+        <div class="ft-case__body">
+          <h3 class="ft-h3">De agenda irregular a casa cheia o mês todo.</h3>
+          <p>Reposicionamos a marca no bairro, organizamos o atendimento do WhatsApp e passamos a medir o retorno de cada campanha.</p>
+          <ul class="ft-case__did"><li>Posicionamento</li><li>Mídia local</li><li>Processo comercial</li></ul>
+        </div>
+      </article>
+      <article class="ft-case">
+        <div class="ft-case__visual" aria-hidden="true">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="400" height="300" fill="#16304A"/><g stroke="#2A4560" stroke-width="1.5"><path d="M0 230H400M0 190H400M0 150H400M0 110H400M0 70H400"/></g><path d="M40 230 L120 200 L190 210 L260 140 L330 120 L380 70" fill="none" stroke="#F2B233" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="380" cy="70" r="8" fill="#F2B233"/></svg>
+          <span class="ft-case__tag">Concessionária</span>
+        </div>
+        <div class="ft-case__body">
+          <h3 class="ft-h3">Leads qualificados chegando direto ao vendedor certo.</h3>
+          <p>Conectamos a mídia ao funil comercial, com distribuição de leads e rotina de acompanhamento para a equipe de vendas.</p>
+          <ul class="ft-case__did"><li>Funil de vendas</li><li>Tráfego pago</li><li>Dados</li></ul>
+        </div>
+      </article>
+      <article class="ft-case">
+        <div class="ft-case__visual" aria-hidden="true">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="400" height="300" fill="#0F2236"/><g fill="#1E3A56"><rect x="60" y="150" width="60" height="150"/><rect x="140" y="100" width="60" height="200"/><rect x="220" y="60" width="60" height="240"/></g><rect x="300" y="20" width="60" height="280" fill="#F2B233"/></svg>
+          <span class="ft-case__tag">Construtora</span>
+        </div>
+        <div class="ft-case__body">
+          <h3 class="ft-h3">Uma marca à altura dos empreendimentos que entrega.</h3>
+          <p>Construímos autoridade de marca e um processo de captação que acompanha o ciclo longo de decisão do comprador.</p>
+          <ul class="ft-case__did"><li>Branding</li><li>Conteúdo</li><li>Planejamento</li></ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APLICAÇÃO ============ -->
+<section class="ft-section ft-apply" id="aplicar" aria-labelledby="apply-title">
+  <div class="ft-wrap ft-apply__in">
+    <div class="ft-apply__aside">
+      <h2 class="ft-h2" id="apply-title">Aplique para o diagnóstico.</h2>
+      <p class="ft-lead">Quatro perguntas rápidas. Leva cerca de dois minutos e nos ajuda a saber se podemos gerar resultado para você.</p>
+      <ul class="ft-apply__promise">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><strong>Resposta em até 2 dias úteis</strong>Um especialista analisa sua aplicação pessoalmente.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg><span><strong>Seus dados ficam com a gente</strong>Usamos as informações apenas para avaliar o seu projeto.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12h16M12 4v16"/></svg><span><strong>Sem compromisso</strong>Se não fizer sentido agora, dizemos com clareza.</span></li>
+      </ul>
+    </div>
+
+    <form class="ft-form" id="ft-form" novalidate aria-labelledby="apply-title">
+      <div class="ft-progress" aria-hidden="true">
+        <span class="ft-progress__count" id="ft-count">Etapa 1 de 4</span>
+        <div class="ft-progress__bar"><span></span><span></span><span></span><span></span></div>
+      </div>
+      <p class="ft-sr" aria-live="polite" id="ft-live"></p>
+
+      <!-- Etapa 1 -->
+      <fieldset class="ft-stepper" data-step="1">
+        <legend>Qual é o faturamento mensal da empresa?</legend>
+        <p class="ft-hint">Uma faixa aproximada já basta.</p>
+        <div class="ft-choices">
+          <div class="ft-choice"><input type="radio" name="faturamento" id="fat1" value="ate-50k"><label for="fat1">Até R$ 50 mil</label></div>
+          <div class="ft-choice"><input type="radio" name="faturamento" id="fat2" value="50-100k"><label for="fat2">De R$ 50 mil a R$ 100 mil</label></div>
+          <div class="ft-choice"><input type="radio" name="faturamento" id="fat3" value="100-300k"><label for="fat3">De R$ 100 mil a R$ 300 mil</label></div>
+          <div class="ft-choice"><input type="radio" name="faturamento" id="fat4" value="300k-1m"><label for="fat4">De R$ 300 mil a R$ 1 milhão</label></div>
+          <div class="ft-choice"><input type="radio" name="faturamento" id="fat5" value="1m+"><label for="fat5">Acima de R$ 1 milhão</label></div>
+        </div>
+        <p class="ft-notice" id="ft-notice-fat" hidden>Hoje trabalhamos com empresas que faturam acima de R$ 50 mil por mês. Você pode continuar mesmo assim: guardamos seu contato para quando fizer sentido.</p>
+      </fieldset>
+
+      <!-- Etapa 2 -->
+      <fieldset class="ft-stepper" data-step="2" hidden>
+        <legend>Quanto pode investir em marketing por mês?</legend>
+        <p class="ft-hint">Considere gestão e mídia juntas.</p>
+        <div class="ft-choices ft-choices--2">
+          <div class="ft-choice"><input type="radio" name="investimento" id="inv1" value="ate-2k"><label for="inv1">Até R$ 2 mil</label></div>
+          <div class="ft-choice"><input type="radio" name="investimento" id="inv2" value="2-3k"><label for="inv2">R$ 2 a 3 mil</label></div>
+          <div class="ft-choice"><input type="radio" name="investimento" id="inv3" value="3-6k"><label for="inv3">R$ 3 a 6 mil</label></div>
+          <div class="ft-choice"><input type="radio" name="investimento" id="inv4" value="6k+"><label for="inv4">Acima de R$ 6 mil</label></div>
+        </div>
+      </fieldset>
+
+      <!-- Etapa 3 -->
+      <fieldset class="ft-stepper" data-step="3" hidden>
+        <legend>Conte um pouco sobre o negócio.</legend>
+        <p class="ft-hint">Isso orienta a conversa de diagnóstico.</p>
+        <div class="ft-field">
+          <label for="segmento">Segmento</label>
+          <select id="segmento" name="segmento" required>
+            <option value="">Selecione</option>
+            <option>Saúde e beleza</option>
+            <option>Automotivo</option>
+            <option>Construção e imóveis</option>
+            <option>Varejo</option>
+            <option>Serviços profissionais</option>
+            <option>Indústria</option>
+            <option>Educação</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="ft-field" style="margin-bottom:0">
+          <label for="desafio">Qual é o maior desafio de crescimento hoje?</label>
+          <textarea id="desafio" name="desafio" required placeholder="Ex.: as vendas oscilam muito de um mês para o outro"></textarea>
+        </div>
+      </fieldset>
+
+      <!-- Etapa 4 -->
+      <fieldset class="ft-stepper" data-step="4" hidden>
+        <legend>Para quem enviamos a resposta?</legend>
+        <p class="ft-hint">Um especialista entra em contato em até 2 dias úteis.</p>
+        <div class="ft-row">
+          <div class="ft-field"><label for="nome">Seu nome</label><input id="nome" name="nome" autocomplete="name" required></div>
+          <div class="ft-field"><label for="empresa">Empresa</label><input id="empresa" name="empresa" autocomplete="organization" required></div>
+        </div>
+        <div class="ft-row">
+          <div class="ft-field"><label for="whatsapp">WhatsApp</label><input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999" required></div>
+          <div class="ft-field"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" placeholder="voce@empresa.com.br" required></div>
+        </div>
+        <p class="ft-consent">Ao enviar, você concorda em ser contatado pela Filtter sobre esta aplicação.</p>
+      </fieldset>
+
+      <p class="ft-error" id="ft-error" role="alert"></p>
+
+      <div class="ft-form__nav" id="ft-nav-form">
+        <button type="button" class="ft-back" id="ft-back" hidden>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg>Voltar
+        </button>
+        <button type="submit" class="ft-btn ft-btn--navy" id="ft-next">Continuar</button>
+      </div>
+
+      <!-- Concluído -->
+      <div class="ft-done" id="ft-done" hidden tabindex="-1">
+        <div class="ft-done__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+        <h3>Aplicação enviada.</h3>
+        <p>Obrigado, <span id="ft-done-name">tudo certo</span>. Recebemos suas respostas.</p>
+        <ol>
+          <li>Um especialista analisa sua aplicação.</li>
+          <li>Em até 2 dias úteis, chamamos você no WhatsApp.</li>
+          <li>Se houver encaixe, agendamos o diagnóstico.</li>
+        </ol>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="ft-section ft-faq" id="faq" aria-labelledby="faq-title">
+  <div class="ft-wrap ft-faq__in">
+    <h2 class="ft-h2" id="faq-title">Dúvidas frequentes</h2>
+    <div>
+      <details>
+        <summary>A Filtter é uma agência de marketing?<i aria-hidden="true"></i></summary>
+        <p>Executamos marketing, mas o trabalho começa antes: diagnóstico do negócio, posicionamento e planejamento comercial. A execução é consequência dessa estratégia.</p>
+      </details>
+      <details>
+        <summary>Por que existe um faturamento mínimo?<i aria-hidden="true"></i></summary>
+        <p>Porque o método precisa de uma operação validada para funcionar. Abaixo disso, o investimento costuma render mais em estrutura do que em marketing.</p>
+      </details>
+      <details>
+        <summary>Em quanto tempo vejo resultado?<i aria-hidden="true"></i></summary>
+        <p>Os primeiros indicadores aparecem nos primeiros meses de execução. Crescimento consistente é construído mês a mês, com metas acompanhadas de perto.</p>
+      </details>
+      <details>
+        <summary>Vocês atendem empresas fora da minha cidade?<i aria-hidden="true"></i></summary>
+        <p>Sim. O acompanhamento é feito por reuniões online recorrentes, com relatórios e canais diretos com o time.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="ft-footer">
+  <div class="ft-wrap">
+    <div class="ft-footer__big">
+      <p>Pronto para crescer com método?</p>
+      <a class="ft-btn ft-btn--signal" href="#aplicar">Aplicar para o diagnóstico</a>
+    </div>
+    <div class="ft-footer__bar">
+      <span>© <span id="ft-year">2026</span> Filtter.Co</span>
+      <nav aria-label="Rodapé">
+        <a href="https://www.facebook.com/hellofiltter/" rel="noopener" target="_blank">Facebook</a>
+        <a href="#metodo">Método</a>
+        <a href="#cases">Cases</a>
+        <a href="#topo">Voltar ao topo</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ---------- Menu mobile ---------- */
+  var header=document.querySelector('.ft-header'),menuBtn=document.querySelector('.ft-menu-btn');
+  menuBtn.addEventListener('click',function(){
+    var open=header.classList.toggle('is-open');
+    menuBtn.setAttribute('aria-expanded',open);
+    menuBtn.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');
+  });
+  document.querySelectorAll('.ft-nav a').forEach(function(a){
+    a.addEventListener('click',function(){header.classList.remove('is-open');menuBtn.setAttribute('aria-expanded','false')});
+  });
+
+  /* ---------- Filtro do hero ---------- */
+  var sieve=document.getElementById('ft-sieve'),grid=sieve.querySelector('.ft-sieve__grid');
+  var total=96,kept=[17,30,52,58,75],frag=document.createDocumentFragment();
+  for(var i=0;i<total;i++){
+    var d=document.createElement('span');d.className='ft-sieve__dot';
+    if(kept.indexOf(i)>-1)d.classList.add('is-kept');
+    d.style.transitionDelay=(Math.random()*0.6).toFixed(2)+'s';
+    frag.appendChild(d);
+  }
+  grid.appendChild(frag);
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){sieve.classList.add('is-filtered')}
+  else{setTimeout(function(){sieve.classList.add('is-filtered')},700)}
+
+  /* ---------- Formulário em passos ---------- */
+  var form=document.getElementById('ft-form'),
+      steps=[].slice.call(form.querySelectorAll('.ft-stepper')),
+      bars=[].slice.call(form.querySelectorAll('.ft-progress__bar span')),
+      count=document.getElementById('ft-count'),live=document.getElementById('ft-live'),
+      err=document.getElementById('ft-error'),back=document.getElementById('ft-back'),
+      next=document.getElementById('ft-next'),current=0;
+
+  function render(focus){
+    steps.forEach(function(s,i){s.hidden=i!==current;s.classList.toggle('is-in',i===current)});
+    bars.forEach(function(b,i){b.className=i<current?'is-done':(i===current?'is-current':'')});
+    count.textContent='Etapa '+(current+1)+' de '+steps.length;
+    live.textContent=count.textContent+': '+steps[current].querySelector('legend').textContent;
+    back.hidden=current===0;
+    next.textContent=current===steps.length-1?'Enviar aplicação':'Continuar';
+    err.textContent='';
+    if(focus){var f=steps[current].querySelector('input,select,textarea');if(f)f.focus({preventScroll:true})}
+  }
+
+  function validate(){
+    var s=steps[current],radios=s.querySelectorAll('input[type=radio]');
+    if(radios.length){
+      if(!s.querySelector('input[type=radio]:checked')){err.textContent='Escolha uma opção para continuar.';radios[0].focus();return false}
+      return true;
+    }
+    var fields=[].slice.call(s.querySelectorAll('input,select,textarea')),firstBad=null;
+    fields.forEach(function(f){
+      var v=f.value.trim(),ok=!!v;
+      if(ok&&f.type==='email')ok=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+      if(ok&&f.type==='tel')ok=v.replace(/\D/g,'').length>=10;
+      f.setAttribute('aria-invalid',ok?'false':'true');
+      if(!ok&&!firstBad)firstBad=f;
+    });
+    if(firstBad){
+      var lbl=form.querySelector('label[for="'+firstBad.id+'"]').textContent;
+      err.textContent=firstBad.value.trim()?'Confira o campo "'+lbl+'".':'Preencha o campo "'+lbl+'".';
+      firstBad.focus();return false;
+    }
+    return true;
+  }
+
+  form.addEventListener('change',function(e){
+    if(e.target.name==='faturamento'){
+      document.getElementById('ft-notice-fat').hidden=e.target.value!=='ate-50k';
+    }
+    if(e.target.getAttribute('aria-invalid')==='true'&&e.target.value.trim())e.target.setAttribute('aria-invalid','false');
+    if(e.target.type==='radio')err.textContent='';
+  });
+
+  /* Máscara simples de telefone BR */
+  var tel=document.getElementById('whatsapp');
+  tel.addEventListener('input',function(){
+    var n=tel.value.replace(/\D/g,'').slice(0,11),o=n;
+    if(n.length>2)o='('+n.slice(0,2)+') '+n.slice(2);
+    if(n.length>7)o='('+n.slice(0,2)+') '+n.slice(2,n.length-4)+'-'+n.slice(-4);
+    tel.value=o;
+  });
+
+  back.addEventListener('click',function(){if(current>0){current--;render(true)}});
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!validate())return;
+    if(current<steps.length-1){current++;render(true);return}
+
+    var data=Object.fromEntries(new FormData(form).entries());
+    /* Integração: envie "data" para o seu CRM/Webhook aqui.
+       Ex.: fetch('https://SEU-WEBHOOK', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}) */
+    window.ftLead=data;
+
+    steps.forEach(function(s){s.hidden=true});
+    document.getElementById('ft-nav-form').hidden=true;
+    document.querySelector('.ft-progress').hidden=true;
+    err.textContent='';
+    document.getElementById('ft-done-name').textContent=(data.nome||'').split(' ')[0]||'tudo certo';
+    var done=document.getElementById('ft-done');done.hidden=false;done.focus();
+    live.textContent='Aplicação enviada.';
+  });
+
+  render(false);
+  document.getElementById('ft-year').textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>

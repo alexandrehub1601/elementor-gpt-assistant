@@ -38,9 +38,9 @@
   --fs-sm:.875rem;
   --fs-base:1.0625rem;
   --fs-md:1.3125rem;
-  --fs-lg:clamp(1.5rem,1.1rem + 1.4vw,2.25rem);
-  --fs-xl:clamp(2.25rem,1.4rem + 3.4vw,4.5rem);
-  --fs-display:clamp(3rem,1rem + 8.4vw,10.5rem);
+  --fs-lg:clamp(1.375rem,1.1rem + .9vw,1.875rem);
+  --fs-xl:clamp(1.875rem,1.2rem + 2.2vw,3.25rem);
+  --fs-display:clamp(2.25rem,1.2rem + 3.6vw,4.75rem);
 
   /* espaço — base 8 */
   --gutter:clamp(1.25rem,4vw,3.5rem);
@@ -104,27 +104,39 @@ fieldset{border:0;min-width:0}
 .menu-toggle[aria-expanded="true"] span[aria-hidden] i:first-child{transform:translateY(3.25px) rotate(45deg)}
 .menu-toggle[aria-expanded="true"] span[aria-hidden] i:last-child{transform:translateY(-3.25px) rotate(-45deg)}
 
-/* ---------- hero ---------- */
-.hero{background:var(--wine);color:var(--paper);padding-top:clamp(3rem,8vw,7rem);padding-bottom:clamp(3rem,6vw,5.5rem);overflow:hidden}
-.hero__title{font-weight:800;font-size:var(--fs-display);line-height:.9;letter-spacing:-.02em;text-transform:uppercase;color:var(--gold);grid-column:1/-1}
-.hero__title .line{display:block}
-.hero__title .line--indent{padding-left:clamp(0rem,14vw,16rem)}
-.hero__title .bar{display:inline-block;width:.075em;height:.92em;margin:0 .14em 0 .06em;vertical-align:-.06em;background:var(--paper);transform:skewX(calc(var(--slash) * -1))}
-.hero__foot{grid-column:1/-1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:2rem;align-items:end;margin-top:clamp(2.5rem,6vw,5rem);padding-top:1.5rem;border-top:1px solid var(--line-dark)}
-.hero__lede{grid-column:1/span 5;font-size:var(--fs-md);line-height:1.45;max-width:30ch}
-.hero__services{grid-column:7/span 3;font-size:var(--fs-sm);color:var(--mist);line-height:1.9}
-.hero__actions{grid-column:10/span 3;display:flex;flex-direction:column;align-items:flex-start;gap:.75rem;justify-self:end}
-
-/* load sequence — o único movimento orquestrado da página */
+/* ---------- hero: slideshow de projetos + bloco de texto ---------- */
+.hero{position:relative;min-height:calc(100svh - 4.5rem);display:flex;align-items:flex-end;background:var(--ink);color:var(--paper);overflow:hidden;isolation:isolate}
+.hero__media{position:absolute;inset:0;z-index:-1}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s var(--ease)}
+.slide.is-active{opacity:1}
+.slide img,.slide video,.slide .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slide .ph{align-items:flex-start;justify-content:flex-end;padding:clamp(5rem,9vw,8rem) var(--gutter)}
+.slide .ph__name{font-size:clamp(4rem,2rem + 9vw,12rem);opacity:.22;max-width:none;text-align:right}
 @media (prefers-reduced-motion:no-preference){
-  .js .hero__title .line{opacity:0;transform:translateY(.35em);transition:opacity .9s var(--ease),transform .9s var(--ease)}
-  .js .hero__title .line:nth-child(2){transition-delay:.12s}
-  .js .hero__title .line:nth-child(3){transition-delay:.24s}
-  .js .hero__title .bar{transform:skewX(calc(var(--slash) * -1)) scaleY(0);transform-origin:bottom;transition:transform .7s var(--ease) .55s}
-  .js .hero__foot{opacity:0;transition:opacity .8s var(--ease) .7s}
-  .js.is-loaded .hero__title .line{opacity:1;transform:none}
-  .js.is-loaded .hero__title .bar{transform:skewX(calc(var(--slash) * -1)) scaleY(1)}
-  .js.is-loaded .hero__foot{opacity:1}
+  .slide.is-active img,.slide.is-active video,.slide.is-active .ph{animation:kenburns 9s linear both}
+}
+@keyframes kenburns{from{transform:scale(1.06)}to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(29,29,29,.55),rgba(29,29,29,0) 55%)}
+.hero__inner{width:100%;display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;padding-block:clamp(2rem,5vw,4rem)}
+.hero__block{background:var(--wine);padding:clamp(1.75rem,3.5vw,3rem);max-width:40rem;border-radius:var(--radius-s)}
+.hero__title{font-weight:800;font-size:var(--fs-display);line-height:.95;letter-spacing:-.015em;text-transform:uppercase;color:var(--gold)}
+.hero__lede{margin-top:1.5rem;font-size:var(--fs-base);line-height:1.55;max-width:38ch;color:rgba(245,244,241,.88)}
+.hero__actions{margin-top:1.75rem;display:flex;flex-wrap:wrap;gap:.75rem}
+.hero__actions .btn{min-height:2.875rem;padding:.7rem 1.25rem;font-size:var(--fs-sm)}
+.hero__caption{display:flex;align-items:center;gap:1rem;font-size:var(--fs-sm);color:var(--paper);text-shadow:0 1px 12px rgba(0,0,0,.35)}
+.hero__dots{display:flex;gap:.375rem}
+.hero__dots button{width:2.75rem;height:2.75rem;padding:0;border:0;background:none;cursor:pointer;display:grid;place-items:center}
+.hero__dots button i{display:block;width:100%;height:2px;background:rgba(245,244,241,.4);overflow:hidden;position:relative}
+.hero__dots button i::after{content:"";position:absolute;inset:0;background:var(--paper);transform:scaleX(0);transform-origin:left}
+.hero__dots button[aria-current="true"] i::after{transform:scaleX(1);transition:transform var(--slide-ms,6000ms) linear}
+.hero.is-paused .hero__dots button[aria-current="true"] i::after{transition:none}
+.hero__pause{min-width:2.75rem;min-height:2.75rem;border:1px solid rgba(245,244,241,.5);border-radius:var(--radius-pill);background:none;color:var(--paper);cursor:pointer;display:grid;place-items:center}
+.hero__pause svg{width:12px;height:12px}
+
+/* load sequence */
+@media (prefers-reduced-motion:no-preference){
+  .js .hero__block{opacity:0;transform:translateY(1.5rem);transition:opacity .9s var(--ease) .15s,transform .9s var(--ease) .15s}
+  .js.is-loaded .hero__block{opacity:1;transform:none}
 }
 
 /* ---------- seções base ---------- */
@@ -133,22 +145,29 @@ fieldset{border:0;min-width:0}
 .section--tint{background:var(--paper-2)}
 .section--green{background:var(--green);color:var(--paper)}
 .section--wine{background:var(--wine);color:var(--paper)}
-.section--gold{background:var(--gold);color:var(--ink)}
-.section-head{grid-column:1/-1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:1.25rem;margin-bottom:clamp(3rem,6vw,5.5rem)}
-.section-name{grid-column:1/span 3;font-size:var(--fs-sm);color:var(--graphite);padding-top:.6em}
+.section-head{grid-column:1/-1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:1rem;margin-bottom:clamp(2.5rem,5vw,4rem)}
+.section-name{grid-column:1/span 3;font-size:var(--fs-sm);color:var(--graphite);padding-top:.5em}
 .on-dark .section-name{color:var(--gold)}
-.section-title{grid-column:4/span 9;font-weight:800;font-size:var(--fs-xl);line-height:1;letter-spacing:-.035em;max-width:20ch}
+.section-title{grid-column:4/span 9;font-weight:800;font-size:var(--fs-xl);line-height:1.05;letter-spacing:-.03em;max-width:24ch}
 
-/* ---------- manifesto ---------- */
+/* ---------- manifesto: chamada à esquerda, texto à direita ---------- */
 .manifesto{position:relative;overflow:hidden}
-.manifesto__symbol{position:absolute;right:calc(var(--gutter) * -1);top:clamp(2rem,6vw,5rem);width:clamp(16rem,34vw,32rem);color:var(--gold);opacity:.14;pointer-events:none}
-.manifesto__open{grid-column:1/-1;font-weight:800;font-size:var(--fs-display);line-height:.9;letter-spacing:-.045em;max-width:11ch;position:relative}
-.manifesto__body{grid-column:4/span 8;margin-top:clamp(3.5rem,8vw,7rem);display:grid;gap:1.6em;position:relative}
-.manifesto__body p{font-weight:300;font-size:var(--fs-lg);line-height:1.32;letter-spacing:-.01em;max-width:30ch}
+.manifesto__symbol{position:absolute;right:calc(var(--gutter) * -1.5);bottom:-4rem;width:clamp(14rem,26vw,24rem);color:var(--gold);opacity:.1;pointer-events:none}
+.manifesto__aside{grid-column:1/span 5;align-self:start;position:sticky;top:7rem;display:grid;gap:2rem}
+.manifesto__open{font-weight:800;font-size:var(--fs-xl);line-height:1.02;letter-spacing:-.03em;max-width:11ch}
+.team{display:grid;gap:.75rem;max-width:22rem}
+.team__photo{position:relative;aspect-ratio:4/5;border-radius:var(--radius-s);overflow:hidden;background:#2A2A28}
+.team__photo img{width:100%;height:100%;object-fit:cover}
+.team__photo .ph{position:absolute;inset:0;background:#2A2A28;color:var(--gold);align-items:center;justify-content:center;flex-direction:column;gap:.5rem;text-align:center}
+.team__photo .ph svg{width:3rem;opacity:.7}
+.team figcaption{font-size:var(--fs-sm);color:var(--mist)}
+.manifesto__main{grid-column:7/span 6;display:grid;gap:clamp(3rem,6vw,5rem);position:relative}
+.manifesto__body{display:grid;gap:1.25em}
+.manifesto__body p{font-weight:300;font-size:var(--fs-lg);line-height:1.35;letter-spacing:-.01em;max-width:30ch}
 .manifesto__body p.lead{font-weight:400}
-.manifesto__turn{grid-column:1/-1;margin-top:clamp(4rem,9vw,8rem);padding-top:2rem;border-top:1px solid var(--line-dark);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:1.5rem;position:relative}
-.manifesto__turn h3{color:var(--gold);grid-column:1/span 6;font-weight:800;font-size:var(--fs-xl);line-height:1;letter-spacing:-.035em}
-.manifesto__turn p{grid-column:7/span 5;font-size:var(--fs-md);line-height:1.5;color:var(--mist);max-width:36ch}
+.manifesto__turn{padding-top:2rem;border-top:1px solid var(--line-dark);display:grid;gap:1rem}
+.manifesto__turn h3{color:var(--gold);font-weight:800;font-size:var(--fs-lg);line-height:1.1;letter-spacing:-.02em}
+.manifesto__turn p{font-size:var(--fs-base);line-height:1.6;color:var(--mist);max-width:42ch}
 .manifesto__turn p strong{color:var(--paper);font-weight:400}
 
 /* revelação por rolagem: palavras acendem conforme a leitura */
@@ -158,58 +177,74 @@ fieldset{border:0;min-width:0}
   .js .reveal .w.is-on{color:var(--paper)}
 }
 
-/* ---------- serviços ---------- */
-.services-list{grid-column:1/-1;border-top:1px solid var(--line)}
-.service{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:1rem;padding-block:clamp(2rem,4vw,3.25rem);border-bottom:1px solid var(--line)}
-.service h3{grid-column:1/span 5;font-weight:800;font-size:var(--fs-lg);line-height:1.05;letter-spacing:-.025em}
-.service p{grid-column:6/span 4;color:var(--graphite);max-width:40ch}
-.service ul{grid-column:10/span 3;font-size:var(--fs-sm);line-height:1.9}
+/* ---------- serviços: três colunas verticais ---------- */
+.services-list{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gutter)}
+.service{display:flex;flex-direction:column;gap:1rem;padding-top:1.5rem;border-top:2px solid var(--wine)}
+.service svg{width:2.25rem;height:2.25rem;color:var(--wine)}
+.service h3{font-weight:800;font-size:var(--fs-md);line-height:1.1;letter-spacing:-.015em;margin-top:.5rem}
+.service p{color:var(--graphite);max-width:36ch}
+.service ul{margin-top:auto;padding-top:1rem;font-size:var(--fs-sm);line-height:1.9;border-top:1px solid var(--line)}
 
-/* ---------- projetos ---------- */
-.work-grid{grid-column:1/-1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(2.5rem,4vw,3.5rem) var(--gutter)}
-.project{grid-column:span 6;display:flex;flex-direction:column;gap:1rem;text-decoration:none}
-.project--7{grid-column:span 7}.project--5{grid-column:span 5}.project--4{grid-column:span 4}.project--12{grid-column:1/-1}
-.project__media{position:relative;overflow:hidden;border-radius:var(--radius-s);background:var(--paper-2);aspect-ratio:4/3;isolation:isolate}
-.project--5 .project__media{aspect-ratio:4/5}
-.project--7 .project__media{aspect-ratio:7/5.6}
-.project--4 .project__media{aspect-ratio:1/1}
-.project--12 .project__media{aspect-ratio:21/8}
-.project__media img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
-/* placeholder: substitua por <img> do projeto */
-.ph{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:space-between;padding:clamp(1rem,2vw,1.75rem);background:var(--ph,var(--paper-2));color:var(--ph-ink,var(--ink));transition:transform .7s var(--ease)}
+/* ---------- projetos: mosaico compacto em 3 colunas, sem respiro ---------- */
+.work-grid{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:clamp(13rem,21vw,19rem);gap:0;border-radius:var(--radius-s);overflow:hidden}
+.project{position:relative;display:block;overflow:hidden;text-decoration:none;isolation:isolate}
+.project--big{grid-row:span 2}
+.project img,.project .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.ph{position:relative;isolation:isolate;display:flex;align-items:flex-end;justify-content:space-between;padding:clamp(1rem,2vw,1.5rem);background:var(--ph,var(--paper-2));color:var(--ph-ink,var(--ink))}
 .ph::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(calc(90deg - var(--slash)),transparent 0 22px,currentColor 22px 23px);opacity:.07;z-index:-1}
-.ph__name{font-weight:800;font-size:clamp(1.75rem,1rem + 3vw,4rem);line-height:.9;letter-spacing:-.04em;max-width:10ch}
-.ph__note{font-size:.8125rem;opacity:.7;text-align:right}
-.project:hover .ph,.project:hover .project__media img{transform:scale(1.025)}
-.project__meta{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
-.project__meta h3{font-weight:400;font-size:var(--fs-md);letter-spacing:-.01em}
-.project__meta span{font-size:var(--fs-sm);color:var(--graphite)}
-.project:focus-visible{outline-offset:6px}
+.ph__name{font-weight:800;font-size:clamp(1.5rem,1rem + 2vw,3rem);line-height:.92;letter-spacing:-.035em;max-width:10ch}
+.ph__note{font-size:.8125rem;opacity:.75}
+.project .ph__name{opacity:.9}
+.project__info{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:2.5rem clamp(1rem,2vw,1.5rem) clamp(1rem,2vw,1.25rem);color:var(--paper);background:linear-gradient(to top,rgba(29,29,29,.7),rgba(29,29,29,0));opacity:0;transform:translateY(.5rem);transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.project__info h3{font-weight:400;font-size:var(--fs-base)}
+.project__info span{font-size:var(--fs-sm);color:rgba(245,244,241,.8)}
+.project:hover img,.project:hover .ph,.project:focus-visible img,.project:focus-visible .ph{transform:scale(1.04)}
+.project:hover .project__info,.project:focus-visible .project__info{opacity:1;transform:none}
+.project:focus-visible{outline-offset:-4px}
+@media (hover:none){.project__info{opacity:1;transform:none}}
 
-/* ---------- processo ---------- */
-.steps{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gutter);counter-reset:step}
-.step{padding-top:1.5rem;border-top:1.5px solid var(--gold);counter-increment:step}
-.step::before{content:counter(step,decimal-leading-zero);display:block;font-size:var(--fs-sm);color:var(--gold);margin-bottom:2.5rem;font-variant-numeric:tabular-nums}
-.step h3{font-weight:800;font-size:var(--fs-lg);letter-spacing:-.025em;line-height:1.05;margin-bottom:1rem}
-.step p{color:var(--mist);max-width:28ch}
+/* ---------- processo: escadinha de 4 etapas ---------- */
+.steps{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(.75rem,1.5vw,1.25rem);align-items:end}
+.step{--h:0;display:flex;flex-direction:column;gap:.875rem;min-height:calc(17rem + var(--h) * 3.5rem);padding:clamp(1.25rem,2vw,1.75rem);background:rgba(245,244,241,.05);border-top:2px solid var(--gold);border-radius:0 0 var(--radius-s) var(--radius-s);transition:background-color .3s var(--ease)}
+.step:nth-child(2){--h:1}.step:nth-child(3){--h:2}.step:nth-child(4){--h:3}
+.step:hover{background:rgba(245,244,241,.09)}
+.step__top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:auto;padding-bottom:1.5rem}
+.step__n{font-weight:800;font-size:clamp(2.5rem,1.6rem + 2.4vw,4rem);line-height:.8;color:var(--gold);font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.step__icon{width:3.25rem;height:3.25rem;color:var(--gold)}
+.step__icon :not(.dash){stroke-dasharray:var(--len,200);stroke-dashoffset:0}
+.step h3{font-weight:800;font-size:var(--fs-md);letter-spacing:-.015em;line-height:1.1}
+.step p{color:var(--mist);font-size:var(--fs-sm);line-height:1.6;max-width:30ch}
+@media (prefers-reduced-motion:no-preference){
+  .js .steps .step{opacity:0;transform:translateY(2rem);transition:opacity .7s var(--ease),transform .7s var(--ease),background-color .3s var(--ease)}
+  .js .steps .step:nth-child(2){transition-delay:.12s,.12s,0s}
+  .js .steps .step:nth-child(3){transition-delay:.24s,.24s,0s}
+  .js .steps .step:nth-child(4){transition-delay:.36s,.36s,0s}
+  .js .steps .step__icon :not(.dash){stroke-dashoffset:var(--len,200);transition:stroke-dashoffset 1.2s var(--ease) .5s}
+  .js .steps.is-in .step{opacity:1;transform:none}
+  .js .steps.is-in .step__icon :not(.dash){stroke-dashoffset:0}
+  .step:hover .step__icon{animation:nudge .6s var(--ease)}
+}
+@keyframes nudge{40%{transform:rotate(-8deg) scale(1.08)}}
 
-/* ---------- princípios ---------- */
-.beliefs{grid-column:1/-1;display:grid;gap:0}
-.belief{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:1rem;padding-block:clamp(2rem,5vw,4rem);border-top:1px solid var(--line)}
-.belief:last-child{border-bottom:1px solid var(--line)}
-.belief h3{grid-column:1/span 7;font-weight:300;font-size:var(--fs-xl);line-height:1.02;letter-spacing:-.035em}
-.belief h3 b{font-weight:800;color:var(--wine)}
-.belief p{grid-column:9/span 4;color:var(--graphite);align-self:end;max-width:34ch}
-
-/* ---------- frase-ponte ---------- */
-.quote{padding-block:clamp(5rem,12vw,11rem);text-align:left}
-.quote blockquote{margin:0;grid-column:4/span 9;font-weight:800;font-size:var(--fs-xl);line-height:1.02;letter-spacing:-.035em;max-width:20ch}
-.quote blockquote p + p{margin-top:.5em;font-weight:300}
+/* ---------- marcas (carrossel de logos) ---------- */
+.clients{padding-block:clamp(3rem,6vw,4.5rem);background:var(--paper);border-bottom:1px solid var(--line);overflow:hidden}
+.clients__title{font-weight:400;font-size:var(--fs-sm);color:var(--graphite);margin-bottom:1.75rem}
+.marquee{display:flex;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee__track{display:flex;flex:none;align-items:center;gap:clamp(3rem,6vw,5.5rem);padding-right:clamp(3rem,6vw,5.5rem);animation:marquee 38s linear infinite}
+.marquee:hover .marquee__track{animation-play-state:paused}
+.marquee__track li{flex:none;font-weight:800;font-size:clamp(1.25rem,1rem + 1vw,1.875rem);letter-spacing:-.02em;color:var(--ink);opacity:.75;white-space:nowrap}
+.marquee__track li img{height:2.25rem;width:auto}
+@keyframes marquee{to{transform:translateX(-100%)}}
+@media (prefers-reduced-motion:reduce){
+  .marquee{-webkit-mask-image:none;mask-image:none}
+  .marquee__track{animation:none;flex-wrap:wrap;flex:1;gap:1rem 2.5rem;padding:0 var(--gutter)}
+  .marquee__track[aria-hidden]{display:none}
+}
 
 /* ---------- contato + formulário em passos ---------- */
 .contact .grid{row-gap:3rem;align-items:start}
 .contact__intro{grid-column:1/span 5;position:sticky;top:7rem}
-.contact__intro h2{font-weight:800;font-size:var(--fs-xl);line-height:1;letter-spacing:-.035em;margin-bottom:1.5rem;max-width:12ch}
+.contact__intro h2{font-weight:800;font-size:var(--fs-xl);line-height:1.05;letter-spacing:-.035em;margin-bottom:1.5rem;max-width:12ch}
 .contact__intro p{color:rgba(245,244,241,.82);max-width:34ch;font-size:var(--fs-md);line-height:1.5}
 .contact__direct{margin-top:2.5rem;display:grid;gap:.5rem;font-size:var(--fs-sm)}
 .contact__direct a{text-decoration:none;border-bottom:1px solid var(--line-dark);padding-block:.4rem;width:fit-content}
@@ -271,26 +306,26 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
 .form-status:empty{display:none}
 
 /* ---------- rodapé ---------- */
-.site-footer{padding-top:clamp(4rem,8vw,7rem);padding-bottom:2rem;background:var(--ink);color:var(--paper);border-top:1px solid var(--line-dark)}
-.footer__top{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:2.5rem;padding-bottom:clamp(3rem,6vw,5rem)}
-.footer__close{grid-column:1/span 6;font-weight:300;font-size:var(--fs-lg);line-height:1.2;letter-spacing:-.015em;max-width:20ch}
+.site-footer{padding-top:clamp(3.5rem,7vw,5.5rem);padding-bottom:2rem;background:var(--ink);color:var(--paper)}
+.footer__top{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:2.5rem;padding-bottom:clamp(3rem,6vw,4.5rem)}
+.footer__brand{grid-column:1/span 6;display:grid;gap:1.5rem;align-content:start}
+.footer__brand svg{width:clamp(12rem,18vw,16rem);height:auto;color:var(--gold)}
+.footer__close{font-weight:300;font-size:var(--fs-md);line-height:1.3;letter-spacing:-.01em;max-width:24ch}
 .footer__close b{font-weight:800;color:var(--gold)}
 .footer__col{grid-column:span 2;font-size:var(--fs-sm);display:grid;align-content:start;gap:.35rem}
 .footer__col:first-of-type{grid-column:8/span 2}
 .footer__col h4{font-weight:400;color:var(--mist);margin-bottom:.5rem;font-size:var(--fs-sm)}
 .footer__col a{text-decoration:none;padding-block:.3rem;width:fit-content}
 .footer__col a:hover{text-decoration:underline;text-underline-offset:4px}
-.footer__mark{color:var(--gold);padding-block:1rem 2rem}
-.footer__mark svg{width:100%;height:auto}
 .footer__legal{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.8125rem;color:var(--mist);padding-top:1.5rem;border-top:1px solid var(--line-dark)}
 
 /* ---------- responsivo ---------- */
 @media (max-width:1100px){
   .nav ul{gap:1.25rem}
-  .hero__lede{grid-column:1/span 7}
-  .hero__services{grid-column:8/span 5}
-  .hero__actions{grid-column:1/-1;flex-direction:row;justify-self:start}
-  .steps{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:3rem}
+  .manifesto__aside{grid-column:1/span 5}
+  .manifesto__main{grid-column:7/span 6}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .step{min-height:15rem}
   .contact__intro{grid-column:1/-1;position:static}
   .form-card{grid-column:1/-1}
 }
@@ -302,28 +337,29 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
   .nav a:not(.btn){display:block;font-size:var(--fs-md);padding-block:.875rem;border-bottom:1px solid var(--line-dark)}
   .nav a:not(.btn)::after{display:none}
   .nav .btn{margin-top:1.5rem;min-height:3.25rem;font-size:var(--fs-base)}
+  .hero__inner{flex-direction:column;align-items:stretch}
+  .hero__caption{justify-content:space-between}
   .section-name,.section-title{grid-column:1/-1}
-  .manifesto__body{grid-column:1/-1}
-  .manifesto__turn h3,.manifesto__turn p{grid-column:1/-1}
-  .service h3,.service p,.service ul{grid-column:1/-1}
-  .service ul{display:flex;flex-wrap:wrap;gap:.25rem 1.25rem}
-  .project,.project--7,.project--5,.project--4{grid-column:1/-1}
-  .project--5 .project__media,.project--7 .project__media,.project--4 .project__media{aspect-ratio:4/3}
-  .project--12 .project__media{aspect-ratio:4/3}
-  .belief h3,.belief p{grid-column:1/-1}
-  .quote blockquote{grid-column:1/-1}
-  .footer__close{grid-column:1/-1}
+  .manifesto__aside,.manifesto__main{grid-column:1/-1;position:static}
+  .manifesto__main{margin-top:3rem}
+  .team{max-width:16rem}
+  .services-list{grid-template-columns:1fr;gap:3rem}
+  .work-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:clamp(11rem,40vw,16rem)}
+  .project--big{grid-column:span 2;grid-row:span 2}
+  .project:last-child{grid-column:span 2}
+  .footer__brand{grid-column:1/-1}
   .footer__col,.footer__col:first-of-type{grid-column:span 4}
 }
 @media (max-width:600px){
   .brand svg{width:9.5rem}
-  .hero__title{font-size:14.2vw}
-  .hero__title .line--indent{padding-left:0}
-  .hero__lede,.hero__services{grid-column:1/-1}
-  .hero__actions{flex-direction:column;align-items:stretch;width:100%}
-  .hero__actions .btn{width:100%}
+  .hero{min-height:calc(100svh - 4.5rem)}
+  .hero__inner{padding-inline:0;padding-bottom:0}
+  .hero__block{border-radius:0;padding:1.75rem var(--gutter) 2rem;max-width:none}
+  .hero__caption{padding:0 var(--gutter) 1rem;order:-1}
+  .hero__actions .btn{flex:1 1 auto;white-space:nowrap;padding-inline:1rem}
   .steps{grid-template-columns:1fr}
-  .step::before{margin-bottom:1.25rem}
+  .step,.step:nth-child(n){min-height:0}
+  .step__top{padding-bottom:1rem}
   .footer__col,.footer__col:first-of-type{grid-column:span 6}
   .form-actions .btn--next{flex:1}
 }
@@ -361,24 +397,30 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
 <main id="conteudo">
 
 <!-- ======================= HERO ======================= -->
-<section class="hero on-dark" aria-labelledby="hero-title">
-  <div class="wrap grid">
-    <h1 class="hero__title" id="hero-title">
-      <span class="line">Para sua marca</span>
-      <span class="line line--indent">dizer<span class="bar" aria-hidden="true"></span>a que</span>
-      <span class="line">veio.</span>
-    </h1>
-    <div class="hero__foot">
+<!-- Slideshow de projetos: troque cada .ph por <img src="..." alt=""> ou <video src="..." autoplay muted loop playsinline></video>.
+     data-name alimenta a legenda. -->
+<section class="hero on-dark" aria-labelledby="hero-title" aria-roledescription="apresentação">
+  <div class="hero__media" id="hero-media">
+    <figure class="slide is-active" data-name="Hunna"><div class="ph" style="--ph:#2A1A1F;--ph-ink:#C59A45"><span class="ph__name">Hunna</span></div></figure>
+    <figure class="slide" data-name="Festival Iguassu Inova"><div class="ph" style="--ph:#0F3C37;--ph-ink:#ECE6DA"><span class="ph__name">Festival Iguassu Inova</span></div></figure>
+    <figure class="slide" data-name="Deboo"><div class="ph" style="--ph:#3A3A37;--ph-ink:#C59A45"><span class="ph__name">Deboo</span></div></figure>
+    <figure class="slide" data-name="Equilibre"><div class="ph" style="--ph:#8A6A2C;--ph-ink:#F5F4F1"><span class="ph__name">Equilibre</span></div></figure>
+  </div>
+  <div class="wrap hero__inner">
+    <div class="hero__block">
+      <h1 class="hero__title" id="hero-title">Para sua marca dizer a que veio.</h1>
       <p class="hero__lede">Somos um estúdio de design. Unimos estratégia e criação para construir marcas claras, consistentes e proprietárias.</p>
-      <ul class="hero__services" aria-label="O que fazemos">
-        <li>Identidade visual</li>
-        <li>Branding</li>
-        <li>Social media</li>
-      </ul>
       <div class="hero__actions">
         <a class="btn btn--solid" href="#contato">Começar um projeto</a>
         <a class="btn btn--ghost" href="#projetos">Ver projetos</a>
       </div>
+    </div>
+    <div class="hero__caption">
+      <span id="hero-current" aria-live="polite">Hunna</span>
+      <div class="hero__dots" id="hero-dots" role="group" aria-label="Escolher projeto"></div>
+      <button class="hero__pause" type="button" id="hero-pause" aria-label="Pausar apresentação">
+        <svg viewBox="0 0 12 12" aria-hidden="true" fill="currentColor"><rect x="2" y="1" width="3" height="10"/><rect x="7" y="1" width="3" height="10"/></svg>
+      </button>
     </div>
   </div>
 </section>
@@ -387,15 +429,27 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
 <section class="section section--dark manifesto on-dark" id="manifesto" aria-labelledby="manifesto-title">
   <svg class="manifesto__symbol" viewBox="0 0 366.03 369.8" aria-hidden="true"><use href="#simbolo-fale"/></svg>
   <div class="wrap grid">
-    <h2 class="manifesto__open" id="manifesto-title">Todo negócio tem algo a dizer.</h2>
-    <div class="manifesto__body reveal">
-      <p class="lead">Uma ideia, uma escolha, uma forma particular de enxergar o mundo.</p>
-      <p>Mas nem sempre essa potência encontra uma expressão à altura. Às vezes, falta clareza. Às vezes, sobra informação.</p>
-      <p>E, muitas vezes, o que a empresa mostra já não representa aquilo que ela se tornou ou pretende construir.</p>
+    <div class="manifesto__aside">
+      <h2 class="manifesto__open" id="manifesto-title">Todo negócio tem algo a dizer.</h2>
+      <!-- Foto da equipe: troque o .ph por <img src="..." alt="Fernanda Molinaro e Alexandre Santos no estúdio"> -->
+      <figure class="team">
+        <div class="team__photo"><div class="ph">
+          <svg viewBox="0 0 366.03 369.8" aria-hidden="true"><use href="#simbolo-fale"/></svg>
+          <span class="ph__note">Foto da equipe</span>
+        </div></div>
+        <figcaption>Fernanda Molinaro e Alexandre Santos, fundadores do estúdio.</figcaption>
+      </figure>
     </div>
-    <div class="manifesto__turn">
-      <h3>É aí que uma marca começa.</h3>
-      <p>Não apenas em um nome, um símbolo ou uma escolha de cores, mas <strong>na compreensão do que torna um negócio singular</strong> e na maneira como isso ganha forma, voz e presença.</p>
+    <div class="manifesto__main">
+      <div class="manifesto__body reveal">
+        <p class="lead">Uma ideia, uma escolha, uma forma particular de enxergar o mundo.</p>
+        <p>Mas nem sempre essa potência encontra uma expressão à altura. Às vezes, falta clareza. Às vezes, sobra informação.</p>
+        <p>E, muitas vezes, o que a empresa mostra já não representa aquilo que ela se tornou ou pretende construir.</p>
+      </div>
+      <div class="manifesto__turn">
+        <h3>É aí que uma marca começa.</h3>
+        <p>Não apenas em um nome, um símbolo ou uma escolha de cores, mas <strong>na compreensão do que torna um negócio singular</strong> e na maneira como isso ganha forma, voz e presença.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -409,6 +463,7 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
     </div>
     <div class="services-list">
       <article class="service">
+        <svg viewBox="0 0 36 36" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="30" height="30" rx="2"/><circle cx="14" cy="15" r="6"/><path d="M20 27l6-11 5 11z"/></svg>
         <h3>Identidade visual</h3>
         <p>A forma da marca: um sistema visual próprio, pensado para ser reconhecido e funcionar em qualquer ponto de contato.</p>
         <ul aria-label="Entregas de identidade visual">
@@ -419,6 +474,7 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
         </ul>
       </article>
       <article class="service">
+        <svg viewBox="0 0 36 36" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="18" cy="18" r="15"/><circle cx="18" cy="18" r="9"/><circle cx="18" cy="18" r="3" fill="currentColor"/></svg>
         <h3>Branding</h3>
         <p>A base da marca: investigamos o que sustenta o negócio para definir posicionamento, personalidade e voz.</p>
         <ul aria-label="Entregas de branding">
@@ -429,6 +485,7 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
         </ul>
       </article>
       <article class="service">
+        <svg viewBox="0 0 36 36" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="13" height="13" rx="1.5"/><rect x="20" y="3" width="13" height="13" rx="1.5"/><rect x="3" y="20" width="13" height="13" rx="1.5"/><rect x="20" y="20" width="13" height="13" rx="1.5"/></svg>
         <h3>Social media</h3>
         <p>A presença da marca: linguagem visual e editorial para que cada publicação reforce aquilo que a marca é.</p>
         <ul aria-label="Entregas de social media">
@@ -443,7 +500,7 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
 </section>
 
 <!-- ======================= PROJETOS ======================= -->
-<!-- Placeholders: troque cada .ph por <img src="..." alt="..." loading="lazy" width="" height=""> e ajuste a categoria -->
+<!-- Placeholders: troque cada .ph por <img src="..." alt="..." loading="lazy"> e ajuste a categoria -->
 <section class="section section--tint" id="projetos" aria-labelledby="projetos-title">
   <div class="wrap grid">
     <div class="section-head">
@@ -451,38 +508,14 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
       <h2 class="section-title" id="projetos-title">Cada negócio tem sua história, seu momento e sua maneira de ocupar o mundo.</h2>
     </div>
     <div class="work-grid">
-      <a class="project project--7" href="#" aria-label="Hunna, ver projeto">
-        <div class="project__media"><div class="ph" style="--ph:#7A1531;--ph-ink:#C59A45"><span class="ph__name">Hunna</span><span class="ph__note">Imagem do projeto</span></div></div>
-        <div class="project__meta"><h3>Hunna</h3><span>Categoria</span></div>
-      </a>
-      <a class="project project--5" href="#" aria-label="DS, ver projeto">
-        <div class="project__media"><div class="ph" style="--ph:#F5F4F1;--ph-ink:#7A1531"><span class="ph__name">DS</span><span class="ph__note">Imagem do projeto</span></div></div>
-        <div class="project__meta"><h3>DS</h3><span>Categoria</span></div>
-      </a>
-      <a class="project project--4" href="#" aria-label="Deboo, ver projeto">
-        <div class="project__media"><div class="ph" style="--ph:#0F3C37;--ph-ink:#ECE6DA"><span class="ph__name">Deboo</span><span class="ph__note">Imagem do projeto</span></div></div>
-        <div class="project__meta"><h3>Deboo</h3><span>Categoria</span></div>
-      </a>
-      <a class="project project--4" href="#" aria-label="Equilibre, ver projeto">
-        <div class="project__media"><div class="ph" style="--ph:#C59A45;--ph-ink:#1D1D1D"><span class="ph__name">Equilibre</span><span class="ph__note">Imagem do projeto</span></div></div>
-        <div class="project__meta"><h3>Equilibre</h3><span>Categoria</span></div>
-      </a>
-      <a class="project project--4" href="#" aria-label="Itaca, ver projeto">
-        <div class="project__media"><div class="ph" style="--ph:#1D1D1D;--ph-ink:#C59A45"><span class="ph__name">Itaca</span><span class="ph__note">Imagem do projeto</span></div></div>
-        <div class="project__meta"><h3>Itaca</h3><span>Categoria</span></div>
-      </a>
-      <a class="project project--12" href="#" aria-label="Festival Iguassu Inova, ver projeto">
-        <div class="project__media"><div class="ph" style="--ph:#7A1531;--ph-ink:#F5F4F1"><span class="ph__name" style="max-width:16ch">Festival Iguassu Inova</span><span class="ph__note">Imagem do projeto</span></div></div>
-        <div class="project__meta"><h3>Festival Iguassu Inova</h3><span>Categoria</span></div>
-      </a>
-      <a class="project" href="#" aria-label="Quitutes, ver projeto">
-        <div class="project__media"><div class="ph" style="--ph:#F5F4F1;--ph-ink:#0F3C37"><span class="ph__name">Quitutes</span><span class="ph__note">Imagem do projeto</span></div></div>
-        <div class="project__meta"><h3>Quitutes</h3><span>Categoria</span></div>
-      </a>
-      <a class="project" href="#" aria-label="Lucas Martins, ver projeto">
-        <div class="project__media"><div class="ph" style="--ph:#0F3C37;--ph-ink:#C59A45"><span class="ph__name">Lucas Martins</span><span class="ph__note">Imagem do projeto</span></div></div>
-        <div class="project__meta"><h3>Lucas Martins</h3><span>Categoria</span></div>
-      </a>
+      <a class="project project--big" href="#"><div class="ph" style="--ph:#7A1531;--ph-ink:#C59A45"><span class="ph__name">Hunna</span></div><div class="project__info"><h3>Hunna</h3><span>Categoria</span></div></a>
+      <a class="project" href="#"><div class="ph" style="--ph:#F5F4F1;--ph-ink:#7A1531"><span class="ph__name">DS</span></div><div class="project__info"><h3>DS</h3><span>Categoria</span></div></a>
+      <a class="project" href="#"><div class="ph" style="--ph:#0F3C37;--ph-ink:#ECE6DA"><span class="ph__name">Deboo</span></div><div class="project__info"><h3>Deboo</h3><span>Categoria</span></div></a>
+      <a class="project" href="#"><div class="ph" style="--ph:#C59A45;--ph-ink:#1D1D1D"><span class="ph__name">Equilibre</span></div><div class="project__info"><h3>Equilibre</h3><span>Categoria</span></div></a>
+      <a class="project" href="#"><div class="ph" style="--ph:#1D1D1D;--ph-ink:#C59A45"><span class="ph__name">Itaca</span></div><div class="project__info"><h3>Itaca</h3><span>Categoria</span></div></a>
+      <a class="project" href="#"><div class="ph" style="--ph:#ECE6DA;--ph-ink:#0F3C37"><span class="ph__name">Festival Iguassu Inova</span></div><div class="project__info"><h3>Festival Iguassu Inova</h3><span>Categoria</span></div></a>
+      <a class="project" href="#"><div class="ph" style="--ph:#7A1531;--ph-ink:#F5F4F1"><span class="ph__name">Quitutes</span></div><div class="project__info"><h3>Quitutes</h3><span>Categoria</span></div></a>
+      <a class="project" href="#"><div class="ph" style="--ph:#0F3C37;--ph-ink:#C59A45"><span class="ph__name">Lucas Martins</span></div><div class="project__info"><h3>Lucas Martins</h3><span>Categoria</span></div></a>
     </div>
   </div>
 </section>
@@ -492,22 +525,42 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
   <div class="wrap grid">
     <div class="section-head">
       <p class="section-name">Como trabalhamos</p>
-      <h2 class="section-title" id="processo-title">Estratégia e criação caminham juntas.</h2>
+      <h2 class="section-title" id="processo-title">Estratégia e criação caminham juntas, em quatro etapas.</h2>
     </div>
     <ol class="steps">
       <li class="step">
+        <div class="step__top">
+          <span class="step__n" aria-hidden="true">1</span>
+          <!-- lupa tracejada -->
+          <svg class="step__icon" viewBox="0 0 52 52" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle class="dash" cx="22" cy="22" r="14" stroke-dasharray="4 4"/><path d="M32.5 32.5L46 46" style="--len:20"/><path d="M15 22a7 7 0 0 1 7-7" style="--len:12"/></svg>
+        </div>
         <h3>Investigar</h3>
         <p>Entendemos o negócio, o mercado e as pessoas por trás dele. Descobrimos o que sustenta a marca.</p>
       </li>
       <li class="step">
+        <div class="step__top">
+          <span class="step__n" aria-hidden="true">2</span>
+          <!-- alvo / direção -->
+          <svg class="step__icon" viewBox="0 0 52 52" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="24" cy="28" r="18" style="--len:115"/><circle cx="24" cy="28" r="9" style="--len:58"/><path d="M24 28L44 8M38 8h6v6" style="--len:40"/></svg>
+        </div>
         <h3>Definir</h3>
         <p>Transformamos o que foi descoberto em direção: posicionamento, personalidade e o que a marca precisa dizer.</p>
       </li>
       <li class="step">
+        <div class="step__top">
+          <span class="step__n" aria-hidden="true">3</span>
+          <!-- estrelinha -->
+          <svg class="step__icon" viewBox="0 0 52 52" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M26 4c1.6 11.5 6.5 16.4 18 18-11.5 1.6-16.4 6.5-18 18-1.6-11.5-6.5-16.4-18-18 11.5-1.6 16.4-6.5 18-18z" style="--len:130"/><path d="M42 38c.6 4 2 5.4 6 6-4 .6-5.4 2-6 6-.6-4-2-5.4-6-6 4-.6 5.4-2 6-6z" style="--len:40"/></svg>
+        </div>
         <h3>Criar</h3>
         <p>Damos forma, voz e presença à marca, com rigor no detalhe e liberdade na expressão.</p>
       </li>
       <li class="step">
+        <div class="step__top">
+          <span class="step__n" aria-hidden="true">4</span>
+          <!-- livrinho / manual -->
+          <svg class="step__icon" viewBox="0 0 52 52" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M26 12c-5-4-12-4-20-3v31c8-1 15-1 20 3 5-4 12-4 20-3V9c-8-1-15-1-20 3z" style="--len:160"/><path d="M26 12v31" style="--len:31"/><path d="M12 18c3-.4 6-.2 9 .8M12 25c3-.4 6-.2 9 .8" style="--len:20"/></svg>
+        </div>
         <h3>Implementar</h3>
         <p>Entregamos um sistema pronto para o dia a dia, com orientações claras para a marca seguir consistente.</p>
       </li>
@@ -515,37 +568,17 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
   </div>
 </section>
 
-<!-- ======================= PRINCÍPIOS ======================= -->
-<section class="section" aria-labelledby="crencas-title">
-  <div class="wrap grid">
-    <div class="section-head">
-      <p class="section-name">No que acreditamos</p>
-      <h2 class="section-title" id="crencas-title">Precisão em vez de excesso.</h2>
-    </div>
-    <div class="beliefs">
-      <div class="belief">
-        <h3><b>O essencial</b> não como redução, mas como precisão.</h3>
-        <p>No que faz sentido, no que diferencia e no que ajuda uma empresa a seguir adiante sem carregar excessos.</p>
-      </div>
-      <div class="belief">
-        <h3><b>Ideias originais</b> e pensamento feito com intenção.</h3>
-        <p>Não trabalhamos com respostas prontas para perguntas diferentes. Cada projeto começa do zero.</p>
-      </div>
-      <div class="belief">
-        <h3><b>A inventividade</b> do design brasileiro.</h3>
-        <p>Um design capaz de combinar inteligência e sensibilidade, rigor e expressão, sofisticação e proximidade.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ======================= FRASE ======================= -->
-<section class="quote section--gold" aria-label="Nosso trabalho">
-  <div class="wrap grid">
-    <blockquote>
-      <p>O nosso trabalho é ajudar seu negócio a encontrar essa expressão.</p>
-      <p>E fazer sua marca falar por inteiro.</p>
-    </blockquote>
+<!-- ======================= MARCAS ======================= -->
+<!-- Troque os nomes por <img src="logo.svg" alt="Nome da marca"> (mesma lista nas duas faixas) -->
+<section class="clients" aria-labelledby="clients-title">
+  <div class="wrap"><h2 class="clients__title" id="clients-title">Marcas que já falam com a gente</h2></div>
+  <div class="marquee">
+    <ul class="marquee__track">
+      <li>Hunna</li><li>DS</li><li>Deboo</li><li>Equilibre</li><li>Itaca</li><li>Festival Iguassu Inova</li><li>Quitutes</li><li>Lucas Martins</li>
+    </ul>
+    <ul class="marquee__track" aria-hidden="true">
+      <li>Hunna</li><li>DS</li><li>Deboo</li><li>Equilibre</li><li>Itaca</li><li>Festival Iguassu Inova</li><li>Quitutes</li><li>Lucas Martins</li>
+    </ul>
   </div>
 </section>
 
@@ -671,7 +704,10 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
 <footer class="site-footer on-dark">
   <div class="wrap">
     <div class="footer__top">
-      <p class="footer__close">Estúdio de design para marcas que <b>têm algo a dizer.</b></p>
+      <div class="footer__brand">
+        <svg viewBox="0 0 511.75 78.96" role="img" aria-label="Estúdio F/Ale"><use href="#logo-fale"/></svg>
+        <p class="footer__close">Estúdio de design para marcas que <b>têm algo a dizer.</b></p>
+      </div>
       <div class="footer__col">
         <h4>Navegue</h4>
         <a href="#manifesto">Manifesto</a>
@@ -685,9 +721,6 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
         <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
         <a href="#contato">Começar um projeto</a>
       </div>
-    </div>
-    <div class="footer__mark">
-      <svg viewBox="0 0 511.75 78.96" role="img" aria-label="Estúdio F/Ale"><use href="#logo-fale"/></svg>
     </div>
     <div class="footer__legal">
       <span>© <span id="year">2026</span> Estúdio F/Ale</span>
@@ -747,6 +780,43 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
     };
     window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(update)}},{passive:true});
     window.addEventListener('resize',update); update();
+  }
+
+
+  /* hero: slideshow de projetos */
+  var hero=document.querySelector('.hero'), slides=[].slice.call(document.querySelectorAll('#hero-media .slide'));
+  if(hero&&slides.length>1){
+    var SLIDE_MS=6000, si=0, timer=null, paused=reduce;
+    hero.style.setProperty('--slide-ms',SLIDE_MS+'ms');
+    var dotsWrap=document.getElementById('hero-dots'), cur=document.getElementById('hero-current'), pauseBtn=document.getElementById('hero-pause');
+    var dots=slides.map(function(sl,k){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Mostrar '+sl.dataset.name);b.innerHTML='<i></i>';b.addEventListener('click',function(){go(k,true)});dotsWrap.appendChild(b);return b});
+    function go(k,user){
+      si=(k+slides.length)%slides.length;
+      slides.forEach(function(sl,j){sl.classList.toggle('is-active',j===si); var v=sl.querySelector('video'); if(v){ if(j===si&&!paused) v.play&&v.play().catch(function(){}); else v.pause&&v.pause() }});
+      dots.forEach(function(d,j){d.removeAttribute('aria-current')});
+      void dots[si].offsetWidth; dots[si].setAttribute('aria-current','true');
+      cur.textContent=slides[si].dataset.name;
+      schedule();
+    }
+    function schedule(){clearTimeout(timer); if(!paused) timer=setTimeout(function(){go(si+1)},SLIDE_MS)}
+    function setPaused(v){
+      paused=v; hero.classList.toggle('is-paused',v);
+      pauseBtn.setAttribute('aria-label',v?'Continuar apresentação':'Pausar apresentação');
+      pauseBtn.innerHTML=v?'<svg viewBox="0 0 12 12" aria-hidden="true" fill="currentColor"><path d="M3 1l8 5-8 5z"/></svg>':'<svg viewBox="0 0 12 12" aria-hidden="true" fill="currentColor"><rect x="2" y="1" width="3" height="10"/><rect x="7" y="1" width="3" height="10"/></svg>';
+      go(si);
+    }
+    pauseBtn.addEventListener('click',function(){setPaused(!paused)});
+    document.addEventListener('visibilitychange',function(){ if(document.hidden) clearTimeout(timer); else schedule() });
+    if(reduce) setPaused(true); else go(0);
+  } else if(hero){ var pb=document.getElementById('hero-pause'); if(pb) pb.hidden=true }
+
+  /* processo: escadinha sobe quando entra na tela */
+  var steps=document.querySelector('.steps');
+  if(steps){
+    if('IntersectionObserver' in window){
+      var so=new IntersectionObserver(function(en){ if(en[0].isIntersecting){ steps.classList.add('is-in'); so.disconnect() } },{threshold:.25});
+      so.observe(steps);
+    } else steps.classList.add('is-in');
   }
 
   /* ---------- formulário em passos ---------- */

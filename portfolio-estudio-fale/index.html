@@ -3,114 +3,105 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Estúdio Fale · Portfólio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@400;500&display=swap">
+<title>Estúdio F/Ale · Portfólio</title>
+<meta name="theme-color" content="#7A1531">
 <style>
-/* Layout: cabeçalho enxuto, grade em colunas (masonry) só com os criativos, visualização ampliada ao clicar */
+/* Layout: faixa vinho com o logo, título curto, grade em colunas só com os criativos, rodapé vinho com chamada */
+@font-face { font-family: "Passeio"; src: url("assets/fonts/Passeio-Light.ttf") format("truetype"); font-weight: 300; font-display: swap; }
+@font-face { font-family: "Passeio"; src: url("assets/fonts/Passeio-Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Passeio"; src: url("assets/fonts/Passeio-ExtraBold.ttf") format("truetype"); font-weight: 800; font-display: swap; }
+
+/* Paleta oficial Estúdio F/Ale (mesma do site) */
 :root {
-  --bg: #f7f7f5;
-  --fg: #141414;
-  --muted: #74746f;
-  --line: #e4e4df;
-  --tile: #ecebe7;
-  --tile-2: #e2e1dc;
-  --overlay: rgba(14, 14, 14, 0.98);
-  --on-overlay: #f7f7f5;
-  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
-  --font-body: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --radius: 6px;
+  --ink: #1D1D1D;
+  --paper: #F5F4F1;
+  --paper-2: #ECE6DA;
+  --wine: #7A1531;
+  --gold: #C59A45;
+  --graphite: #55524C;
+  --line: rgba(29, 29, 29, 0.14);
+  --font: "Passeio", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --radius: 4px;
   --gap: clamp(10px, 1.6vw, 20px);
+  --gutter: clamp(16px, 4vw, 56px);
+  --ease: cubic-bezier(.2, .7, .2, 1);
   color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #121211; --fg: #efefec; --muted: #8f8f8a; --line: #262624;
-    --tile: #1c1c1a; --tile-2: #242422; --overlay: rgba(8, 8, 8, 0.96); --on-overlay: #efefec;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #121211; --fg: #efefec; --muted: #8f8f8a; --line: #262624;
-  --tile: #1c1c1a; --tile-2: #242422; --overlay: rgba(8, 8, 8, 0.96); --on-overlay: #efefec;
-  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
 html, body { margin: 0; }
 body {
-  background: var(--bg); color: var(--fg);
-  font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+  background: var(--paper); color: var(--ink);
+  font-family: var(--font); font-weight: 400; font-size: 17px; line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
-img, video { max-width: 100%; display: block; }
+img, video, svg { max-width: 100%; display: block; }
 [hidden] { display: none !important; }
-:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+::selection { background: var(--wine); color: var(--paper); }
+:focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; }
 
-.wrap { max-width: 1320px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px); }
+.wrap { max-width: 1440px; margin: 0 auto; padding-inline: var(--gutter); }
 
-/* Cabeçalho */
-.top {
-  display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
-  padding-block: calc(24px + env(safe-area-inset-top, 0px)) 0;
-  font-size: 0.85rem; color: var(--muted);
+/* Faixa do topo */
+.bar { background: var(--wine); color: var(--paper); }
+.bar .wrap {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding-block: calc(18px + env(safe-area-inset-top, 0px)) 18px;
 }
-.top a { color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
-.top a:hover { border-color: var(--fg); }
+.bar .logo { width: clamp(150px, 16vw, 190px); color: var(--gold); }
+.bar a.link { color: var(--paper); text-decoration: none; font-size: 0.875rem; border-bottom: 1px solid rgba(245, 244, 241, 0.35); padding-bottom: 2px; }
+.bar a.link:hover { border-color: var(--paper); }
 
-.hero { padding-block: clamp(56px, 10vw, 128px) clamp(40px, 6vw, 72px); }
-.wordmark {
-  font-family: var(--font-display); font-weight: 700; font-optical-sizing: auto;
-  font-size: clamp(3.2rem, 11vw, 9.5rem); line-height: 0.88; letter-spacing: -0.045em;
-  margin: 0;
-}
-.wordmark .light { font-weight: 400; color: var(--muted); }
-.lede {
+/* Título */
+.intro {
   display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap;
-  margin-top: clamp(24px, 3vw, 40px);
+  padding-block: clamp(56px, 9vw, 120px) clamp(32px, 5vw, 56px);
 }
-.lede p { margin: 0; max-width: 42ch; font-size: 1.05rem; }
-.count { font-family: var(--font-display); font-size: 0.85rem; color: var(--muted); font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+.intro h1 {
+  margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: -0.015em;
+  font-size: clamp(2.4rem, 1.2rem + 5vw, 5.5rem); line-height: 0.92; text-wrap: balance;
+}
+.intro h1 .slash { color: var(--wine); font-weight: 300; }
+.intro p { margin: 0; max-width: 36ch; color: var(--graphite); font-weight: 300; }
 
 /* Grade */
-.grid { display: flex; gap: var(--gap); align-items: flex-start; padding-bottom: 96px; }
+.grid { display: flex; gap: var(--gap); align-items: flex-start; padding-bottom: clamp(72px, 9vw, 128px); }
 .col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--gap); }
 .item {
   display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in;
-  border-radius: var(--radius); overflow: hidden; position: relative;
+  border-radius: var(--radius); overflow: hidden;
 }
-.frame { width: 100%; max-width: 100%; background: var(--tile); overflow: hidden; border-radius: var(--radius); }
-.frame img, .frame video { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.frame { width: 100%; max-width: 100%; background: var(--paper-2); overflow: hidden; border-radius: var(--radius); }
+.frame img, .frame video { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease); }
 .item:hover .frame img, .item:hover .frame video { transform: scale(1.025); }
 
 .ph {
   width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between;
-  padding: 16px; color: var(--muted); font-size: 0.78rem; text-align: left;
-  background:
-    radial-gradient(120% 80% at 100% 0%, var(--tile-2) 0%, transparent 60%),
-    var(--tile);
+  padding: 16px; color: var(--graphite); font-size: 0.75rem; text-align: left; background: var(--paper-2);
 }
-.ph .n { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; color: var(--fg); opacity: 0.18; letter-spacing: -0.03em; }
-.ph .f { display: flex; justify-content: space-between; gap: 8px; letter-spacing: 0.06em; text-transform: uppercase; }
+.ph .n { font-size: 1.6rem; font-weight: 800; color: var(--ink); opacity: 0.14; }
+.ph .f { display: flex; justify-content: space-between; gap: 8px; letter-spacing: 0.12em; text-transform: uppercase; }
 
 /* Rodapé */
-footer {
-  border-top: 1px solid var(--line);
-  display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap;
-  padding-block: 32px calc(40px + env(safe-area-inset-bottom, 0px));
-  color: var(--muted); font-size: 0.85rem;
+footer { background: var(--wine); color: var(--paper); }
+footer .wrap {
+  display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap;
+  padding-block: clamp(48px, 7vw, 96px) calc(40px + env(safe-area-inset-bottom, 0px));
 }
-footer .cta { font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 600; letter-spacing: -0.02em; color: var(--fg); text-decoration: none; }
-footer .cta:hover { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
+footer .cta {
+  font-weight: 800; text-transform: uppercase; color: var(--gold); text-decoration: none;
+  font-size: clamp(1.8rem, 1rem + 3vw, 3.25rem); line-height: 0.95; letter-spacing: -0.01em;
+}
+footer .cta:hover { color: var(--paper); }
+footer .contact { font-size: 0.875rem; font-weight: 300; color: rgba(245, 244, 241, 0.8); text-align: right; }
 
 /* Visualização ampliada */
 .viewer {
-  position: fixed; inset: 0; z-index: 50; background: var(--overlay); color: var(--on-overlay);
+  position: fixed; inset: 0; z-index: 50; background: var(--ink); color: var(--paper);
   display: grid; grid-template-rows: auto 1fr auto;
   padding: calc(12px + env(safe-area-inset-top, 0px)) 16px calc(16px + env(safe-area-inset-bottom, 0px));
 }
-.viewer-bar { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+.viewer-bar { display: flex; justify-content: space-between; align-items: center; font-size: 0.875rem; font-variant-numeric: tabular-nums; }
 .viewer-stage { display: grid; place-items: center; min-height: 0; padding-block: 12px; }
 .viewer-stage img, .viewer-stage video, .viewer-stage .ph {
   max-height: calc(100vh - 140px); max-height: calc(100dvh - 140px); max-width: min(100%, 900px);
@@ -119,42 +110,44 @@ footer .cta:hover { text-decoration: underline; text-underline-offset: 6px; text
 .viewer-stage .ph { height: calc(100dvh - 160px); max-height: 760px; }
 .viewer-nav { display: flex; justify-content: center; gap: 12px; }
 .vbtn {
-  font: inherit; font-size: 0.85rem; color: var(--on-overlay); background: transparent;
-  border: 1px solid color-mix(in srgb, var(--on-overlay) 30%, transparent); border-radius: 999px;
-  padding: 9px 18px; cursor: pointer;
+  font: inherit; font-size: 0.875rem; color: var(--paper); background: transparent;
+  border: 1px solid rgba(245, 244, 241, 0.35); border-radius: 999px; padding: 9px 20px; cursor: pointer;
+  transition: background-color .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
 }
-.vbtn:hover { border-color: var(--on-overlay); }
+.vbtn:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
 
 @media (max-width: 640px) {
-  .ph .n { font-size: 1.2rem; }
   .ph { padding: 12px; }
+  .ph .n { font-size: 1.2rem; }
+  footer .contact { text-align: left; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <header class="top">
-    <span>Estúdio Fale</span>
-    <a href="#contato">Fale com a gente</a>
-  </header>
+<header class="bar">
+  <div class="wrap">
+    <svg class="logo" viewBox="0 0 511.75 78.96" fill="currentColor" role="img" aria-label="Estúdio F/Ale"><path d="M190.59,0h46.04v7.4h-33.34v26.67h29.48v7.5h-29.48v32.09h-12.71V0Z"/><path d="M280.87,0h4.58l-23.38,78.96h-4.67L280.87,0Z"/><path d="M331.53,0h10.83l29.48,73.65h-13.96l-7.08-18.34h-33.13l-7.19,18.34h-8.33L331.53,0ZM347.99,47.92l-13.65-35.11-13.75,35.11h27.4Z"/><path d="M392.99,0h12.71v66.26h33.75v7.4h-46.46V0Z"/><path d="M463.62,0h47.09v7.4h-34.38v24.59h30.52v7.5h-30.52v26.77h35.42v7.4h-48.13V0Z"/><path d="M0,31.48h13.63v2.14H3.68v7.12h8.84v2.17H3.68v7.75h10.25v2.14H0v-21.32Z"/><path d="M20.72,51.05v-4.74h1.81c0,1.67.43,2.89,1.28,3.67.85.77,2.12,1.16,3.79,1.16,1.51,0,2.67-.37,3.5-1.1.82-.73,1.24-1.65,1.24-2.76,0-.95-.29-1.66-.86-2.14s-1.45-.87-2.64-1.18l-2.84-.75c-3.5-.86-5.25-2.77-5.25-5.73,0-1.19.31-2.25.94-3.2.62-.94,1.51-1.69,2.65-2.23,1.15-.54,2.48-.81,4.01-.81,1.13,0,2.24.14,3.33.42,1.1.28,2.1.68,3,1.21v4.52h-1.78c0-1.47-.38-2.54-1.15-3.23-.76-.68-1.89-1.02-3.38-1.02-1.37,0-2.42.33-3.15,1-.73.66-1.1,1.5-1.1,2.5,0,.86.26,1.53.77,1.99.51.46,1.25.82,2.22,1.09l2.83.72c1.83.5,3.25,1.19,4.27,2.07,1.02.87,1.52,2.18,1.52,3.91,0,1.29-.33,2.43-1,3.44-.66,1.01-1.6,1.79-2.82,2.35-1.22.56-2.64.84-4.27.84-2.59,0-4.91-.66-6.94-1.99Z"/><path d="M48.59,33.62h-7.69v-2.14h19.06v2.14h-7.69v19.18h-3.68v-19.18Z"/><path d="M70.21,52c-1.35-.69-2.41-1.72-3.2-3.09-.78-1.37-1.18-3.02-1.18-4.95v-12.49h3.68v12.52c0,2.29.54,4.03,1.61,5.22,1.08,1.19,2.48,1.78,4.21,1.78s3.17-.59,4.25-1.78c1.09-1.19,1.63-2.93,1.63-5.22v-12.52h2.2v12.52c0,1.89-.36,3.51-1.07,4.87-.71,1.36-1.72,2.39-3.03,3.11s-2.82,1.07-4.55,1.07-3.21-.35-4.55-1.04ZM76.31,25.93h4.58l-6.27,3.89h-2.02l3.71-3.89Z"/><path d="M91.2,31.48h7.81c2.03,0,3.85.45,5.44,1.34,1.6.89,2.84,2.15,3.72,3.77.88,1.62,1.33,3.47,1.33,5.56s-.44,3.91-1.33,5.52c-.89,1.61-2.13,2.87-3.72,3.77-1.6.9-3.41,1.36-5.44,1.36h-7.81v-21.32ZM98.9,50.66c1.37,0,2.57-.35,3.6-1.04,1.03-.69,1.83-1.68,2.4-2.96.56-1.28.84-2.78.84-4.51s-.28-3.27-.84-4.55c-.56-1.29-1.36-2.27-2.4-2.96-1.04-.68-2.24-1.03-3.6-1.03h-4.01v17.04h4.01Z"/><path d="M116.66,31.48h3.68v21.32h-3.68v-21.32Z"/><path d="M132.76,51.67c-1.59-.91-2.86-2.2-3.82-3.86-.96-1.66-1.43-3.55-1.43-5.69s.48-4,1.43-5.66c.95-1.66,2.23-2.94,3.82-3.86,1.59-.91,3.31-1.37,5.16-1.37s3.57.46,5.17,1.37c1.6.92,2.88,2.2,3.83,3.86.95,1.66,1.43,3.55,1.43,5.69s-.48,4-1.43,5.65c-.96,1.66-2.23,2.95-3.83,3.86-1.6.92-3.31,1.37-5.14,1.37s-3.6-.46-5.19-1.37ZM132.31,46.9c.58,1.36,1.37,2.4,2.35,3.12s2.08,1.09,3.29,1.09,2.3-.35,3.29-1.06c.98-.7,1.76-1.73,2.34-3.08.57-1.35.86-2.96.86-4.83s-.29-3.42-.88-4.78c-.58-1.36-1.37-2.4-2.37-3.12-1-.72-2.09-1.09-3.27-1.09s-2.3.35-3.29,1.06-1.76,1.73-2.34,3.09-.86,2.96-.86,4.81.29,3.42.88,4.78Z"/></svg>
+    <a class="link" href="#contato">Fale com a gente</a>
+  </div>
+</header>
 
-  <section class="hero">
-    <h1 class="wordmark">Estúdio<br><span class="light">Fale</span></h1>
-    <div class="lede">
-      <p>Uma seleção dos criativos que produzimos para marcas que querem ser vistas e lembradas.</p>
-      <span class="count" id="count"></span>
-    </div>
+<div class="wrap">
+  <section class="intro">
+    <h1>Portfólio<br>de criativos<span class="slash"> /</span></h1>
+    <p>Peças que criamos para marcas dizerem a que vieram.</p>
   </section>
 
   <main class="grid" id="grid" aria-label="Criativos"></main>
-
-  <footer id="contato">
-    <a class="cta" href="#">Vamos criar o próximo?</a>
-    <span>contato@estudiofale.com.br · @estudiofale</span>
-  </footer>
 </div>
+
+<footer id="contato">
+  <div class="wrap">
+    <a class="cta" href="#">Vamos criar<br>o próximo?</a>
+    <span class="contact">contato@estudiofale.com.br<br>@estudiofale</span>
+  </div>
+</footer>
 
 <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Criativo ampliado" hidden>
   <div class="viewer-bar">
@@ -170,29 +163,22 @@ footer .cta:hover { text-decoration: underline; text-underline-offset: 6px; text
 
 <script>
 /*
-  Para trocar os placeholders, preencha "src" com o caminho do arquivo (ex.: "img/criativo-01.webp").
-  Vídeos (.mp4/.webm) também funcionam. "formato" define a proporção do espaço: "4:5", "9:16", "1:1" ou "16:9".
-  Itens com "src" vazio aparecem como placeholder.
+  Para adicionar criativos, inclua um item com "src" (ex.: "img/criativo-06.webp") e "formato".
+  Formatos: "4:5", "3:4", "9:16", "1:1" ou "16:9". Vídeos (.mp4/.webm) também funcionam.
+  Itens com "src" vazio aparecem como placeholder. Apague os placeholders que não forem usados.
 */
 const CRIATIVOS = [
-  { src: "", formato: "4:5" },
-  { src: "", formato: "9:16" },
-  { src: "", formato: "1:1" },
-  { src: "", formato: "4:5" },
-  { src: "", formato: "4:5" },
-  { src: "", formato: "9:16" },
-  { src: "", formato: "1:1" },
-  { src: "", formato: "4:5" },
-  { src: "", formato: "16:9" },
-  { src: "", formato: "4:5" },
-  { src: "", formato: "9:16" },
-  { src: "", formato: "4:5" },
-  { src: "", formato: "1:1" },
-  { src: "", formato: "4:5" },
-  { src: "", formato: "9:16" },
-  { src: "", formato: "4:5" },
-  { src: "", formato: "1:1" },
-  { src: "", formato: "4:5" },
+  { src: "img/criativo-01.webp", formato: "3:4" },
+  { src: "img/criativo-02.webp", formato: "4:5" },
+  { src: "img/criativo-03.webp", formato: "4:5" },
+  { src: "img/criativo-04.webp", formato: "4:5" },
+  { src: "img/criativo-05.webp", formato: "4:5" },
+  { src: "", formato: "4:5" }, // Leve 3 e pague 2
+  { src: "", formato: "4:5" }, // MBL Vitalício
+  { src: "", formato: "4:5" }, // Beauty Business FAAP
+  { src: "", formato: "4:5" }, // Imersão Doutores de Negócio
+  { src: "", formato: "4:5" }, // Quiches no Delivery
+  { src: "", formato: "4:5" }, // LIA
 ];
 
 const pad = (n) => String(n).padStart(2, "0");
@@ -234,7 +220,6 @@ function layout() {
 }
 layout();
 window.addEventListener("resize", layout);
-document.getElementById("count").textContent = `${pad(CRIATIVOS.length)} criativos`;
 
 const viewer = document.getElementById("viewer");
 const stage = document.getElementById("v-stage");
@@ -244,7 +229,6 @@ function show(i) {
   current = (i + CRIATIVOS.length) % CRIATIVOS.length;
   const c = CRIATIVOS[current];
   stage.innerHTML = media(c, current, true);
-  const ph = stage.querySelector(".ph"); if (ph) ph.style.aspectRatio = ratio(c.formato);
   document.getElementById("v-pos").textContent = `${pad(current + 1)} / ${pad(CRIATIVOS.length)}`;
 }
 function open(i) {

@@ -10,7 +10,7 @@ const fs = require('fs');
 const path = require('path');
 
 const LARGURA_PADRAO = 700;   // as artes dos cards tem ~370px no desktop
-const LARGURAS = { 'img/hero.webp': 1600 };  // a hero ocupa a tela inteira
+const LARGURAS = { 'img/hero.webp': 2400 };  // a hero ocupa a tela inteira
 const QUALIDADE = 0.78;
 const CHROME = process.env.CHROME_PATH || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
 
@@ -26,12 +26,16 @@ const CHROME = process.env.CHROME_PATH || '/opt/pw-browsers/chromium-1194/chrome
   let saida = html, total = 0;
   for (const rel of usadas) {
     const b64 = fs.readFileSync(rel).toString('base64');
+    const origem = 'data:image/webp;base64,' + b64;
+    // Reencodar um WebP que ja esta no tamanho certo so perde qualidade: nesse
+    // caso os bytes originais vao inteiros para o data: URI.
     const uri = await page.evaluate(async ({ origem, largura, q }) => {
       const img = new Image();
       img.src = origem;
       await img.decode();
+      if (img.naturalWidth <= largura) return origem;
       // mantem a proporcao original: so as fotos de produto sao quadradas
-      const l = Math.min(largura, img.naturalWidth);
+      const l = largura;
       const a = Math.round(img.naturalHeight * l / img.naturalWidth);
       const c = document.createElement('canvas');
       c.width = l; c.height = a;
@@ -39,11 +43,12 @@ const CHROME = process.env.CHROME_PATH || '/opt/pw-browsers/chromium-1194/chrome
       cx.imageSmoothingQuality = 'high';
       cx.drawImage(img, 0, 0, l, a);
       return c.toDataURL('image/webp', q);
-    }, { origem: 'data:image/webp;base64,' + b64, largura: LARGURAS[rel] || LARGURA_PADRAO, q: QUALIDADE });
+    }, { origem, largura: LARGURAS[rel] || LARGURA_PADRAO, q: QUALIDADE });
 
     saida = saida.split('src="' + rel + '"').join('src="' + uri + '"');
     total += uri.length;
-    console.log(path.basename(rel).padEnd(26), (uri.length / 1024).toFixed(0) + ' KB');
+    console.log(path.basename(rel).padEnd(26), (uri.length / 1024).toFixed(0) + ' KB',
+                uri === origem ? '(original, sem reencode)' : '');
   }
   await browser.close();
 

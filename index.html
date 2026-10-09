@@ -284,6 +284,15 @@ button{font:inherit;color:inherit}
   height:min(48%,340px);
   background:linear-gradient(180deg,rgba(0,0,0,.66) 0%,rgba(0,0,0,.42) 34%,rgba(0,0,0,.16) 68%,rgba(0,0,0,0) 100%);
 }
+/* Em telas estreitas a foto e cortada no centro e cai atras do texto; um veu
+   de baixo para cima devolve a leitura sem esconder o produto. No desktop o
+   texto fica sobre a area escura da propria foto, entao nao e preciso. */
+.hero::after{
+  content:"";position:absolute;inset:auto 0 0;z-index:-1;pointer-events:none;
+  height:78%;
+  background:linear-gradient(0deg,var(--blue-950) 6%,rgba(7,58,78,.9) 34%,rgba(7,58,78,.52) 66%,rgba(7,58,78,0) 100%);
+}
+@media (min-width:980px){.hero::after{content:none}}
 .hero .drip{top:auto;bottom:-1px;transform:scaleY(-1);color:#fff}
 .hero__grid{position:relative;z-index:1;display:grid;gap:clamp(32px,5vw,72px);align-items:end}
 @media (min-width:980px){.hero__grid{grid-template-columns:minmax(0,660px) 1fr}}
@@ -672,7 +681,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section class="hero" aria-labelledby="hero-title">
     <!-- FOTO DO TOPO (arquivo do site da Mr. Ice) -->
     <figure class="hero__bg">
-      <img src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/hero-ice-2.png" alt="" width="1920" height="1080" fetchpriority="high" decoding="async"
+      <img src="img/hero.webp" alt="" width="1672" height="941" fetchpriority="high" decoding="async"
            onerror="this.closest('.hero__bg').hidden=true">
     </figure>
     <svg class="drip" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><use href="#drip-path"></use></svg>

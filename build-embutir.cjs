@@ -9,13 +9,14 @@ const { chromium } = require('playwright-core');
 const fs = require('fs');
 const path = require('path');
 
-const LADO = 700;      // as artes dos cards tem ~370px no desktop
+const LARGURA_PADRAO = 700;   // as artes dos cards tem ~370px no desktop
+const LARGURAS = { 'img/hero.webp': 1600 };  // a hero ocupa a tela inteira
 const QUALIDADE = 0.78;
 const CHROME = process.env.CHROME_PATH || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
 
 (async () => {
   const html = fs.readFileSync('index.html', 'utf8');
-  const usadas = [...new Set([...html.matchAll(/src="(img\/produtos\/[^"]+)"/g)].map(m => m[1]))];
+  const usadas = [...new Set([...html.matchAll(/src="(img\/[^"]+)"/g)].map(m => m[1]))];
   if (!usadas.length) { console.log('nenhuma foto relativa encontrada'); return; }
 
   const browser = await chromium.launch({ executablePath: CHROME, args: ['--no-sandbox'] });
@@ -25,17 +26,20 @@ const CHROME = process.env.CHROME_PATH || '/opt/pw-browsers/chromium-1194/chrome
   let saida = html, total = 0;
   for (const rel of usadas) {
     const b64 = fs.readFileSync(rel).toString('base64');
-    const uri = await page.evaluate(async ({ origem, lado, q }) => {
+    const uri = await page.evaluate(async ({ origem, largura, q }) => {
       const img = new Image();
       img.src = origem;
       await img.decode();
+      // mantem a proporcao original: so as fotos de produto sao quadradas
+      const l = Math.min(largura, img.naturalWidth);
+      const a = Math.round(img.naturalHeight * l / img.naturalWidth);
       const c = document.createElement('canvas');
-      c.width = lado; c.height = lado;
+      c.width = l; c.height = a;
       const cx = c.getContext('2d');
       cx.imageSmoothingQuality = 'high';
-      cx.drawImage(img, 0, 0, lado, lado);
+      cx.drawImage(img, 0, 0, l, a);
       return c.toDataURL('image/webp', q);
-    }, { origem: 'data:image/webp;base64,' + b64, lado: LADO, q: QUALIDADE });
+    }, { origem: 'data:image/webp;base64,' + b64, largura: LARGURAS[rel] || LARGURA_PADRAO, q: QUALIDADE });
 
     saida = saida.split('src="' + rel + '"').join('src="' + uri + '"');
     total += uri.length;

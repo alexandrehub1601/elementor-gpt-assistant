@@ -346,6 +346,32 @@ button{font:inherit;color:inherit}
 .card__art{position:relative;overflow:hidden;background:var(--accent-tint);padding:26px 24px 18px;display:flex;align-items:flex-end;justify-content:center;aspect-ratio:16/11}
 .card__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .card__art.has-photo .illo{display:none}
+
+/* Galeria: cards com mais de uma foto ganham setas e contador */
+.card__nav{position:absolute;inset:0;z-index:2;pointer-events:none;display:none}
+.card__art.has-photo .card__nav{display:block}
+.card__seta{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:44px;height:44px;display:grid;place-items:center;
+  border:0;border-radius:50%;background:rgba(255,255,255,.88);color:var(--ink);
+  cursor:pointer;pointer-events:auto;padding:0;
+  box-shadow:0 2px 10px rgba(20,36,43,.18);
+  opacity:0;transition:opacity .25s var(--ease),background-color .25s var(--ease);
+}
+.card__seta--ant{left:8px}
+.card__seta--prox{right:8px}
+.card__seta .icon{width:20px;height:20px;stroke-width:2}
+.card__seta--ant .icon{transform:rotate(90deg)}
+.card__seta--prox .icon{transform:rotate(-90deg)}
+.card:hover .card__seta,.card__seta:focus-visible{opacity:1}
+.card__seta:hover{background:#fff}
+.card__contador{
+  position:absolute;right:10px;bottom:10px;pointer-events:none;
+  padding:3px 9px;border-radius:var(--pill);
+  background:rgba(20,36,43,.62);color:#fff;
+  font-family:var(--font-label);font-weight:700;font-size:11px;letter-spacing:.08em;
+}
+@media (hover:none){.card__seta{opacity:1}}
 .card__art .illo{position:relative;width:clamp(96px,34%,128px);height:auto;color:var(--accent)}
 .card__format{font-family:var(--font-display);font-weight:700;font-size:1.06rem;line-height:1.3;color:var(--ink);letter-spacing:-.01em}
 .sabores-toggle{align-self:flex-start;margin-top:2px}
@@ -952,10 +978,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </article>
 
         <article class="card card--deep reveal" data-cat="acais">
-          <div class="card__art">
-            <img class="card__photo" src="https://sorvetesmrice.com.br/wp-content/uploads/2026/09/Acai-200ml.png" alt="" loading="lazy" decoding="async"
+          <div class="card__art card__art--galeria">
+            <img class="card__photo" src="img/produtos/copo-classico.webp" alt="Copão de açaí com granola e banana" loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
+            <img class="card__photo" src="img/produtos/copo-do-seu-jeito.webp" alt="Copão de açaí com morango e leite ninho" hidden loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
+            <img class="card__photo" src="img/produtos/copo-euphoria.webp" alt="Copão de açaí com creme e cookies" hidden loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
+            <img class="card__photo" src="img/produtos/copo-sucessao.webp" alt="Copão de açaí com amendoim" hidden loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
+            <img class="card__photo" src="img/produtos/acai-tropical.webp" alt="Copão de açaí com manga e granola" hidden loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
+            <img class="card__photo" src="img/produtos/combo-acai.webp" alt="Três copões de açaí com morango" hidden loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 120 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
+            <div class="card__nav">
+              <button class="card__seta card__seta--ant" type="button" aria-label="Foto anterior"><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></button>
+              <button class="card__seta card__seta--prox" type="button" aria-label="Próxima foto"><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></button>
+              <p class="card__contador" aria-live="polite">1/6</p>
+            </div>
           </div>
           <div class="card__body">
             <p class="card__format">Copão Açaí 300 g</p>
@@ -1408,6 +1449,31 @@ document.documentElement.classList.add('js');
         card.hidden = !(cat === 'todos' || cats.indexOf(' ' + cat + ' ') !== -1);
       });
     });
+  });
+
+  // Galeria dos cards com mais de uma foto
+  document.querySelectorAll('.card__art--galeria').forEach(function (arte) {
+    var nav = arte.querySelector('.card__nav');
+    var contador = arte.querySelector('.card__contador');
+    var atual = 0;
+
+    // A lista é relida a cada passo: uma foto que não carregar é removida pelo
+    // onerror, e o contador precisa refletir só as que sobraram.
+    function mostrar(i) {
+      var fotos = arte.querySelectorAll('.card__photo');
+      if (!fotos.length) { nav.hidden = true; return; }
+      nav.hidden = fotos.length < 2;
+      atual = (i + fotos.length) % fotos.length;
+      fotos.forEach(function (f, k) { f.hidden = k !== atual; });
+      contador.textContent = (atual + 1) + '/' + fotos.length;
+    }
+
+    arte.querySelector('.card__seta--ant').addEventListener('click', function () { mostrar(atual - 1); });
+    arte.querySelector('.card__seta--prox').addEventListener('click', function () { mostrar(atual + 1); });
+    // O listener de captura roda antes do onerror que remove a <img>, por isso
+    // o recontagem é adiada para o próximo tique.
+    arte.addEventListener('error', function () { setTimeout(function () { mostrar(atual); }, 0); }, true);
+    mostrar(0);
   });
 
   document.querySelectorAll('.sabores-toggle').forEach(function (btn) {

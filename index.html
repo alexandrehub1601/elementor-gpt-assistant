@@ -931,10 +931,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </article>
 
         <article class="card card--blue reveal" data-cat="zero">
-          <div class="card__art">
-            <img class="card__photo" src="img/produtos/pote-1l-zero.webp" alt="" loading="lazy" decoding="async"
+          <div class="card__art card__art--galeria">
+            <img class="card__photo" src="img/produtos/pote-1l-zero.webp" alt="Potes de 1 L zero açúcar, sabor coco" loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
+            <img class="card__photo" src="img/produtos/pote-160ml-zero.webp" alt="Potes de 160 ml zero açúcar, Chocotrufa e Ninho Trufado" hidden loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 120 220" aria-hidden="true"><use href="#illo-pote"></use></svg>
+            <div class="card__nav">
+              <button class="card__seta card__seta--ant" type="button" aria-label="Foto anterior"><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></button>
+              <button class="card__seta card__seta--prox" type="button" aria-label="Próxima foto"><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></button>
+              <p class="card__contador" aria-live="polite">1/2</p>
+            </div>
           </div>
           <div class="card__body">
             <p class="card__format">Zero Adição de Açúcar</p>
@@ -1000,11 +1007,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <img class="card__photo" src="img/produtos/combo-acai.webp" alt="Três copões de açaí com morango" hidden loading="lazy" decoding="async"
                  onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
+            <img class="card__photo" src="img/produtos/copo-de-acai-e-iogurte-grego.webp" alt="Copão de açaí com iogurte grego" hidden loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 120 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
             <div class="card__nav">
               <button class="card__seta card__seta--ant" type="button" aria-label="Foto anterior"><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></button>
               <button class="card__seta card__seta--prox" type="button" aria-label="Próxima foto"><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></button>
-              <p class="card__contador" aria-live="polite">1/6</p>
+              <p class="card__contador" aria-live="polite">1/7</p>
             </div>
           </div>
           <div class="card__body">
@@ -1039,6 +1048,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <article class="card card--deep reveal" data-cat="acais">
           <div class="card__art">
+            <img class="card__photo" src="img/produtos/caixa-10l-acai.webp" alt="Caixa de 10 L de açaí" loading="lazy" decoding="async"
+                 onload="this.closest('.card__art').classList.add('has-photo')" onerror="this.remove()">
             <svg class="illo" viewBox="0 0 120 220" aria-hidden="true"><use href="#illo-acai"></use></svg>
           </div>
           <div class="card__body">

@@ -162,7 +162,13 @@
 
   .gallery{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;margin-top:clamp(60px,8vw,110px)}
   .gallery .stack{display:grid;gap:18px;grid-template-rows:1fr 1fr}
-  .team{margin-top:clamp(70px,9vw,120px)}
+  .team{margin-top:0}
+  .team-sec{padding:clamp(80px,9vw,130px) 0;margin-top:clamp(8px,1.2vw,16px)}
+  .light .team-head h3 em{background:linear-gradient(transparent 64%,rgba(230,229,0,.85) 64%,rgba(230,229,0,.85) 90%,transparent 90%);padding:0 .06em}
+  .light .crew,.light .crew div{border-color:rgba(7,19,31,.12)}
+  .light .crew small{color:#8495a3}
+  .light .crew strong{color:var(--navy)}
+  .light .crew span{color:#5b6e7d}
   .team-head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:40px}
   .team-head h3{font-size:clamp(26px,2.6vw,36px);letter-spacing:-.03em;max-width:22ch}
   .team-head p{max-width:42ch;margin:0;font-size:15px}
@@ -192,7 +198,7 @@
   .case{display:block;text-decoration:none;color:inherit}
   .case:nth-child(even){margin-top:clamp(0px,7vw,110px)}
   .case .shot{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:16/10;background:#dfe6eb;box-shadow:0 30px 60px -35px rgba(7,19,31,.45)}
-  .case .shot img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 1.2s var(--ease)}
+  .case .shot img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 1.2s var(--ease)}
   .case:hover .shot img{transform:scale(1.045)}
   .case .shot .go{position:absolute;right:18px;bottom:18px;width:52px;height:52px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:20px;font-weight:700;transform:scale(.6);opacity:0;transition:transform .5s var(--ease),opacity .4s}
   .case:hover .shot .go{transform:none;opacity:1}
@@ -462,6 +468,12 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- TIME -->
+  <section id="time" class="light team-sec">
+    <div class="wrap">
       <div class="team">
         <div class="team-head">
           <h3 class="rv">Uma tripulação <em>multidisciplinar</em> no mesmo painel.</h3>
@@ -531,32 +543,32 @@
       </div>
       <div class="cases-grid">
         <a class="case rv" href="https://pontodaobra.com.br" target="_blank" rel="noopener">
-          <div class="shot"><img src="img/cases/ponto-da-obra.webp" alt="Site Ponto da Obra" width="1200" height="750" loading="lazy"><span class="go">↗</span></div>
+          <div class="shot"><img src="https://voeagencia.com.br/wp-content/uploads/2026/10/Ponto-DaObra.png" alt="Site Ponto da Obra" width="1200" height="750" loading="lazy"><span class="go">↗</span></div>
           <div class="meta"><h3>Ponto da Obra</h3><span class="seg">Locação de equipamentos</span></div>
           <span class="url">pontodaobra.com.br</span>
         </a>
         <a class="case rv d1" href="https://moveisnascimento.com.br" target="_blank" rel="noopener">
-          <div class="shot"><img src="img/cases/moveis-nascimento.webp" alt="Site Móveis Nascimento" width="1200" height="750" loading="lazy"><span class="go">↗</span></div>
+          <div class="shot"><img src="https://voeagencia.com.br/wp-content/uploads/2026/10/Moveis-Nascimento.png" alt="Site Móveis Nascimento" width="1200" height="750" loading="lazy"><span class="go">↗</span></div>
           <div class="meta"><h3>Móveis Nascimento</h3><span class="seg">Varejo · Móveis</span></div>
           <span class="url">moveisnascimento.com.br</span>
         </a>
         <a class="case rv" href="https://vistamotors.com.br" target="_blank" rel="noopener">
-          <div class="shot"><img src="img/cases/vista-motors.webp" alt="Site Vista Motors" width="1200" height="750" loading="lazy"><span class="go">↗</span></div>
+          <div class="shot"><img src="https://voeagencia.com.br/wp-content/uploads/2026/10/VistaMotors.png" alt="Site Vista Motors" width="1200" height="750" loading="lazy"><span class="go">↗</span></div>
           <div class="meta"><h3>Vista Motors</h3><span class="seg">Automotivo · Seminovos</span></div>
           <span class="url">vistamotors.com.br</span>
         </a>
         <a class="case rv d1" href="https://clinicabrincar.com.br" target="_blank" rel="noopener">
-          <div class="shot"><img src="img/cases/clinica-brincar.webp" alt="Site Clínica Brincar" width="1200" height="750" loading="lazy"><span class="go">↗</span></div>
+          <div class="shot"><img src="https://voeagencia.com.br/wp-content/uploads/2026/10/Brincar.png" alt="Site Clínica Brincar" width="1200" height="750" loading="lazy"><span class="go">↗</span></div>
           <div class="meta"><h3>Clínica Brincar</h3><span class="seg">Saúde · Pediatria</span></div>
           <span class="url">clinicabrincar.com.br</span>
         </a>
         <a class="case rv" href="https://a3ptransporte.com.br" target="_blank" rel="noopener">
-          <div class="shot"><img src="img/cases/a3p-transporte.webp" alt="Site A3P Transporte" width="1200" height="750" loading="lazy"><span class="go">↗</span></div>
+          <div class="shot"><img src="https://voeagencia.com.br/wp-content/uploads/2026/10/A3P.png" alt="Site A3P Transporte" width="1200" height="750" loading="lazy"><span class="go">↗</span></div>
           <div class="meta"><h3>A3P Transporte</h3><span class="seg">Fretamento corporativo</span></div>
           <span class="url">a3ptransporte.com.br</span>
         </a>
         <a class="case rv d1" href="https://www.cmwtransportes.com.br" target="_blank" rel="noopener">
-          <div class="shot"><img src="img/cases/cmw-transportes.webp" alt="Site CMW Transportes" width="1200" height="750" loading="lazy"><span class="go">↗</span></div>
+          <div class="shot"><img src="https://voeagencia.com.br/wp-content/uploads/2026/10/CMW.png" alt="Site CMW Transportes" width="1200" height="750" loading="lazy"><span class="go">↗</span></div>
           <div class="meta"><h3>CMW Transportes</h3><span class="seg">Transporte · Fretamento</span></div>
           <span class="url">cmwtransportes.com.br</span>
         </a>

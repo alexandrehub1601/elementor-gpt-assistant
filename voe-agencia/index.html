@@ -552,7 +552,8 @@
         <h2 class="split">Marcas que já estão <em>voando com a Voe.</em></h2>
         <p class="rv d1">Empresas de segmentos diferentes, com desafios diferentes — e a mesma busca por clareza, presença e crescimento.</p>
       </div>
-      <div class="cases-grid">
+      <!-- Os cases abaixo são o padrão. Com o plugin "Voe Cases" ativo, eles são substituídos pelos cadastrados no painel. -->
+      <div class="cases-grid" id="casesGrid">
         <a class="case rv" href="https://pontodaobra.com.br" target="_blank" rel="noopener">
           <div class="shot"><img src="https://voeagencia.com.br/wp-content/uploads/2026/10/Ponto-DaObra.png" alt="Site Ponto da Obra" width="1200" height="750" loading="lazy"><span class="go">↗</span></div>
           <div class="meta"><h3>Ponto da Obra</h3><span class="seg">Locação de equipamentos</span></div>
@@ -819,6 +820,27 @@
   const top=document.getElementById('top'), nav=document.getElementById('nav'), mb=document.getElementById('menuBtn');
   mb.addEventListener('click',()=>{const o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
   nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');mb.setAttribute('aria-expanded',false)}));
+
+  /* ===== Cases: carregados do plugin Voe Cases no WordPress ===== */
+  const CASES_API='/wp-json/voe/v1/cases';
+  const casesGrid=document.getElementById('casesGrid');
+  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const host=u=>{try{return new URL(u).hostname.replace(/^www\./,'')}catch(e){return ''}};
+  function caseHTML(c,i){
+    const tag=c.link?'a':'div', attrs=c.link?` href="${esc(c.link)}" target="_blank" rel="noopener"`:'';
+    return `<${tag} class="case rv${i%2?' d1':''}"${attrs}>
+      <div class="shot">${c.imagem?`<img src="${esc(c.imagem)}" alt="Site ${esc(c.nome)}" loading="lazy">`:''}${c.link?'<span class="go">↗</span>':''}</div>
+      <div class="meta"><h3>${esc(c.nome)}</h3><span class="seg">${esc(c.segmento)}</span></div>
+      ${c.link?`<span class="url">${esc(host(c.link))}</span>`:''}
+    </${tag}>`;
+  }
+  if(location.protocol.startsWith('http')){
+    fetch(CASES_API).then(r=>r.ok?r.json():Promise.reject()).then(list=>{
+      if(!Array.isArray(list)||!list.length) return;   // sem cases cadastrados: mantém os padrão
+      casesGrid.innerHTML=list.map(caseHTML).join('');
+      casesGrid.querySelectorAll('.rv').forEach(el=>io.observe(el));
+    }).catch(()=>{});                                  // plugin inativo: mantém os padrão
+  }
 
   /* ===== Voeon: mensagens em sequência ===== */
   const msgs=[...document.querySelectorAll('#msgs .msg')];

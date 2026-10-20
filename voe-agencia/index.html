@@ -141,21 +141,18 @@
   .menu-btn span{display:block;width:18px;height:1.5px;background:currentColor;margin:4px auto;transition:transform .3s}
 
   /* ---------- hero ---------- */
-  .hero{min-height:min(100svh,860px);display:flex;align-items:center;padding:120px 0 90px}
+  .hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 90px;isolation:isolate;overflow:hidden}
+  /* fundo do hero: troque a URL em --hero para a imagem no WordPress */
+  .hero-bg{position:absolute;inset:0;z-index:-1;background:
+    linear-gradient(90deg,rgba(7,19,31,.92) 0%,rgba(7,19,31,.7) 38%,rgba(7,19,31,.15) 70%,rgba(7,19,31,0) 100%),
+    linear-gradient(180deg,rgba(7,19,31,.35) 0%,transparent 25%,transparent 75%,var(--navy) 100%),
+    var(--hero) center right/cover no-repeat,var(--navy)}
   .hero .eyebrow{font:500 11px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;gap:12px;padding:10px 16px;border:1px solid var(--line);border-radius:999px;margin-bottom:28px;background:rgba(7,19,31,.4)}
   .hero .eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--yellow);box-shadow:0 0 14px var(--yellow)}
-  .hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(30px,5vw,70px);align-items:center}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,640px);width:100%}
   .hero .lead{margin-top:24px}
   .hero .support{font-size:13.5px;color:var(--dim);max-width:52ch;margin:30px 0 0;border-left:1px solid var(--line-2);padding-left:18px}
   .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
-  /* foto do hero */
-  .hero-photo{position:relative;justify-self:end;width:100%;max-width:440px;margin:0}
-  .hero-photo img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:24px;border:1px solid var(--line-2);box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
-  .hero-photo .tag{position:absolute;left:-28px;bottom:36px;padding:14px 16px;border-radius:14px;background:rgba(10,27,41,.85);border:1px solid var(--line-2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);max-width:230px}
-  .hero-photo .tag small{display:block;font:500 9.5px/1 var(--mono);letter-spacing:.16em;color:var(--yellow);margin-bottom:8px}
-  .hero-photo .tag strong{font-size:13px;line-height:1.4;display:block}
-  .hero-photo figcaption{position:absolute;right:14px;top:14px;font:500 9px/1 var(--mono);letter-spacing:.08em;color:rgba(255,255,255,.7);background:rgba(7,19,31,.45);padding:5px 8px;border-radius:999px}
-
   .scroll-cue{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);font:500 10px/1 var(--mono);letter-spacing:.24em;color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:12px}
   .scroll-cue::after{content:"";width:1px;height:46px;background:linear-gradient(var(--yellow),transparent);animation:cue 2.2s infinite}
   @keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
@@ -342,7 +339,9 @@
     .sec-head{gap:24px}
     .routes{grid-template-columns:1fr}
     .gallery{grid-template-columns:1fr}
-    .hero-photo{justify-self:center;max-width:380px;margin-top:10px}
+    .hero-bg{background:
+      linear-gradient(180deg,rgba(7,19,31,.55) 0%,rgba(7,19,31,.82) 45%,rgba(7,19,31,.92) 80%,var(--navy) 100%),
+      var(--hero) 72% center/cover no-repeat,var(--navy)}
     .gallery .stack{grid-template-columns:1fr 1fr;grid-template-rows:none}
     .gallery .stack .media{aspect-ratio:1/1}
   }
@@ -354,7 +353,6 @@
     .crew{grid-template-columns:1fr 1fr}
     .crew div{border-right:0!important;margin-right:0!important;padding-right:12px;border-top:1px solid var(--line)}
     .steps{grid-template-columns:1fr}
-    .hero-photo .tag{left:12px}
     .cases-grid{grid-template-columns:1fr}
     .case:nth-child(even){margin-top:0}
     .pains ul{grid-template-columns:1fr}
@@ -442,6 +440,7 @@
 
   <!-- HERO -->
   <section class="hero" id="inicio">
+    <div class="hero-bg" style="--hero:url('img/hero-voo.webp')" aria-hidden="true"></div>
     <div class="wrap hero-grid">
       <div>
         <div class="eyebrow rv"><i></i>Agência de Marketing de Negócios</div>
@@ -454,11 +453,6 @@
         <p class="support rv d4">Mais do que campanhas, posts ou ações isoladas, ajudamos empresas a entenderem seu momento, organizarem prioridades e construírem uma presença mais forte, inteligente e conectada aos objetivos do negócio.</p>
       </div>
 
-      <figure class="hero-photo rv d2">
-        <img src="https://images.unsplash.com/photo-1756535789308-8523b9ee209d?w=900&q=75&auto=format&fit=crop" alt="Vista da janela de um avião acima das nuvens ao pôr do sol" width="900" height="1125">
-        <div class="tag"><small>PLANO DE VOO 360</small><strong>Antes de acelerar, entenda a rota.</strong></div>
-        <figcaption>Foto: Alexander Lunyov / Unsplash</figcaption>
-      </figure>
     </div>
     <div class="scroll-cue">DECOLAGEM</div>
   </section>
@@ -782,7 +776,7 @@
     </div>
     <div class="foot-bottom">
       <span>© <span id="year">2026</span> Voe Agência</span>
-      <span>Fotos: Alexander Lunyov, Vitaly Gariev e Raul G / Unsplash</span>
+      <span>Fotos: Vitaly Gariev e Raul G / Unsplash</span>
     </div>
   </div>
 </footer>

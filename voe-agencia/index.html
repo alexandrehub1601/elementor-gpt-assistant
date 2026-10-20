@@ -148,30 +148,13 @@
   .hero .lead{margin-top:24px}
   .hero .support{font-size:13.5px;color:var(--dim);max-width:52ch;margin:30px 0 0;border-left:1px solid var(--line-2);padding-left:18px}
   .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
-  /* ilustração do hero */
-  .hero-art{position:relative;width:100%;max-width:500px;justify-self:end;aspect-ratio:1}
-  .hero-art .radar{width:100%;height:100%;overflow:visible}
-  .hero-art .sweep{transform-origin:240px 240px;transform-box:view-box;animation:sweep 7s linear infinite}
-  @keyframes sweep{to{transform:rotate(-360deg)}}
-  .hero-art .art-route{animation:dash 30s linear infinite}
-  @keyframes dash{to{stroke-dashoffset:-400}}
-  .hero-art .ping{transform-origin:226px 272px;transform-box:view-box;animation:ping 2.4s ease-out infinite}
-  @keyframes ping{from{transform:scale(1);opacity:.9}to{transform:scale(4);opacity:0}}
-  .art-card{position:absolute;padding:12px 14px;border-radius:14px;background:rgba(10,27,41,.78);border:1px solid var(--line-2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 20px 40px -20px rgba(0,0,0,.6);animation:float 6s ease-in-out infinite}
-  .art-card small{display:block;font:500 9.5px/1 var(--mono);letter-spacing:.16em;color:var(--dim);margin-bottom:8px}
-  .art-card strong{font-size:13px;font-weight:700;display:block}
-  .art-card .ok{color:var(--yellow);margin-left:4px}
-  .art-card .segs{display:flex;gap:4px;margin-top:10px}
-  .art-card .segs i{width:22px;height:4px;border-radius:2px;background:var(--line-2)}
-  .art-card .segs i.on{background:var(--yellow)}
-  .art-card svg{display:block;width:130px;height:40px}
-  .art-card span{font-size:11.5px;color:var(--muted);display:block;margin-top:6px}
-  .art-card.c1{left:-2%;top:2%}
-  .art-card.c2{right:-3%;bottom:4%;animation-delay:-3s}
-  .art-card.c3{right:0;top:44%;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;padding:8px 14px 8px 8px;border-radius:999px;animation-delay:-1.5s}
-  .art-card.c3 .orb{width:20px;height:20px}
-  .art-card.c3 em{font:500 9.5px/1 var(--mono);letter-spacing:.12em;color:#7ee0a1;font-style:normal;text-transform:uppercase}
-  @keyframes float{50%{transform:translateY(-8px)}}
+  /* foto do hero */
+  .hero-photo{position:relative;justify-self:end;width:100%;max-width:440px;margin:0}
+  .hero-photo img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:24px;border:1px solid var(--line-2);box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
+  .hero-photo .tag{position:absolute;left:-28px;bottom:36px;padding:14px 16px;border-radius:14px;background:rgba(10,27,41,.85);border:1px solid var(--line-2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);max-width:230px}
+  .hero-photo .tag small{display:block;font:500 9.5px/1 var(--mono);letter-spacing:.16em;color:var(--yellow);margin-bottom:8px}
+  .hero-photo .tag strong{font-size:13px;line-height:1.4;display:block}
+  .hero-photo figcaption{position:absolute;right:14px;top:14px;font:500 9px/1 var(--mono);letter-spacing:.08em;color:rgba(255,255,255,.7);background:rgba(7,19,31,.45);padding:5px 8px;border-radius:999px}
 
   .scroll-cue{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);font:500 10px/1 var(--mono);letter-spacing:.24em;color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:12px}
   .scroll-cue::after{content:"";width:1px;height:46px;background:linear-gradient(var(--yellow),transparent);animation:cue 2.2s infinite}
@@ -187,36 +170,10 @@
 
   .gallery{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;margin-top:clamp(48px,6vw,80px)}
   .gallery .stack{display:grid;gap:18px;grid-template-rows:1fr 1fr}
-  /* ilustrações da seção Sobre */
-  .art-dash{padding:20px;display:flex;flex-direction:column;gap:16px}
-  .dash-top{display:flex;align-items:center;gap:12px}
-  .dash-top .dots{display:flex;gap:5px}.dash-top .dots i{width:8px;height:8px;border-radius:50%;background:var(--line-2)}
-  .dash-top small{font:500 10px/1 var(--mono);letter-spacing:.16em;color:var(--dim);flex:1}
-  .dash-top .live{font:500 9.5px/1 var(--mono);letter-spacing:.14em;color:#7ee0a1;padding:5px 8px;border:1px solid rgba(126,224,161,.3);border-radius:999px}
-  .dash-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px;flex:1}
-  .dash-chart,.dash-bars{border:1px solid var(--line);border-radius:14px;padding:14px;background:rgba(7,19,31,.45)}
-  .dash-chart small,.dash-bars .t{font:500 9.5px/1 var(--mono);letter-spacing:.16em;color:var(--dim)}
-  .dash-chart{display:flex;flex-direction:column}
-  .dash-chart svg{width:100%;flex:1;min-height:120px;display:block;margin-top:10px}
-  .dash-chart .legend{display:flex;gap:16px;font-size:11px;color:var(--muted);margin-top:8px}
-  .dash-chart .legend i{display:inline-block;width:10px;height:2px;background:var(--yellow);margin-right:6px;vertical-align:middle}
-  .dash-chart .legend i.g{background:#a9b7c4}
-  .dash-bars{list-style:none;margin:0;display:flex;flex-direction:column;justify-content:space-between;gap:10px}
-  .dash-bars li{display:grid;grid-template-columns:76px 1fr;align-items:center;gap:10px;font-size:11.5px;color:var(--muted)}
-  .dash-bars li.t{display:block;margin-bottom:2px}
-  .dash-bars b{height:6px;border-radius:3px;background:var(--line);overflow:hidden}
-  .dash-bars b i{display:block;height:100%;width:var(--w);background:linear-gradient(90deg,rgba(230,229,0,.5),var(--yellow));border-radius:3px;transform-origin:left;transform:scaleX(0);transition:transform 1.4s var(--ease) .3s}
-  .art-dash.in .dash-bars b i{transform:none}
-  .dash-funnel{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;align-items:end}
-  .dash-funnel li{position:relative;height:44px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--line);overflow:hidden;display:flex;align-items:center;padding:0 12px;font-size:11.5px;color:var(--ink)}
-  .dash-funnel li::before{content:"";position:absolute;inset:auto 0 0 0;height:3px;width:var(--w);background:var(--yellow)}
-  .art-dash .draw{stroke-dasharray:1200;stroke-dashoffset:1200;transition:stroke-dashoffset 2.2s var(--ease) .2s}
-  .art-dash.in .draw{stroke-dashoffset:0}
-  .art-mini{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 14px 18px}
-  .art-mini svg{width:100%;max-height:150px;flex:1}
-  .art-mini figcaption{font:500 10px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim);text-align:center}
-  .art-mini .needle{transform-origin:150px 120px;transform-box:view-box;animation:needle 6s ease-in-out infinite}
-  @keyframes needle{0%,100%{transform:rotate(34deg)}50%{transform:rotate(48deg)}}
+  /* fotos da seção Sobre */
+  .gallery .media img{position:absolute;inset:0;transition:transform 1.4s var(--ease)}
+  .gallery .media:hover img{transform:scale(1.04)}
+  .gallery .media.big{aspect-ratio:16/10}
 
   .team{margin-top:0}
   .team-sec{padding:clamp(64px,7vw,100px) 0;margin-top:clamp(8px,1.2vw,16px)}
@@ -279,9 +236,6 @@
   .pillars{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 30px;padding:0;list-style:none}
   .pillars li{font:500 11px/1 var(--mono);letter-spacing:.08em;padding:9px 13px;border:1px solid var(--line-2);border-radius:999px;color:var(--ink)}
   .routes{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}
-  .alt-profile{position:relative;z-index:1;display:block;width:100%;height:auto;margin-top:clamp(36px,4vw,56px);overflow:visible}
-  .alt-profile .draw{stroke-dasharray:1400;stroke-dashoffset:1400;transition:stroke-dashoffset 2.4s var(--ease)}
-  .alt-profile.in .draw{stroke-dashoffset:0}
   .route{position:relative;padding:24px 22px 26px;border-radius:20px;border:1px solid var(--line);background:rgba(7,19,31,.55);transition:transform .5s var(--ease),border-color .5s}
   .route:hover{transform:translateY(-6px);border-color:rgba(230,229,0,.45)}
   .route .alt{display:flex;justify-content:space-between;align-items:center;font:500 10.5px/1 var(--mono);letter-spacing:.16em;color:var(--dim);margin-bottom:38px}
@@ -388,8 +342,7 @@
     .sec-head{gap:24px}
     .routes{grid-template-columns:1fr}
     .gallery{grid-template-columns:1fr}
-    .hero-art{justify-self:center;max-width:400px;margin-top:10px}
-    .alt-profile{display:none}
+    .hero-photo{justify-self:center;max-width:380px;margin-top:10px}
     .gallery .stack{grid-template-columns:1fr 1fr;grid-template-rows:none}
     .gallery .stack .media{aspect-ratio:1/1}
   }
@@ -401,9 +354,7 @@
     .crew{grid-template-columns:1fr 1fr}
     .crew div{border-right:0!important;margin-right:0!important;padding-right:12px;border-top:1px solid var(--line)}
     .steps{grid-template-columns:1fr}
-    .dash-grid{grid-template-columns:1fr}
-    .dash-funnel{grid-template-columns:1fr 1fr}
-    .art-card.c1{left:0}.art-card.c2{right:0}
+    .hero-photo .tag{left:12px}
     .cases-grid{grid-template-columns:1fr}
     .case:nth-child(even){margin-top:0}
     .pains ul{grid-template-columns:1fr}
@@ -503,47 +454,11 @@
         <p class="support rv d4">Mais do que campanhas, posts ou ações isoladas, ajudamos empresas a entenderem seu momento, organizarem prioridades e construírem uma presença mais forte, inteligente e conectada aos objetivos do negócio.</p>
       </div>
 
-      <!-- Ilustração: radar de rota -->
-      <div class="hero-art rv d2" aria-hidden="true">
-        <svg class="radar" viewBox="0 0 480 480">
-          <defs>
-            <radialGradient id="rdGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#e6e500" stop-opacity=".14"/><stop offset=".7" stop-color="#163b4c" stop-opacity=".25"/><stop offset="1" stop-color="#07131f" stop-opacity="0"/></radialGradient>
-            <linearGradient id="rdSweep" x1="1" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#e6e500" stop-opacity=".14"/><stop offset="1" stop-color="#e6e500" stop-opacity="0"/></linearGradient>
-          </defs>
-          <circle cx="240" cy="240" r="236" fill="url(#rdGlow)"/>
-          <g fill="none" stroke="rgba(255,255,255,.1)">
-            <circle cx="240" cy="240" r="214"/><circle cx="240" cy="240" r="160" stroke-dasharray="3 7"/><circle cx="240" cy="240" r="106"/><circle cx="240" cy="240" r="52" stroke-dasharray="2 5"/>
-            <path d="M240 26V454M26 240H454" stroke-dasharray="2 6"/>
-          </g>
-          <g stroke="rgba(255,255,255,.28)"><path d="M454.0 240.0L440.0 240.0"/><path d="M450.7 277.2L442.9 275.8"/><path d="M441.1 313.2L433.6 310.5"/><path d="M425.3 347.0L413.2 340.0"/><path d="M403.9 377.6L397.8 372.4"/><path d="M377.6 403.9L372.4 397.8"/><path d="M347.0 425.3L340.0 413.2"/><path d="M313.2 441.1L310.5 433.6"/><path d="M277.2 450.7L275.8 442.9"/><path d="M240.0 454.0L240.0 440.0"/><path d="M202.8 450.7L204.2 442.9"/><path d="M166.8 441.1L169.5 433.6"/><path d="M133.0 425.3L140.0 413.2"/><path d="M102.4 403.9L107.6 397.8"/><path d="M76.1 377.6L82.2 372.4"/><path d="M54.7 347.0L66.8 340.0"/><path d="M38.9 313.2L46.4 310.5"/><path d="M29.3 277.2L37.1 275.8"/><path d="M26.0 240.0L40.0 240.0"/><path d="M29.3 202.8L37.1 204.2"/><path d="M38.9 166.8L46.4 169.5"/><path d="M54.7 133.0L66.8 140.0"/><path d="M76.1 102.4L82.2 107.6"/><path d="M102.4 76.1L107.6 82.2"/><path d="M133.0 54.7L140.0 66.8"/><path d="M166.8 38.9L169.5 46.4"/><path d="M202.8 29.3L204.2 37.1"/><path d="M240.0 26.0L240.0 40.0"/><path d="M277.2 29.3L275.8 37.1"/><path d="M313.2 38.9L310.5 46.4"/><path d="M347.0 54.7L340.0 66.8"/><path d="M377.6 76.1L372.4 82.2"/><path d="M403.9 102.4L397.8 107.6"/><path d="M425.3 133.0L413.2 140.0"/><path d="M441.1 166.8L433.6 169.5"/><path d="M450.7 202.8L442.9 204.2"/></g>
-          <g class="sweep"><path d="M240 240L454 240A214 214 0 0 0 391.3 88.7Z" fill="url(#rdSweep)"/><path d="M240 240L454 240" stroke="rgba(230,229,0,.55)"/></g>
-          <g font-family="DM Mono,monospace" font-size="10" letter-spacing="1.6" fill="#8fa2b1">
-            <text x="240" y="18" text-anchor="middle">N</text><text x="468" y="244" text-anchor="middle">E</text><text x="240" y="474" text-anchor="middle">S</text><text x="12" y="244" text-anchor="middle">O</text>
-          </g>
-          <path class="art-route" d="M86 360C150 352 176 306 226 272S322 176 384 118" fill="none" stroke="#e6e500" stroke-width="1.6" stroke-dasharray="5 7" stroke-linecap="round"/>
-          <circle cx="86" cy="360" r="6" fill="#07131f" stroke="#e6e500" stroke-width="1.5"/>
-          <circle cx="226" cy="272" r="4.5" fill="#e6e500"/><circle class="ping" cx="226" cy="272" r="4.5" fill="none" stroke="#e6e500"/>
-          <g transform="translate(384 118) rotate(45) translate(-12 -12)"><path d="M12 2c.8 0 1.3.9 1.3 2v5.2l7.7 4.6v2l-7.7-2.4v4.4l2.4 1.8v1.6L12 20.4l-3.7.8v-1.6l2.4-1.8v-4.4L3 15.8v-2l7.7-4.6V4c0-1.1.5-2 1.3-2z" fill="#f5f8fb"/></g>
-          <g font-family="DM Mono,monospace" font-size="9.5" letter-spacing="1.4" fill="#a9b7c4">
-            <g transform="translate(92 214)"><circle r="3.5" fill="#f5f8fb"/><text x="10" y="3.5">ESTRATÉGIA</text></g>
-            <g transform="translate(300 86)"><circle r="3.5" fill="#f5f8fb"/><text x="10" y="3.5">CRIAÇÃO</text></g>
-            <g transform="translate(352 196)"><circle r="3.5" fill="#f5f8fb"/><text x="10" y="3.5">PERFORMANCE</text></g>
-            <g transform="translate(206 392)"><circle r="3.5" fill="#f5f8fb"/><text x="10" y="3.5">TECNOLOGIA · IA</text></g>
-          </g>
-          <g transform="translate(240 240)"><circle r="16" fill="#07131f" stroke="rgba(230,229,0,.6)"/><text y="3.5" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#e6e500" letter-spacing="1">360</text></g>
-        </svg>
-        <div class="art-card c1">
-          <small>PLANO DE VOO</small>
-          <strong>Rota definida <span class="ok">✓</span></strong>
-          <div class="segs"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>
-        </div>
-        <div class="art-card c2">
-          <small>PRESENÇA &amp; VENDAS</small>
-          <svg viewBox="0 0 120 40"><defs><linearGradient id="spk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6e500" stop-opacity=".35"/><stop offset="1" stop-color="#e6e500" stop-opacity="0"/></linearGradient></defs><path d="M0 34L15 30 30 32 45 24 60 26 75 17 90 19 105 9 120 4V40H0Z" fill="url(#spk)"/><path d="M0 34L15 30 30 32 45 24 60 26 75 17 90 19 105 9 120 4" fill="none" stroke="#e6e500" stroke-width="1.6"/></svg>
-          <span>em ascensão ↗</span>
-        </div>
-        <div class="art-card c3"><span class="orb"></span>Voeon <em>online</em></div>
-      </div>
+      <figure class="hero-photo rv d2">
+        <img src="https://images.unsplash.com/photo-1756535789308-8523b9ee209d?w=900&q=75&auto=format&fit=crop" alt="Vista da janela de um avião acima das nuvens ao pôr do sol" width="900" height="1125">
+        <div class="tag"><small>PLANO DE VOO 360</small><strong>Antes de acelerar, entenda a rota.</strong></div>
+        <figcaption>Foto: Alexander Lunyov / Unsplash</figcaption>
+      </figure>
     </div>
     <div class="scroll-cue">DECOLAGEM</div>
   </section>
@@ -561,45 +476,12 @@
         </div>
       </div>
 
-      <!-- Ilustrações (podem ser trocadas por fotos: substitua o conteúdo da figure por <img>) -->
-      <div class="gallery" aria-hidden="true">
-        <figure class="media art-dash rv">
-          <div class="dash-top"><span class="dots"><i></i><i></i><i></i></span><small>PAINEL DE VOO · VOE</small><span class="live">AO VIVO</span></div>
-          <div class="dash-grid">
-            <div class="dash-chart">
-              <small>PRESENÇA &amp; DEMANDA</small>
-              <svg viewBox="0 0 400 150" preserveAspectRatio="none">
-                <defs><linearGradient id="dashA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6e500" stop-opacity=".28"/><stop offset="1" stop-color="#e6e500" stop-opacity="0"/></linearGradient></defs>
-                <g stroke="rgba(255,255,255,.07)"><path d="M0 30H400M0 70H400M0 110H400"/></g>
-                <path d="M0 128C40 124 60 112 90 114S140 96 170 92 220 70 250 74 300 48 330 44 380 22 400 16V150H0Z" fill="url(#dashA)"/>
-                <path class="draw" d="M0 128C40 124 60 112 90 114S140 96 170 92 220 70 250 74 300 48 330 44 380 22 400 16" fill="none" stroke="#e6e500" stroke-width="2" vector-effect="non-scaling-stroke"/>
-                <path d="M0 136C50 134 90 130 130 126S210 118 260 112 340 104 400 96" fill="none" stroke="rgba(169,183,196,.45)" stroke-width="1.4" stroke-dasharray="4 5" vector-effect="non-scaling-stroke"/>
-              </svg>
-              <div class="legend"><span><i></i>Com rota</span><span><i class="g"></i>Sem rota</span></div>
-            </div>
-            <ul class="dash-bars"><li class="t">CANAIS</li><li><span>Orgânico</span><b><i style="--w:78%"></i></b></li><li><span>Mídia paga</span><b><i style="--w:64%"></i></b></li><li><span>Site</span><b><i style="--w:70%"></i></b></li><li><span>CRM</span><b><i style="--w:52%"></i></b></li><li><span>Atendimento</span><b><i style="--w:60%"></i></b></li></ul>
-          </div>
-          <ul class="dash-funnel"><li style="--w:100%"><span>Atenção</span></li><li style="--w:74%"><span>Interesse</span></li><li style="--w:50%"><span>Conversa</span></li><li style="--w:32%"><span>Venda</span></li></ul>
-        </figure>
+      <!-- Fotos do Unsplash: podem ser trocadas por fotos reais da equipe Voe -->
+      <div class="gallery">
+        <figure class="media big rv"><img src="https://images.unsplash.com/photo-1758873269117-d5845126928a?w=1400&q=75&auto=format&fit=crop" alt="Equipe criativa reunida em frente a um quadro com ideias" loading="lazy"></figure>
         <div class="stack">
-          <figure class="media art-mini rv d1">
-            <svg viewBox="0 0 300 240">
-              <g fill="none" stroke="rgba(255,255,255,.12)"><circle cx="150" cy="120" r="88"/><circle cx="150" cy="120" r="62" stroke-dasharray="2 6"/></g>
-              <g font-family="DM Mono,monospace" font-size="10" fill="#8fa2b1" text-anchor="middle"><text x="150" y="24">N</text><text x="252" y="124">L</text><text x="150" y="226">S</text><text x="48" y="124">O</text></g>
-              <g class="needle"><path d="M150 52L160 120 150 126 140 120Z" fill="#e6e500"/><path d="M150 188L160 120 150 114 140 120Z" fill="rgba(245,248,251,.35)"/></g>
-              <circle cx="150" cy="120" r="5" fill="#07131f" stroke="#e6e500"/>
-            </svg>
-            <figcaption>Direção antes da velocidade</figcaption>
-          </figure>
-          <figure class="media art-mini rv d2">
-            <svg viewBox="0 0 300 240">
-              <polygon points="150,42 237,96 204,183 96,183 63,96" fill="none" stroke="rgba(255,255,255,.1)" stroke-dasharray="3 6"/>
-              <g stroke="rgba(230,229,0,.45)"><line x1="150" y1="120" x2="150" y2="42"/><line x1="150" y1="120" x2="237" y2="96"/><line x1="150" y1="120" x2="204" y2="183"/><line x1="150" y1="120" x2="96" y2="183"/><line x1="150" y1="120" x2="63" y2="96"/></g>
-              <g font-family="DM Mono,monospace" font-size="11.5" letter-spacing="1.2" fill="#a9b7c4"><circle cx="150" cy="42" r="4.5" fill="#f5f8fb"/><text x="150" y="30" text-anchor="middle">MARKETING</text><circle cx="237" cy="96" r="4.5" fill="#f5f8fb"/><text x="249" y="100" text-anchor="start">VENDAS</text><circle cx="204" cy="183" r="4.5" fill="#f5f8fb"/><text x="216" y="187" text-anchor="start">ATENDIMENTO</text><circle cx="96" cy="183" r="4.5" fill="#f5f8fb"/><text x="84" y="187" text-anchor="end">TECNOLOGIA</text><circle cx="63" cy="96" r="4.5" fill="#f5f8fb"/><text x="51" y="100" text-anchor="end">IA</text></g>
-              <circle cx="150" cy="120" r="20" fill="#07131f" stroke="#e6e500"/><text x="150" y="124" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#e6e500" letter-spacing="1">VOE</text>
-            </svg>
-            <figcaption>Marketing, vendas e tecnologia conectados</figcaption>
-          </figure>
+          <figure class="media rv d1"><img src="https://images.unsplash.com/photo-1758691736836-0413b066787a?w=800&q=75&auto=format&fit=crop" alt="Time organizando ideias com post-its em uma parede de vidro" loading="lazy"></figure>
+          <figure class="media rv d2"><img src="https://images.unsplash.com/photo-1758598305340-95c68b43ce49?w=800&q=75&auto=format&fit=crop" alt="Profissional trabalhando no notebook entre post-its" loading="lazy"></figure>
         </div>
       </div>
 
@@ -731,16 +613,6 @@
           </div>
         </div>
 
-        <!-- Ilustração: perfil de altitude das rotas -->
-        <svg class="alt-profile" viewBox="0 0 1000 150" aria-hidden="true">
-          <defs><linearGradient id="altA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6e500" stop-opacity=".2"/><stop offset="1" stop-color="#e6e500" stop-opacity="0"/></linearGradient></defs>
-          <path d="M0 136H1000" stroke="rgba(255,255,255,.12)"/>
-          <path d="M0 136H70C130 136 130 104 167 104S330 104 380 84 460 66 500 66 700 58 760 38 800 26 833 26 940 20 1000 12V136Z" fill="url(#altA)"/>
-          <path class="draw" d="M0 136H70C130 136 130 104 167 104S330 104 380 84 460 66 500 66 700 58 760 38 800 26 833 26 940 20 1000 12" fill="none" stroke="#e6e500" stroke-width="1.8"/>
-          <g stroke="rgba(230,229,0,.35)" stroke-dasharray="2 4"><path d="M167 104V136M500 66V136M833 26V136"/></g>
-          <g fill="#07131f" stroke="#e6e500" stroke-width="1.6"><circle cx="167" cy="104" r="6"/><circle cx="500" cy="66" r="6"/><circle cx="833" cy="26" r="6"/></g>
-          <g font-family="DM Mono,monospace" font-size="11" letter-spacing="1.5" fill="#a9b7c4" text-anchor="middle"><text x="167" y="88">FL 100</text><text x="500" y="50">FL 250</text><text x="833" y="12">FL 380</text></g>
-        </svg>
         <div class="routes">
           <article class="route rv">
             <div class="alt">ROTA 01 <span class="bars"><i class="on" style="height:6px"></i><i style="height:11px"></i><i style="height:18px"></i></span></div>
@@ -860,9 +732,8 @@
   </section>
 
   <!-- CTA FINAL -->
-  <!-- Imagem de fundo: salve a imagem do Magnific como img/ceu-cta.jpg (ou troque o caminho abaixo).
-       Se o arquivo não existir, aparece o céu de fallback em CSS. -->
-  <div class="photo" style="--photo:url('img/ceu-cta.jpg')">
+  <!-- Imagem de fundo (Unsplash). Para trocar, altere a URL em --photo. -->
+  <div class="photo" style="--photo:url('https://images.unsplash.com/photo-1760916365686-30765ffeac3d?w=2000&q=75&auto=format&fit=crop')">
   <div class="photo-bg" id="photoBg" aria-hidden="true"></div>
   <section class="final-cta" id="contato">
     <div class="wrap">
@@ -911,7 +782,7 @@
     </div>
     <div class="foot-bottom">
       <span>© <span id="year">2026</span> Voe Agência</span>
-      <span>Marketing de Negócios · Rota prática de crescimento</span>
+      <span>Fotos: Alexander Lunyov, Vitaly Gariev e Raul G / Unsplash</span>
     </div>
   </div>
 </footer>
@@ -948,7 +819,7 @@
 
   /* ===== Reveal ===== */
   const io = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15,rootMargin:'0px 0px -6% 0px'});
-  document.querySelectorAll('.rv,.split,.alt-profile').forEach(el=>io.observe(el));
+  document.querySelectorAll('.rv,.split').forEach(el=>io.observe(el));
 
   /* ===== Header + menu ===== */
   const top=document.getElementById('top'), nav=document.getElementById('nav'), mb=document.getElementById('menuBtn');

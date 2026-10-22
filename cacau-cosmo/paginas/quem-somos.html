@@ -146,9 +146,9 @@ body{margin:0;font-family:var(--font-mono);background:var(--cc-navy);color:var(-
 .lang{display:flex;gap:10px;font-size:10px;letter-spacing:.2em}
 .lang button{opacity:.5;transition:opacity .4s;padding:0}
 .lang button.on,.lang button:hover{opacity:1;color:var(--cc-gold)}
-.cart{opacity:.85;transition:opacity .4s;display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.14em}
-.cart:hover{opacity:1}
-.cart svg{width:17px;height:17px;color:var(--cc-cream)}
+.cc-cartlink{opacity:.85;transition:opacity .4s;display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.14em}
+.cc-cartlink:hover{opacity:1}
+.cc-cartlink svg{width:17px;height:17px;color:var(--cc-cream)}
 .cart__n{min-width:16px;height:16px;border-radius:8px;background:var(--cc-pink);color:var(--cc-navy);
   font-size:9px;font-weight:700;display:none;align-items:center;justify-content:center;padding:0 4px;letter-spacing:0}
 .cart__n.on{display:inline-flex}
@@ -458,7 +458,7 @@ function ccFallback(img){
       <button class="on" data-lang="pt" aria-pressed="true">PT</button>
       <button data-lang="en" aria-pressed="false">EN</button>
     </div>
-    <a href="/carrinho/" class="cart" aria-label="Carrinho">
+    <a href="/carrinho/" class="cc-cartlink" aria-label="Carrinho">
       <svg viewBox="0 0 24 24"><use href="#ic-bag"></use></svg>
       <span class="cart__n" id="cartN"></span>
     </a>

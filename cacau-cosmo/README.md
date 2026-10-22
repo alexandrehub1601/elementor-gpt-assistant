@@ -11,6 +11,7 @@ Mesmo visual da Home (cores, Recoleta, Pinopolis e Syne, céu estrelado, menu la
 | `elementor/loja-woocommerce.json` | Template da loja (arquivo de produtos) | Importar no Theme Builder |
 | `elementor/produto-woocommerce.json` | Template de produto | Importar no Theme Builder |
 | `elementor/post-journal.json` | Template de post do Journal | Importar no Theme Builder |
+| `elementor/carrinho-woocommerce.json` | Página de carrinho | Importar e inserir na página /carrinho/ |
 | `wordpress/mensagens-contato.php` | Painel "Mensagens" do Contato | Colar no plugin WPCode |
 
 ## 1. Quem Somos e Contato (igual à Home)
@@ -62,6 +63,15 @@ python3 cacau-cosmo/build.py
 ```
 
 O comando gera de novo `paginas/` e `elementor/`. Header e footer saem iguais em todos os arquivos.
+
+## 2b. Carrinho
+
+1. **Templates → Templates salvos → Importar templates** e envie `carrinho-woocommerce.json`.
+2. Abra a página **Carrinho** (Páginas → Carrinho, a que está em `/carrinho/`). Em **Modelo**, escolha **Elementor Canvas** e clique em **Editar com Elementor**.
+3. Apague o que estiver na página. Clique no ícone de pasta, vá em **Meus modelos** e clique em **Inserir** em "Cacau Cosmo — Carrinho". Publique.
+4. Confira em **WooCommerce → Configurações → Avançado** se a **Página do carrinho** continua sendo essa.
+
+Cupom, frete, quantidade com − e + (atualiza sozinho) e "Concluir compra" são os do próprio WooCommerce.
 
 ## 3. Produtos (Coleção Cosmo: Sol, Lua, Saturno)
 

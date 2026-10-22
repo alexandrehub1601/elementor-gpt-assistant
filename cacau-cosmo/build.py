@@ -331,6 +331,93 @@ def build_produto():
     return export("produto-woocommerce", "Cacau Cosmo — Produto (Single Product)", "product", content)
 
 
+# ---- CARRINHO --------------------------------------------------------
+CART_JS = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
+  't-cart-label': 'Cart', 't-cart-h1': 'Your small <span class="em">universe.</span>',
+  't-cart-sub': 'Review your bars, apply a coupon and calculate shipping before checkout.',
+  't-trust1-h': 'Small batches', 't-trust1-p': 'Bean-to-bar, handmade. When a batch is gone, it\\u2019s gone.',
+  't-trust2-h': 'Origin cacao', 't-trust2-p': 'Respecting people, territories and nature\\u2019s own time.',
+  't-trust3-h': 'Careful shipping', 't-trust3-p': 'Packaging designed so the chocolate arrives whole, anywhere in Brazil.'
+});
+/* ===== CARRINHO =========================================== */
+(function(){
+  var root=document.querySelector('.cc-cart'); if(!root) return;
+  var en=document.documentElement.lang==='en';
+  var t=function(pt,e){return en?e:pt};
+  var timer;
+
+  function update(){
+    var b=root.querySelector('button[name="update_cart"]'); if(!b) return;
+    b.disabled=false; b.removeAttribute('aria-disabled');
+    clearTimeout(timer); timer=setTimeout(function(){ b.click(); },650);
+  }
+
+  function enhance(){
+    /* - e + na quantidade (só quando o carrinho permite editar) */
+    root.querySelectorAll('.woocommerce-cart-form .quantity').forEach(function(q){
+      var input=q.querySelector('input.qty');
+      if(!input||input.type==='hidden'||q.querySelector('.cc-qbtn')) return;
+      function btn(txt,label,delta){
+        var b=document.createElement('button'); b.type='button'; b.className='cc-qbtn'; b.textContent=txt; b.setAttribute('aria-label',label);
+        b.addEventListener('click',function(){
+          var step=+input.step||1, min=input.min!==''?+input.min:0, max=input.max!==''?+input.max:Infinity;
+          var v=Math.min(max,Math.max(min,(+input.value||0)+delta*step));
+          if(v!==+input.value){ input.value=v; input.dispatchEvent(new Event('change',{bubbles:true})); update(); }
+        });
+        return b;
+      }
+      q.insertBefore(btn('\\u2212',t('Diminuir','Decrease'),-1),input);
+      q.appendChild(btn('+',t('Aumentar','Increase'),1));
+      input.addEventListener('change',update);
+    });
+    var cc=root.querySelector('#coupon_code'); if(cc) cc.placeholder=t('Cupom de desconto','Coupon code');
+
+    /* selos abaixo do botão de finalizar */
+    var go=root.querySelector('.wc-proceed-to-checkout');
+    if(go&&!root.querySelector('.cc-cart-safe')){
+      go.insertAdjacentHTML('afterend',
+        '<p class="cc-cart-safe"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M6 10V7a6 6 0 0 1 12 0v3M5 10h14v11H5z"/></svg>'+
+        t('Pagamento seguro','Secure checkout')+'</p>'+
+        /* [ REVISAR ] confirme estas promessas */
+        '<ul class="cc-cart-perks">'+
+        '<li><svg viewBox="0 0 24 24"><use href="#ic-star"></use></svg><span>'+t('Frete e prazo calculados pelo seu CEP.','Shipping cost and time calculated by postcode.')+'</span></li>'+
+        '<li><svg viewBox="0 0 24 24"><use href="#ic-star"></use></svg><span>'+t('Despacho em até 2 dias úteis, com embalagem que protege o chocolate.','Dispatched within 2 business days, in packaging that protects the chocolate.')+'</span></li>'+
+        '<li><svg viewBox="0 0 24 24"><use href="#ic-star"></use></svg><span>'+t('Dúvidas? <a href="/contato/" style="text-decoration:underline">Fale com a gente</a>.','Questions? <a href="/contato/" style="text-decoration:underline">Talk to us</a>.')+'</span></li>'+
+        '</ul>');
+    }
+    var back=root.querySelector('p.return-to-shop .button'); if(back) back.textContent=t('Conhecer os chocolates','Discover the chocolates');
+    root.classList.add('cc-autoupdate');
+  }
+  enhance();
+  if(window.jQuery) jQuery(document.body).on('updated_wc_div updated_cart_totals updated_shipping_method',enhance);
+})();
+"""
+
+
+def build_carrinho():
+    t = Tpl("carrinho")
+    content = [t.con("cc cc-root", [
+        t.html(tpl_header(read("elementor/carrinho.css")), "cc-header"),
+        t.con("phero cc-cart-hero", [
+            t.html(DECO, "cc-deco"),
+            t.html('<p class="label" data-i18n="t-cart-label">Carrinho</p>', "cc-label"),
+            t.html('<h1 class="display" style="font-size:clamp(34px,5vw,80px);line-height:1.08;color:var(--cc-cream);text-align:center;margin-top:14px" '
+                   'data-i18n="t-cart-h1">Seu pequeno <span class="em">universo.</span></h1>'),
+            t.html('<p class="cc-hero-sub" data-i18n="t-cart-sub">Revise suas barras, aplique um cupom e calcule o frete antes de finalizar.</p>'),
+        ]),
+        t.con("cc-cart", [
+            t.w("shortcode", {"shortcode": "[woocommerce_cart]"}),
+        ]),
+        t.con("cc-cart-more", [
+            t.w("heading", {"title": "Complete o ritual", "header_size": "h2"}, "cc-more-title"),
+            t.w("shortcode", {"shortcode": '[products skus="CC-SOL-55,CC-LUA-35,CC-SAT-80" columns="3" orderby="date" order="ASC"]'}),
+        ]),
+        t.html(TRUST_HTML),
+        t.html(tpl_footer(CART_JS + WOO_CARDS_JS), "cc-footer"),
+    ])]
+    return export("carrinho-woocommerce", "Cacau Cosmo — Carrinho", "page", content)
+
+
 # ---- POST ------------------------------------------------------------
 SHARE_HTML = """<div class="cc-share">
   <small data-i18n="t-share">Compartilhar</small>
@@ -414,5 +501,5 @@ def build_post():
 if __name__ == "__main__":
     for slug in ("quem-somos", "contato"):
         print("ok", build_page(slug).relative_to(ROOT.parent))
-    for fn in (build_loja, build_produto, build_post):
+    for fn in (build_loja, build_produto, build_carrinho, build_post):
         print("ok", fn().relative_to(ROOT.parent))

@@ -260,6 +260,9 @@ def build_loja():
         t.html(CIRCLE_HTML),
         t.html(tpl_footer(SHOP_DICT + SHOP_CATS_JS), "cc-footer"),
     ])]
+    # versão "página": entra por qualquer importador e depois é inserida no
+    # template de Arquivo de produtos pela biblioteca (Meus modelos → Inserir)
+    export("loja-woocommerce-alternativo", "Cacau Cosmo — Loja (inserir no Arquivo de produtos)", "page", content)
     return export("loja-woocommerce", "Cacau Cosmo — Loja (Arquivo de produtos)", "product-archive", content)
 
 

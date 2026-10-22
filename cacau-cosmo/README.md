@@ -42,6 +42,7 @@ Para mostrar o WhatsApp na página, preencha `WHATSAPP: '5521999999999'` em `win
      - Loja: **Arquivo de produtos → Todos os arquivos de produtos**
      - Produto: **Produtos → Todos**
      - Post: **Posts → Todos**
+   > **Erro "This source does not support import"?** Importe pelo painel (**wp-admin → Templates → Templates salvos → botão Importar templates**), e não pela janela de dentro do editor. Se o erro continuar, importe `loja-woocommerce-alternativo.json`. Depois crie em **Theme Builder → Adicionar novo → Arquivo de produtos**, clique no ícone de pasta, vá em **Meus modelos** e clique em **Inserir** no modelo "Cacau Cosmo — Loja".
 3. Para ver os templates, você precisa de pelo menos 1 produto (com imagem e descrição curta) e 1 post com imagem destacada.
 
 Tudo que é dinâmico vem do WooCommerce ou do WordPress: título, preço, galeria, comprar, abas, relacionados, conteúdo do post, autor e posts relacionados. As categorias da loja aparecem como filtros automaticamente. O ícone de sacola no topo mostra a quantidade de itens no carrinho.

@@ -16,7 +16,7 @@ const CHROME = process.env.CHROME_PATH || '/opt/pw-browsers/chromium-1194/chrome
 
 (async () => {
   const html = fs.readFileSync('index.html', 'utf8');
-  const usadas = [...new Set([...html.matchAll(/src="(img\/[^"]+)"/g)].map(m => m[1]))];
+  const usadas = [...new Set([...html.matchAll(/(?:src|href)="(img\/[^"]+)"/g)].map(m => m[1]))];
   if (!usadas.length) { console.log('nenhuma foto relativa encontrada'); return; }
 
   const browser = await chromium.launch({ executablePath: CHROME, args: ['--no-sandbox'] });
@@ -26,14 +26,16 @@ const CHROME = process.env.CHROME_PATH || '/opt/pw-browsers/chromium-1194/chrome
   let saida = html, total = 0;
   for (const rel of usadas) {
     const b64 = fs.readFileSync(rel).toString('base64');
-    const origem = 'data:image/webp;base64,' + b64;
+    const ext = path.extname(rel).slice(1).toLowerCase();
+    const mime = ext === 'ico' ? 'image/x-icon' : 'image/' + (ext === 'jpg' ? 'jpeg' : ext);
+    const origem = `data:${mime};base64,` + b64;
     // Reencodar um WebP que ja esta no tamanho certo so perde qualidade: nesse
     // caso os bytes originais vao inteiros para o data: URI.
     const uri = await page.evaluate(async ({ origem, largura, q }) => {
       const img = new Image();
       img.src = origem;
       await img.decode();
-      if (img.naturalWidth <= largura) return origem;
+      if (img.naturalWidth <= largura || !/^data:image\/webp/.test(origem)) return origem;
       // mantem a proporcao original: so as fotos de produto sao quadradas
       const l = largura;
       const a = Math.round(img.naturalHeight * l / img.naturalWidth);
@@ -45,7 +47,9 @@ const CHROME = process.env.CHROME_PATH || '/opt/pw-browsers/chromium-1194/chrome
       return c.toDataURL('image/webp', q);
     }, { origem, largura: LARGURAS[rel] || LARGURA_PADRAO, q: QUALIDADE });
 
-    saida = saida.split('src="' + rel + '"').join('src="' + uri + '"');
+    for (const attr of ['src', 'href']) {
+      saida = saida.split(attr + '="' + rel + '"').join(attr + '="' + uri + '"');
+    }
     total += uri.length;
     console.log(path.basename(rel).padEnd(26), (uri.length / 1024).toFixed(0) + ' KB',
                 uri === origem ? '(original, sem reencode)' : '');

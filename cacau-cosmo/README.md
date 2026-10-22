@@ -75,3 +75,14 @@ O comando gera de novo `paginas/` e `elementor/`. Header e footer saem iguais em
 **Revise antes de publicar:** preços, ingredientes e alérgicos (obrigatórios por lei), prazo de despacho e embalagem térmica. São sugestões e precisam bater com o produto real.
 
 Para mudar textos, preços ou imagens, edite `woocommerce/produtos.py` e rode `python3 cacau-cosmo/woocommerce/produtos.py`.
+
+## 4. Posts do Journal
+
+`journal/journal-posts.xml` tem os 12 posts da categoria Blog de theamazonapothecary.com, com data original, resumo, tags, imagem destacada e imagens do texto. Os posts entram na categoria **Blog**.
+
+1. **Ferramentas → Importar → WordPress**: instale o importador, se pedir, e clique em **Executar importador**.
+2. Envie o `journal-posts.xml`.
+3. Em *Atribuir autores*, escolha o seu usuário e marque **Baixar e importar anexos**. Esse passo traz as imagens para a sua Biblioteca de Mídia.
+4. Clique em **Enviar**. As imagens são baixadas uma a uma, então pode levar 1 ou 2 minutos.
+
+Para baixar de novo (por exemplo, se entrarem posts novos lá), rode `python3 cacau-cosmo/journal/importar_posts.py`. Para importar como rascunho, troque `STATUS = "draft"` no script.

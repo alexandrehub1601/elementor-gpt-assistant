@@ -172,3 +172,6 @@
   .cc-steps b{width:16px}
   .cc-root .cc-co .woocommerce-customer-details .col2-set{grid-template-columns:1fr}
 }
+
+/* clearfix do WooCommerce não pode ocupar célula da grade */
+.cc-root .cc-co .woocommerce::before,.cc-root .cc-co .woocommerce::after,.cc-root .cc-co form.checkout::before,.cc-root .cc-co form.checkout::after{display:none!important}

@@ -136,3 +136,6 @@ html[lang="en"] .cc-root .cc-cart .wc-empty-cart-message::after{content:'The nex
   .cc-root .cc-cart td.actions .coupon .button{white-space:nowrap;padding:15px 14px!important;letter-spacing:.12em!important}
   .cc-root .cc-cart td.actions>.button{width:100%;margin-top:10px!important}
 }
+
+/* clearfix do WooCommerce não pode ocupar célula da grade */
+.cc-root .cc-cart .woocommerce::before,.cc-root .cc-cart .woocommerce::after,.cc-root .cc-cart form.checkout::before,.cc-root .cc-cart form.checkout::after{display:none!important}

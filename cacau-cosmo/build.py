@@ -504,6 +504,125 @@ def build_checkout():
     return export("checkout-woocommerce", "Cacau Cosmo — Finalizar compra", "page", content)
 
 
+# ---- MINHA CONTA -----------------------------------------------------
+ACC_HERO = """<p class="label js-acc-label">Minha conta</p>
+<h1 class="display js-acc-h1" style="font-size:clamp(34px,5vw,80px);line-height:1.08;color:var(--cc-cream);text-align:center;margin-top:14px;max-width:16ch">Seu <span class="em">Círculo.</span></h1>
+<p class="cc-hero-sub js-acc-sub"></p>"""
+
+ACC_MORE = """<section class="cc-acc-more">
+  <a class="cc-acc-more__journal" href="/journal/">
+    <canvas class="stars" data-density="6000" aria-hidden="true"></canvas>
+    <span class="label" data-i18n="t-acc-j-label">Journal</span>
+    <h2 data-i18n="t-acc-j-h2">Notas do mundo entre o cacau e o cosmo.</h2>
+    <p data-i18n="t-acc-j-p">Histórias de origem, rituais e ciência, para ler devagar.</p>
+    <em data-i18n="t-acc-j-cta">Ler o Journal</em>
+  </a>
+  <a class="cc-acc-more__shop" href="/loja/">
+    <svg class="art" viewBox="0 0 260 150" aria-hidden="true"><use href="#art-bar"></use></svg>
+    <span class="label" data-i18n="t-acc-s-label">Coleção Cosmo</span>
+    <h2 data-i18n="t-acc-s-h2">Sol, Lua e Saturno.</h2>
+    <p data-i18n="t-acc-s-p">Bean-to-bar em pequenos lotes. Quando acaba, acaba.</p>
+    <em data-i18n="t-acc-s-cta">Ir para a loja</em>
+  </a>
+</section>"""
+
+ACC_JS = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
+  't-acc-j-label': 'Journal', 't-acc-j-h2': 'Notes from the world between cacao and cosmos.',
+  't-acc-j-p': 'Stories of origin, ritual and science, to read slowly.', 't-acc-j-cta': 'Read the Journal',
+  't-acc-s-label': 'Cosmos Collection', 't-acc-s-h2': 'Sun, Moon and Saturn.',
+  't-acc-s-p': 'Bean-to-bar in small batches. When it\\u2019s gone, it\\u2019s gone.', 't-acc-s-cta': 'Go to the shop'
+});
+/* ===== MINHA CONTA ======================================== */
+(function(){
+  var root=document.querySelector('.cc-acc'); if(!root) return;
+  var en=document.documentElement.lang==='en';
+  var t=function(pt,e){return en?e:pt};
+  var label=document.querySelector('.js-acc-label'), h1=document.querySelector('.js-acc-h1'), sub=document.querySelector('.js-acc-sub');
+  function hero(l,h,s){ if(label&&l)label.innerHTML=l; if(h1&&h)h1.innerHTML=h; if(sub)sub.innerHTML=s||''; }
+  var nav=root.querySelector('.woocommerce-MyAccount-navigation');
+  var content=root.querySelector('.woocommerce-MyAccount-content');
+
+  if(!nav){
+    /* ---- deslogado: entrar / criar conta / recuperar senha ---- */
+    if(root.querySelector('form.lost_reset_password')){
+      hero(t('Minha conta','My account'), t('Recuperar <span class="em">acesso.</span>','Recover <span class="em">access.</span>'),
+        t('Informe seu e-mail e enviaremos um link para criar uma nova senha.','Enter your email and we\\u2019ll send a link to set a new password.'));
+      var lr=root.querySelector('form.lost_reset_password'); if(lr) lr.parentNode.classList.add('cc-acc-solo');
+      return;
+    }
+    hero(t('Minha conta','My account'), t('Entre no seu <span class="em">Círculo.</span>','Enter your <span class="em">Circle.</span>'),
+      t('Acompanhe pedidos, salve endereços e saiba antes de todo mundo quando sai o próximo lote.','Track orders, save addresses and be the first to know when the next batch is out.'));
+    var c1=root.querySelector('#customer_login .u-column1 > h2'), c2=root.querySelector('#customer_login .u-column2 > h2');
+    if(c1){ c1.textContent=t('Já faço parte','I\\u2019m a member'); c1.insertAdjacentHTML('afterend','<p class="cc-acc-tag">'+t('Entre com seu e-mail e senha.','Sign in with your email and password.')+'</p>'); }
+    if(c2){ c2.textContent=t('Quero entrar no Círculo','Join the Circle');
+      c2.insertAdjacentHTML('afterend','<p class="cc-acc-tag">'+t('Crie sua conta em menos de um minuto.','Create your account in under a minute.')+'</p>');
+      var rf=root.querySelector('form.woocommerce-form-register');
+      if(rf) rf.insertAdjacentHTML('afterbegin','<ul class="cc-acc-perks"><li>'+t('Acompanhe seus pedidos','Track your orders')+'</li><li>'+
+        t('Compre mais rápido com endereços salvos','Check out faster with saved addresses')+'</li><li>'+t('Novidades e lotes especiais primeiro','News and special batches first')+'</li></ul>');
+    }
+    if(!c2){ var lf=root.querySelector('form.woocommerce-form-login'); if(lf&&lf.parentNode) lf.parentNode.classList.add('cc-acc-solo'); }
+    return;
+  }
+
+  /* ---- logado ---- */
+  var links={}; nav.querySelectorAll('li').forEach(function(li){
+    var m=li.className.match(/navigation-link--([a-z-]+)/); if(m){ var a=li.querySelector('a'); links[m[1]]={href:a.getAttribute('href'),text:a.textContent.trim()}; }
+  });
+  var active=nav.querySelector('li.is-active'), isDash=active&&/--dashboard/.test(active.className);
+  var nome=content&&content.querySelector('p strong'); nome=nome?nome.textContent.trim():'';
+
+  if(isDash){
+    hero(nome?t('Olá, ','Hello, ')+'<span class="cc-acc-hello">'+nome+'</span>':t('Minha conta','My account'),
+      t('Bem-vindo ao seu <span class="em">Círculo.</span>','Welcome to your <span class="em">Circle.</span>'),
+      t('Seus pedidos, endereços e o que estamos criando, tudo num só lugar.','Your orders, addresses and what we\\u2019re creating, all in one place.'));
+    var ps=content.querySelectorAll(':scope > p');
+    var sair=ps[0]? ps[0].querySelector('a') : null;
+    ps.forEach(function(p){ p.style.display='none'; });
+    var star='<svg viewBox="0 0 24 24"><use href="#ic-star"></use></svg>', bag='<svg viewBox="0 0 24 24"><use href="#ic-bag"></use></svg>',
+        pin='<svg viewBox="0 0 24 24"><use href="#ic-pin"></use></svg>';
+    function card(href,icon,b,s,cta,mod){ return href?'<a class="cc-acc-card '+(mod||'')+'" href="'+href+'">'+icon+'<b>'+b+'</b><span>'+s+'</span><em>'+cta+'</em></a>':''; }
+    var html='<p class="cc-acc-intro">'+t('Este é o seu cantinho no Cosmo. Daqui você acompanha seus pedidos, ajusta seus dados e descobre o que está saindo do forno.',
+      'This is your corner of the Cosmos. From here you can track orders, update your details and see what\\u2019s fresh out of the kitchen.')+'</p><div class="cc-acc-cards">'+
+      card(links.orders&&links.orders.href,bag,t('Meus pedidos','My orders'),t('Acompanhe status e entregas.','Track status and deliveries.'),t('Ver pedidos','View orders'))+
+      card(links['edit-address']&&links['edit-address'].href,pin,t('Endereços','Addresses'),t('Entrega e cobrança salvas.','Saved shipping and billing.'),t('Editar','Edit'))+
+      card(links['edit-account']&&links['edit-account'].href,star,t('Dados da conta','Account details'),t('Nome, e-mail e senha.','Name, email and password.'),t('Editar','Edit'))+
+      card('/loja/',bag,t('Loja','Shop'),t('Sol, Lua e Saturno. Pequenos lotes.','Sun, Moon and Saturn. Small batches.'),t('Comprar','Shop now'),'cc-acc-card--navy')+
+      card('/journal/',star,'Journal',t('Histórias entre o cacau e o cosmo.','Stories between cacao and cosmos.'),t('Ler','Read'),'cc-acc-card--pink')+
+      card('/contato/',star,t('Fale com a gente','Talk to us'),t('Dúvidas, presentes e parcerias.','Questions, gifts and partnerships.'),t('Contato','Contact'))+
+      '</div>';
+    if(sair) html+='<p class="cc-acc-small">'+t('Não é você? ','Not you? ')+'<a href="'+sair.getAttribute('href')+'">'+t('Sair','Log out')+'</a></p>';
+    content.insertAdjacentHTML('afterbegin',html);
+  } else {
+    var titulo=active?active.textContent.trim():t('Minha conta','My account');
+    hero(t('Minha conta','My account'), titulo+'<span class="em">.</span>', nome?'':'');
+  }
+
+  /* selos de status nos pedidos */
+  root.querySelectorAll('tr[class*="--status-"]').forEach(function(tr){
+    var m=tr.className.match(/--status-([a-z-]+)/), td=tr.querySelector('.woocommerce-orders-table__cell-order-status');
+    if(m&&td&&!td.querySelector('.cc-status')) td.innerHTML='<span class="cc-status cc-status--'+m[1]+'">'+td.textContent.trim()+'</span>';
+  });
+})();
+"""
+
+
+def build_conta():
+    t = Tpl("conta")
+    content = [t.con("cc cc-root", [
+        t.html(tpl_header(read("elementor/conta.css")), "cc-header"),
+        t.con("phero cc-acc-hero", [
+            t.html(DECO, "cc-deco"),
+            t.html(ACC_HERO),
+        ]),
+        t.con("cc-acc", [
+            t.w("shortcode", {"shortcode": "[woocommerce_my_account]"}),
+        ]),
+        t.html(ACC_MORE),
+        t.html(tpl_footer(ACC_JS), "cc-footer"),
+    ])]
+    return export("minha-conta-woocommerce", "Cacau Cosmo — Minha conta", "page", content)
+
+
 # ---- POST ------------------------------------------------------------
 SHARE_HTML = """<div class="cc-share">
   <small data-i18n="t-share">Compartilhar</small>
@@ -587,5 +706,5 @@ def build_post():
 if __name__ == "__main__":
     for slug in ("quem-somos", "contato"):
         print("ok", build_page(slug).relative_to(ROOT.parent))
-    for fn in (build_loja, build_produto, build_carrinho, build_checkout, build_post):
+    for fn in (build_loja, build_produto, build_carrinho, build_checkout, build_conta, build_post):
         print("ok", fn().relative_to(ROOT.parent))

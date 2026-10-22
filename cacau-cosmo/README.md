@@ -13,6 +13,7 @@ Mesmo visual da Home (cores, Recoleta, Pinopolis e Syne, céu estrelado, menu la
 | `elementor/post-journal.json` | Template de post do Journal | Importar no Theme Builder |
 | `elementor/carrinho-woocommerce.json` | Página de carrinho | Importar e inserir na página /carrinho/ |
 | `elementor/checkout-woocommerce.json` | Finalizar compra + pedido confirmado | Importar e inserir na página /finalizar-compra/ |
+| `elementor/minha-conta-woocommerce.json` | Minha conta (Círculo) | Importar e inserir na página /minha-conta/ |
 | `wordpress/mensagens-contato.php` | Painel "Mensagens" do Contato | Colar no plugin WPCode |
 
 ## 1. Quem Somos e Contato (igual à Home)
@@ -82,6 +83,15 @@ Cupom, frete, quantidade com − e + (atualiza sozinho) e "Concluir compra" são
 4. Faça um pedido de teste. A mesma página vira **"Pedido confirmado"** depois do pagamento.
 
 Usa o checkout clássico do WooCommerce (`[woocommerce_checkout]`), compatível com gateways brasileiros (PIX, Mercado Pago, Pagar.me…) e com o plugin "Brazilian Market" (CPF/CNPJ, número, bairro).
+
+## 2d. Minha conta
+
+1. Importe `minha-conta-woocommerce.json` em **Templates → Templates salvos → Importar templates**.
+2. Abra a página **Minha conta** (veja qual é em **WooCommerce → Configurações → Avançado → Página Minha conta**). Em **Modelo**, escolha **Elementor Canvas** e clique em **Editar com Elementor**.
+3. Apague o conteúdo atual. Pela pasta → **Meus modelos**, clique em **Inserir** em "Cacau Cosmo — Minha conta" e publique.
+4. Para permitir que clientes criem conta por essa página: **WooCommerce → Configurações → Contas e privacidade → "Permitir que clientes criem uma conta na página Minha conta"**.
+
+Logado: "Olá, nome · Bem-vindo ao seu Círculo", cartões para Pedidos, Endereços, Dados da conta, Loja, Journal e Contato, e o menu normal do WooCommerce. Deslogado: "Entre no seu Círculo" com Entrar e Criar conta lado a lado.
 
 ## 3. Produtos (Coleção Cosmo: Sol, Lua, Saturno)
 

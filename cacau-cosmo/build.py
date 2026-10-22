@@ -160,28 +160,6 @@ def export(name, title, doc_type, content):
 
 
 # ---- LOJA ------------------------------------------------------------
-SHOP_CATS_JS = """/* ===== CATEGORIAS DA LOJA (Store API do WooCommerce) ===== */
-(function(){
-  var box=document.getElementById('ccCats'); if(!box||!window.fetch) return;
-  var here=location.pathname.replace(/\\/+$/,'')+'/';
-  fetch('/wp-json/wc/store/v1/products/categories')
-    .then(function(r){return r.ok?r.json():[]})
-    .then(function(list){
-      list=(list||[]).filter(function(c){return c.count>0&&c.slug!=='uncategorized'&&c.slug!=='sem-categoria'});
-      if(!list.length){box.remove();return}
-      list.forEach(function(c){
-        var a=document.createElement('a'); a.href=c.permalink; a.innerHTML=c.name;
-        try{ if(new URL(c.permalink).pathname===here){a.classList.add('on');box.firstElementChild.classList.remove('on')} }catch(e){}
-        box.appendChild(a);
-      });
-    }).catch(function(){box.remove()});
-})();
-"""
-
-SHOP_CATS_HTML = """<nav class="cc-shop-cats" id="ccCats" aria-label="Categorias">
-  <a href="/loja/" class="on" data-i18n="t-shop-all">Todos</a>
-</nav>"""
-
 TRUST_HTML = """<!-- [ REVISAR ] confirme estas promessas antes de publicar -->
 <section class="cc-trust">
   <div class="cc-trust__grid">
@@ -223,7 +201,6 @@ FEATURE_HTML = """<section class="cc-feature">
 
 SHOP_DICT = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
   't-shop-label': 'Shop', 't-shop-sub': 'Bean-to-bar chocolate in small batches. When it\\u2019s gone, it\\u2019s gone.',
-  't-shop-all': 'All',
   't-trust1-h': 'Small batches', 't-trust1-p': 'Bean-to-bar, handmade. When a batch is gone, it\\u2019s gone.',
   't-trust2-h': 'Origin cacao', 't-trust2-p': 'Respecting people, territories and nature\\u2019s own time.',
   't-trust3-h': 'Careful shipping', 't-trust3-p': 'Packaging designed so the chocolate arrives whole, anywhere in Brazil.',
@@ -248,17 +225,13 @@ def build_loja():
         ]),
         t.con("cc-shop-main", [
             t.w("woocommerce-notices"),
-            t.html(SHOP_CATS_HTML),
-            t.w("wc-archive-products", {
-                "columns": "3", "columns_tablet": "2", "columns_mobile": "2",
-                "rows": "4", "paginate": "yes", "allow_order": "yes", "show_result_count": "yes",
-                "nothing_found_message": "Nenhum chocolate por aqui ainda. O próximo lote está a caminho.",
-            }),
+            # vitrine fixa: só a Coleção Cosmo, na ordem Sol, Lua, Saturno
+            t.w("shortcode", {"shortcode": '[products skus="CC-SOL-55,CC-LUA-35,CC-SAT-80" columns="3" orderby="date" order="ASC"]'}),
         ]),
         t.html(TRUST_HTML),
         t.html(FEATURE_HTML),
         t.html(CIRCLE_HTML),
-        t.html(tpl_footer(SHOP_DICT + SHOP_CATS_JS), "cc-footer"),
+        t.html(tpl_footer(SHOP_DICT), "cc-footer"),
     ])]
     # versão "página": entra por qualquer importador e depois é inserida no
     # template de Arquivo de produtos pela biblioteca (Meus modelos → Inserir)

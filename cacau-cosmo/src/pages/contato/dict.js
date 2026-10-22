@@ -2,14 +2,14 @@
    WHATSAPP ...... só números, com DDI+DDD. Ex.: '5521999999999'.
                    Vazio = esconde o WhatsApp da página.
    FORM_ENDPOINT . para onde o formulário envia (POST, resposta JSON).
-                   Ex. Formspree:  'https://formspree.io/f/SEU_ID'
-                   Ex. FormSubmit: 'https://formsubmit.co/ajax/ola@cacaucosmo.com.br'
+                   Padrão: o painel do WordPress (menu "Mensagens"),
+                   criado pelo código wordpress/mensagens-contato.php.
                    Vazio = abre o app de e-mail do visitante já preenchido.
    ============================================================ */
 window.CC_CONTACT = {
   EMAIL: 'ola@cacaucosmo.com.br',
   WHATSAPP: '',
-  FORM_ENDPOINT: ''
+  FORM_ENDPOINT: '/wp-json/cacau/v1/contato'
 };
 
 window.CC_DICT = {

@@ -11,6 +11,7 @@ Mesmo visual da Home (cores, Recoleta, Pinopolis e Syne, céu estrelado, menu la
 | `elementor/loja-woocommerce.json` | Template da loja (arquivo de produtos) | Importar no Theme Builder |
 | `elementor/produto-woocommerce.json` | Template de produto | Importar no Theme Builder |
 | `elementor/post-journal.json` | Template de post do Journal | Importar no Theme Builder |
+| `wordpress/mensagens-contato.php` | Painel "Mensagens" do Contato | Colar no plugin WPCode |
 
 ## 1. Quem Somos e Contato (igual à Home)
 
@@ -19,9 +20,18 @@ Mesmo visual da Home (cores, Recoleta, Pinopolis e Syne, céu estrelado, menu la
 3. Clique em **Editar com Elementor**, arraste um widget **HTML** e cole o arquivo inteiro.
 4. Publique.
 
-**No Contato**, no fim do arquivo, procure `window.CC_CONTACT`:
-- `WHATSAPP: '5521999999999'`: com o número preenchido, o WhatsApp aparece na página e ganha um botão "Enviar pelo WhatsApp". Sem número, o WhatsApp fica escondido.
-- `FORM_ENDPOINT`: sem nada preenchido, o formulário abre o app de e-mail do visitante com a mensagem pronta. Para receber direto no e-mail, crie um formulário grátis no Formspree e cole a URL, por exemplo `'https://formspree.io/f/SEU_ID'`. Outra opção é `'https://formsubmit.co/ajax/ola@cacaucosmo.com.br'` (o primeiro envio pede uma confirmação por e-mail).
+### Mensagens do Contato no painel do WordPress
+
+O formulário do Contato envia para o painel do WordPress. Para ativar (uma vez só):
+
+1. Instale o plugin gratuito **WPCode** (Plugins → Adicionar novo → "WPCode").
+2. **Code Snippets → Add Snippet → Add Your Custom Code**, tipo **PHP Snippet**.
+3. Cole o conteúdo de `wordpress/mensagens-contato.php` **sem a primeira linha `<?php`**.
+4. Em *Insert Method*, deixe **Auto Insert / Run Everywhere**. Ative e salve.
+
+Pronto: aparece o menu **Mensagens** no wp-admin, com contador de mensagens novas, e cada mensagem também chega em `ola@cacaucosmo.com.br`. Responder esse e-mail responde direto ao cliente. A lista tem botão **Exportar CSV**. Para trocar o e-mail, mude `CC_CONTATO_EMAIL` no início do código.
+
+Para mostrar o WhatsApp na página, preencha `WHATSAPP: '5521999999999'` em `window.CC_CONTACT`, no fim do `contato.html`.
 
 ## 2. Templates WooCommerce e Post (Elementor Pro)
 

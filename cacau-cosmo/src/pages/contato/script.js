@@ -57,10 +57,13 @@
     say(t('Enviando...', 'Sending...'));
     d.fd.append('_subject', '[Site] ' + d.assunto + ' — ' + d.nome);
     fetch(cfg.FORM_ENDPOINT, { method:'POST', body:d.fd, headers:{ 'Accept':'application/json' } })
-      .then(function(r){ if(!r.ok) throw 0; form.reset();
+      .then(function(r){
+        return r.json().catch(function(){ return {}; }).then(function(j){ if(!r.ok) throw (j && j.message) || 0; }); })
+      .then(function(){ form.reset();
         say(t('Mensagem enviada. Obrigada! Respondemos em breve.', 'Message sent. Thank you! We’ll reply soon.'), 'ok'); })
-      .catch(function(){
-        say(t('Não foi possível enviar agora. Escreva para ' + cfg.EMAIL, 'Could not send right now. Please email ' + cfg.EMAIL), 'err'); })
+      .catch(function(msg){
+        say(typeof msg === 'string' && msg ? msg :
+          t('Não foi possível enviar agora. Escreva para ' + cfg.EMAIL, 'Could not send right now. Please email ' + cfg.EMAIL), 'err'); })
       .then(function(){ btn.disabled = false; });
   });
 

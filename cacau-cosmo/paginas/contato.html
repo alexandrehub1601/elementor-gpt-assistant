@@ -681,14 +681,14 @@ function ccFallback(img){
    WHATSAPP ...... só números, com DDI+DDD. Ex.: '5521999999999'.
                    Vazio = esconde o WhatsApp da página.
    FORM_ENDPOINT . para onde o formulário envia (POST, resposta JSON).
-                   Ex. Formspree:  'https://formspree.io/f/SEU_ID'
-                   Ex. FormSubmit: 'https://formsubmit.co/ajax/ola@cacaucosmo.com.br'
+                   Padrão: o painel do WordPress (menu "Mensagens"),
+                   criado pelo código wordpress/mensagens-contato.php.
                    Vazio = abre o app de e-mail do visitante já preenchido.
    ============================================================ */
 window.CC_CONTACT = {
   EMAIL: 'ola@cacaucosmo.com.br',
   WHATSAPP: '',
-  FORM_ENDPOINT: ''
+  FORM_ENDPOINT: '/wp-json/cacau/v1/contato'
 };
 
 window.CC_DICT = {
@@ -938,10 +938,13 @@ window.CC_DICT = {
     say(t('Enviando...', 'Sending...'));
     d.fd.append('_subject', '[Site] ' + d.assunto + ' — ' + d.nome);
     fetch(cfg.FORM_ENDPOINT, { method:'POST', body:d.fd, headers:{ 'Accept':'application/json' } })
-      .then(function(r){ if(!r.ok) throw 0; form.reset();
+      .then(function(r){
+        return r.json().catch(function(){ return {}; }).then(function(j){ if(!r.ok) throw (j && j.message) || 0; }); })
+      .then(function(){ form.reset();
         say(t('Mensagem enviada. Obrigada! Respondemos em breve.', 'Message sent. Thank you! We’ll reply soon.'), 'ok'); })
-      .catch(function(){
-        say(t('Não foi possível enviar agora. Escreva para ' + cfg.EMAIL, 'Could not send right now. Please email ' + cfg.EMAIL), 'err'); })
+      .catch(function(msg){
+        say(typeof msg === 'string' && msg ? msg :
+          t('Não foi possível enviar agora. Escreva para ' + cfg.EMAIL, 'Could not send right now. Please email ' + cfg.EMAIL), 'err'); })
       .then(function(){ btn.disabled = false; });
   });
 

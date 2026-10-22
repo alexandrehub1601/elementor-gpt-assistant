@@ -149,17 +149,20 @@
 .cc-acc-more{display:grid;grid-template-columns:1fr 1fr}
 .cc-acc-more a{position:relative;overflow:hidden;padding:clamp(50px,6vw,90px) var(--pad);min-height:clamp(260px,34vh,380px);display:flex;flex-direction:column;
   justify-content:flex-end;text-decoration:none}
-.cc-acc-more a>*:not(.stars){position:relative}
+.cc-root .cc-acc-more a>*:not(.stars):not(.art){position:relative}
 .cc-acc-more .label{font-family:var(--font-mono);font-size:clamp(9px,.66vw,11px);letter-spacing:.36em;text-transform:uppercase;font-weight:600;color:var(--cc-gold)}
 .cc-acc-more h2{font-family:var(--font-display)!important;font-weight:700;font-size:clamp(26px,3vw,44px);line-height:1.1;margin:12px 0 10px;max-width:16ch}
 .cc-acc-more p{margin:0;max-width:40ch;opacity:.8}
 .cc-acc-more em{font-style:normal;margin-top:22px;font-family:var(--font-body);font-size:10px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;
   border-bottom:1px solid currentColor;width:fit-content;padding-bottom:6px;transition:letter-spacing .5s var(--ease)}
 .cc-acc-more a:hover em{letter-spacing:.38em}
-.cc-acc-more__journal{background:var(--cc-navy-2);color:var(--cc-cream)}
-.cc-acc-more__shop{background:var(--cc-blush);color:var(--cc-text-dark)}
-.cc-acc-more__shop .label{color:var(--cc-brown)}
-.cc-acc-more__shop .art{position:absolute;right:-30px;top:50%;transform:translateY(-50%);width:clamp(140px,16vw,230px);color:var(--cc-brown);opacity:.25}
+.cc-root .cc-acc-more a.cc-acc-more__journal,.cc-root .cc-acc-more a.cc-acc-more__journal h2,.cc-root .cc-acc-more a.cc-acc-more__journal p,.cc-root .cc-acc-more a.cc-acc-more__journal em{color:var(--cc-cream)!important}
+.cc-acc-more__journal{background:var(--cc-navy-2)}
+.cc-root .cc-acc-more a.cc-acc-more__shop,.cc-root .cc-acc-more a.cc-acc-more__shop h2,.cc-root .cc-acc-more a.cc-acc-more__shop p,.cc-root .cc-acc-more a.cc-acc-more__shop em{color:var(--cc-text-dark)!important}
+.cc-acc-more__shop{background:var(--cc-blush)}
+.cc-root .cc-acc-more__shop .label{color:var(--cc-brown)!important}
+.cc-root .cc-acc-more__journal .label{color:var(--cc-gold)!important}
+.cc-root .cc-acc-more__shop .art{position:absolute!important;pointer-events:none;right:-30px;top:50%;transform:translateY(-50%);width:clamp(140px,16vw,230px);color:var(--cc-brown);opacity:.25}
 
 @media (max-width:1024px){
   .cc-root .cc-acc .woocommerce:has(.woocommerce-MyAccount-navigation){grid-template-columns:minmax(0,1fr)}

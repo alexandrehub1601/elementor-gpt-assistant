@@ -131,3 +131,12 @@ body.cc-tpl{background:var(--cc-cream)}
 @media (max-width:900px){.cc-trust__grid{grid-template-columns:1fr}}
 @media (max-width:480px){.cc-root ul.products{--cc-gap:12px;row-gap:34px!important}
   .cc-root ul.products li.product .button{padding:13px 8px!important;letter-spacing:.1em!important;font-size:10px!important}}
+
+/* Cores explícitas nas faixas fixas: o kit do Elementor e a regra de links
+   herdando cor não podem deixar texto escuro sobre fundo escuro. */
+.cc-root .cc-circle,.cc-root .cc-circle h2,.cc-root .cc-circle p,
+.cc-root .cc-ritual,.cc-root .cc-ritual h2,.cc-root .cc-ritual h3,.cc-root .cc-ritual p{color:var(--cc-cream)!important}
+.cc-root .cc-trust h3,.cc-root .cc-trust p,.cc-root .cc-feature__body h2{color:var(--cc-text-dark)!important}
+.cc-root .cc-feature__body p,.cc-root .cc-feature__body .cta{color:var(--cc-brown)!important}
+.cc-root .phero h1,.cc-root .phero .display{color:var(--cc-cream)!important}
+.cc-root .phero .cc-hero-sub{color:var(--cc-cream)!important}

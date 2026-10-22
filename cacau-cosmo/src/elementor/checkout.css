@@ -1,0 +1,174 @@
+/* ===== FINALIZAR COMPRA ==================================== */
+.elementor .cc-co.e-con{background:var(--cc-cream);padding:clamp(40px,4.6vw,80px) var(--pad) clamp(70px,8vw,120px)!important}
+.cc-co>.elementor-element{max-width:var(--wrap);margin:0 auto!important;width:100%}
+
+/* etapas no hero */
+.cc-steps{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:clamp(20px,2.4vw,30px);
+  font-family:var(--font-body);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--cc-cream)}
+.cc-steps span{display:flex;align-items:center;gap:8px;opacity:.5}
+.cc-steps span.on,.cc-steps span.ok{opacity:1}
+.cc-steps i{font-style:normal;width:22px;height:22px;border-radius:50%;border:1px solid rgba(241,232,208,.5);display:grid;place-items:center;
+  font-size:10px;letter-spacing:0}
+.cc-steps span.on i{background:var(--cc-pink);border-color:var(--cc-pink);color:var(--cc-navy)}
+.cc-steps span.ok i{background:var(--cc-gold);border-color:var(--cc-gold);color:var(--cc-navy)}
+.cc-steps b{width:28px;height:1px;background:rgba(241,232,208,.3);display:block}
+.cc-steps a{color:inherit!important}
+
+/* avisos de cupom / login */
+.cc-root .cc-co .woocommerce-form-coupon-toggle .woocommerce-info,.cc-root .cc-co .woocommerce-form-login-toggle .woocommerce-info{
+  background:var(--cc-paper)!important;border:0!important;border-radius:6px!important;padding:16px 20px!important;font-size:14px;margin:0 0 16px!important}
+.cc-root .cc-co .woocommerce-form-coupon-toggle .woocommerce-info::before,.cc-root .cc-co .woocommerce-form-login-toggle .woocommerce-info::before{display:none!important}
+.cc-root .cc-co .woocommerce-info a{color:var(--cc-brown)!important;text-decoration:underline;text-underline-offset:3px}
+.cc-root .cc-co form.checkout_coupon,.cc-root .cc-co form.woocommerce-form-login{border:1px solid rgba(0,6,46,.14)!important;border-radius:6px!important;
+  padding:20px!important;margin:0 0 24px!important;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.cc-root .cc-co form.checkout_coupon p{margin:0!important;float:none!important;width:auto!important}
+.cc-root .cc-co form.checkout_coupon p:first-child:not(.form-row){flex:0 0 100%;font-size:13px;opacity:.75}
+.cc-root .cc-co form.checkout_coupon .form-row-first{flex:1}
+.cc-root .cc-co .clear{display:none}
+
+/* duas colunas: dados à esquerda, pedido à direita */
+.cc-root .cc-co form.checkout{display:grid!important;grid-template-columns:minmax(0,1.45fr) minmax(320px,1fr);
+  grid-template-areas:"dados titulo" "dados resumo";grid-template-rows:auto 1fr;gap:0 clamp(28px,4vw,70px);align-items:start}
+.cc-root .cc-co form.checkout>.woocommerce-NoticeGroup{grid-column:1/-1}
+.cc-root .cc-co #customer_details{grid-area:dados;width:auto!important;float:none!important;margin:0!important}
+.cc-root .cc-co #customer_details::before,.cc-root .cc-co #customer_details::after{display:none!important}
+.cc-root .cc-co .col2-set .col-1,.cc-root .cc-co .col2-set .col-2{width:100%!important;float:none!important;max-width:none!important;padding:0!important;flex:none!important}
+.cc-root .cc-co .col2-set .col-2{margin-top:clamp(24px,2.6vw,36px)}
+.cc-root .cc-co #order_review_heading{grid-area:titulo;background:var(--cc-navy);color:var(--cc-cream)!important;margin:0!important;
+  padding:clamp(22px,2.4vw,30px) clamp(22px,2.4vw,34px) 18px!important;border-radius:6px 6px 0 0;font-family:var(--font-display)!important;
+  font-weight:700;font-size:clamp(22px,2vw,28px)}
+.cc-root .cc-co #order_review{grid-area:resumo;width:auto!important;float:none!important;background:var(--cc-navy);color:var(--cc-cream);
+  border-radius:0 0 6px 6px;padding:0 clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px)!important;position:sticky;top:calc(var(--bar) + 24px)}
+
+/* títulos de seção */
+.cc-root .cc-co #customer_details h3{font-family:var(--font-display)!important;font-weight:700;font-size:clamp(22px,2vw,30px);color:var(--cc-text-dark);
+  margin:0 0 20px!important;padding:0!important;display:flex;align-items:center;gap:12px}
+.cc-root .cc-co .woocommerce-billing-fields>h3::before{content:'1';flex:none;width:30px;height:30px;border-radius:50%;background:var(--cc-navy);
+  color:var(--cc-cream);font-family:var(--font-body);font-size:13px;display:grid;place-items:center}
+.cc-root .cc-co #ship-to-different-address{font-size:15px!important;font-family:var(--font-body)!important;font-weight:500!important}
+.cc-root .cc-co #ship-to-different-address label{display:flex;align-items:center;gap:10px;cursor:pointer}
+.cc-root .cc-co #ship-to-different-address input{accent-color:var(--cc-navy);width:18px;height:18px;margin:0}
+
+/* campos */
+.cc-root .cc-co .woocommerce-billing-fields__field-wrapper,.cc-root .cc-co .woocommerce-shipping-fields__field-wrapper,
+.cc-root .cc-co .woocommerce-additional-fields__field-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:16px 16px}
+.cc-root .cc-co .form-row{float:none!important;width:auto!important;margin:0!important;padding:0!important;grid-column:1/-1}
+.cc-root .cc-co .form-row-first,.cc-root .cc-co .form-row-last{grid-column:auto}
+.cc-root .cc-co .form-row label{display:block;font-family:var(--font-body)!important;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  font-weight:600;color:var(--cc-text-dark);opacity:.75;margin:0 0 7px!important;line-height:1.4}
+.cc-root .cc-co .form-row label .required{color:#a3404f;text-decoration:none;border:0}
+.cc-root .cc-co .form-row label .optional{text-transform:none;letter-spacing:0;font-weight:400;opacity:.7}
+.cc-root .cc-co .form-row input.input-text,.cc-root .cc-co .form-row textarea,.cc-root .cc-co .form-row select{width:100%;min-height:50px;
+  border:1px solid rgba(0,6,46,.25)!important;border-radius:4px!important;background:#FBF7EE!important;padding:12px 14px!important;
+  font-family:var(--font-body)!important;font-size:15px;color:var(--cc-text-dark);box-shadow:none!important;transition:border-color .3s,box-shadow .3s;margin:0}
+.cc-root .cc-co .form-row textarea{min-height:110px;line-height:1.6}
+.cc-root .cc-co .form-row input.input-text:focus,.cc-root .cc-co .form-row textarea:focus,.cc-root .cc-co .form-row select:focus{outline:none;
+  border-color:var(--cc-navy)!important;box-shadow:0 0 0 3px rgba(201,168,76,.25)!important}
+.cc-root .cc-co .form-row.woocommerce-invalid input.input-text,.cc-root .cc-co .form-row.woocommerce-invalid .select2-selection{border-color:#a3404f!important}
+.cc-root .cc-co .form-row.woocommerce-validated input.input-text{border-color:rgba(47,107,69,.55)!important}
+.cc-root .cc-co .select2-container .select2-selection--single{height:50px!important;border:1px solid rgba(0,6,46,.25)!important;border-radius:4px!important;
+  background:#FBF7EE!important}
+.cc-root .cc-co .select2-container .select2-selection__rendered{line-height:48px!important;padding-left:14px!important;font-family:var(--font-body);font-size:15px;color:var(--cc-text-dark)!important}
+.cc-root .cc-co .select2-container .select2-selection__arrow{height:48px!important;right:8px!important}
+.select2-dropdown{border-color:rgba(0,6,46,.25)!important;font-family:var(--font-body)}
+.select2-results__option--highlighted[aria-selected],.select2-container--default .select2-results__option--highlighted[data-selected]{background:var(--cc-navy)!important}
+
+/* resumo do pedido (fundo navy) */
+.cc-root .cc-co #order_review table.shop_table{border:0!important;margin:0 0 22px!important;border-radius:0!important;width:100%;border-collapse:collapse}
+.cc-root .cc-co #order_review table.shop_table th,.cc-root .cc-co #order_review table.shop_table td{border:0!important;
+  border-bottom:1px solid rgba(241,232,208,.14)!important;padding:14px 0!important;background:none!important;color:var(--cc-cream)!important;
+  font-family:var(--font-body)!important;font-size:14px;vertical-align:top}
+.cc-root .cc-co #order_review thead th{font-size:9px!important;letter-spacing:.3em;text-transform:uppercase;opacity:.6;padding-top:4px!important}
+.cc-root .cc-co #order_review thead th.product-total,.cc-root .cc-co #order_review td.product-total,.cc-root .cc-co #order_review tfoot td{text-align:right}
+.cc-root .cc-co #order_review td.product-name{padding-right:14px!important;line-height:1.45}
+.cc-root .cc-co #order_review td.product-name .product-quantity{font-weight:400;color:var(--cc-pink);margin-left:4px}
+.cc-root .cc-co #order_review .cc-thumb{width:52px;height:64px;object-fit:cover;border-radius:3px;float:left;margin:0 14px 0 0;background:var(--cc-paper)}
+.cc-root .cc-co #order_review tfoot th{font-size:10px!important;letter-spacing:.22em;text-transform:uppercase;font-weight:600;text-align:left}
+.cc-root .cc-co #order_review tr.order-total th,.cc-root .cc-co #order_review tr.order-total td{border-bottom:0!important;padding-top:20px!important}
+.cc-root .cc-co #order_review tr.order-total td{font-size:clamp(20px,1.7vw,26px)!important;font-weight:600}
+.cc-root .cc-co #order_review tr.order-total td small{display:block;font-size:11px;font-weight:400;opacity:.65}
+.cc-root .cc-co #order_review ul#shipping_method{list-style:none;margin:0!important;padding:0!important;text-align:right}
+.cc-root .cc-co #order_review ul#shipping_method li{margin:0 0 8px!important;padding:0!important;text-indent:0!important;display:flex;justify-content:flex-end;gap:8px;align-items:center}
+.cc-root .cc-co #order_review ul#shipping_method input{accent-color:var(--cc-pink);margin:0!important}
+.cc-root .cc-co #order_review .amount{color:inherit!important}
+
+/* pagamento */
+.cc-root .cc-co #payment{background:transparent!important;border-radius:0!important}
+.cc-root .cc-co #payment ul.payment_methods{border:0!important;padding:0!important;margin:0 0 16px!important;list-style:none;display:grid;gap:10px}
+.cc-root .cc-co #payment ul.payment_methods::before,.cc-root .cc-co #payment ul.payment_methods::after{display:none!important}
+.cc-root .cc-co #payment ul.payment_methods li{background:rgba(241,232,208,.06);border:1px solid rgba(241,232,208,.18);border-radius:6px;
+  padding:14px 16px!important;margin:0!important;line-height:1.5;color:var(--cc-cream)}
+.cc-root .cc-co #payment ul.payment_methods li:has(input:checked){border-color:var(--cc-pink);background:rgba(210,147,168,.1)}
+.cc-root .cc-co #payment ul.payment_methods li>input{accent-color:var(--cc-pink);margin:0 10px 0 0!important;vertical-align:middle}
+.cc-root .cc-co #payment ul.payment_methods li label{font-family:var(--font-body)!important;font-size:14px;font-weight:500;cursor:pointer;display:inline}
+.cc-root .cc-co #payment ul.payment_methods li img{max-height:22px;width:auto;display:inline-block;vertical-align:middle;margin-left:6px}
+.cc-root .cc-co #payment div.payment_box{background:transparent!important;color:var(--cc-cream)!important;padding:10px 0 0!important;margin:0!important;
+  font-size:13px;opacity:.85;border-radius:0}
+.cc-root .cc-co #payment div.payment_box::before{display:none!important}
+.cc-root .cc-co #payment div.payment_box p{margin:0 0 8px}
+.cc-root .cc-co #payment div.payment_box input,.cc-root .cc-co #payment div.payment_box select{background:var(--cc-cream);color:var(--cc-text-dark);
+  border-radius:4px;border:0;min-height:44px;padding:0 12px}
+.cc-root .cc-co #payment .woocommerce-info{background:rgba(241,232,208,.08)!important;color:var(--cc-cream)!important;border:0!important;padding:14px 16px!important}
+.cc-root .cc-co #payment .woocommerce-info::before{display:none!important}
+.cc-root .cc-co #payment .place-order{padding:0!important;margin:0!important}
+.cc-root .cc-co .woocommerce-privacy-policy-text p,.cc-root .cc-co .woocommerce-terms-and-conditions-wrapper{font-size:12px;line-height:1.6;opacity:.75;margin:0 0 16px}
+.cc-root .cc-co .woocommerce-privacy-policy-text a,.cc-root .cc-co .woocommerce-terms-and-conditions-wrapper a{color:var(--cc-pink)!important;text-decoration:underline}
+.cc-root .cc-co .woocommerce-terms-and-conditions-wrapper .form-row label{color:var(--cc-cream);text-transform:none;letter-spacing:0;font-size:13px;opacity:1}
+.cc-root .cc-co #place_order{width:100%!important;float:none!important;border-radius:4px!important;padding:20px 24px!important;font-size:12px!important;
+  letter-spacing:.2em!important;background:var(--cc-pink)!important;border-color:var(--cc-pink)!important;color:var(--cc-navy)!important}
+.cc-root .cc-co #place_order:hover{background:var(--cc-gold)!important;border-color:var(--cc-gold)!important}
+.cc-co-safe{display:flex;align-items:center;justify-content:center;gap:8px;margin:14px 0 0;font-family:var(--font-body);font-size:10px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--cc-cream);opacity:.65}
+.cc-co-safe svg{width:13px;height:13px}
+.cc-co-back{display:block;text-align:center;margin-top:16px;font-family:var(--font-body);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--cc-cream)!important;opacity:.6}
+.cc-co-back:hover{opacity:1}
+
+/* textos do WooCommerce na fonte da marca */
+.cc-root .cc-co #order_review ul#shipping_method label,.cc-root .cc-co #ship-to-different-address span,
+.cc-root .cc-co .woocommerce-form-coupon-toggle .woocommerce-info{font-family:var(--font-body)!important}
+.cc-root .cc-co #order_review ul#shipping_method label{font-weight:500}
+
+/* avisos de erro */
+.cc-root .cc-co .woocommerce-error{list-style:none;font-size:14px}
+.cc-root .cc-co .woocommerce-error li{margin:2px 0}
+
+/* carregando */
+.cc-root .cc-co .blockUI.blockOverlay{background:rgba(241,232,208,.6)!important}
+.cc-root .cc-co #order_review .blockUI.blockOverlay{background:rgba(0,6,46,.6)!important}
+
+/* pedido recebido (obrigado) */
+.cc-root .cc-co .woocommerce-order{max-width:860px;margin:0 auto}
+.cc-root .cc-co .woocommerce-thankyou-order-received{font-family:var(--font-display)!important;font-weight:700;font-size:clamp(24px,2.6vw,38px);
+  line-height:1.2;text-align:center;color:var(--cc-text-dark);margin:0 0 30px!important}
+.cc-root .cc-co ul.woocommerce-order-overview{list-style:none;display:grid!important;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;
+  margin:0 0 40px!important;padding:0!important;background:var(--cc-paper);border-radius:6px;overflow:hidden}
+.cc-root .cc-co ul.woocommerce-order-overview::before,.cc-root .cc-co ul.woocommerce-order-overview::after,
+.cc-root .cc-co .woocommerce-customer-details .col2-set::before,.cc-root .cc-co .woocommerce-customer-details .col2-set::after{display:none!important}
+.cc-root .cc-co ul.woocommerce-order-overview li{float:none!important;margin:0!important;padding:20px!important;border:0!important;
+  border-right:1px solid rgba(0,6,46,.08)!important;font-family:var(--font-body);font-size:9px!important;letter-spacing:.24em;text-transform:uppercase;line-height:1.8}
+.cc-root .cc-co ul.woocommerce-order-overview li:last-child{border-right:0!important}
+.cc-root .cc-co ul.woocommerce-order-overview li strong{display:block;font-size:15px!important;letter-spacing:0;text-transform:none;margin-top:4px;color:var(--cc-text-dark)}
+.cc-root .cc-co .woocommerce-order-details__title,.cc-root .cc-co .woocommerce-column__title,.cc-root .cc-co .wc-bacs-bank-details-heading{
+  font-family:var(--font-display)!important;font-weight:700;font-size:clamp(20px,1.8vw,26px);margin:30px 0 14px!important}
+.cc-root .cc-co .woocommerce-order-details table.shop_table,.cc-root .cc-co .woocommerce-table--order-details{border:0!important;border-radius:0!important;width:100%}
+.cc-root .cc-co .woocommerce-order-details table th,.cc-root .cc-co .woocommerce-order-details table td{border:0!important;border-bottom:1px solid rgba(0,6,46,.1)!important;
+  padding:14px 0!important;background:none!important;font-family:var(--font-body);font-size:14px}
+.cc-root .cc-co .woocommerce-customer-details address{border:1px solid rgba(0,6,46,.14)!important;border-radius:6px!important;padding:20px!important;
+  font-style:normal;line-height:1.8;font-size:14px}
+.cc-root .cc-co .woocommerce-customer-details .col2-set{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.cc-root .cc-co .woocommerce-customer-details .col2-set .col-2{margin-top:0}
+
+@media (max-width:1024px){
+  .cc-root .cc-co form.checkout{grid-template-columns:1fr;grid-template-areas:"dados" "titulo" "resumo"}
+  .cc-root .cc-co #order_review_heading{margin-top:40px!important}
+  .cc-root .cc-co #order_review{position:static}
+}
+@media (max-width:620px){
+  .cc-root .cc-co .woocommerce-billing-fields__field-wrapper,.cc-root .cc-co .woocommerce-shipping-fields__field-wrapper{grid-template-columns:1fr}
+  .cc-root .cc-co .form-row-first,.cc-root .cc-co .form-row-last{grid-column:1/-1}
+  .cc-steps{gap:8px;letter-spacing:.14em}
+  .cc-steps em{display:none}
+  .cc-steps b{width:16px}
+  .cc-root .cc-co .woocommerce-customer-details .col2-set{grid-template-columns:1fr}
+}

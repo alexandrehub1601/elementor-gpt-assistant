@@ -12,6 +12,7 @@ Mesmo visual da Home (cores, Recoleta, Pinopolis e Syne, céu estrelado, menu la
 | `elementor/produto-woocommerce.json` | Template de produto | Importar no Theme Builder |
 | `elementor/post-journal.json` | Template de post do Journal | Importar no Theme Builder |
 | `elementor/carrinho-woocommerce.json` | Página de carrinho | Importar e inserir na página /carrinho/ |
+| `elementor/checkout-woocommerce.json` | Finalizar compra + pedido confirmado | Importar e inserir na página /finalizar-compra/ |
 | `wordpress/mensagens-contato.php` | Painel "Mensagens" do Contato | Colar no plugin WPCode |
 
 ## 1. Quem Somos e Contato (igual à Home)
@@ -72,6 +73,15 @@ O comando gera de novo `paginas/` e `elementor/`. Header e footer saem iguais em
 4. Confira em **WooCommerce → Configurações → Avançado** se a **Página do carrinho** continua sendo essa.
 
 Cupom, frete, quantidade com − e + (atualiza sozinho) e "Concluir compra" são os do próprio WooCommerce.
+
+## 2c. Finalizar compra
+
+1. Importe `checkout-woocommerce.json` em **Templates → Templates salvos → Importar templates**.
+2. Abra a página de **Finalização de compra** (veja qual é em **WooCommerce → Configurações → Avançado → Página de finalização de compra**). Em **Modelo**, escolha **Elementor Canvas** e clique em **Editar com Elementor**.
+3. Apague o bloco de checkout que está lá. Pela pasta → **Meus modelos**, clique em **Inserir** em "Cacau Cosmo — Finalizar compra" e publique.
+4. Faça um pedido de teste. A mesma página vira **"Pedido confirmado"** depois do pagamento.
+
+Usa o checkout clássico do WooCommerce (`[woocommerce_checkout]`), compatível com gateways brasileiros (PIX, Mercado Pago, Pagar.me…) e com o plugin "Brazilian Market" (CPF/CNPJ, número, bairro).
 
 ## 3. Produtos (Coleção Cosmo: Sol, Lua, Saturno)
 

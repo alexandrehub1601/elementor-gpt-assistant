@@ -418,6 +418,92 @@ def build_carrinho():
     return export("carrinho-woocommerce", "Cacau Cosmo — Carrinho", "page", content)
 
 
+# ---- FINALIZAR COMPRA ------------------------------------------------
+CHECKOUT_HERO = """<p class="label" data-i18n="t-co-label">Finalizar compra</p>
+<h1 class="display js-co-h1" style="font-size:clamp(34px,5vw,80px);line-height:1.08;color:var(--cc-cream);text-align:center;margin-top:14px">Quase <span class="em">lá.</span></h1>
+<p class="cc-hero-sub js-co-sub">Preencha seus dados e escolha a entrega. Seu chocolate já está separado.</p>
+<nav class="cc-steps js-co-steps" aria-label="Etapas">
+  <span class="ok"><i>✓</i><a href="/carrinho/"><em data-i18n="t-co-s1">Carrinho</em></a></span><b></b>
+  <span class="on"><i>2</i><em data-i18n="t-co-s2">Dados e entrega</em></span><b></b>
+  <span><i>3</i><em data-i18n="t-co-s3">Confirmação</em></span>
+</nav>"""
+
+CHECKOUT_JS = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
+  't-co-label': 'Checkout', 't-co-s1': 'Cart', 't-co-s2': 'Details &amp; shipping', 't-co-s3': 'Confirmation'
+});
+/* ===== FINALIZAR COMPRA =================================== */
+(function(){
+  var root=document.querySelector('.cc-co'); if(!root) return;
+  var en=document.documentElement.lang==='en';
+  var t=function(pt,e){return en?e:pt};
+  var h1=document.querySelector('.js-co-h1'), sub=document.querySelector('.js-co-sub');
+
+  /* pedido recebido: muda o topo */
+  if(root.querySelector('.woocommerce-order')||document.body.classList.contains('woocommerce-order-received')){
+    if(h1) h1.innerHTML=t('Pedido <span class="em">confirmado.</span>','Order <span class="em">confirmed.</span>');
+    if(sub) sub.textContent=t('Obrigada! Enviamos os detalhes para o seu e-mail.','Thank you! We sent the details to your email.');
+    var st=document.querySelectorAll('.js-co-steps span');
+    st.forEach(function(s,i){ s.className='ok'; s.querySelector('i').textContent='✓'; });
+  } else if(sub){
+    sub.textContent=t('Preencha seus dados e escolha a entrega. Seu chocolate já está separado.','Fill in your details and choose shipping. Your chocolate is already set aside.');
+    if(h1&&en) h1.innerHTML='Almost <span class="em">there.</span>';
+  }
+
+  /* miniaturas no resumo do pedido (Store API do WooCommerce) */
+  var thumbs=null;
+  function addThumbs(){
+    if(!thumbs) return;
+    root.querySelectorAll('#order_review td.product-name').forEach(function(td){
+      if(td.querySelector('.cc-thumb')) return;
+      var nome=(td.childNodes[0]&&td.childNodes[0].textContent||td.textContent).trim().toLowerCase();
+      for(var k in thumbs){ if(nome.indexOf(k)===0){
+        var img=document.createElement('img'); img.className='cc-thumb'; img.alt=''; img.src=thumbs[k];
+        td.insertBefore(img,td.firstChild); break; } }
+    });
+  }
+  if(window.fetch&&root.querySelector('#order_review')){
+    fetch('/wp-json/wc/store/v1/cart',{credentials:'same-origin'}).then(function(r){return r.ok?r.json():null}).then(function(d){
+      if(!d||!d.items) return; thumbs={};
+      d.items.forEach(function(it){
+        var im=it.images&&it.images[0]; if(!im) return;
+        var tmp=document.createElement('div'); tmp.innerHTML=it.name;
+        thumbs[tmp.textContent.trim().toLowerCase()]=im.thumbnail||im.src;
+      });
+      addThumbs();
+    }).catch(function(){});
+  }
+
+  /* selo de pagamento seguro + voltar ao carrinho */
+  function extras(){
+    addThumbs();
+    var po=root.querySelector('#payment .place-order');
+    if(po&&!po.querySelector('.cc-co-safe')){
+      po.insertAdjacentHTML('beforeend','<p class="cc-co-safe"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M6 10V7a6 6 0 0 1 12 0v3M5 10h14v11H5z"/></svg>'+
+        t('Pagamento seguro e criptografado','Secure, encrypted payment')+'</p><a class="cc-co-back" href="/carrinho/">← '+t('Voltar ao carrinho','Back to cart')+'</a>');
+    }
+  }
+  extras();
+  if(window.jQuery) jQuery(document.body).on('updated_checkout payment_method_selected',extras);
+})();
+"""
+
+
+def build_checkout():
+    t = Tpl("checkout")
+    content = [t.con("cc cc-root", [
+        t.html(tpl_header(read("elementor/checkout.css")), "cc-header"),
+        t.con("phero cc-co-hero", [
+            t.html(DECO, "cc-deco"),
+            t.html(CHECKOUT_HERO),
+        ]),
+        t.con("cc-co", [
+            t.w("shortcode", {"shortcode": "[woocommerce_checkout]"}),
+        ]),
+        t.html(tpl_footer(CHECKOUT_JS), "cc-footer"),
+    ])]
+    return export("checkout-woocommerce", "Cacau Cosmo — Finalizar compra", "page", content)
+
+
 # ---- POST ------------------------------------------------------------
 SHARE_HTML = """<div class="cc-share">
   <small data-i18n="t-share">Compartilhar</small>
@@ -501,5 +587,5 @@ def build_post():
 if __name__ == "__main__":
     for slug in ("quem-somos", "contato"):
         print("ok", build_page(slug).relative_to(ROOT.parent))
-    for fn in (build_loja, build_produto, build_carrinho, build_post):
+    for fn in (build_loja, build_produto, build_carrinho, build_checkout, build_post):
         print("ok", fn().relative_to(ROOT.parent))

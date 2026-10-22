@@ -1,0 +1,93 @@
+/* ===== CONTATO ============================================= */
+.cc .contact{display:grid;grid-template-columns:.9fr 1.1fr;background:var(--cc-cream);color:var(--cc-text-dark)}
+
+/* coluna de canais */
+.cc .channels{position:relative;overflow:hidden;background:var(--cc-navy-2);color:var(--cc-cream);
+  padding:clamp(50px,6vw,100px) var(--pad);display:flex;flex-direction:column}
+.cc .channels>*:not(.stars){position:relative}
+.cc .channels h2{font-size:clamp(26px,2.8vw,44px);margin:12px 0 14px;max-width:14ch}
+.cc .channels__intro{opacity:.8;max-width:38ch;margin-bottom:clamp(30px,3.4vw,50px)}
+.cc .chan{display:grid;grid-template-columns:42px 1fr;gap:16px;align-items:start;
+  padding:20px 0;border-top:1px solid rgba(241,232,208,.14);transition:color .4s}
+.cc .chan:last-of-type{border-bottom:1px solid rgba(241,232,208,.14)}
+.cc a.chan:hover{color:var(--cc-pink)}
+.cc .chan__ic{width:42px;height:42px;border-radius:50%;border:1px solid rgba(201,168,76,.55);
+  display:grid;place-items:center;color:var(--cc-gold)}
+.cc .chan__ic svg{width:17px;height:17px}
+.cc .chan small{display:block;font-family:var(--font-body)!important;font-size:9px;letter-spacing:.3em;
+  text-transform:uppercase;opacity:.6;margin-bottom:3px}
+.cc .chan span{font-size:clamp(14px,1.1vw,17px)}
+.cc .channels__note{margin-top:auto;padding-top:40px;font-family:var(--font-display)!important;font-style:italic;
+  font-size:clamp(15px,1.2vw,18px);opacity:.82;max-width:30ch}
+
+/* formulario */
+.cc .cform{padding:clamp(50px,6vw,100px) var(--pad)}
+.cc .cform h2{font-size:clamp(26px,2.8vw,44px);margin:12px 0 clamp(26px,3vw,40px)}
+.cc .cform form{display:grid;grid-template-columns:1fr 1fr;gap:18px 22px}
+.cc .field{display:flex;flex-direction:column;gap:8px}
+.cc .field--full{grid-column:1/-1}
+.cc .field label{font-family:var(--font-body)!important;font-size:9px;letter-spacing:.3em;
+  text-transform:uppercase;font-weight:600;opacity:.7}
+.cc .field input,.cc .field select,.cc .field textarea{width:100%;background:transparent;color:var(--cc-text-dark);
+  border:0;border-bottom:1px solid rgba(0,6,46,.28);border-radius:0;padding:12px 0;
+  font-size:clamp(14px,1.05vw,16px);transition:border-color .4s;-webkit-appearance:none;appearance:none}
+.cc .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2300062E' stroke-width='1.3'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 2px center;background-size:11px;padding-right:22px;cursor:pointer}
+.cc .field textarea{min-height:140px;resize:vertical;line-height:1.6}
+.cc .field input::placeholder,.cc .field textarea::placeholder{color:rgba(0,6,46,.38)}
+.cc .field input:focus,.cc .field select:focus,.cc .field textarea:focus{outline:none;border-color:var(--cc-navy)}
+.cc .field input:user-invalid{border-color:#a3404f}
+.cc .chips{display:flex;flex-wrap:wrap;gap:8px}
+.cc .chips label{cursor:pointer;position:relative}
+.cc .chips input{position:absolute;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none}
+.cc .chips span{display:inline-block;padding:9px 16px;border:1px solid rgba(0,6,46,.25);border-radius:30px;
+  font-family:var(--font-body)!important;font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;
+  transition:background .4s,color .4s,border-color .4s}
+.cc .chips label:hover span{border-color:var(--cc-navy)}
+.cc .chips input:checked+span{background:var(--cc-navy);color:var(--cc-cream);border-color:var(--cc-navy)}
+.cc .chips input:focus-visible+span{outline:2px solid var(--cc-gold);outline-offset:2px}
+.cc .consent{grid-column:1/-1;display:flex;gap:10px;align-items:flex-start;font-size:12px;opacity:.75}
+.cc .consent input{margin-top:4px;accent-color:var(--cc-navy)}
+.cc .consent a{text-decoration:underline}
+.cc .actions{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
+.cc .actions .btn svg{width:16px;height:16px}
+.cc .hp{position:absolute;left:-9999px}
+.cc .fnote{grid-column:1/-1;font-size:12px;min-height:1.4em;opacity:.8}
+.cc .fnote.ok{color:#2f6b45;opacity:1}
+.cc .fnote.err{color:#a3404f;opacity:1}
+
+/* FAQ */
+.cc .faq{background:var(--cc-paper);color:var(--cc-text-dark);padding:clamp(70px,8vw,130px) var(--pad)}
+.cc .faq__in{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,5vw,90px);max-width:var(--wrap);margin:0 auto}
+.cc .faq h2{font-size:clamp(28px,3.2vw,50px);margin-top:12px;max-width:12ch}
+.cc .faq__aside p{margin-top:16px;opacity:.75;max-width:32ch}
+.cc .faq details{border-top:1px solid rgba(0,6,46,.16)}
+.cc .faq details:last-child{border-bottom:1px solid rgba(0,6,46,.16)}
+.cc .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;align-items:center;
+  padding:22px 0;font-family:var(--font-display)!important;font-weight:600;font-size:clamp(17px,1.4vw,22px)}
+.cc .faq summary::-webkit-details-marker{display:none}
+.cc .faq summary i{flex:none;width:28px;height:28px;border-radius:50%;border:1px solid rgba(0,6,46,.3);position:relative;
+  transition:transform .5s var(--ease),background .4s}
+.cc .faq summary i::before,.cc .faq summary i::after{content:'';position:absolute;left:50%;top:50%;width:10px;height:1px;
+  background:currentColor;transform:translate(-50%,-50%)}
+.cc .faq summary i::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .5s var(--ease)}
+.cc .faq details[open] summary i{background:var(--cc-navy);color:var(--cc-cream);border-color:var(--cc-navy)}
+.cc .faq details[open] summary i::after{transform:translate(-50%,-50%) rotate(0)}
+.cc .faq details p{padding:0 50px 24px 0;opacity:.8;max-width:60ch}
+
+/* faixa final */
+.cc .ig{position:relative;overflow:hidden;background:var(--cc-navy);color:var(--cc-cream);text-align:center;
+  padding:clamp(60px,7vw,110px) var(--pad)}
+.cc .ig>*:not(.stars){position:relative}
+.cc .ig h2{font-size:clamp(26px,3.4vw,54px);margin:12px 0 22px}
+.cc .ig .btn{color:var(--cc-cream)}
+.cc .ig .btn:hover{color:var(--cc-navy)}
+
+@media (max-width:900px){
+  .cc .contact,.cc .faq__in{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .cc .cform form{grid-template-columns:1fr}
+  .cc .actions .btn{width:100%}
+  .cc .faq details p{padding-right:0}
+}

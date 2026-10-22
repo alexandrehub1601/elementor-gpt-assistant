@@ -1,0 +1,116 @@
+/* ===== AJUSTES ELEMENTOR (templates do Theme Builder) ======= */
+/* Zera paddings/gaps padrão dos containers dentro do layout Cacau Cosmo */
+body.cc-tpl{background:var(--cc-cream)}
+.elementor .cc-root.e-con,.elementor .cc-root .e-con{--padding-top:0px;--padding-right:0px;--padding-bottom:0px;--padding-left:0px;
+  --gap:0px;--row-gap:0px;--column-gap:0px;--margin-top:0px;--margin-bottom:0px}
+.elementor .cc-root .elementor-widget{margin-bottom:0!important}
+.elementor .cc-root .elementor-widget-html{width:100%}
+.cc-root{color:var(--cc-text-dark)}
+
+/* Hero: a camada de estrelas/orbe ocupa o fundo todo */
+.elementor .cc-root .phero.e-con{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:calc(var(--bar) + 6vh) var(--pad) 9vh!important;min-height:clamp(360px,54svh,600px)}
+.elementor .cc-root .phero>.elementor-element{position:relative;z-index:1;width:auto;max-width:100%}
+.elementor .cc-root .phero>.cc-deco{position:absolute!important;inset:0;z-index:0;width:100%!important;height:100%;margin:0!important}
+.elementor .cc-root .phero>.cc-deco>.elementor-widget-container,
+.elementor .cc-root .phero>.cc-deco .cc-deco__in{position:absolute;inset:0}
+.cc-root .phero .elementor-heading-title{color:var(--cc-cream)!important}
+.cc-root .phero h1.elementor-heading-title,.cc-root .phero .product_title{font-family:var(--font-display)!important;font-weight:700!important;
+  line-height:1.08!important;letter-spacing:-.015em;font-size:clamp(36px,5.6vw,88px)!important;text-align:center;max-width:16ch;margin:clamp(12px,1.5vw,20px) auto 0!important}
+.cc-root .cc-label .elementor-heading-title,.cc-root .cc-label{font-family:var(--font-mono)!important;font-size:clamp(9px,.66vw,11px)!important;
+  letter-spacing:.36em!important;text-transform:uppercase!important;font-weight:600!important;color:var(--cc-gold)!important;line-height:1.5!important}
+.cc-root .cc-label a{color:inherit!important}
+.cc-root .cc-hero-sub,.cc-root .cc-hero-sub p,.cc-root .phero .term-description p,.cc-root .phero .page-description p{
+  font-family:var(--font-mono)!important;color:var(--cc-cream);font-size:clamp(13px,1.1vw,17px);opacity:.82;
+  max-width:46ch;margin:clamp(14px,1.6vw,22px) auto 0;text-align:center}
+
+/* Botões WooCommerce no estilo da marca */
+.cc-root .button,.cc-root button.button,.cc-root a.button,.cc-root input.button,.cc-root .single_add_to_cart_button,
+.cc-root #respond input#submit{font-family:var(--font-body)!important;font-size:10px!important;letter-spacing:.24em!important;
+  text-transform:uppercase!important;font-weight:600!important;border-radius:0!important;
+  background:var(--cc-navy)!important;color:var(--cc-cream)!important;border:1px solid var(--cc-navy)!important;
+  padding:16px 26px!important;line-height:1.2!important;transition:background .5s var(--ease),color .4s,border-color .4s!important;
+  box-shadow:none!important;text-shadow:none!important}
+.cc-root .button:hover,.cc-root .single_add_to_cart_button:hover,.cc-root #respond input#submit:hover{
+  background:var(--cc-gold)!important;border-color:var(--cc-gold)!important;color:var(--cc-navy)!important}
+.cc-root .button.loading{opacity:.6}
+.cc-root .button.added::after{font-family:inherit!important;content:' ✓'!important;margin-left:6px}
+.cc-root a.added_to_cart{display:inline-block;margin-top:10px;font-family:var(--font-body)!important;font-size:9px;letter-spacing:.24em;
+  text-transform:uppercase;border-bottom:1px solid currentColor;color:var(--cc-brown)}
+
+/* Avisos */
+.cc-root .woocommerce-message,.cc-root .woocommerce-info,.cc-root .woocommerce-error,.cc-root .woocommerce-notices-wrapper>*{
+  background:var(--cc-paper)!important;color:var(--cc-text-dark)!important;border:0!important;border-left:3px solid var(--cc-gold)!important;
+  border-radius:0!important;font-family:var(--font-mono)!important;font-size:14px;padding:16px 20px 16px 50px!important;margin:0 0 24px!important}
+.cc-root .woocommerce-error{border-left-color:#a3404f!important}
+.cc-root .woocommerce-message::before,.cc-root .woocommerce-info::before{color:var(--cc-gold)!important}
+.cc-root .woocommerce-message .button{padding:10px 16px!important;float:right}
+
+/* Preço */
+.cc-root .price,.cc-root .price .amount{font-family:var(--font-mono)!important;color:var(--cc-text-dark)!important}
+.cc-root .price del{opacity:.45;font-size:.85em;margin-right:6px}
+.cc-root .price ins{text-decoration:none;font-weight:400}
+.cc-root .onsale{background:var(--cc-pink)!important;color:var(--cc-navy)!important;border-radius:30px!important;min-height:0!important;
+  min-width:0!important;line-height:1!important;padding:8px 12px!important;font-family:var(--font-body)!important;font-size:9px!important;
+  letter-spacing:.2em;text-transform:uppercase;font-weight:600!important;top:14px!important;left:14px!important;right:auto!important;margin:0!important}
+.cc-root .star-rating{color:var(--cc-gold)!important}
+
+/* ===== CARTÃO DE PRODUTO (loja, relacionados, upsell) ===== */
+.cc-root ul.products{display:grid!important;grid-template-columns:repeat(var(--cc-cols,3),minmax(0,1fr))!important;
+  gap:clamp(30px,3.4vw,56px) clamp(16px,2vw,32px)!important;margin:0!important;padding:0!important;list-style:none}
+.cc-root ul.products::before,.cc-root ul.products::after{display:none!important}
+.cc-root ul.products li.product{width:auto!important;margin:0!important;padding:0!important;float:none!important;
+  position:relative;display:flex!important;flex-direction:column;text-align:left!important;background:transparent}
+.cc-root ul.products li.product a.woocommerce-LoopProduct-link{display:flex;flex-direction:column;color:inherit}
+.cc-root ul.products li.product a img{width:100%!important;aspect-ratio:4/5;object-fit:cover;margin:0 0 18px!important;
+  background:var(--cc-blush);transition:transform 1.2s var(--ease),filter .6s;box-shadow:none!important}
+.cc-root ul.products li.product .cc-imgbox,.cc-root ul.products li.product a.woocommerce-LoopProduct-link{overflow:hidden}
+.cc-root ul.products li.product:hover a img{transform:scale(1.035)}
+.cc-root ul.products li.product .woocommerce-loop-product__title{font-family:var(--font-display)!important;font-weight:700!important;
+  font-size:clamp(18px,1.45vw,23px)!important;line-height:1.2!important;color:var(--cc-text-dark)!important;padding:0!important;margin:0 0 6px!important}
+.cc-root ul.products li.product .price{font-size:clamp(14px,1.05vw,16px)!important;margin:0 0 16px!important;display:block}
+.cc-root ul.products li.product .star-rating{margin:0 0 8px!important;font-size:.75em}
+.cc-root ul.products li.product .button{margin-top:auto!important;width:100%;text-align:center;
+  background:transparent!important;color:var(--cc-navy)!important;border-color:rgba(0,6,46,.35)!important}
+.cc-root ul.products li.product .button:hover{background:var(--cc-navy)!important;color:var(--cc-cream)!important;border-color:var(--cc-navy)!important}
+.cc-root ul.products li.product .cc-cat{font-family:var(--font-body);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--cc-brown);opacity:.7;margin-bottom:6px}
+
+/* Ordenação, contagem e paginação */
+.cc-root .woocommerce-result-count{font-family:var(--font-body)!important;font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+  opacity:.6;margin:0 0 clamp(28px,3vw,44px)!important;line-height:46px!important}
+.cc-root .woocommerce-ordering{margin:0 0 clamp(28px,3vw,44px)!important}
+.cc-root .woocommerce-ordering select{font-family:var(--font-body)!important;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2300062E' stroke-width='1.3'/%3E%3C/svg%3E") no-repeat right 14px center/10px;
+  border:1px solid rgba(0,6,46,.28);border-radius:0;padding:14px 40px 14px 16px;color:var(--cc-text-dark);-webkit-appearance:none;appearance:none;cursor:pointer}
+.cc-root nav.woocommerce-pagination{margin-top:clamp(40px,5vw,80px)}
+.cc-root nav.woocommerce-pagination ul{border:0!important;display:flex!important;justify-content:center;gap:8px}
+.cc-root nav.woocommerce-pagination ul li{border:0!important}
+.cc-root nav.woocommerce-pagination ul li a,.cc-root nav.woocommerce-pagination ul li span{width:44px;height:44px;display:grid!important;place-items:center;
+  padding:0!important;border:1px solid rgba(0,6,46,.2);border-radius:50%;font-family:var(--font-body)!important;font-size:12px;color:var(--cc-text-dark)}
+.cc-root nav.woocommerce-pagination ul li span.current,.cc-root nav.woocommerce-pagination ul li a:hover{background:var(--cc-navy)!important;color:var(--cc-cream)!important;border-color:var(--cc-navy)}
+.cc-root .woocommerce-info.woocommerce-no-products-found,.cc-root .elementor-products-nothing-found{text-align:center}
+
+/* Breadcrumb */
+.cc-root .woocommerce-breadcrumb{font-family:var(--font-body)!important;font-size:9px!important;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--cc-text-dark)!important;opacity:.55;margin:0!important}
+.cc-root .woocommerce-breadcrumb a{color:inherit!important}
+.cc-root .woocommerce-breadcrumb a:hover{color:var(--cc-brown)!important}
+
+/* Faixas estáticas reutilizadas */
+.cc-band{position:relative;overflow:hidden}
+.cc-band>*:not(.stars){position:relative}
+.cc-trust{background:var(--cc-paper);color:var(--cc-text-dark);padding:clamp(40px,4.6vw,70px) var(--pad)}
+.cc-trust__grid{max-width:var(--wrap);margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,50px)}
+.cc-trust__item{display:grid;grid-template-columns:46px 1fr;gap:16px;align-items:start}
+.cc-trust__item svg{width:46px;height:46px;color:var(--cc-gold)}
+.cc-trust__item h3{font-family:var(--font-display)!important;font-size:clamp(17px,1.3vw,20px);margin:0 0 4px;font-weight:700}
+.cc-trust__item p{margin:0;font-size:13px;opacity:.75}
+.cc-circle{background:var(--cc-navy);color:var(--cc-cream);text-align:center;padding:clamp(60px,7vw,110px) var(--pad)}
+.cc-circle h2{font-family:var(--font-display)!important;font-weight:700;font-size:clamp(26px,3.2vw,50px);line-height:1.1;margin:12px auto 12px;max-width:18ch}
+.cc-circle p{max-width:44ch;margin:0 auto;opacity:.8}
+.cc-circle .btn{margin-top:clamp(22px,2.4vw,32px)}
+
+@media (max-width:1024px){.cc-root ul.products{--cc-cols:2!important}}
+@media (max-width:900px){.cc-trust__grid{grid-template-columns:1fr}}
+@media (max-width:480px){.cc-root ul.products{gap:30px 12px!important}
+  .cc-root ul.products li.product .button{padding:13px 10px!important;letter-spacing:.14em!important}}

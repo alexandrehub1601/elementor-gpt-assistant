@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quem Somos — Cacau Cosmo</title>
+<meta name="description" content="Conheça a Cacau Cosmo: chocolate bean-to-bar brasileiro feito em pequenos lotes, nascido na cozinha como forma de cuidado.">
+<meta property="og:title" content="Quem Somos — Cacau Cosmo">
+<meta property="og:description" content="Conheça a Cacau Cosmo: chocolate bean-to-bar brasileiro feito em pequenos lotes, nascido na cozinha como forma de cuidado.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://cacaucosmo.com.br/quem-somos/">
+<meta property="og:image" content="https://cacaucosmo.com.br/wp-content/uploads/2026/08/mark-bege-transparente.png">
+<meta name="theme-color" content="#00062E">
+
+<!--
+=====================================================================
+CACAU COSMO — QUEM SOMOS
+Cole este arquivo inteiro num widget HTML do Elementor, numa página com
+layout "Elementor Canvas" (igual à Home). Header, menu e rodapé já
+estão incluídos. Fotos: procure por [ TROCAR FOTO ].
+=====================================================================
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://cacaucosmo.com.br" crossorigin>
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Bold.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="https://cacaucosmo.com.br/wp-content/uploads/fonts/Pinopolis.woff2">
+
+<style>
+/* ===== FONTES PROPRIAS ===================================== */
+@font-face{font-family:'Recoleta';
+  src:url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Light.woff2') format('woff2'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Light.ttf') format('truetype');
+  font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'Recoleta';
+  src:url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Regular.woff2') format('woff2'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Regular.ttf') format('truetype');
+  font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Recoleta';
+  src:url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20SemiBold.woff2') format('woff2'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20SemiBold.ttf') format('truetype');
+  font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Recoleta';
+  src:url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Bold.woff2') format('woff2'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Bold.ttf') format('truetype');
+  font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Pinopolis';
+  src:url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Pinopolis.woff2') format('woff2'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Pinopolis.woff') format('woff'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/PINOPOLIS.TTF') format('truetype');
+  font-weight:400;font-style:normal;font-display:swap}
+
+/* ===== TOKENS ============================================== */
+:root{
+  --cc-navy:#00062E; --cc-navy-2:#0A1240;
+  --cc-pink:#D293A8; --cc-blush:#E9D9D2;
+  --cc-cream:#F1E8D0; --cc-paper:#EFE8DC;
+  --cc-gold:#C9A84C;  --cc-brown:#4A2C1D;
+  --cc-text-light:#F1E8D0; --cc-text-dark:#00062E;
+
+  --font-display:'Recoleta',Georgia,'Times New Roman',serif;
+  --font-body:'Syne','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --font-mono:'Pinopolis','Iowan Old Style','Palatino Linotype',Georgia,serif;
+
+  --pad:clamp(22px,4.4vw,74px);
+  --bar:clamp(76px,7vw,108px);
+  --wrap:1240px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+/* ===== BASE ================================================ */
+.cc *,.cc *::before,.cc *::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--font-mono);background:var(--cc-navy);color:var(--cc-text-light);
+  line-height:1.7;overflow-x:hidden;font-size:clamp(14px,1vw,16px)}
+.cc h1,.cc h2,.cc h3,.cc h4,.cc p,.cc ul,.cc ol,.cc figure,.cc blockquote{margin:0;padding:0}
+.cc img{display:block;max-width:100%;height:auto}
+.cc a{color:inherit;text-decoration:none}
+.cc button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+.cc :focus-visible{outline:2px solid var(--cc-gold);outline-offset:3px}
+.cc [hidden],.drawer [hidden]{display:none!important}
+::selection{background:var(--cc-pink);color:var(--cc-navy)}
+
+/* TITULOS Recoleta / CORPO Pinopolis / CABECALHO-RODAPE Syne */
+.cc h1,.cc h2,.cc h3,.cc h4,.cc .display,.cc .em{font-family:var(--font-display)!important}
+.cc,.cc p,.cc li,.cc .label,.cc .cta,.cc input,.cc textarea,.cc select{font-family:var(--font-mono)}
+.topbar,.topbar *,.drawer,.drawer *,.footer,.footer *,.cc .ui,.cc .ui *{font-family:var(--font-body)!important}
+.footer .footer__claim,.drawer .nav a,.drawer .drawer__quote p{font-family:var(--font-display)!important}
+
+.cc .label{font-size:clamp(9px,.66vw,11px);letter-spacing:.36em;text-transform:uppercase;
+  font-weight:600;color:var(--cc-gold);text-indent:.36em}
+.cc .display{font-weight:700;line-height:1.08;letter-spacing:-.015em}
+.cc .em{font-style:italic;color:var(--cc-pink)}
+.cc .wrap{max-width:var(--wrap);margin:0 auto;width:100%}
+
+.rv{opacity:0;transform:translateY(22px);
+  transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}}
+/* No editor do Elementor tudo aparece sem animacao */
+.elementor-editor-active .rv{opacity:1;transform:none}
+
+.stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+
+/* ===== BOTOES / LINKS ====================================== */
+.cc .cta{display:inline-flex;align-items:center;gap:11px;margin-top:clamp(16px,1.9vw,26px);
+  font-size:10px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;
+  padding-bottom:7px;border-bottom:1px solid currentColor;width:fit-content;
+  transition:gap .5s var(--ease)}
+.cc .cta:hover{gap:20px}
+.cc .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--cc-navy);color:var(--cc-cream);font-family:var(--font-body)!important;
+  font-size:10px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;
+  padding:17px 30px;border:1px solid var(--cc-navy);transition:background .5s var(--ease),color .5s,border-color .5s}
+.cc .btn:hover{background:var(--cc-gold);border-color:var(--cc-gold);color:var(--cc-navy)}
+.cc .btn--pink{background:var(--cc-pink);border-color:var(--cc-pink);color:var(--cc-navy)}
+.cc .btn--ghost{background:transparent;color:currentColor;border-color:currentColor}
+
+/* ===== TOPO FIXO =========================================== */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:9990;height:var(--bar);
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  padding:0 var(--pad);transition:background .6s var(--ease);color:var(--cc-cream)}
+.admin-bar .topbar{top:32px}
+.topbar.solid{background:rgba(0,6,46,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(241,232,208,.1)}
+.topbar button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.topbar a{color:inherit;text-decoration:none}
+.burger{display:flex;flex-direction:column;gap:5px;padding:10px!important;margin-left:-10px;justify-self:start}
+.burger span{display:block;width:24px;height:1px;background:var(--cc-cream);
+  transition:transform .5s var(--ease)}
+.burger:hover span:nth-child(1){transform:translateX(4px)}
+.burger:hover span:nth-child(3){transform:translateX(-4px)}
+
+.brand{display:flex;flex-direction:column;align-items:center;gap:7px;justify-self:center;color:var(--cc-cream)}
+.brand img,.brand svg{width:clamp(38px,3vw,48px);height:auto;object-fit:contain;display:block}
+.brand b{font-weight:500;font-size:clamp(8px,.62vw,10px);letter-spacing:.38em;
+  text-transform:uppercase;color:var(--cc-cream);text-indent:.38em;white-space:nowrap}
+
+.util{display:flex;align-items:center;gap:clamp(12px,1.6vw,26px);justify-self:end}
+.lang{display:flex;gap:10px;font-size:10px;letter-spacing:.2em}
+.lang button{opacity:.5;transition:opacity .4s;padding:0}
+.lang button.on,.lang button:hover{opacity:1;color:var(--cc-gold)}
+.cart{opacity:.85;transition:opacity .4s;display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.14em}
+.cart:hover{opacity:1}
+.cart svg{width:17px;height:17px;color:var(--cc-cream)}
+.cart__n{min-width:16px;height:16px;border-radius:8px;background:var(--cc-pink);color:var(--cc-navy);
+  font-size:9px;font-weight:700;display:none;align-items:center;justify-content:center;padding:0 4px;letter-spacing:0}
+.cart__n.on{display:inline-flex}
+
+/* ===== MENU LATERAL ======================================== */
+.scrim{position:fixed;inset:0;z-index:9995;background:rgba(0,6,46,.6);backdrop-filter:blur(3px);
+  opacity:0;visibility:hidden;transition:opacity .7s var(--ease),visibility .7s}
+.scrim.open{opacity:1;visibility:visible}
+
+.drawer{position:fixed;top:0;right:0;z-index:9999;height:100dvh;width:32%;min-width:400px;
+  background:var(--cc-navy);color:var(--cc-cream);transform:translateX(100%);transition:transform .85s var(--ease);
+  display:flex;flex-direction:column;padding:clamp(26px,2.6vw,40px) clamp(30px,3.4vw,58px);
+  border-left:1px solid rgba(241,232,208,.12);overflow:hidden auto;box-sizing:border-box}
+.drawer *{box-sizing:border-box}
+.drawer a{color:inherit;text-decoration:none}
+.drawer button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.drawer p{margin:0}
+.drawer.open{transform:none}
+.drawer .stars{opacity:.55}
+.drawer__top{display:flex;align-items:flex-start;justify-content:space-between;position:relative}
+.close{font-size:24px!important;line-height:1;padding:10px!important;margin:-10px;transition:transform .5s var(--ease)}
+.close:hover{transform:rotate(90deg)}
+
+.nav{display:flex;flex-direction:column;gap:clamp(8px,1vw,14px);
+  padding:clamp(30px,5vh,62px) 0 0;position:relative}
+.nav a{font-weight:700;font-size:clamp(22px,2vw,32px);
+  color:var(--cc-cream);letter-spacing:.04em;opacity:0;transform:translateX(18px);
+  display:flex;align-items:baseline;gap:14px;line-height:1.3;
+  transition:opacity .7s var(--ease),transform .7s var(--ease),color .4s}
+.drawer.open .nav a{opacity:1;transform:none}
+.drawer.open .nav a:nth-child(1){transition-delay:.16s}
+.drawer.open .nav a:nth-child(2){transition-delay:.21s}
+.drawer.open .nav a:nth-child(3){transition-delay:.26s}
+.drawer.open .nav a:nth-child(4){transition-delay:.31s}
+.drawer.open .nav a:nth-child(5){transition-delay:.36s}
+.drawer.open .nav a:nth-child(6){transition-delay:.41s}
+.nav a:hover,.nav a[aria-current="page"]{color:var(--cc-pink)}
+
+.drawer__rule{width:64px;height:1px;background:rgba(241,232,208,.3);
+  margin:clamp(26px,3vw,40px) 0;position:relative}
+.btn-circle{display:block;text-align:center;background:var(--cc-pink);color:var(--cc-navy)!important;
+  font-size:10px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;
+  padding:16px 20px;position:relative;transition:background .5s var(--ease)}
+.btn-circle:hover{background:var(--cc-gold)}
+.drawer__links{display:flex;flex-direction:column;gap:8px;margin-top:clamp(24px,2.6vw,34px);position:relative}
+.drawer__links a{font-size:10px;letter-spacing:.26em;text-transform:uppercase;opacity:.62;transition:opacity .4s}
+.drawer__links a:hover{opacity:1}
+.drawer__quote{margin-top:auto;padding-top:40px;position:relative}
+.drawer__quote p{font-style:italic;font-size:clamp(15px,1.3vw,19px);line-height:1.6;color:var(--cc-cream);opacity:.9}
+.drawer__lang{display:flex;gap:14px;font-size:10px;letter-spacing:.22em;
+  margin-top:clamp(22px,2.4vw,32px);position:relative}
+.drawer__lang button{opacity:.5;transition:opacity .4s}
+.drawer__lang button.on{opacity:1;border-bottom:1px solid var(--cc-gold);padding-bottom:3px}
+
+/* ===== HERO DE PAGINA INTERNA ============================== */
+.cc .phero{position:relative;overflow:hidden;background:var(--cc-navy);color:var(--cc-cream);
+  min-height:clamp(380px,58svh,640px);display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:calc(var(--bar) + 6vh) var(--pad) 9vh}
+.cc .phero .orb{position:absolute;right:-14%;top:4%;width:min(54vw,700px);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(38% 38% at 34% 30%,rgba(210,147,168,.22) 0%,rgba(74,44,29,.20) 45%,rgba(0,6,46,0) 72%);
+  pointer-events:none}
+.cc .phero .orb::after{content:'';position:absolute;inset:0;border-radius:50%;border:1px solid rgba(210,147,168,.13)}
+.cc .phero>*:not(.stars):not(.orb){position:relative}
+.cc .phero h1{font-size:clamp(36px,5.8vw,92px);max-width:16ch;margin-top:clamp(14px,1.7vw,22px)}
+.cc .phero__sub{margin-top:clamp(16px,1.8vw,24px);font-size:clamp(13px,1.1vw,17px);opacity:.82;max-width:44ch}
+.cc .crumbs{position:absolute!important;bottom:clamp(20px,3.4vh,38px);left:50%;transform:translateX(-50%);
+  font-family:var(--font-body)!important;font-size:9px;letter-spacing:.3em;text-transform:uppercase;opacity:.55;white-space:nowrap}
+.cc .crumbs a:hover{color:var(--cc-gold)}
+
+/* ===== FOOTER ============================================== */
+.footer{background:var(--cc-paper);color:var(--cc-text-dark);
+  padding:clamp(20px,2.2vw,34px) var(--pad);
+  display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;
+  gap:clamp(18px,3vw,50px);border-top:1px solid rgba(0,6,46,.1);box-sizing:border-box}
+.footer *{box-sizing:border-box}
+.footer a{color:inherit;text-decoration:none}
+.footer p{margin:0}
+.footer__brand{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--cc-navy)}
+.footer__brand img,.footer__brand svg{width:96px;height:auto;object-fit:contain;display:block}
+.footer__nav{display:flex;gap:clamp(14px,1.8vw,28px);flex-wrap:wrap;justify-self:center}
+.footer__nav a{font-size:10px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;opacity:.72;transition:opacity .4s,color .4s}
+.footer__nav a:hover{opacity:1;color:var(--cc-brown)}
+.footer__place{font-size:12px;opacity:.7}
+.footer__claim{font-weight:700;font-size:clamp(10px,.9vw,13px);
+  letter-spacing:.16em;text-transform:uppercase;color:var(--cc-brown)}
+.footer__right{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.footer__social{display:flex;gap:14px}
+.footer__social a{opacity:.7;transition:opacity .4s}
+.footer__social a:hover{opacity:1}
+.footer__social svg{width:15px;height:15px;color:var(--cc-navy);display:block}
+.footer__legal{grid-column:1/-1;display:flex;gap:22px;flex-wrap:wrap;
+  padding-top:16px;margin-top:6px;border-top:1px solid rgba(0,6,46,.1)}
+.footer__legal a,.footer__legal small{font-size:9px;letter-spacing:.2em;text-transform:uppercase;opacity:.5}
+.footer__legal a:hover{opacity:.9}
+
+/* ===== RESPONSIVO (comum) ================================== */
+@media (max-width:900px){
+  .drawer{width:46%;min-width:330px}
+  .footer{grid-template-columns:1fr;justify-items:center;text-align:center;gap:20px}
+  .footer__right{align-items:center}
+  .footer__nav{justify-content:center}
+}
+@media (max-width:782px){.admin-bar .topbar{top:46px}}
+@media (max-width:620px){
+  .drawer{width:100%;min-width:0;border-left:0}
+  .util .lang{display:none}
+  .cc .crumbs{white-space:normal;width:90%;text-align:center}
+}
+</style>
+
+<script>
+/* ===== FALLBACK DO LOGO ==================================== */
+function ccFallback(img){
+  var w = img.getBoundingClientRect().width || 40;
+  var s = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  s.setAttribute('viewBox','0 0 120 74');
+  s.setAttribute('aria-hidden','true');
+  s.style.width = w + 'px'; s.style.height = 'auto'; s.style.display = 'block';
+  s.style.color = 'currentColor';
+  var u = document.createElementNS('http://www.w3.org/2000/svg','use');
+  u.setAttribute('href','#cc-mark'); s.appendChild(u);
+  img.replaceWith(s);
+}
+
+</script>
+
+<style>
+/* ===== QUEM SOMOS ========================================== */
+
+/* 2 - Historia (split) */
+.cc .story{display:grid;grid-template-columns:1fr 1fr;background:var(--cc-cream);color:var(--cc-text-dark)}
+.cc .story__media{position:relative;overflow:hidden;min-height:clamp(380px,62vh,720px);background:var(--cc-brown)}
+.cc .story__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cc .artframe{position:absolute;inset:0;display:grid;place-items:center}
+.cc .artframe svg{width:min(46%,280px);height:auto}
+.cc .story__body{display:flex;flex-direction:column;justify-content:center;padding:clamp(36px,5vw,96px)}
+.cc .story__body h2{font-size:clamp(28px,3.4vw,54px);margin:14px 0 22px;max-width:14ch}
+.cc .story__body p{max-width:46ch;opacity:.84;margin-bottom:14px}
+.cc .story__body p.lead{font-family:var(--font-display)!important;font-style:italic;font-size:clamp(17px,1.5vw,23px);
+  line-height:1.5;opacity:1;color:var(--cc-brown)}
+.cc .sig{margin-top:22px;line-height:1.55}
+.cc .sig b{display:block;font-weight:400;font-size:clamp(15px,1.25vw,19px)}
+.cc .sig i{font-style:normal;font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+
+/* 3 - Manifesto */
+.cc .manifesto{position:relative;overflow:hidden;background:var(--cc-navy);color:var(--cc-cream);
+  padding:clamp(70px,9vw,150px) var(--pad);text-align:center}
+.cc .manifesto>*:not(.stars){position:relative}
+.cc .manifesto h2{font-size:clamp(30px,4vw,64px);margin:14px 0 clamp(26px,3vw,44px)}
+.cc .manifesto__lines{display:flex;flex-direction:column;gap:clamp(18px,2vw,28px);max-width:40ch;margin:0 auto}
+.cc .manifesto__lines p{font-size:clamp(15px,1.3vw,20px);opacity:.88;line-height:1.75}
+.cc .pillar{margin:clamp(30px,3.4vw,52px) auto;padding:clamp(14px,1.5vw,20px) 0;max-width:34ch;
+  border-top:1px solid rgba(201,168,76,.4);border-bottom:1px solid rgba(201,168,76,.4)}
+.cc .pillar span{font-family:var(--font-display)!important;font-weight:700;font-size:clamp(16px,1.6vw,24px);
+  color:var(--cc-gold);letter-spacing:.08em;text-transform:uppercase;display:block}
+
+/* 4 - Principios */
+.cc .values{background:var(--cc-paper);color:var(--cc-text-dark);padding:clamp(70px,8vw,130px) var(--pad)}
+.cc .values__head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;
+  margin-bottom:clamp(36px,4vw,64px)}
+.cc .values__head h2{font-size:clamp(28px,3.4vw,54px);max-width:16ch;margin-top:12px}
+.cc .values__head p{max-width:38ch;opacity:.76}
+.cc .values__grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(0,6,46,.16)}
+.cc .value{padding:clamp(26px,2.6vw,40px) clamp(18px,1.8vw,30px) 10px 0;border-right:1px solid rgba(0,6,46,.1)}
+.cc .value+.value{padding-left:clamp(18px,1.8vw,30px)}
+.cc .value:last-child{border-right:0}
+.cc .value__n{font-family:var(--font-body)!important;font-size:10px;letter-spacing:.3em;color:var(--cc-brown);opacity:.7}
+.cc .value svg{width:44px;height:44px;color:var(--cc-gold);margin:20px 0 18px;display:block}
+.cc .value h3{font-size:clamp(19px,1.6vw,25px);margin-bottom:10px}
+.cc .value p{font-size:clamp(13px,.95vw,15px);opacity:.78}
+
+/* 5 - Processo */
+.cc .process{position:relative;overflow:hidden;background:var(--cc-blush);color:var(--cc-brown);
+  padding:clamp(70px,8vw,130px) var(--pad)}
+.cc .process h2{font-size:clamp(28px,3.4vw,54px);margin:12px 0 clamp(14px,1.4vw,20px);color:var(--cc-text-dark)}
+.cc .process__intro{max-width:52ch;opacity:.82;margin-bottom:clamp(40px,4.6vw,72px)}
+.cc .steps{list-style:none;display:grid;grid-template-columns:repeat(6,1fr);gap:0;position:relative;counter-reset:s}
+.cc .steps::before{content:'';position:absolute;left:0;right:0;top:9px;height:1px;background:rgba(74,44,29,.3)}
+.cc .step{position:relative;padding:44px 18px 0 0}
+.cc .step::before{counter-increment:s;content:'';position:absolute;top:2px;left:0;width:15px;height:15px;border-radius:50%;
+  background:var(--cc-blush);border:1px solid var(--cc-brown)}
+.cc .step:last-child::before{background:var(--cc-gold);border-color:var(--cc-gold)}
+.cc .step b{display:block;font-family:var(--font-body)!important;font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+  font-weight:600;margin-bottom:10px;opacity:.7}
+.cc .step h3{font-size:clamp(18px,1.5vw,23px);color:var(--cc-text-dark);margin-bottom:8px}
+.cc .step p{font-size:clamp(12px,.92vw,14px);opacity:.84;max-width:24ch}
+
+/* 6 - Citacao */
+.cc .quote{position:relative;overflow:hidden;background:#1B1008;color:var(--cc-cream);
+  padding:clamp(80px,10vw,170px) var(--pad);text-align:center}
+.cc .quote__veil{position:absolute;inset:0;background:radial-gradient(60% 80% at 50% 50%,rgba(74,44,29,.55) 0%,rgba(20,11,6,.96) 80%)}
+.cc .quote .artframe{color:rgba(241,232,208,.08)}
+.cc .quote .artframe svg{width:min(70%,640px)}
+.cc .quote>*:not(.artframe):not(.quote__veil){position:relative}
+.cc .quote blockquote{font-family:var(--font-display)!important;font-style:italic;font-weight:400;
+  font-size:clamp(26px,3.6vw,58px);line-height:1.2;max-width:22ch;margin:18px auto 0}
+.cc .quote cite{display:block;margin-top:24px;font-style:normal;font-size:10px;letter-spacing:.3em;
+  text-transform:uppercase;opacity:.6;font-family:var(--font-body)!important}
+
+/* 7 - CTA final */
+.cc .next{display:grid;grid-template-columns:1fr 1fr}
+.cc .next__card{position:relative;overflow:hidden;padding:clamp(50px,6vw,100px) var(--pad);
+  display:flex;flex-direction:column;justify-content:center;min-height:clamp(300px,40vh,440px)}
+.cc .next__card>*:not(.stars){position:relative}
+.cc .next__card h2{font-size:clamp(26px,3vw,46px);margin:12px 0 12px;max-width:15ch}
+.cc .next__card p{max-width:38ch;opacity:.8}
+.cc .next__card--navy{background:var(--cc-navy-2);color:var(--cc-cream)}
+.cc .next__card--cream{background:var(--cc-cream);color:var(--cc-text-dark)}
+.cc .next__card .btn{margin-top:clamp(22px,2.4vw,34px);width:fit-content}
+
+@media (max-width:1100px){
+  .cc .values__grid{grid-template-columns:1fr 1fr}
+  .cc .value:nth-child(2){border-right:0}
+  .cc .value:nth-child(3){padding-left:0}
+  .cc .value:nth-child(n+3){border-top:1px solid rgba(0,6,46,.1)}
+  .cc .steps{grid-template-columns:repeat(3,1fr);row-gap:40px}
+  .cc .steps::before{display:none}
+}
+@media (max-width:900px){
+  .cc .story,.cc .next{grid-template-columns:1fr}
+  .cc .story__media{min-height:52vh}
+}
+@media (max-width:620px){
+  .cc .values__grid{grid-template-columns:1fr}
+  .cc .value,.cc .value+.value{padding-left:0;border-right:0;border-top:1px solid rgba(0,6,46,.1)}
+  .cc .steps{grid-template-columns:1fr;row-gap:0;padding-left:28px}
+  .cc .steps::before{display:block;left:7px;right:auto;top:0;bottom:0;width:1px;height:auto}
+  .cc .step{padding:0 0 30px}
+  .cc .step::before{left:-28px}
+}
+</style>
+</head>
+
+<body>
+<!-- ===== SPRITE ============================================ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="cc-mark" viewBox="0 0 120 74">
+    <path fill="currentColor" d="M52.4 37C52.4 20.6 41.3 7.2 27.4 7.2 17.6 7.2 9 13.9 4.9 23.7c3.6-12.8 13-21.8 24-21.8 15.1 0 27.4 15.7 27.4 35.1 0 19.4-12.3 35.1-27.4 35.1-11 0-20.4-9-24-21.8C9 60.1 17.6 66.8 27.4 66.8 41.3 66.8 52.4 53.4 52.4 37Z"/>
+    <path fill="currentColor" d="M67.6 37c0 16.4 11.1 29.8 25 29.8 9.8 0 18.4-6.7 22.5-16.5-3.6 12.8-13 21.8-24 21.8-15.1 0-27.4-15.7-27.4-35.1C63.7 17.6 76 1.9 91.1 1.9c11 0 20.4 9 24 21.8-4.1-9.8-12.7-16.5-22.5-16.5C78.7 7.2 67.6 20.6 67.6 37Z"/>
+  </symbol>
+  <symbol id="art-pod" viewBox="0 0 200 320">
+    <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+      <path d="M100 16c34 30 56 78 56 140s-22 110-56 148c-34-38-56-86-56-148S66 46 100 16Z"/>
+      <path d="M100 22v292M70 40c-10 34-14 70-14 114s4 80 14 114M130 40c10 34 14 70 14 114s-4 80-14 114"/>
+      <path d="M86 96c6 10 6 22 0 32M114 96c-6 10-6 22 0 32M86 176c6 10 6 22 0 32M114 176c-6 10-6 22 0 32"/>
+    </g>
+  </symbol>
+  <symbol id="art-bar" viewBox="0 0 260 150">
+    <rect x="6" y="6" width="248" height="138" rx="16" fill="none" stroke="currentColor" stroke-width="2.4"/>
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".8">
+      <path d="M56 34H38a10 10 0 0 0-10 10v22a10 10 0 0 0 10 10h18"/>
+      <path d="M92 34h18a10 10 0 0 1 10 10v22a10 10 0 0 1-10 10H92"/>
+      <path d="M164 34h-18a10 10 0 0 0-10 10v22a10 10 0 0 0 10 10h18"/>
+      <path d="M200 34h18a10 10 0 0 1 10 10v22a10 10 0 0 1-10 10h-18"/>
+      <path d="M56 96H38a10 10 0 0 0-10 10v8a10 10 0 0 0 10 10h18"/>
+      <path d="M92 96h18a10 10 0 0 1 10 10v8a10 10 0 0 1-10 10H92"/>
+      <path d="M164 96h-18a10 10 0 0 0-10 10v8a10 10 0 0 0 10 10h18"/>
+      <path d="M200 96h18a10 10 0 0 1 10 10v8a10 10 0 0 1-10 10h-18"/>
+    </g>
+  </symbol>
+  <symbol id="art-orbit" viewBox="0 0 200 200">
+    <g fill="none" stroke="currentColor" stroke-width="1.6">
+      <ellipse cx="100" cy="100" rx="88" ry="30" transform="rotate(-22 100 100)"/>
+      <ellipse cx="100" cy="100" rx="70" ry="48" transform="rotate(34 100 100)" opacity=".6"/>
+    </g>
+    <path fill="currentColor" d="M100 72c1.4 15 7.6 21.2 22.6 22.6-15 1.4-21.2 7.6-22.6 22.6-1.4-15-7.6-21.2-22.6-22.6 15-1.4 21.2-7.6 22.6-22.6Z"/>
+  </symbol>
+  <symbol id="ic-star" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M12 1c1 8.6 2.4 10 11 11-8.6 1-10 2.4-11 11-1-8.6-2.4-10-11-11 8.6-1 10-2.4 11-11Z"/>
+  </symbol>
+  <symbol id="ic-bag" viewBox="0 0 24 24">
+    <path fill="none" stroke="currentColor" stroke-width="1.4" d="M5 8h14l-1.2 13H6.2L5 8Zm3.4 0V6a3.6 3.6 0 0 1 7.2 0v2"/>
+  </symbol>
+  <symbol id="ic-ig" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.4">
+      <rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5"/><circle cx="12" cy="12" r="4"/>
+      <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/>
+    </g>
+  </symbol>
+  <symbol id="ic-mail" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6 8.5 7 8.5-7"/></g>
+  </symbol>
+  <symbol id="ic-wa" viewBox="0 0 24 24">
+    <path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" d="M4 20l1.2-3.9A8.3 8.3 0 1 1 8 19.1L4 20Z"/>
+    <path fill="currentColor" d="M9.3 8.2c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.4.5c-.1.1-.2.3 0 .5.5.9 1.3 1.6 2.2 2.1.2.1.4.1.5 0l.6-.7c.2-.2.3-.2.6-.1l1.5.7c.3.1.4.3.3.6-.2.9-1 1.6-1.9 1.6-2.7-.1-5.6-2.8-6-5.4-.1-.8.1-1.5.4-2Z"/>
+  </symbol>
+  <symbol id="ic-pin" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></g>
+  </symbol>
+</svg>
+
+
+<!-- ===== TOPO ============================================== -->
+<header class="topbar" id="topbar">
+  <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="drawer">
+    <span></span><span></span><span></span>
+  </button>
+
+  <a class="brand" href="/" aria-label="Cacau Cosmo, início">
+    <img decoding="async" src="https://cacaucosmo.com.br/wp-content/uploads/2026/08/mark-bege-transparente.png"
+         alt="" onerror="ccFallback(this)">
+    <b>Cacau Cosmo</b>
+  </a>
+
+  <div class="util">
+    <div class="lang" role="group" aria-label="Idioma">
+      <button class="on" data-lang="pt" aria-pressed="true">PT</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <a href="/carrinho/" class="cart" aria-label="Carrinho">
+      <svg viewBox="0 0 24 24"><use href="#ic-bag"></use></svg>
+      <span class="cart__n" id="cartN"></span>
+    </a>
+  </div>
+</header>
+
+
+<!-- ===== MENU LATERAL ====================================== -->
+<div class="scrim" id="scrim" hidden></div>
+
+<aside class="drawer" id="drawer" aria-label="Navegação principal" aria-hidden="true">
+  <canvas class="stars" id="starsD" data-density="6000" aria-hidden="true"></canvas>
+
+  <div class="drawer__top">
+    <span class="brand" style="align-items:flex-start">
+      <img decoding="async" src="https://cacaucosmo.com.br/wp-content/uploads/2026/08/mark-bege-transparente.png"
+           alt="Cacau Cosmo" style="width:52px" onerror="ccFallback(this)">
+      <b>Cacau Cosmo</b>
+    </span>
+    <button class="close" id="close" aria-label="Fechar menu">&times;</button>
+  </div>
+
+  <nav class="nav">
+    <a href="/" data-i18n="t-nav-home">Home</a>
+    <a href="/loja/" data-i18n="t-nav-shop">Shop</a>
+    <a href="/quem-somos/" data-i18n="t-nav-about">Quem Somos</a>
+    <a href="/journal/" data-i18n="t-nav-journal">Journal</a>
+    <a href="/contato/" data-i18n="t-contact">Contato</a>
+  </nav>
+
+  <div class="drawer__rule"></div>
+  <a class="btn-circle" href="/#circulo" data-i18n="t-btncircle">Entrar no Círculo</a>
+
+  <div class="drawer__links">
+    <a href="https://instagram.com/cacaucosmo" target="_blank" rel="noopener">Instagram</a>
+    <a href="mailto:ola@cacaucosmo.com.br">ola@cacaucosmo.com.br</a>
+  </div>
+
+  <div class="drawer__quote">
+    <p data-i18n="t-drawerquote">&ldquo;Um pequeno universo entre<br>o cacau e o cosmo.&rdquo;</p>
+    <div class="drawer__lang" role="group" aria-label="Idioma">
+      <button class="on" data-lang="pt" aria-pressed="true">PT</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</aside>
+
+
+<div class="cc">
+<main>
+<!-- ===== 1 - HERO ========================================== -->
+<section class="phero" id="topo">
+  <canvas class="stars" data-density="4600" aria-hidden="true"></canvas>
+  <div class="orb" aria-hidden="true"></div>
+  <p class="label rv" data-i18n="t-qs-kicker">Quem Somos</p>
+  <h1 class="display rv d1" data-i18n="t-qs-h1">Um pequeno universo entre o cacau e o <span class="em">cosmo.</span></h1>
+  <p class="phero__sub rv d2" data-i18n="t-qs-sub">Chocolate bean-to-bar brasileiro, feito em pequenos lotes &mdash; entre origem, ciência, ritual e transformação.</p>
+  <p class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <span data-i18n="t-nav-about">Quem Somos</span></p>
+</section>
+
+
+<!-- ===== 2 - HISTORIA ====================================== -->
+<section class="story" id="historia">
+  <div class="story__media">
+    <!-- [ TROCAR FOTO ] Nicole na cozinha / mãos com fruto aberto, luz natural
+         <img decoding="async" src="https://cacaucosmo.com.br/wp-content/uploads/2026/08/founder.jpg"
+              alt="Nicole Buffara segurando um fruto de cacau aberto" loading="lazy">
+         Ao inserir a foto, apagar a .artframe abaixo. -->
+    <div class="artframe" style="color:var(--cc-cream);
+      background:linear-gradient(150deg,#2B1B12 0%,#4A2C1D 55%,#1E120B 100%)">
+      <svg viewBox="0 0 200 320"><use href="#art-pod"></use></svg>
+    </div>
+  </div>
+
+  <div class="story__body">
+    <p class="label rv" style="color:var(--cc-brown)" data-i18n="t-qs-story-label">A história</p>
+    <h2 class="display rv d1" data-i18n="t-qs-story-h2">Começou na cozinha, como cuidado.</h2>
+    <p class="lead rv d1" data-i18n="t-qs-story-lead">&ldquo;Cacau Cosmo começou antes de existir como marca.&rdquo;</p>
+    <p class="rv d2" data-i18n="t-qs-story-p1">Começou quando passei a fazer chocolate para a minha avó, que vive com Alzheimer.
+      No alimento, encontrei uma forma de cuidado &mdash; e no cacau, um encontro entre gastronomia, natureza, ciência e ritual.</p>
+    <p class="rv d2" data-i18n="t-qs-story-p2">Minha formação em gastronomia me ensinou a transformar ingredientes.
+      O yoga, a estar presente durante o processo.</p>
+    <p class="rv d3" data-i18n="t-qs-story-p3">Porque, para mim, fazer chocolate sempre foi uma forma de cuidar.</p>
+    <div class="sig rv d3">
+      <b>Nicole Buffara</b>
+      <i data-i18n="t-qs-sig">Founder, Cacau Cosmo</i>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== 3 - MANIFESTO ===================================== -->
+<section class="manifesto" id="manifesto">
+  <canvas class="stars" data-density="5200" aria-hidden="true"></canvas>
+  <p class="label rv" data-i18n="t-qs-manif-label">Manifesto</p>
+  <h2 class="display rv d1" data-i18n="t-qs-manif-h2">Um convite a sentir mais.</h2>
+  <div class="manifesto__lines">
+    <p class="rv d1" data-i18n="t-qs-manif-p1">Vivemos rápido. Comemos rápido. Pensamos rápido.<br>
+      Cacau Cosmo nasce como um convite a sentir mais.</p>
+    <p class="rv d2" data-i18n="t-qs-manif-p2">Tudo o que é vivo tem seu tempo.<br>
+      O fruto amadurece. O cacau fermenta.<br>A matéria se transforma. E nós também.</p>
+  </div>
+  <div class="pillar rv"><span data-i18n="t-qs-pillar">O tempo é ingrediente.</span></div>
+  <div class="manifesto__lines">
+    <p class="rv" data-i18n="t-qs-manif-p3">Cacau como origem. Chocolate como ritual.<br>
+      Um pequeno universo entre o cacau e o cosmo.</p>
+  </div>
+</section>
+
+
+<!-- ===== 4 - PRINCIPIOS ==================================== -->
+<section class="values" id="principios">
+  <div class="wrap">
+    <div class="values__head">
+      <div>
+        <p class="label rv" style="color:var(--cc-brown)" data-i18n="t-qs-val-label">No que acreditamos</p>
+        <h2 class="display rv d1" data-i18n="t-qs-val-h2">Quatro coisas que não negociamos.</h2>
+      </div>
+      <p class="rv d2" data-i18n="t-qs-val-intro">Cada barra carrega escolhas feitas muito antes da embalagem &mdash; na floresta, no tempo de fermentação, na mão de quem faz.</p>
+    </div>
+
+    <div class="values__grid">
+      <article class="value rv">
+        <span class="value__n">01</span>
+        <svg viewBox="0 0 200 320"><use href="#art-pod"></use></svg>
+        <h3 data-i18n="t-qs-v1-h">Origem</h3>
+        <p data-i18n="t-qs-v1-p">Cacau de origem, respeitando as pessoas, os territórios e o tempo da natureza.</p>
+      </article>
+      <article class="value rv d1">
+        <span class="value__n">02</span>
+        <svg viewBox="0 0 260 150"><use href="#art-bar"></use></svg>
+        <h3 data-i18n="t-qs-v2-h">Pequenos lotes</h3>
+        <p data-i18n="t-qs-v2-p">Bean-to-bar: do grão à barra, feito à mão e em pequena escala, com atenção a cada etapa.</p>
+      </article>
+      <article class="value rv d2">
+        <span class="value__n">03</span>
+        <svg viewBox="0 0 200 200"><use href="#art-orbit"></use></svg>
+        <h3 data-i18n="t-qs-v3-h">Ciência &amp; curiosidade</h3>
+        <p data-i18n="t-qs-v3-p">Fermentação, torra e temperagem são química. Estudamos cada variável para revelar o que o cacau já tem.</p>
+      </article>
+      <article class="value rv d3">
+        <span class="value__n">04</span>
+        <svg viewBox="0 0 24 24"><use href="#ic-star"></use></svg>
+        <h3 data-i18n="t-qs-v4-h">Ritual</h3>
+        <p data-i18n="t-qs-v4-p">Chocolate não é pressa. É pausa, presença e cuidado &mdash; com quem faz e com quem prova.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== 5 - PROCESSO ====================================== -->
+<section class="process" id="processo">
+  <div class="wrap">
+    <p class="label rv" style="color:var(--cc-brown)" data-i18n="t-qs-proc-label">Do grão à barra</p>
+    <h2 class="display rv d1" data-i18n="t-qs-proc-h2">O caminho do cacau.</h2>
+    <p class="process__intro rv d2" data-i18n="t-qs-proc-intro">Bean-to-bar significa acompanhar o cacau desde o grão. Nada de massa pronta: cada etapa é decidida aqui.</p>
+
+    <ol class="steps">
+      <li class="step rv"><b>01</b><h3 data-i18n="t-qs-s1-h">Fruto</h3><p data-i18n="t-qs-s1-p">Colhido maduro, aberto à mão. As sementes saem envoltas em polpa.</p></li>
+      <li class="step rv d1"><b>02</b><h3 data-i18n="t-qs-s2-h">Fermentação</h3><p data-i18n="t-qs-s2-p">Dias de transformação lenta, onde nascem os precursores do sabor.</p></li>
+      <li class="step rv d1"><b>03</b><h3 data-i18n="t-qs-s3-h">Secagem</h3><p data-i18n="t-qs-s3-p">Ao sol, com paciência, até o grão estar pronto para viajar.</p></li>
+      <li class="step rv d2"><b>04</b><h3 data-i18n="t-qs-s4-h">Torra</h3><p data-i18n="t-qs-s4-p">Curvas de temperatura pensadas para cada origem.</p></li>
+      <li class="step rv d2"><b>05</b><h3 data-i18n="t-qs-s5-h">Moagem</h3><p data-i18n="t-qs-s5-p">Horas de refino até a textura ficar sedosa.</p></li>
+      <li class="step rv d3"><b>06</b><h3 data-i18n="t-qs-s6-h">Temperagem</h3><p data-i18n="t-qs-s6-p">O brilho e o estalo. A barra, enfim.</p></li>
+    </ol>
+  </div>
+</section>
+
+
+<!-- ===== 6 - CITACAO ======================================= -->
+<section class="quote">
+  <div class="artframe" aria-hidden="true"><svg viewBox="0 0 200 200"><use href="#art-orbit"></use></svg></div>
+  <div class="quote__veil" aria-hidden="true"></div>
+  <p class="label rv" data-i18n="t-qs-quote-label">Cacau Cosmo</p>
+  <blockquote class="rv d1" data-i18n="t-qs-quote">Chocolate, from another universe.</blockquote>
+  <cite class="rv d2" data-i18n="t-qs-quote-cite">Nascido no Brasil</cite>
+</section>
+
+
+<!-- ===== 7 - PROXIMOS PASSOS =============================== -->
+<section class="next">
+  <div class="next__card next__card--navy">
+    <canvas class="stars" data-density="6200" aria-hidden="true"></canvas>
+    <p class="label rv" data-i18n="t-qs-next1-label">Os chocolates</p>
+    <h2 class="display rv d1" data-i18n="t-qs-next1-h2">Prove o que o tempo fez.</h2>
+    <p class="rv d2" data-i18n="t-qs-next1-p">Barras de origem, em pequenos lotes. Quando acaba, acaba.</p>
+    <a class="btn btn--pink rv d3" href="/loja/" data-i18n="t-qs-next1-cta">Ir para a loja</a>
+  </div>
+  <div class="next__card next__card--cream">
+    <p class="label rv" style="color:var(--cc-brown)" data-i18n="t-qs-next2-label">O Círculo</p>
+    <h2 class="display rv d1" data-i18n="t-qs-next2-h2">O próximo ritual começa aqui.</h2>
+    <p class="rv d2" data-i18n="t-qs-next2-p">Pequenos lotes, cartas do Cosmo e convites para o que estamos criando.</p>
+    <a class="btn rv d3" href="/#circulo" data-i18n="t-btncircle">Entrar no Círculo</a>
+  </div>
+</section>
+
+</main>
+</div>
+
+<!-- ===== FOOTER ============================================ -->
+<footer class="footer" id="rodape">
+  <a class="footer__brand" href="/" aria-label="Cacau Cosmo">
+    <img decoding="async" loading="lazy" src="https://cacaucosmo.com.br/wp-content/uploads/2026/09/logo_cacaucosmo_navy_transparente_3600px-scaled.png"
+         alt="Cacau Cosmo" style="width:96px" onerror="ccFallback(this)">
+  </a>
+
+  <nav class="footer__nav" aria-label="Rodapé">
+    <a href="/loja/" data-i18n="t-nav-shop">Shop</a>
+    <a href="/quem-somos/" data-i18n="t-nav-about">Quem Somos</a>
+    <a href="/journal/" data-i18n="t-nav-journal">Journal</a>
+    <a href="/contato/" data-i18n="t-contact">Contato</a>
+  </nav>
+
+  <p class="footer__claim" data-i18n="t-footerclaim">O tempo é ingrediente.</p>
+
+  <div class="footer__right">
+    <div class="footer__social">
+      <a href="https://instagram.com/cacaucosmo" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><use href="#ic-ig"></use></svg>
+      </a>
+      <a href="mailto:ola@cacaucosmo.com.br" aria-label="E-mail">
+        <svg viewBox="0 0 24 24"><use href="#ic-star"></use></svg>
+      </a>
+    </div>
+    <p class="footer__place" data-i18n="t-footerplace">Rio de Janeiro, Brasil</p>
+  </div>
+
+  <div class="footer__legal">
+    <a href="/politica-de-privacidade/" data-i18n="t-privacy">Política de Privacidade</a>
+    <a href="/termos/" data-i18n="t-terms">Termos</a>
+    <small>&copy; <span class="js-ano"></span> Cacau Cosmo</small>
+  </div>
+</footer>
+
+<script>
+window.CC_DICT = {
+  't-qs-kicker':        'About us',
+  't-qs-h1':            'A small universe between cacao and the <span class="em">cosmos.</span>',
+  't-qs-sub':           'Brazilian bean-to-bar chocolate made in small batches &mdash; between origin, science, ritual and transformation.',
+  't-qs-story-label':   'The story',
+  't-qs-story-h2':      'It began in the kitchen, as care.',
+  't-qs-story-lead':    '&ldquo;Cacau Cosmo began before it existed as a brand.&rdquo;',
+  't-qs-story-p1':      'It began when I started making chocolate for my grandmother, who lives with Alzheimer’s. In food, I found a form of care &mdash; and in cacao, a meeting of gastronomy, nature, science and ritual.',
+  't-qs-story-p2':      'My training in gastronomy taught me to transform ingredients. Yoga taught me to stay present through the process.',
+  't-qs-story-p3':      'Because, for me, making chocolate has always been a way of caring.',
+  't-qs-sig':           'Founder, Cacau Cosmo',
+  't-qs-manif-label':   'Manifesto',
+  't-qs-manif-h2':      'An invitation to feel more.',
+  't-qs-manif-p1':      'We live fast. We eat fast. We think fast.<br>Cacau Cosmo is born as an invitation to feel more.',
+  't-qs-manif-p2':      'Everything alive has its own time.<br>The fruit ripens. The cacao ferments.<br>Matter transforms. And so do we.',
+  't-qs-pillar':        'Time is an ingredient.',
+  't-qs-manif-p3':      'Cacao as origin. Chocolate as ritual.<br>A small universe between cacao and cosmos.',
+  't-qs-val-label':     'What we believe',
+  't-qs-val-h2':        'Four things we don’t negotiate.',
+  't-qs-val-intro':     'Every bar carries choices made long before the wrapper &mdash; in the forest, in fermentation time, in the hands of whoever makes it.',
+  't-qs-v1-h':          'Origin',
+  't-qs-v1-p':          'Origin cacao, respecting people, territories and nature’s own time.',
+  't-qs-v2-h':          'Small batches',
+  't-qs-v2-p':          'Bean-to-bar: from bean to bar, handmade at small scale, with attention to every step.',
+  't-qs-v3-h':          'Science &amp; curiosity',
+  't-qs-v3-p':          'Fermentation, roasting and tempering are chemistry. We study every variable to reveal what cacao already holds.',
+  't-qs-v4-h':          'Ritual',
+  't-qs-v4-p':          'Chocolate is not a rush. It is pause, presence and care &mdash; for those who make it and those who taste it.',
+  't-qs-proc-label':    'Bean to bar',
+  't-qs-proc-h2':       'The path of cacao.',
+  't-qs-proc-intro':    'Bean-to-bar means following cacao from the bean. No ready-made mass: every step is decided here.',
+  't-qs-s1-h':          'Fruit',
+  't-qs-s1-p':          'Harvested ripe, opened by hand. The seeds come out wrapped in pulp.',
+  't-qs-s2-h':          'Fermentation',
+  't-qs-s2-p':          'Days of slow transformation, where flavour precursors are born.',
+  't-qs-s3-h':          'Drying',
+  't-qs-s3-p':          'In the sun, patiently, until the bean is ready to travel.',
+  't-qs-s4-h':          'Roasting',
+  't-qs-s4-p':          'Temperature curves designed for each origin.',
+  't-qs-s5-h':          'Grinding',
+  't-qs-s5-p':          'Hours of refining until the texture turns silky.',
+  't-qs-s6-h':          'Tempering',
+  't-qs-s6-p':          'The shine and the snap. The bar, at last.',
+  't-qs-quote-label':   'Cacau Cosmo',
+  't-qs-quote':         'Chocolate, from another universe.',
+  't-qs-quote-cite':    'Born in Brazil',
+  't-qs-next1-label':   'The chocolates',
+  't-qs-next1-h2':      'Taste what time has made.',
+  't-qs-next1-p':       'Origin bars, in small batches. When it’s gone, it’s gone.',
+  't-qs-next1-cta':     'Go to the shop',
+  't-qs-next2-label':   'The Circle',
+  't-qs-next2-h2':      'The next ritual begins here.',
+  't-qs-next2-p':       'Small batches, letters from the Cosmos and invitations to what we’re creating.'
+};
+</script>
+<script>
+(function(){
+  /* ===== MENU LATERAL ====================================== */
+  var drawer=document.getElementById('drawer'), scrim=document.getElementById('scrim'),
+      burger=document.getElementById('burger'), closeBtn=document.getElementById('close');
+  if(drawer&&burger){
+    var open=function(){
+      scrim.hidden=false;
+      requestAnimationFrame(function(){drawer.classList.add('open');scrim.classList.add('open')});
+      drawer.setAttribute('aria-hidden','false');
+      burger.setAttribute('aria-expanded','true');
+      document.body.style.overflow='hidden';
+      drawer.querySelector('.nav a').focus({preventScroll:true});
+    };
+    var close=function(){
+      drawer.classList.remove('open'); scrim.classList.remove('open');
+      drawer.setAttribute('aria-hidden','true');
+      burger.setAttribute('aria-expanded','false');
+      document.body.style.overflow='';
+      setTimeout(function(){scrim.hidden=true},700);
+      burger.focus({preventScroll:true});
+    };
+    burger.addEventListener('click',open);
+    closeBtn.addEventListener('click',close);
+    scrim.addEventListener('click',close);
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape'&&drawer.classList.contains('open'))close();
+    });
+    drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',close)});
+  }
+
+  /* ===== LINK DA PAGINA ATUAL ============================== */
+  var here=location.pathname.replace(/\/+$/,'')||'/';
+  document.querySelectorAll('.nav a, .footer__nav a').forEach(function(a){
+    var p=(a.getAttribute('href')||'').replace(/\/+$/,'')||'/';
+    if(p===here||(p!=='/'&&here.indexOf(p+'/')===0)) a.setAttribute('aria-current','page');
+  });
+
+  /* ===== TOPO GANHA FUNDO ================================== */
+  var bar=document.getElementById('topbar');
+  if(bar){
+    var f=function(){bar.classList.toggle('solid',window.scrollY>60)};
+    window.addEventListener('scroll',f,{passive:true}); f();
+  }
+
+  /* ===== REVEAL ============================================ */
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')})}
+  else{
+    var io=new IntersectionObserver(function(en){
+      en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+    },{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+    els.forEach(function(e){io.observe(e)});
+  }
+
+  /* ===== CAMPO ESTELAR ===================================== */
+  function paint(c){
+    var ctx=c.getContext('2d'), dpr=Math.min(window.devicePixelRatio||1,2),
+        r=c.getBoundingClientRect(), density=+c.getAttribute('data-density')||6000;
+    if(!r.width||!r.height)return;
+    c.width=r.width*dpr; c.height=r.height*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,r.width,r.height);
+    var n=Math.round(r.width*r.height/density);
+    for(var i=0;i<n;i++){
+      var x=Math.random()*r.width, y=Math.random()*r.height, m=Math.random(),
+          rad=.3+Math.pow(m,3)*1.6;
+      ctx.beginPath();
+      ctx.fillStyle = m>.95 ? 'rgba(201,168,76,.9)' : 'rgba(241,232,208,'+(.16+m*.42)+')';
+      ctx.arc(x,y,rad,0,Math.PI*2); ctx.fill();
+    }
+  }
+  function all(){document.querySelectorAll('canvas.stars').forEach(paint)}
+  if(document.readyState==='complete')all(); else window.addEventListener('load',all);
+  var t; window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(all,220)});
+  if(burger)burger.addEventListener('click',function(){setTimeout(all,140)});
+
+  /* ===== CONTADOR DO CARRINHO (WooCommerce Store API) ====== */
+  var cartN=document.getElementById('cartN');
+  function cart(){
+    if(!cartN||!window.fetch)return;
+    fetch('/wp-json/wc/store/v1/cart',{credentials:'same-origin'})
+      .then(function(r){return r.ok?r.json():null})
+      .then(function(d){
+        if(!d)return;
+        var n=d.items_count||0;
+        cartN.textContent=n; cartN.classList.toggle('on',n>0);
+      }).catch(function(){});
+  }
+  cart();
+  if(window.jQuery){jQuery(document.body).on('added_to_cart removed_from_cart updated_cart_totals',cart)}
+
+  document.querySelectorAll('.js-ano').forEach(function(e){e.textContent=new Date().getFullYear()});
+})();
+
+/* ===== IDIOMA — PT / EN ===================================== */
+(function(){
+  var STORAGE_KEY = 'cc-lang';
+  var dict = {
+    't-nav-home':    'Home',
+    't-nav-shop':    'Shop',
+    't-nav-about':   'About us',
+    't-nav-journal': 'Journal',
+    't-contact':     'Contact',
+    't-btncircle':   'Join the Circle',
+    't-drawerquote': '&ldquo;A small universe between<br>cacao and cosmos.&rdquo;',
+    't-footerplace': 'Rio de Janeiro, Brazil',
+    't-footerclaim': 'Time is an ingredient.',
+    't-privacy':     'Privacy Policy',
+    't-terms':       'Terms'
+  };
+  var extra = window.CC_DICT || {};
+  for (var k in extra) dict[k] = extra[k];
+
+  var innerEls = Array.prototype.slice.call(document.querySelectorAll('[data-i18n]'));
+  var phEls = Array.prototype.slice.call(document.querySelectorAll('[data-i18n-placeholder]'));
+  innerEls.forEach(function(el){ el.dataset.pt = el.innerHTML; });
+  phEls.forEach(function(el){ el.dataset.ptPlaceholder = el.placeholder; });
+
+  function apply(lang){
+    var isEN = lang === 'en';
+    innerEls.forEach(function(el){
+      var key = el.getAttribute('data-i18n');
+      el.innerHTML = isEN ? (dict[key] || el.dataset.pt) : el.dataset.pt;
+    });
+    phEls.forEach(function(el){
+      var key = el.getAttribute('data-i18n-placeholder');
+      el.placeholder = isEN ? (dict[key] || el.dataset.ptPlaceholder) : el.dataset.ptPlaceholder;
+    });
+    document.documentElement.lang = isEN ? 'en' : 'pt-BR';
+    document.querySelectorAll('.lang button, .drawer__lang button').forEach(function(b){
+      var on = b.getAttribute('data-lang') === lang;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    try{ localStorage.setItem(STORAGE_KEY, lang); }catch(e){}
+  }
+  document.querySelectorAll('.lang button, .drawer__lang button').forEach(function(b){
+    b.addEventListener('click', function(){ apply(b.getAttribute('data-lang')); });
+  });
+  var saved = null;
+  try{ saved = localStorage.getItem(STORAGE_KEY); }catch(e){}
+  if(saved === 'en') apply('en');
+})();
+</script>
+</body>
+</html>

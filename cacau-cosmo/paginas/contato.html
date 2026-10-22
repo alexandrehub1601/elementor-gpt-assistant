@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contato — Cacau Cosmo</title>
+<meta name="description" content="Fale com a Cacau Cosmo: pedidos, presentes corporativos, revenda, parcerias e imprensa.">
+<meta property="og:title" content="Contato — Cacau Cosmo">
+<meta property="og:description" content="Fale com a Cacau Cosmo: pedidos, presentes corporativos, revenda, parcerias e imprensa.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://cacaucosmo.com.br/contato/">
+<meta property="og:image" content="https://cacaucosmo.com.br/wp-content/uploads/2026/08/mark-bege-transparente.png">
+<meta name="theme-color" content="#00062E">
+
+<!--
+=====================================================================
+CACAU COSMO — CONTATO
+Cole este arquivo inteiro num widget HTML do Elementor, numa página com
+layout "Elementor Canvas" (igual à Home). Header, menu e rodapé já
+estão incluídos. Fotos: procure por [ TROCAR FOTO ].
+=====================================================================
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://cacaucosmo.com.br" crossorigin>
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Bold.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="https://cacaucosmo.com.br/wp-content/uploads/fonts/Pinopolis.woff2">
+
+<style>
+/* ===== FONTES PROPRIAS ===================================== */
+@font-face{font-family:'Recoleta';
+  src:url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Light.woff2') format('woff2'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Light.ttf') format('truetype');
+  font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'Recoleta';
+  src:url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Regular.woff2') format('woff2'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Regular.ttf') format('truetype');
+  font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Recoleta';
+  src:url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20SemiBold.woff2') format('woff2'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20SemiBold.ttf') format('truetype');
+  font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Recoleta';
+  src:url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Bold.woff2') format('woff2'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Bold.ttf') format('truetype');
+  font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Pinopolis';
+  src:url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Pinopolis.woff2') format('woff2'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Pinopolis.woff') format('woff'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/PINOPOLIS.TTF') format('truetype');
+  font-weight:400;font-style:normal;font-display:swap}
+
+/* ===== TOKENS ============================================== */
+:root{
+  --cc-navy:#00062E; --cc-navy-2:#0A1240;
+  --cc-pink:#D293A8; --cc-blush:#E9D9D2;
+  --cc-cream:#F1E8D0; --cc-paper:#EFE8DC;
+  --cc-gold:#C9A84C;  --cc-brown:#4A2C1D;
+  --cc-text-light:#F1E8D0; --cc-text-dark:#00062E;
+
+  --font-display:'Recoleta',Georgia,'Times New Roman',serif;
+  --font-body:'Syne','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --font-mono:'Pinopolis','Iowan Old Style','Palatino Linotype',Georgia,serif;
+
+  --pad:clamp(22px,4.4vw,74px);
+  --bar:clamp(76px,7vw,108px);
+  --wrap:1240px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+/* ===== BASE ================================================ */
+.cc *,.cc *::before,.cc *::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--font-mono);background:var(--cc-navy);color:var(--cc-text-light);
+  line-height:1.7;overflow-x:hidden;font-size:clamp(14px,1vw,16px)}
+.cc h1,.cc h2,.cc h3,.cc h4,.cc p,.cc ul,.cc ol,.cc figure,.cc blockquote{margin:0;padding:0}
+.cc img{display:block;max-width:100%;height:auto}
+.cc a{color:inherit;text-decoration:none}
+.cc button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+.cc :focus-visible{outline:2px solid var(--cc-gold);outline-offset:3px}
+.cc [hidden],.drawer [hidden]{display:none!important}
+::selection{background:var(--cc-pink);color:var(--cc-navy)}
+
+/* TITULOS Recoleta / CORPO Pinopolis / CABECALHO-RODAPE Syne */
+.cc h1,.cc h2,.cc h3,.cc h4,.cc .display,.cc .em{font-family:var(--font-display)!important}
+.cc,.cc p,.cc li,.cc .label,.cc .cta,.cc input,.cc textarea,.cc select{font-family:var(--font-mono)}
+.topbar,.topbar *,.drawer,.drawer *,.footer,.footer *,.cc .ui,.cc .ui *{font-family:var(--font-body)!important}
+.footer .footer__claim,.drawer .nav a,.drawer .drawer__quote p{font-family:var(--font-display)!important}
+
+.cc .label{font-size:clamp(9px,.66vw,11px);letter-spacing:.36em;text-transform:uppercase;
+  font-weight:600;color:var(--cc-gold);text-indent:.36em}
+.cc .display{font-weight:700;line-height:1.08;letter-spacing:-.015em}
+.cc .em{font-style:italic;color:var(--cc-pink)}
+.cc .wrap{max-width:var(--wrap);margin:0 auto;width:100%}
+
+.rv{opacity:0;transform:translateY(22px);
+  transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}}
+/* No editor do Elementor tudo aparece sem animacao */
+.elementor-editor-active .rv{opacity:1;transform:none}
+
+.stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+
+/* ===== BOTOES / LINKS ====================================== */
+.cc .cta{display:inline-flex;align-items:center;gap:11px;margin-top:clamp(16px,1.9vw,26px);
+  font-size:10px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;
+  padding-bottom:7px;border-bottom:1px solid currentColor;width:fit-content;
+  transition:gap .5s var(--ease)}
+.cc .cta:hover{gap:20px}
+.cc .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--cc-navy);color:var(--cc-cream);font-family:var(--font-body)!important;
+  font-size:10px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;
+  padding:17px 30px;border:1px solid var(--cc-navy);transition:background .5s var(--ease),color .5s,border-color .5s}
+.cc .btn:hover{background:var(--cc-gold);border-color:var(--cc-gold);color:var(--cc-navy)}
+.cc .btn--pink{background:var(--cc-pink);border-color:var(--cc-pink);color:var(--cc-navy)}
+.cc .btn--ghost{background:transparent;color:currentColor;border-color:currentColor}
+
+/* ===== TOPO FIXO =========================================== */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:9990;height:var(--bar);
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  padding:0 var(--pad);transition:background .6s var(--ease);color:var(--cc-cream)}
+.admin-bar .topbar{top:32px}
+.topbar.solid{background:rgba(0,6,46,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(241,232,208,.1)}
+.topbar button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.topbar a{color:inherit;text-decoration:none}
+.burger{display:flex;flex-direction:column;gap:5px;padding:10px!important;margin-left:-10px;justify-self:start}
+.burger span{display:block;width:24px;height:1px;background:var(--cc-cream);
+  transition:transform .5s var(--ease)}
+.burger:hover span:nth-child(1){transform:translateX(4px)}
+.burger:hover span:nth-child(3){transform:translateX(-4px)}
+
+.brand{display:flex;flex-direction:column;align-items:center;gap:7px;justify-self:center;color:var(--cc-cream)}
+.brand img,.brand svg{width:clamp(38px,3vw,48px);height:auto;object-fit:contain;display:block}
+.brand b{font-weight:500;font-size:clamp(8px,.62vw,10px);letter-spacing:.38em;
+  text-transform:uppercase;color:var(--cc-cream);text-indent:.38em;white-space:nowrap}
+
+.util{display:flex;align-items:center;gap:clamp(12px,1.6vw,26px);justify-self:end}
+.lang{display:flex;gap:10px;font-size:10px;letter-spacing:.2em}
+.lang button{opacity:.5;transition:opacity .4s;padding:0}
+.lang button.on,.lang button:hover{opacity:1;color:var(--cc-gold)}
+.cart{opacity:.85;transition:opacity .4s;display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.14em}
+.cart:hover{opacity:1}
+.cart svg{width:17px;height:17px;color:var(--cc-cream)}
+.cart__n{min-width:16px;height:16px;border-radius:8px;background:var(--cc-pink);color:var(--cc-navy);
+  font-size:9px;font-weight:700;display:none;align-items:center;justify-content:center;padding:0 4px;letter-spacing:0}
+.cart__n.on{display:inline-flex}
+
+/* ===== MENU LATERAL ======================================== */
+.scrim{position:fixed;inset:0;z-index:9995;background:rgba(0,6,46,.6);backdrop-filter:blur(3px);
+  opacity:0;visibility:hidden;transition:opacity .7s var(--ease),visibility .7s}
+.scrim.open{opacity:1;visibility:visible}
+
+.drawer{position:fixed;top:0;right:0;z-index:9999;height:100dvh;width:32%;min-width:400px;
+  background:var(--cc-navy);color:var(--cc-cream);transform:translateX(100%);transition:transform .85s var(--ease);
+  display:flex;flex-direction:column;padding:clamp(26px,2.6vw,40px) clamp(30px,3.4vw,58px);
+  border-left:1px solid rgba(241,232,208,.12);overflow:hidden auto;box-sizing:border-box}
+.drawer *{box-sizing:border-box}
+.drawer a{color:inherit;text-decoration:none}
+.drawer button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.drawer p{margin:0}
+.drawer.open{transform:none}
+.drawer .stars{opacity:.55}
+.drawer__top{display:flex;align-items:flex-start;justify-content:space-between;position:relative}
+.close{font-size:24px!important;line-height:1;padding:10px!important;margin:-10px;transition:transform .5s var(--ease)}
+.close:hover{transform:rotate(90deg)}
+
+.nav{display:flex;flex-direction:column;gap:clamp(8px,1vw,14px);
+  padding:clamp(30px,5vh,62px) 0 0;position:relative}
+.nav a{font-weight:700;font-size:clamp(22px,2vw,32px);
+  color:var(--cc-cream);letter-spacing:.04em;opacity:0;transform:translateX(18px);
+  display:flex;align-items:baseline;gap:14px;line-height:1.3;
+  transition:opacity .7s var(--ease),transform .7s var(--ease),color .4s}
+.drawer.open .nav a{opacity:1;transform:none}
+.drawer.open .nav a:nth-child(1){transition-delay:.16s}
+.drawer.open .nav a:nth-child(2){transition-delay:.21s}
+.drawer.open .nav a:nth-child(3){transition-delay:.26s}
+.drawer.open .nav a:nth-child(4){transition-delay:.31s}
+.drawer.open .nav a:nth-child(5){transition-delay:.36s}
+.drawer.open .nav a:nth-child(6){transition-delay:.41s}
+.nav a:hover,.nav a[aria-current="page"]{color:var(--cc-pink)}
+
+.drawer__rule{width:64px;height:1px;background:rgba(241,232,208,.3);
+  margin:clamp(26px,3vw,40px) 0;position:relative}
+.btn-circle{display:block;text-align:center;background:var(--cc-pink);color:var(--cc-navy)!important;
+  font-size:10px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;
+  padding:16px 20px;position:relative;transition:background .5s var(--ease)}
+.btn-circle:hover{background:var(--cc-gold)}
+.drawer__links{display:flex;flex-direction:column;gap:8px;margin-top:clamp(24px,2.6vw,34px);position:relative}
+.drawer__links a{font-size:10px;letter-spacing:.26em;text-transform:uppercase;opacity:.62;transition:opacity .4s}
+.drawer__links a:hover{opacity:1}
+.drawer__quote{margin-top:auto;padding-top:40px;position:relative}
+.drawer__quote p{font-style:italic;font-size:clamp(15px,1.3vw,19px);line-height:1.6;color:var(--cc-cream);opacity:.9}
+.drawer__lang{display:flex;gap:14px;font-size:10px;letter-spacing:.22em;
+  margin-top:clamp(22px,2.4vw,32px);position:relative}
+.drawer__lang button{opacity:.5;transition:opacity .4s}
+.drawer__lang button.on{opacity:1;border-bottom:1px solid var(--cc-gold);padding-bottom:3px}
+
+/* ===== HERO DE PAGINA INTERNA ============================== */
+.cc .phero{position:relative;overflow:hidden;background:var(--cc-navy);color:var(--cc-cream);
+  min-height:clamp(380px,58svh,640px);display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:calc(var(--bar) + 6vh) var(--pad) 9vh}
+.cc .phero .orb{position:absolute;right:-14%;top:4%;width:min(54vw,700px);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(38% 38% at 34% 30%,rgba(210,147,168,.22) 0%,rgba(74,44,29,.20) 45%,rgba(0,6,46,0) 72%);
+  pointer-events:none}
+.cc .phero .orb::after{content:'';position:absolute;inset:0;border-radius:50%;border:1px solid rgba(210,147,168,.13)}
+.cc .phero>*:not(.stars):not(.orb){position:relative}
+.cc .phero h1{font-size:clamp(36px,5.8vw,92px);max-width:16ch;margin-top:clamp(14px,1.7vw,22px)}
+.cc .phero__sub{margin-top:clamp(16px,1.8vw,24px);font-size:clamp(13px,1.1vw,17px);opacity:.82;max-width:44ch}
+.cc .crumbs{position:absolute!important;bottom:clamp(20px,3.4vh,38px);left:50%;transform:translateX(-50%);
+  font-family:var(--font-body)!important;font-size:9px;letter-spacing:.3em;text-transform:uppercase;opacity:.55;white-space:nowrap}
+.cc .crumbs a:hover{color:var(--cc-gold)}
+
+/* ===== FOOTER ============================================== */
+.footer{background:var(--cc-paper);color:var(--cc-text-dark);
+  padding:clamp(20px,2.2vw,34px) var(--pad);
+  display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;
+  gap:clamp(18px,3vw,50px);border-top:1px solid rgba(0,6,46,.1);box-sizing:border-box}
+.footer *{box-sizing:border-box}
+.footer a{color:inherit;text-decoration:none}
+.footer p{margin:0}
+.footer__brand{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--cc-navy)}
+.footer__brand img,.footer__brand svg{width:96px;height:auto;object-fit:contain;display:block}
+.footer__nav{display:flex;gap:clamp(14px,1.8vw,28px);flex-wrap:wrap;justify-self:center}
+.footer__nav a{font-size:10px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;opacity:.72;transition:opacity .4s,color .4s}
+.footer__nav a:hover{opacity:1;color:var(--cc-brown)}
+.footer__place{font-size:12px;opacity:.7}
+.footer__claim{font-weight:700;font-size:clamp(10px,.9vw,13px);
+  letter-spacing:.16em;text-transform:uppercase;color:var(--cc-brown)}
+.footer__right{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.footer__social{display:flex;gap:14px}
+.footer__social a{opacity:.7;transition:opacity .4s}
+.footer__social a:hover{opacity:1}
+.footer__social svg{width:15px;height:15px;color:var(--cc-navy);display:block}
+.footer__legal{grid-column:1/-1;display:flex;gap:22px;flex-wrap:wrap;
+  padding-top:16px;margin-top:6px;border-top:1px solid rgba(0,6,46,.1)}
+.footer__legal a,.footer__legal small{font-size:9px;letter-spacing:.2em;text-transform:uppercase;opacity:.5}
+.footer__legal a:hover{opacity:.9}
+
+/* ===== RESPONSIVO (comum) ================================== */
+@media (max-width:900px){
+  .drawer{width:46%;min-width:330px}
+  .footer{grid-template-columns:1fr;justify-items:center;text-align:center;gap:20px}
+  .footer__right{align-items:center}
+  .footer__nav{justify-content:center}
+}
+@media (max-width:782px){.admin-bar .topbar{top:46px}}
+@media (max-width:620px){
+  .drawer{width:100%;min-width:0;border-left:0}
+  .util .lang{display:none}
+  .cc .crumbs{white-space:normal;width:90%;text-align:center}
+}
+</style>
+
+<script>
+/* ===== FALLBACK DO LOGO ==================================== */
+function ccFallback(img){
+  var w = img.getBoundingClientRect().width || 40;
+  var s = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  s.setAttribute('viewBox','0 0 120 74');
+  s.setAttribute('aria-hidden','true');
+  s.style.width = w + 'px'; s.style.height = 'auto'; s.style.display = 'block';
+  s.style.color = 'currentColor';
+  var u = document.createElementNS('http://www.w3.org/2000/svg','use');
+  u.setAttribute('href','#cc-mark'); s.appendChild(u);
+  img.replaceWith(s);
+}
+
+</script>
+
+<style>
+/* ===== CONTATO ============================================= */
+.cc .contact{display:grid;grid-template-columns:.9fr 1.1fr;background:var(--cc-cream);color:var(--cc-text-dark)}
+
+/* coluna de canais */
+.cc .channels{position:relative;overflow:hidden;background:var(--cc-navy-2);color:var(--cc-cream);
+  padding:clamp(50px,6vw,100px) var(--pad);display:flex;flex-direction:column}
+.cc .channels>*:not(.stars){position:relative}
+.cc .channels h2{font-size:clamp(26px,2.8vw,44px);margin:12px 0 14px;max-width:14ch}
+.cc .channels__intro{opacity:.8;max-width:38ch;margin-bottom:clamp(30px,3.4vw,50px)}
+.cc .chan{display:grid;grid-template-columns:42px 1fr;gap:16px;align-items:start;
+  padding:20px 0;border-top:1px solid rgba(241,232,208,.14);transition:color .4s}
+.cc .chan:last-of-type{border-bottom:1px solid rgba(241,232,208,.14)}
+.cc a.chan:hover{color:var(--cc-pink)}
+.cc .chan__ic{width:42px;height:42px;border-radius:50%;border:1px solid rgba(201,168,76,.55);
+  display:grid;place-items:center;color:var(--cc-gold)}
+.cc .chan__ic svg{width:17px;height:17px}
+.cc .chan small{display:block;font-family:var(--font-body)!important;font-size:9px;letter-spacing:.3em;
+  text-transform:uppercase;opacity:.6;margin-bottom:3px}
+.cc .chan span{font-size:clamp(14px,1.1vw,17px)}
+.cc .channels__note{margin-top:auto;padding-top:40px;font-family:var(--font-display)!important;font-style:italic;
+  font-size:clamp(15px,1.2vw,18px);opacity:.82;max-width:30ch}
+
+/* formulario */
+.cc .cform{padding:clamp(50px,6vw,100px) var(--pad)}
+.cc .cform h2{font-size:clamp(26px,2.8vw,44px);margin:12px 0 clamp(26px,3vw,40px)}
+.cc .cform form{display:grid;grid-template-columns:1fr 1fr;gap:18px 22px}
+.cc .field{display:flex;flex-direction:column;gap:8px}
+.cc .field--full{grid-column:1/-1}
+.cc .field label{font-family:var(--font-body)!important;font-size:9px;letter-spacing:.3em;
+  text-transform:uppercase;font-weight:600;opacity:.7}
+.cc .field input,.cc .field select,.cc .field textarea{width:100%;background:transparent;color:var(--cc-text-dark);
+  border:0;border-bottom:1px solid rgba(0,6,46,.28);border-radius:0;padding:12px 0;
+  font-size:clamp(14px,1.05vw,16px);transition:border-color .4s;-webkit-appearance:none;appearance:none}
+.cc .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2300062E' stroke-width='1.3'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 2px center;background-size:11px;padding-right:22px;cursor:pointer}
+.cc .field textarea{min-height:140px;resize:vertical;line-height:1.6}
+.cc .field input::placeholder,.cc .field textarea::placeholder{color:rgba(0,6,46,.38)}
+.cc .field input:focus,.cc .field select:focus,.cc .field textarea:focus{outline:none;border-color:var(--cc-navy)}
+.cc .field input:user-invalid{border-color:#a3404f}
+.cc .chips{display:flex;flex-wrap:wrap;gap:8px}
+.cc .chips label{cursor:pointer;position:relative}
+.cc .chips input{position:absolute;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none}
+.cc .chips span{display:inline-block;padding:9px 16px;border:1px solid rgba(0,6,46,.25);border-radius:30px;
+  font-family:var(--font-body)!important;font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;
+  transition:background .4s,color .4s,border-color .4s}
+.cc .chips label:hover span{border-color:var(--cc-navy)}
+.cc .chips input:checked+span{background:var(--cc-navy);color:var(--cc-cream);border-color:var(--cc-navy)}
+.cc .chips input:focus-visible+span{outline:2px solid var(--cc-gold);outline-offset:2px}
+.cc .consent{grid-column:1/-1;display:flex;gap:10px;align-items:flex-start;font-size:12px;opacity:.75}
+.cc .consent input{margin-top:4px;accent-color:var(--cc-navy)}
+.cc .consent a{text-decoration:underline}
+.cc .actions{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
+.cc .actions .btn svg{width:16px;height:16px}
+.cc .hp{position:absolute;left:-9999px}
+.cc .fnote{grid-column:1/-1;font-size:12px;min-height:1.4em;opacity:.8}
+.cc .fnote.ok{color:#2f6b45;opacity:1}
+.cc .fnote.err{color:#a3404f;opacity:1}
+
+/* FAQ */
+.cc .faq{background:var(--cc-paper);color:var(--cc-text-dark);padding:clamp(70px,8vw,130px) var(--pad)}
+.cc .faq__in{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,5vw,90px);max-width:var(--wrap);margin:0 auto}
+.cc .faq h2{font-size:clamp(28px,3.2vw,50px);margin-top:12px;max-width:12ch}
+.cc .faq__aside p{margin-top:16px;opacity:.75;max-width:32ch}
+.cc .faq details{border-top:1px solid rgba(0,6,46,.16)}
+.cc .faq details:last-child{border-bottom:1px solid rgba(0,6,46,.16)}
+.cc .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;align-items:center;
+  padding:22px 0;font-family:var(--font-display)!important;font-weight:600;font-size:clamp(17px,1.4vw,22px)}
+.cc .faq summary::-webkit-details-marker{display:none}
+.cc .faq summary i{flex:none;width:28px;height:28px;border-radius:50%;border:1px solid rgba(0,6,46,.3);position:relative;
+  transition:transform .5s var(--ease),background .4s}
+.cc .faq summary i::before,.cc .faq summary i::after{content:'';position:absolute;left:50%;top:50%;width:10px;height:1px;
+  background:currentColor;transform:translate(-50%,-50%)}
+.cc .faq summary i::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .5s var(--ease)}
+.cc .faq details[open] summary i{background:var(--cc-navy);color:var(--cc-cream);border-color:var(--cc-navy)}
+.cc .faq details[open] summary i::after{transform:translate(-50%,-50%) rotate(0)}
+.cc .faq details p{padding:0 50px 24px 0;opacity:.8;max-width:60ch}
+
+/* faixa final */
+.cc .ig{position:relative;overflow:hidden;background:var(--cc-navy);color:var(--cc-cream);text-align:center;
+  padding:clamp(60px,7vw,110px) var(--pad)}
+.cc .ig>*:not(.stars){position:relative}
+.cc .ig h2{font-size:clamp(26px,3.4vw,54px);margin:12px 0 22px}
+.cc .ig .btn{color:var(--cc-cream)}
+.cc .ig .btn:hover{color:var(--cc-navy)}
+
+@media (max-width:900px){
+  .cc .contact,.cc .faq__in{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .cc .cform form{grid-template-columns:1fr}
+  .cc .actions .btn{width:100%}
+  .cc .faq details p{padding-right:0}
+}
+</style>
+</head>
+
+<body>
+<!-- ===== SPRITE ============================================ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="cc-mark" viewBox="0 0 120 74">
+    <path fill="currentColor" d="M52.4 37C52.4 20.6 41.3 7.2 27.4 7.2 17.6 7.2 9 13.9 4.9 23.7c3.6-12.8 13-21.8 24-21.8 15.1 0 27.4 15.7 27.4 35.1 0 19.4-12.3 35.1-27.4 35.1-11 0-20.4-9-24-21.8C9 60.1 17.6 66.8 27.4 66.8 41.3 66.8 52.4 53.4 52.4 37Z"/>
+    <path fill="currentColor" d="M67.6 37c0 16.4 11.1 29.8 25 29.8 9.8 0 18.4-6.7 22.5-16.5-3.6 12.8-13 21.8-24 21.8-15.1 0-27.4-15.7-27.4-35.1C63.7 17.6 76 1.9 91.1 1.9c11 0 20.4 9 24 21.8-4.1-9.8-12.7-16.5-22.5-16.5C78.7 7.2 67.6 20.6 67.6 37Z"/>
+  </symbol>
+  <symbol id="art-pod" viewBox="0 0 200 320">
+    <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+      <path d="M100 16c34 30 56 78 56 140s-22 110-56 148c-34-38-56-86-56-148S66 46 100 16Z"/>
+      <path d="M100 22v292M70 40c-10 34-14 70-14 114s4 80 14 114M130 40c10 34 14 70 14 114s-4 80-14 114"/>
+      <path d="M86 96c6 10 6 22 0 32M114 96c-6 10-6 22 0 32M86 176c6 10 6 22 0 32M114 176c-6 10-6 22 0 32"/>
+    </g>
+  </symbol>
+  <symbol id="art-bar" viewBox="0 0 260 150">
+    <rect x="6" y="6" width="248" height="138" rx="16" fill="none" stroke="currentColor" stroke-width="2.4"/>
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".8">
+      <path d="M56 34H38a10 10 0 0 0-10 10v22a10 10 0 0 0 10 10h18"/>
+      <path d="M92 34h18a10 10 0 0 1 10 10v22a10 10 0 0 1-10 10H92"/>
+      <path d="M164 34h-18a10 10 0 0 0-10 10v22a10 10 0 0 0 10 10h18"/>
+      <path d="M200 34h18a10 10 0 0 1 10 10v22a10 10 0 0 1-10 10h-18"/>
+      <path d="M56 96H38a10 10 0 0 0-10 10v8a10 10 0 0 0 10 10h18"/>
+      <path d="M92 96h18a10 10 0 0 1 10 10v8a10 10 0 0 1-10 10H92"/>
+      <path d="M164 96h-18a10 10 0 0 0-10 10v8a10 10 0 0 0 10 10h18"/>
+      <path d="M200 96h18a10 10 0 0 1 10 10v8a10 10 0 0 1-10 10h-18"/>
+    </g>
+  </symbol>
+  <symbol id="art-orbit" viewBox="0 0 200 200">
+    <g fill="none" stroke="currentColor" stroke-width="1.6">
+      <ellipse cx="100" cy="100" rx="88" ry="30" transform="rotate(-22 100 100)"/>
+      <ellipse cx="100" cy="100" rx="70" ry="48" transform="rotate(34 100 100)" opacity=".6"/>
+    </g>
+    <path fill="currentColor" d="M100 72c1.4 15 7.6 21.2 22.6 22.6-15 1.4-21.2 7.6-22.6 22.6-1.4-15-7.6-21.2-22.6-22.6 15-1.4 21.2-7.6 22.6-22.6Z"/>
+  </symbol>
+  <symbol id="ic-star" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M12 1c1 8.6 2.4 10 11 11-8.6 1-10 2.4-11 11-1-8.6-2.4-10-11-11 8.6-1 10-2.4 11-11Z"/>
+  </symbol>
+  <symbol id="ic-bag" viewBox="0 0 24 24">
+    <path fill="none" stroke="currentColor" stroke-width="1.4" d="M5 8h14l-1.2 13H6.2L5 8Zm3.4 0V6a3.6 3.6 0 0 1 7.2 0v2"/>
+  </symbol>
+  <symbol id="ic-ig" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.4">
+      <rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5"/><circle cx="12" cy="12" r="4"/>
+      <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/>
+    </g>
+  </symbol>
+  <symbol id="ic-mail" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6 8.5 7 8.5-7"/></g>
+  </symbol>
+  <symbol id="ic-wa" viewBox="0 0 24 24">
+    <path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" d="M4 20l1.2-3.9A8.3 8.3 0 1 1 8 19.1L4 20Z"/>
+    <path fill="currentColor" d="M9.3 8.2c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.4.5c-.1.1-.2.3 0 .5.5.9 1.3 1.6 2.2 2.1.2.1.4.1.5 0l.6-.7c.2-.2.3-.2.6-.1l1.5.7c.3.1.4.3.3.6-.2.9-1 1.6-1.9 1.6-2.7-.1-5.6-2.8-6-5.4-.1-.8.1-1.5.4-2Z"/>
+  </symbol>
+  <symbol id="ic-pin" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></g>
+  </symbol>
+</svg>
+
+
+<!-- ===== TOPO ============================================== -->
+<header class="topbar" id="topbar">
+  <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="drawer">
+    <span></span><span></span><span></span>
+  </button>
+
+  <a class="brand" href="/" aria-label="Cacau Cosmo, início">
+    <img decoding="async" src="https://cacaucosmo.com.br/wp-content/uploads/2026/08/mark-bege-transparente.png"
+         alt="" onerror="ccFallback(this)">
+    <b>Cacau Cosmo</b>
+  </a>
+
+  <div class="util">
+    <div class="lang" role="group" aria-label="Idioma">
+      <button class="on" data-lang="pt" aria-pressed="true">PT</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <a href="/carrinho/" class="cart" aria-label="Carrinho">
+      <svg viewBox="0 0 24 24"><use href="#ic-bag"></use></svg>
+      <span class="cart__n" id="cartN"></span>
+    </a>
+  </div>
+</header>
+
+
+<!-- ===== MENU LATERAL ====================================== -->
+<div class="scrim" id="scrim" hidden></div>
+
+<aside class="drawer" id="drawer" aria-label="Navegação principal" aria-hidden="true">
+  <canvas class="stars" id="starsD" data-density="6000" aria-hidden="true"></canvas>
+
+  <div class="drawer__top">
+    <span class="brand" style="align-items:flex-start">
+      <img decoding="async" src="https://cacaucosmo.com.br/wp-content/uploads/2026/08/mark-bege-transparente.png"
+           alt="Cacau Cosmo" style="width:52px" onerror="ccFallback(this)">
+      <b>Cacau Cosmo</b>
+    </span>
+    <button class="close" id="close" aria-label="Fechar menu">&times;</button>
+  </div>
+
+  <nav class="nav">
+    <a href="/" data-i18n="t-nav-home">Home</a>
+    <a href="/loja/" data-i18n="t-nav-shop">Shop</a>
+    <a href="/quem-somos/" data-i18n="t-nav-about">Quem Somos</a>
+    <a href="/journal/" data-i18n="t-nav-journal">Journal</a>
+    <a href="/contato/" data-i18n="t-contact">Contato</a>
+  </nav>
+
+  <div class="drawer__rule"></div>
+  <a class="btn-circle" href="/#circulo" data-i18n="t-btncircle">Entrar no Círculo</a>
+
+  <div class="drawer__links">
+    <a href="https://instagram.com/cacaucosmo" target="_blank" rel="noopener">Instagram</a>
+    <a href="mailto:ola@cacaucosmo.com.br">ola@cacaucosmo.com.br</a>
+  </div>
+
+  <div class="drawer__quote">
+    <p data-i18n="t-drawerquote">&ldquo;Um pequeno universo entre<br>o cacau e o cosmo.&rdquo;</p>
+    <div class="drawer__lang" role="group" aria-label="Idioma">
+      <button class="on" data-lang="pt" aria-pressed="true">PT</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</aside>
+
+
+<div class="cc">
+<main>
+<!-- ===== 1 - HERO ========================================== -->
+<section class="phero" id="topo">
+  <canvas class="stars" data-density="4600" aria-hidden="true"></canvas>
+  <div class="orb" aria-hidden="true"></div>
+  <p class="label rv" data-i18n="t-ct-kicker">Contato</p>
+  <h1 class="display rv d1" data-i18n="t-ct-h1">Vamos <span class="em">conversar.</span></h1>
+  <p class="phero__sub rv d2" data-i18n="t-ct-sub">Pedidos, presentes, parcerias, imprensa ou só uma boa conversa sobre cacau. A gente responde com calma &mdash; e sempre.</p>
+  <p class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <span data-i18n="t-contact">Contato</span></p>
+</section>
+
+
+<!-- ===== 2 - CANAIS + FORMULARIO =========================== -->
+<section class="contact" id="fale">
+  <aside class="channels">
+    <canvas class="stars" data-density="7000" aria-hidden="true"></canvas>
+    <p class="label rv" data-i18n="t-ct-ch-label">Canais</p>
+    <h2 class="display rv d1" data-i18n="t-ct-ch-h2">Onde nos encontrar.</h2>
+    <p class="channels__intro rv d2" data-i18n="t-ct-ch-intro">Escolha o caminho que for mais confortável para você.</p>
+
+    <a class="chan rv" href="mailto:ola@cacaucosmo.com.br">
+      <span class="chan__ic"><svg viewBox="0 0 24 24"><use href="#ic-mail"></use></svg></span>
+      <span><small>E-mail</small><span>ola@cacaucosmo.com.br</span></span>
+    </a>
+    <a class="chan rv js-wa-link" href="#" target="_blank" rel="noopener" hidden>
+      <span class="chan__ic"><svg viewBox="0 0 24 24"><use href="#ic-wa"></use></svg></span>
+      <span><small>WhatsApp</small><span class="js-wa-label"></span></span>
+    </a>
+    <a class="chan rv" href="https://instagram.com/cacaucosmo" target="_blank" rel="noopener">
+      <span class="chan__ic"><svg viewBox="0 0 24 24"><use href="#ic-ig"></use></svg></span>
+      <span><small>Instagram</small><span>@cacaucosmo</span></span>
+    </a>
+    <div class="chan rv">
+      <span class="chan__ic"><svg viewBox="0 0 24 24"><use href="#ic-pin"></use></svg></span>
+      <span><small data-i18n="t-ct-place-label">Ateliê</small><span data-i18n="t-footerplace">Rio de Janeiro, Brasil</span></span>
+    </div>
+
+    <p class="channels__note rv" data-i18n="t-ct-note">&ldquo;Respondemos em até 2 dias úteis.&rdquo;</p>
+  </aside>
+
+  <div class="cform">
+    <p class="label rv" style="color:var(--cc-brown)" data-i18n="t-ct-form-label">Mensagem</p>
+    <h2 class="display rv d1" data-i18n="t-ct-form-h2">Escreva para a gente.</h2>
+
+    <form id="ccForm" class="rv d2" novalidate>
+      <div class="field">
+        <label for="cf-nome" data-i18n="t-ct-f-nome">Nome</label>
+        <input id="cf-nome" name="nome" type="text" autocomplete="name" required placeholder="Seu nome" data-i18n-placeholder="t-ct-ph-nome">
+      </div>
+      <div class="field">
+        <label for="cf-email">E-mail</label>
+        <input id="cf-email" name="email" type="email" autocomplete="email" required placeholder="voce@email.com">
+      </div>
+      <div class="field">
+        <label for="cf-tel">WhatsApp <span data-i18n="t-ct-opt">(opcional)</span></label>
+        <input id="cf-tel" name="telefone" type="tel" autocomplete="tel" placeholder="(21) 90000-0000">
+      </div>
+      <div class="field">
+        <label for="cf-cidade" data-i18n="t-ct-f-cidade">Cidade</label>
+        <input id="cf-cidade" name="cidade" type="text" autocomplete="address-level2" placeholder="Rio de Janeiro, RJ">
+      </div>
+
+      <div class="field field--full">
+        <label data-i18n="t-ct-f-assunto">Assunto</label>
+        <div class="chips" role="radiogroup">
+          <label><input type="radio" name="assunto" value="Pedido" checked><span data-i18n="t-ct-a1">Pedido</span></label>
+          <label><input type="radio" name="assunto" value="Presentes corporativos"><span data-i18n="t-ct-a2">Presentes corporativos</span></label>
+          <label><input type="radio" name="assunto" value="Revenda e parcerias"><span data-i18n="t-ct-a3">Revenda &amp; parcerias</span></label>
+          <label><input type="radio" name="assunto" value="Imprensa"><span data-i18n="t-ct-a4">Imprensa</span></label>
+          <label><input type="radio" name="assunto" value="Outro"><span data-i18n="t-ct-a5">Outro</span></label>
+        </div>
+      </div>
+
+      <div class="field field--full">
+        <label for="cf-msg" data-i18n="t-ct-f-msg">Mensagem</label>
+        <textarea id="cf-msg" name="mensagem" required placeholder="Conte um pouco..." data-i18n-placeholder="t-ct-ph-msg"></textarea>
+      </div>
+
+      <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <label class="consent">
+        <input type="checkbox" name="consentimento" required>
+        <span data-i18n="t-ct-consent">Concordo com a <a href="/politica-de-privacidade/">Política de Privacidade</a> e autorizo o contato da Cacau Cosmo.</span>
+      </label>
+
+      <div class="actions">
+        <button class="btn" type="submit" data-i18n="t-ct-send">Enviar mensagem</button>
+        <button class="btn btn--ghost js-wa-send" type="button" hidden>
+          <svg viewBox="0 0 24 24"><use href="#ic-wa"></use></svg><span data-i18n="t-ct-send-wa">Enviar pelo WhatsApp</span>
+        </button>
+      </div>
+      <p class="fnote" id="ccNote" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+
+<!-- ===== 3 - PERGUNTAS FREQUENTES ========================== -->
+<!-- [ REVISAR ] Respostas de exemplo: confirme prazos e politicas reais antes de publicar. -->
+<section class="faq" id="faq">
+  <div class="faq__in">
+    <div class="faq__aside">
+      <p class="label rv" style="color:var(--cc-brown)" data-i18n="t-ct-faq-label">Dúvidas</p>
+      <h2 class="display rv d1" data-i18n="t-ct-faq-h2">Perguntas frequentes.</h2>
+      <p class="rv d2" data-i18n="t-ct-faq-intro">Não encontrou o que procurava? Escreva para a gente pelo formulário acima.</p>
+    </div>
+    <div class="rv d1">
+      <details open>
+        <summary><span data-i18n="t-ct-q1">Vocês enviam para todo o Brasil?</span><i aria-hidden="true"></i></summary>
+        <p data-i18n="t-ct-r1">Sim. O frete e o prazo são calculados no carrinho a partir do seu CEP. Em dias muito quentes podemos segurar o envio por alguns dias para proteger o chocolate.</p>
+      </details>
+      <details>
+        <summary><span data-i18n="t-ct-q2">Como devo guardar o chocolate?</span><i aria-hidden="true"></i></summary>
+        <p data-i18n="t-ct-r2">Em lugar fresco, seco e longe da luz, idealmente entre 16&nbsp;°C e 20&nbsp;°C. Evite a geladeira: a umidade e os odores alteram textura e sabor.</p>
+      </details>
+      <details>
+        <summary><span data-i18n="t-ct-q3">Fazem presentes corporativos e kits personalizados?</span><i aria-hidden="true"></i></summary>
+        <p data-i18n="t-ct-r3">Fazemos. Selecione &ldquo;Presentes corporativos&rdquo; no formulário e conte a quantidade, a data e a ocasião. Como produzimos em pequenos lotes, quanto antes, melhor.</p>
+      </details>
+      <details>
+        <summary><span data-i18n="t-ct-q4">Quero revender Cacau Cosmo. Como funciona?</span><i aria-hidden="true"></i></summary>
+        <p data-i18n="t-ct-r4">Adoramos parceiros que compartilham o mesmo cuidado. Escolha &ldquo;Revenda &amp; parcerias&rdquo; no formulário e envie um pouco sobre o seu espaço.</p>
+      </details>
+      <details>
+        <summary><span data-i18n="t-ct-q5">O que significa bean-to-bar?</span><i aria-hidden="true"></i></summary>
+        <p data-i18n="t-ct-r5">Significa que fazemos o chocolate a partir do grão de cacau &mdash; torra, moagem, refino e temperagem acontecem aqui, em pequenos lotes. <a href="/quem-somos/#processo" style="text-decoration:underline">Conheça o processo</a>.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== 4 - INSTAGRAM ===================================== -->
+<section class="ig">
+  <canvas class="stars" data-density="5600" aria-hidden="true"></canvas>
+  <p class="label rv">@cacaucosmo</p>
+  <h2 class="display rv d1" data-i18n="t-ct-ig-h2">Acompanhe o próximo lote.</h2>
+  <a class="btn btn--ghost rv d2" href="https://instagram.com/cacaucosmo" target="_blank" rel="noopener" data-i18n="t-ct-ig-cta">Seguir no Instagram</a>
+</section>
+
+</main>
+</div>
+
+<!-- ===== FOOTER ============================================ -->
+<footer class="footer" id="rodape">
+  <a class="footer__brand" href="/" aria-label="Cacau Cosmo">
+    <img decoding="async" loading="lazy" src="https://cacaucosmo.com.br/wp-content/uploads/2026/09/logo_cacaucosmo_navy_transparente_3600px-scaled.png"
+         alt="Cacau Cosmo" style="width:96px" onerror="ccFallback(this)">
+  </a>
+
+  <nav class="footer__nav" aria-label="Rodapé">
+    <a href="/loja/" data-i18n="t-nav-shop">Shop</a>
+    <a href="/quem-somos/" data-i18n="t-nav-about">Quem Somos</a>
+    <a href="/journal/" data-i18n="t-nav-journal">Journal</a>
+    <a href="/contato/" data-i18n="t-contact">Contato</a>
+  </nav>
+
+  <p class="footer__claim" data-i18n="t-footerclaim">O tempo é ingrediente.</p>
+
+  <div class="footer__right">
+    <div class="footer__social">
+      <a href="https://instagram.com/cacaucosmo" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><use href="#ic-ig"></use></svg>
+      </a>
+      <a href="mailto:ola@cacaucosmo.com.br" aria-label="E-mail">
+        <svg viewBox="0 0 24 24"><use href="#ic-star"></use></svg>
+      </a>
+    </div>
+    <p class="footer__place" data-i18n="t-footerplace">Rio de Janeiro, Brasil</p>
+  </div>
+
+  <div class="footer__legal">
+    <a href="/politica-de-privacidade/" data-i18n="t-privacy">Política de Privacidade</a>
+    <a href="/termos/" data-i18n="t-terms">Termos</a>
+    <small>&copy; <span class="js-ano"></span> Cacau Cosmo</small>
+  </div>
+</footer>
+
+<script>
+/* ===== CONFIGURACAO DO CONTATO ==============================
+   WHATSAPP ...... só números, com DDI+DDD. Ex.: '5521999999999'.
+                   Vazio = esconde o WhatsApp da página.
+   FORM_ENDPOINT . para onde o formulário envia (POST, resposta JSON).
+                   Ex. Formspree:  'https://formspree.io/f/SEU_ID'
+                   Ex. FormSubmit: 'https://formsubmit.co/ajax/ola@cacaucosmo.com.br'
+                   Vazio = abre o app de e-mail do visitante já preenchido.
+   ============================================================ */
+window.CC_CONTACT = {
+  EMAIL: 'ola@cacaucosmo.com.br',
+  WHATSAPP: '',
+  FORM_ENDPOINT: ''
+};
+
+window.CC_DICT = {
+  't-ct-kicker':      'Contact',
+  't-ct-h1':          'Let’s <span class="em">talk.</span>',
+  't-ct-sub':         'Orders, gifts, partnerships, press or just a good conversation about cacao. We reply calmly &mdash; and always.',
+  't-ct-ch-label':    'Channels',
+  't-ct-ch-h2':       'Where to find us.',
+  't-ct-ch-intro':    'Choose whichever path feels most comfortable.',
+  't-ct-place-label': 'Studio',
+  't-ct-note':        '&ldquo;We reply within 2 business days.&rdquo;',
+  't-ct-form-label':  'Message',
+  't-ct-form-h2':     'Write to us.',
+  't-ct-f-nome':      'Name',
+  't-ct-ph-nome':     'Your name',
+  't-ct-opt':         '(optional)',
+  't-ct-f-cidade':    'City',
+  't-ct-f-assunto':   'Subject',
+  't-ct-a1':          'Order',
+  't-ct-a2':          'Corporate gifts',
+  't-ct-a3':          'Wholesale &amp; partnerships',
+  't-ct-a4':          'Press',
+  't-ct-a5':          'Other',
+  't-ct-f-msg':       'Message',
+  't-ct-ph-msg':      'Tell us a little...',
+  't-ct-consent':     'I agree to the <a href="/politica-de-privacidade/">Privacy Policy</a> and allow Cacau Cosmo to contact me.',
+  't-ct-send':        'Send message',
+  't-ct-send-wa':     'Send via WhatsApp',
+  't-ct-faq-label':   'Questions',
+  't-ct-faq-h2':      'Frequently asked.',
+  't-ct-faq-intro':   'Didn’t find what you were looking for? Write to us using the form above.',
+  't-ct-q1':          'Do you ship across Brazil?',
+  't-ct-r1':          'Yes. Shipping cost and time are calculated in the cart from your postcode. On very hot days we may hold shipments for a few days to protect the chocolate.',
+  't-ct-q2':          'How should I store the chocolate?',
+  't-ct-r2':          'Somewhere cool, dry and away from light, ideally between 16&nbsp;°C and 20&nbsp;°C. Avoid the fridge: humidity and odours change texture and flavour.',
+  't-ct-q3':          'Do you make corporate gifts and custom boxes?',
+  't-ct-r3':          'We do. Select &ldquo;Corporate gifts&rdquo; in the form and tell us quantity, date and occasion. As we work in small batches, the sooner the better.',
+  't-ct-q4':          'I’d like to stock Cacau Cosmo. How does it work?',
+  't-ct-r4':          'We love partners who share the same care. Choose &ldquo;Wholesale &amp; partnerships&rdquo; in the form and tell us a bit about your space.',
+  't-ct-q5':          'What does bean-to-bar mean?',
+  't-ct-r5':          'It means we make chocolate from the cacao bean &mdash; roasting, grinding, refining and tempering happen here, in small batches. <a href="/quem-somos/#processo" style="text-decoration:underline">See the process</a>.',
+  't-ct-ig-h2':       'Follow the next batch.',
+  't-ct-ig-cta':      'Follow on Instagram'
+};
+</script>
+<script>
+(function(){
+  /* ===== MENU LATERAL ====================================== */
+  var drawer=document.getElementById('drawer'), scrim=document.getElementById('scrim'),
+      burger=document.getElementById('burger'), closeBtn=document.getElementById('close');
+  if(drawer&&burger){
+    var open=function(){
+      scrim.hidden=false;
+      requestAnimationFrame(function(){drawer.classList.add('open');scrim.classList.add('open')});
+      drawer.setAttribute('aria-hidden','false');
+      burger.setAttribute('aria-expanded','true');
+      document.body.style.overflow='hidden';
+      drawer.querySelector('.nav a').focus({preventScroll:true});
+    };
+    var close=function(){
+      drawer.classList.remove('open'); scrim.classList.remove('open');
+      drawer.setAttribute('aria-hidden','true');
+      burger.setAttribute('aria-expanded','false');
+      document.body.style.overflow='';
+      setTimeout(function(){scrim.hidden=true},700);
+      burger.focus({preventScroll:true});
+    };
+    burger.addEventListener('click',open);
+    closeBtn.addEventListener('click',close);
+    scrim.addEventListener('click',close);
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape'&&drawer.classList.contains('open'))close();
+    });
+    drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',close)});
+  }
+
+  /* ===== LINK DA PAGINA ATUAL ============================== */
+  var here=location.pathname.replace(/\/+$/,'')||'/';
+  document.querySelectorAll('.nav a, .footer__nav a').forEach(function(a){
+    var p=(a.getAttribute('href')||'').replace(/\/+$/,'')||'/';
+    if(p===here||(p!=='/'&&here.indexOf(p+'/')===0)) a.setAttribute('aria-current','page');
+  });
+
+  /* ===== TOPO GANHA FUNDO ================================== */
+  var bar=document.getElementById('topbar');
+  if(bar){
+    var f=function(){bar.classList.toggle('solid',window.scrollY>60)};
+    window.addEventListener('scroll',f,{passive:true}); f();
+  }
+
+  /* ===== REVEAL ============================================ */
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')})}
+  else{
+    var io=new IntersectionObserver(function(en){
+      en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+    },{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+    els.forEach(function(e){io.observe(e)});
+  }
+
+  /* ===== CAMPO ESTELAR ===================================== */
+  function paint(c){
+    var ctx=c.getContext('2d'), dpr=Math.min(window.devicePixelRatio||1,2),
+        r=c.getBoundingClientRect(), density=+c.getAttribute('data-density')||6000;
+    if(!r.width||!r.height)return;
+    c.width=r.width*dpr; c.height=r.height*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,r.width,r.height);
+    var n=Math.round(r.width*r.height/density);
+    for(var i=0;i<n;i++){
+      var x=Math.random()*r.width, y=Math.random()*r.height, m=Math.random(),
+          rad=.3+Math.pow(m,3)*1.6;
+      ctx.beginPath();
+      ctx.fillStyle = m>.95 ? 'rgba(201,168,76,.9)' : 'rgba(241,232,208,'+(.16+m*.42)+')';
+      ctx.arc(x,y,rad,0,Math.PI*2); ctx.fill();
+    }
+  }
+  function all(){document.querySelectorAll('canvas.stars').forEach(paint)}
+  if(document.readyState==='complete')all(); else window.addEventListener('load',all);
+  var t; window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(all,220)});
+  if(burger)burger.addEventListener('click',function(){setTimeout(all,140)});
+
+  /* ===== CONTADOR DO CARRINHO (WooCommerce Store API) ====== */
+  var cartN=document.getElementById('cartN');
+  function cart(){
+    if(!cartN||!window.fetch)return;
+    fetch('/wp-json/wc/store/v1/cart',{credentials:'same-origin'})
+      .then(function(r){return r.ok?r.json():null})
+      .then(function(d){
+        if(!d)return;
+        var n=d.items_count||0;
+        cartN.textContent=n; cartN.classList.toggle('on',n>0);
+      }).catch(function(){});
+  }
+  cart();
+  if(window.jQuery){jQuery(document.body).on('added_to_cart removed_from_cart updated_cart_totals',cart)}
+
+  document.querySelectorAll('.js-ano').forEach(function(e){e.textContent=new Date().getFullYear()});
+})();
+
+/* ===== IDIOMA — PT / EN ===================================== */
+(function(){
+  var STORAGE_KEY = 'cc-lang';
+  var dict = {
+    't-nav-home':    'Home',
+    't-nav-shop':    'Shop',
+    't-nav-about':   'About us',
+    't-nav-journal': 'Journal',
+    't-contact':     'Contact',
+    't-btncircle':   'Join the Circle',
+    't-drawerquote': '&ldquo;A small universe between<br>cacao and cosmos.&rdquo;',
+    't-footerplace': 'Rio de Janeiro, Brazil',
+    't-footerclaim': 'Time is an ingredient.',
+    't-privacy':     'Privacy Policy',
+    't-terms':       'Terms'
+  };
+  var extra = window.CC_DICT || {};
+  for (var k in extra) dict[k] = extra[k];
+
+  var innerEls = Array.prototype.slice.call(document.querySelectorAll('[data-i18n]'));
+  var phEls = Array.prototype.slice.call(document.querySelectorAll('[data-i18n-placeholder]'));
+  innerEls.forEach(function(el){ el.dataset.pt = el.innerHTML; });
+  phEls.forEach(function(el){ el.dataset.ptPlaceholder = el.placeholder; });
+
+  function apply(lang){
+    var isEN = lang === 'en';
+    innerEls.forEach(function(el){
+      var key = el.getAttribute('data-i18n');
+      el.innerHTML = isEN ? (dict[key] || el.dataset.pt) : el.dataset.pt;
+    });
+    phEls.forEach(function(el){
+      var key = el.getAttribute('data-i18n-placeholder');
+      el.placeholder = isEN ? (dict[key] || el.dataset.ptPlaceholder) : el.dataset.ptPlaceholder;
+    });
+    document.documentElement.lang = isEN ? 'en' : 'pt-BR';
+    document.querySelectorAll('.lang button, .drawer__lang button').forEach(function(b){
+      var on = b.getAttribute('data-lang') === lang;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    try{ localStorage.setItem(STORAGE_KEY, lang); }catch(e){}
+  }
+  document.querySelectorAll('.lang button, .drawer__lang button').forEach(function(b){
+    b.addEventListener('click', function(){ apply(b.getAttribute('data-lang')); });
+  });
+  var saved = null;
+  try{ saved = localStorage.getItem(STORAGE_KEY); }catch(e){}
+  if(saved === 'en') apply('en');
+})();
+</script>
+<script>
+/* ===== FORMULARIO DE CONTATO =============================== */
+(function(){
+  var cfg = window.CC_CONTACT || {};
+  var form = document.getElementById('ccForm'); if(!form) return;
+  var note = document.getElementById('ccNote');
+  var en = function(){ return document.documentElement.lang === 'en'; };
+  var t = function(pt, enTxt){ return en() ? enTxt : pt; };
+
+  /* WhatsApp: mostra so se houver numero */
+  var wa = (cfg.WHATSAPP || '').replace(/\D/g,'');
+  if(wa){
+    document.querySelectorAll('.js-wa-link').forEach(function(a){
+      a.href = 'https://wa.me/' + wa; a.hidden = false;
+    });
+    document.querySelectorAll('.js-wa-label').forEach(function(s){
+      var n = wa.replace(/^55/,'');
+      s.textContent = n.length >= 10 ? '(' + n.slice(0,2) + ') ' + n.slice(2,-4) + '-' + n.slice(-4) : '+' + wa;
+    });
+    document.querySelectorAll('.js-wa-send').forEach(function(b){ b.hidden = false; });
+  }
+
+  function data(){
+    var fd = new FormData(form);
+    return {
+      nome: (fd.get('nome')||'').trim(), email: (fd.get('email')||'').trim(),
+      telefone: (fd.get('telefone')||'').trim(), cidade: (fd.get('cidade')||'').trim(),
+      assunto: fd.get('assunto') || 'Contato', mensagem: (fd.get('mensagem')||'').trim(), fd: fd
+    };
+  }
+  function text(d){
+    return 'Nome: ' + d.nome + '\nE-mail: ' + d.email +
+      (d.telefone ? '\nWhatsApp: ' + d.telefone : '') + (d.cidade ? '\nCidade: ' + d.cidade : '') +
+      '\nAssunto: ' + d.assunto + '\n\n' + d.mensagem;
+  }
+  function say(msg, cls){ note.textContent = msg; note.className = 'fnote ' + (cls||''); }
+  function valid(){
+    if(form.checkValidity()) return true;
+    var bad = form.querySelector(':invalid'); if(bad) bad.focus();
+    say(t('Preencha nome, e-mail, mensagem e aceite a política.', 'Please fill in name, email, message and accept the policy.'), 'err');
+    return false;
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(form.querySelector('.hp').value) return;           /* robo */
+    if(!valid()) return;
+    var d = data();
+
+    if(!cfg.FORM_ENDPOINT){
+      location.href = 'mailto:' + cfg.EMAIL + '?subject=' + encodeURIComponent('[Site] ' + d.assunto + ' — ' + d.nome) +
+        '&body=' + encodeURIComponent(text(d));
+      say(t('Abrimos o seu app de e-mail com a mensagem pronta.', 'We opened your email app with the message ready.'), 'ok');
+      return;
+    }
+
+    var btn = form.querySelector('[type=submit]'); btn.disabled = true;
+    say(t('Enviando...', 'Sending...'));
+    d.fd.append('_subject', '[Site] ' + d.assunto + ' — ' + d.nome);
+    fetch(cfg.FORM_ENDPOINT, { method:'POST', body:d.fd, headers:{ 'Accept':'application/json' } })
+      .then(function(r){ if(!r.ok) throw 0; form.reset();
+        say(t('Mensagem enviada. Obrigada! Respondemos em breve.', 'Message sent. Thank you! We’ll reply soon.'), 'ok'); })
+      .catch(function(){
+        say(t('Não foi possível enviar agora. Escreva para ' + cfg.EMAIL, 'Could not send right now. Please email ' + cfg.EMAIL), 'err'); })
+      .then(function(){ btn.disabled = false; });
+  });
+
+  document.querySelectorAll('.js-wa-send').forEach(function(b){
+    b.addEventListener('click', function(){
+      if(!valid()) return;
+      window.open('https://wa.me/' + wa + '?text=' + encodeURIComponent(text(data())), '_blank', 'noopener');
+    });
+  });
+})();
+</script>
+</body>
+</html>

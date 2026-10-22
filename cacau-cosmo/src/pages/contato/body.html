@@ -1,0 +1,138 @@
+<!-- ===== 1 - HERO ========================================== -->
+<section class="phero" id="topo">
+  <canvas class="stars" data-density="4600" aria-hidden="true"></canvas>
+  <div class="orb" aria-hidden="true"></div>
+  <p class="label rv" data-i18n="t-ct-kicker">Contato</p>
+  <h1 class="display rv d1" data-i18n="t-ct-h1">Vamos <span class="em">conversar.</span></h1>
+  <p class="phero__sub rv d2" data-i18n="t-ct-sub">Pedidos, presentes, parcerias, imprensa ou só uma boa conversa sobre cacau. A gente responde com calma &mdash; e sempre.</p>
+  <p class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <span data-i18n="t-contact">Contato</span></p>
+</section>
+
+
+<!-- ===== 2 - CANAIS + FORMULARIO =========================== -->
+<section class="contact" id="fale">
+  <aside class="channels">
+    <canvas class="stars" data-density="7000" aria-hidden="true"></canvas>
+    <p class="label rv" data-i18n="t-ct-ch-label">Canais</p>
+    <h2 class="display rv d1" data-i18n="t-ct-ch-h2">Onde nos encontrar.</h2>
+    <p class="channels__intro rv d2" data-i18n="t-ct-ch-intro">Escolha o caminho que for mais confortável para você.</p>
+
+    <a class="chan rv" href="mailto:ola@cacaucosmo.com.br">
+      <span class="chan__ic"><svg viewBox="0 0 24 24"><use href="#ic-mail"></use></svg></span>
+      <span><small>E-mail</small><span>ola@cacaucosmo.com.br</span></span>
+    </a>
+    <a class="chan rv js-wa-link" href="#" target="_blank" rel="noopener" hidden>
+      <span class="chan__ic"><svg viewBox="0 0 24 24"><use href="#ic-wa"></use></svg></span>
+      <span><small>WhatsApp</small><span class="js-wa-label"></span></span>
+    </a>
+    <a class="chan rv" href="https://instagram.com/cacaucosmo" target="_blank" rel="noopener">
+      <span class="chan__ic"><svg viewBox="0 0 24 24"><use href="#ic-ig"></use></svg></span>
+      <span><small>Instagram</small><span>@cacaucosmo</span></span>
+    </a>
+    <div class="chan rv">
+      <span class="chan__ic"><svg viewBox="0 0 24 24"><use href="#ic-pin"></use></svg></span>
+      <span><small data-i18n="t-ct-place-label">Ateliê</small><span data-i18n="t-footerplace">Rio de Janeiro, Brasil</span></span>
+    </div>
+
+    <p class="channels__note rv" data-i18n="t-ct-note">&ldquo;Respondemos em até 2 dias úteis.&rdquo;</p>
+  </aside>
+
+  <div class="cform">
+    <p class="label rv" style="color:var(--cc-brown)" data-i18n="t-ct-form-label">Mensagem</p>
+    <h2 class="display rv d1" data-i18n="t-ct-form-h2">Escreva para a gente.</h2>
+
+    <form id="ccForm" class="rv d2" novalidate>
+      <div class="field">
+        <label for="cf-nome" data-i18n="t-ct-f-nome">Nome</label>
+        <input id="cf-nome" name="nome" type="text" autocomplete="name" required placeholder="Seu nome" data-i18n-placeholder="t-ct-ph-nome">
+      </div>
+      <div class="field">
+        <label for="cf-email">E-mail</label>
+        <input id="cf-email" name="email" type="email" autocomplete="email" required placeholder="voce@email.com">
+      </div>
+      <div class="field">
+        <label for="cf-tel">WhatsApp <span data-i18n="t-ct-opt">(opcional)</span></label>
+        <input id="cf-tel" name="telefone" type="tel" autocomplete="tel" placeholder="(21) 90000-0000">
+      </div>
+      <div class="field">
+        <label for="cf-cidade" data-i18n="t-ct-f-cidade">Cidade</label>
+        <input id="cf-cidade" name="cidade" type="text" autocomplete="address-level2" placeholder="Rio de Janeiro, RJ">
+      </div>
+
+      <div class="field field--full">
+        <label data-i18n="t-ct-f-assunto">Assunto</label>
+        <div class="chips" role="radiogroup">
+          <label><input type="radio" name="assunto" value="Pedido" checked><span data-i18n="t-ct-a1">Pedido</span></label>
+          <label><input type="radio" name="assunto" value="Presentes corporativos"><span data-i18n="t-ct-a2">Presentes corporativos</span></label>
+          <label><input type="radio" name="assunto" value="Revenda e parcerias"><span data-i18n="t-ct-a3">Revenda &amp; parcerias</span></label>
+          <label><input type="radio" name="assunto" value="Imprensa"><span data-i18n="t-ct-a4">Imprensa</span></label>
+          <label><input type="radio" name="assunto" value="Outro"><span data-i18n="t-ct-a5">Outro</span></label>
+        </div>
+      </div>
+
+      <div class="field field--full">
+        <label for="cf-msg" data-i18n="t-ct-f-msg">Mensagem</label>
+        <textarea id="cf-msg" name="mensagem" required placeholder="Conte um pouco..." data-i18n-placeholder="t-ct-ph-msg"></textarea>
+      </div>
+
+      <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <label class="consent">
+        <input type="checkbox" name="consentimento" required>
+        <span data-i18n="t-ct-consent">Concordo com a <a href="/politica-de-privacidade/">Política de Privacidade</a> e autorizo o contato da Cacau Cosmo.</span>
+      </label>
+
+      <div class="actions">
+        <button class="btn" type="submit" data-i18n="t-ct-send">Enviar mensagem</button>
+        <button class="btn btn--ghost js-wa-send" type="button" hidden>
+          <svg viewBox="0 0 24 24"><use href="#ic-wa"></use></svg><span data-i18n="t-ct-send-wa">Enviar pelo WhatsApp</span>
+        </button>
+      </div>
+      <p class="fnote" id="ccNote" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+
+<!-- ===== 3 - PERGUNTAS FREQUENTES ========================== -->
+<!-- [ REVISAR ] Respostas de exemplo: confirme prazos e politicas reais antes de publicar. -->
+<section class="faq" id="faq">
+  <div class="faq__in">
+    <div class="faq__aside">
+      <p class="label rv" style="color:var(--cc-brown)" data-i18n="t-ct-faq-label">Dúvidas</p>
+      <h2 class="display rv d1" data-i18n="t-ct-faq-h2">Perguntas frequentes.</h2>
+      <p class="rv d2" data-i18n="t-ct-faq-intro">Não encontrou o que procurava? Escreva para a gente pelo formulário acima.</p>
+    </div>
+    <div class="rv d1">
+      <details open>
+        <summary><span data-i18n="t-ct-q1">Vocês enviam para todo o Brasil?</span><i aria-hidden="true"></i></summary>
+        <p data-i18n="t-ct-r1">Sim. O frete e o prazo são calculados no carrinho a partir do seu CEP. Em dias muito quentes podemos segurar o envio por alguns dias para proteger o chocolate.</p>
+      </details>
+      <details>
+        <summary><span data-i18n="t-ct-q2">Como devo guardar o chocolate?</span><i aria-hidden="true"></i></summary>
+        <p data-i18n="t-ct-r2">Em lugar fresco, seco e longe da luz, idealmente entre 16&nbsp;°C e 20&nbsp;°C. Evite a geladeira: a umidade e os odores alteram textura e sabor.</p>
+      </details>
+      <details>
+        <summary><span data-i18n="t-ct-q3">Fazem presentes corporativos e kits personalizados?</span><i aria-hidden="true"></i></summary>
+        <p data-i18n="t-ct-r3">Fazemos. Selecione &ldquo;Presentes corporativos&rdquo; no formulário e conte a quantidade, a data e a ocasião. Como produzimos em pequenos lotes, quanto antes, melhor.</p>
+      </details>
+      <details>
+        <summary><span data-i18n="t-ct-q4">Quero revender Cacau Cosmo. Como funciona?</span><i aria-hidden="true"></i></summary>
+        <p data-i18n="t-ct-r4">Adoramos parceiros que compartilham o mesmo cuidado. Escolha &ldquo;Revenda &amp; parcerias&rdquo; no formulário e envie um pouco sobre o seu espaço.</p>
+      </details>
+      <details>
+        <summary><span data-i18n="t-ct-q5">O que significa bean-to-bar?</span><i aria-hidden="true"></i></summary>
+        <p data-i18n="t-ct-r5">Significa que fazemos o chocolate a partir do grão de cacau &mdash; torra, moagem, refino e temperagem acontecem aqui, em pequenos lotes. <a href="/quem-somos/#processo" style="text-decoration:underline">Conheça o processo</a>.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== 4 - INSTAGRAM ===================================== -->
+<section class="ig">
+  <canvas class="stars" data-density="5600" aria-hidden="true"></canvas>
+  <p class="label rv">@cacaucosmo</p>
+  <h2 class="display rv d1" data-i18n="t-ct-ig-h2">Acompanhe o próximo lote.</h2>
+  <a class="btn btn--ghost rv d2" href="https://instagram.com/cacaucosmo" target="_blank" rel="noopener" data-i18n="t-ct-ig-cta">Seguir no Instagram</a>
+</section>

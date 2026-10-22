@@ -418,6 +418,16 @@ button{font:inherit;color:inherit}
   transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease);
 }
 .store::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+/* Loja que ainda vai abrir: selo sobre a foto e sem botoes */
+.store__selo{
+  position:absolute;left:14px;top:14px;z-index:2;
+  padding:6px 14px;border-radius:var(--pill);
+  background:var(--red);color:#fff;
+  font-family:var(--font-label);font-weight:700;font-size:11px;
+  letter-spacing:.18em;text-transform:uppercase;
+  box-shadow:0 6px 16px -6px rgba(20,36,43,.5);
+}
+.store--em-breve .store__photo img{filter:saturate(.92)}
 .store:hover{transform:translateY(-4px);box-shadow:var(--shadow-card);border-color:transparent}
 .store:hover::before{transform:scaleX(1)}
 .store h3{font-size:1.16rem;line-height:1.4}
@@ -1159,6 +1169,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg> Como chegar
               </a>
             </div>
+          </article>
+
+          <article class="store store--em-breve reveal" data-d="3">
+            <figure class="store__photo">
+              <svg class="wave" aria-hidden="true"><use href="#wave"></use></svg>
+              <svg class="mark" viewBox="0 0 920 740" aria-hidden="true"><use href="#logo-mark"></use></svg>
+              <img src="img/lojas/atibaia-toledo-garcia-lopes.webp" alt="Fachada da nova loja na Av. Pref. Antônio Júlio Toledo Garcia Lopes, 2665" loading="lazy" decoding="async" onerror="this.remove()">
+              <p class="store__selo">Em breve</p>
+            </figure>
+            <h3 class="h3">Av. Pref. Antônio Júlio Toledo Garcia Lopes, 2665</h3>
           </article>
 
         </div>

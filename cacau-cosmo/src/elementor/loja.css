@@ -1,7 +1,6 @@
 /* ===== LOJA (arquivo de produtos) ========================== */
 .elementor .cc-shop-main.e-con{background:var(--cc-cream);padding:clamp(50px,6vw,100px) var(--pad) clamp(70px,8vw,130px)!important}
 .cc-shop-main>.elementor-element{max-width:var(--wrap);margin-left:auto!important;margin-right:auto!important;width:100%}
-.cc-root .cc-shop-main ul.products{--cc-cols:3}
 .cc-root .cc-shop-main .woocommerce{display:block!important;width:100%}
 
 /* destaque editorial entre a grade e o rodapé */

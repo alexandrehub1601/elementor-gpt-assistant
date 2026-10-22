@@ -69,7 +69,7 @@ O comando gera de novo `paginas/` e `elementor/`. Header e footer saem iguais em
 
 1. **Produtos → Importar → Escolher arquivo**: envie o CSV e clique em **Continuar**.
 2. Na tela de mapeamento as colunas já vêm certas. Clique em **Executar o importador**.
-3. Abra cada produto e, em **Imagem do produto**, envie a imagem de `woocommerce/imagens/` (sol.jpg, lua.jpg, saturno.jpg). São artes provisórias até as fotos reais ficarem prontas.
+3. Abra cada produto e, em **Imagem do produto**, envie `woocommerce/imagens/sol.jpg`, `lua.jpg` ou `saturno.jpg` (foto da embalagem em fundo claro). Em **Galeria do produto**, adicione a arte correspondente (`*-arte.jpg`). São imagens provisórias até as fotos reais ficarem prontas.
 4. Em **WooCommerce → Configurações → Entrega**, adicione a classe **Chocolate** nas suas zonas de entrega, se quiser um frete diferente para ela.
 
 **Revise antes de publicar:** preços, ingredientes e alérgicos (obrigatórios por lei), prazo de despacho e embalagem térmica. São sugestões e precisam bater com o produto real.

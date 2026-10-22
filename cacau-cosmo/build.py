@@ -213,6 +213,26 @@ SHOP_DICT = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
 """
 
 
+WOO_CARDS_JS = """/* ===== CARTÕES DE PRODUTO ================================= */
+(function(){
+  var en=document.documentElement.lang==='en';
+  document.querySelectorAll('.cc-root ul.products li.product').forEach(function(li){
+    var img=li.querySelector('a img');
+    if(img&&!img.closest('.cc-imgbox')){
+      /* imagem nítida: usa o arquivo original em vez da miniatura de 300px */
+      var src=(img.getAttribute('data-src')||img.getAttribute('src')||'').replace(/-\\d+x\\d+(?=\\.(jpe?g|png|webp)$)/i,'');
+      if(src&&src.indexOf('placeholder')<0){img.removeAttribute('srcset');img.removeAttribute('sizes');img.src=src;}
+      img.loading='lazy';
+      var box=document.createElement('span'); box.className='cc-imgbox';
+      img.parentNode.insertBefore(box,img); box.appendChild(img);
+    }
+    var b=li.querySelector('.button.add_to_cart_button');
+    if(b&&/carrinho|cart/i.test(b.textContent)) b.textContent=en?'Add':'Adicionar';
+  });
+})();
+"""
+
+
 def build_loja():
     t = Tpl("loja")
     content = [t.con("cc cc-root", [
@@ -231,7 +251,7 @@ def build_loja():
         t.html(TRUST_HTML),
         t.html(FEATURE_HTML),
         t.html(CIRCLE_HTML),
-        t.html(tpl_footer(SHOP_DICT), "cc-footer"),
+        t.html(tpl_footer(SHOP_DICT + WOO_CARDS_JS), "cc-footer"),
     ])]
     # versão "página": entra por qualquer importador e depois é inserida no
     # template de Arquivo de produtos pela biblioteca (Meus modelos → Inserir)
@@ -306,7 +326,7 @@ def build_produto():
             t.w("woocommerce-product-upsell", {"columns": "4", "orderby": "date", "order": "desc"}),
             t.w("woocommerce-product-related", {"posts_per_page": 4, "columns": "4", "orderby": "rand", "order": "desc"}),
         ]),
-        t.html(tpl_footer(PROD_DICT), "cc-footer"),
+        t.html(tpl_footer(PROD_DICT + WOO_CARDS_JS), "cc-footer"),
     ])]
     return export("produto-woocommerce", "Cacau Cosmo — Produto (Single Product)", "product", content)
 

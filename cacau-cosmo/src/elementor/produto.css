@@ -107,6 +107,7 @@
 .cc-root section.related>h2,.cc-root section.up-sells>h2{font-family:var(--font-display)!important;font-weight:700;font-size:clamp(26px,3vw,46px)!important;
   text-align:center;margin:0 0 clamp(30px,3.4vw,54px)!important;color:var(--cc-text-dark)}
 .cc-root .cc-related ul.products{--cc-cols:4}
+@media (max-width:1024px){.cc-root .cc-related ul.products{--cc-cols:2}}
 
 @media (max-width:1024px){.cc-ritual__grid{grid-template-columns:1fr 1fr}}
 @media (max-width:900px){

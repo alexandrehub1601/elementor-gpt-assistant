@@ -260,13 +260,87 @@ def arte(p):
     d.text((W / 2, 1400), "80 g  ·  bean-to-bar  ·  Brasil", font=fonte("PINOPOLIS.TTF", 28, "DejaVuSerif.ttf"),
            fill=hexrgb(texto, 170), anchor="mm")
 
-    path = OUT / "imagens" / f"{p['slug']}.jpg"
+    path = OUT / "imagens" / f"{p['slug']}-arte.jpg"
     path.parent.mkdir(exist_ok=True)
     img.convert("RGB").save(path, quality=90, optimize=True, progressive=True)
     return path
 
 
+def mockup(p, arte_path):
+    """Foto de produto em fundo claro: embalagem com a arte cósmica, aberta no
+    topo mostrando a barra e o papel-alumínio, com sombra suave."""
+    W, H = 1200, 1500
+    rnd = random.Random(p["slug"])
+    bg = gradiente(W, H, "#F4EDE1", "#E6DACB")
+    grao = Image.effect_noise((W, H), 18).convert("L").point(lambda v: 128 + (v - 128) // 3)
+    bg = Image.blend(bg.convert("RGB"), Image.merge("RGB", (grao, grao, grao)), 0.06).convert("RGBA")
+
+    pw, ph = 540, 880                       # embalagem
+    x0, y0 = (W - pw) // 2, 330
+    sombra = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ds = ImageDraw.Draw(sombra)
+    ds.rounded_rectangle([x0 + 34, y0 + 60, x0 + pw + 46, y0 + ph + 40], 18, fill=(60, 36, 20, 120))
+    sombra = sombra.filter(ImageFilter.GaussianBlur(38))
+    bg.alpha_composite(sombra)
+
+    # barra de chocolate saindo pelo topo
+    choc = {"sol": ("#8A5530", "#6E4024"), "lua": ("#EFE3CF", "#DCCBB0"), "saturno": ("#4A2A1A", "#33190E")}[p["arte"]]
+    barra = Image.new("RGBA", (pw - 40, 230), (0, 0, 0, 0))
+    db = ImageDraw.Draw(barra)
+    db.rounded_rectangle([0, 0, pw - 41, 260], 14, fill=hexrgb(choc[0]))
+    for i in range(1, 3):                    # gomos
+        x = i * (pw - 40) / 3
+        db.line([(x, 14), (x, 230)], fill=hexrgb(choc[1]), width=4)
+    db.line([(14, 115), (pw - 54, 115)], fill=hexrgb(choc[1]), width=4)
+    for i in range(3):
+        for j in range(2):
+            cx, cy = (i + .5) * (pw - 40) / 3, 57 + j * 115
+            db.rounded_rectangle([cx - 70, cy - 36, cx + 70, cy + 36], 10, outline=hexrgb(choc[1], 160), width=3)
+    bg.alpha_composite(barra, (x0 + 20, y0 - 150))
+
+    # papel-alumínio
+    foil = Image.new("RGBA", (pw, 170), (0, 0, 0, 0))
+    df = ImageDraw.Draw(foil)
+    pts = [(0, 170), (0, 40)]
+    for k in range(13):
+        pts.append((k * pw / 12, 30 + rnd.randint(-22, 22)))
+    pts += [(pw, 40), (pw, 170)]
+    df.polygon(pts, fill=(214, 214, 210, 255))
+    for k in range(14):
+        x = rnd.randint(10, pw - 10)
+        df.line([(x, 40), (x + rnd.randint(-30, 30), 170)], fill=(245, 245, 242, 140), width=rnd.randint(2, 6))
+    foil = foil.filter(ImageFilter.GaussianBlur(.8))
+    bg.alpha_composite(foil, (x0, y0 - 40))
+
+    # embalagem com a arte
+    arte_img = Image.open(arte_path).convert("RGBA")
+    cw = int(1500 * pw / ph)                # recorta a arte na proporção da embalagem
+    emb = arte_img.crop(((1200 - cw) // 2, 0, (1200 + cw) // 2, 1500)).resize((pw, ph), Image.LANCZOS)
+    mask = Image.new("L", (pw, ph), 0)
+    ImageDraw.Draw(mask).rounded_rectangle([0, 0, pw - 1, ph + 20], 14, fill=255)
+    luz = gradiente(pw, ph, "#FFFFFF", "#000000").convert("L")
+    emb = Image.composite(emb, Image.new("RGBA", (pw, ph)), mask)
+    brilho_lat = Image.new("RGBA", (pw, ph), (0, 0, 0, 0))
+    dl = ImageDraw.Draw(brilho_lat)
+    for x in range(pw):                       # leve volume cilíndrico
+        t = x / pw
+        a = int(60 * max(0, .25 - abs(t - .22)) * 4) if t < .5 else int(70 * max(0, t - .78) * 4.5)
+        dl.line([(x, 0), (x, ph)], fill=(255, 255, 255, a) if t < .5 else (0, 0, 0, a))
+    brilho_lat.putalpha(Image.composite(brilho_lat.getchannel("A"), Image.new("L", (pw, ph), 0), mask))
+    emb.alpha_composite(brilho_lat)
+    bg.alpha_composite(emb, (x0, y0 + 100))
+    # faixa da aba aberta
+    dd = ImageDraw.Draw(bg)
+    dd.line([(x0 + 4, y0 + 102), (x0 + pw - 4, y0 + 102)], fill=(0, 0, 0, 90), width=3)
+
+    path = OUT / "imagens" / f"{p['slug']}.jpg"
+    bg.convert("RGB").save(path, quality=92, optimize=True, progressive=True)
+    return path
+
+
 if __name__ == "__main__":
     for p in PRODUTOS:
-        print("ok", arte(p).relative_to(OUT.parent.parent))
+        a = arte(p)
+        print("ok", a.relative_to(OUT.parent.parent))
+        print("ok", mockup(p, a).relative_to(OUT.parent.parent))
     print("ok", gerar_csv().relative_to(OUT.parent.parent))

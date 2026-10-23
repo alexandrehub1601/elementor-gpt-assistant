@@ -359,28 +359,35 @@ fieldset{border:0;min-width:0}
 .work__more{display:flex;justify-content:center;padding-block:clamp(2rem,4vw,3rem) var(--section)}
 .work__more[hidden]{display:none}
 
-/* ---------- processo: escadinha de 4 etapas ---------- */
-.steps{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(.75rem,1.5vw,1.25rem);align-items:end}
-.step{--h:0;display:flex;flex-direction:column;gap:.875rem;min-height:calc(17rem + var(--h) * 3.5rem);padding:clamp(1.25rem,2vw,1.75rem);background:rgba(245,244,241,.05);border-top:2px solid var(--gold);border-radius:0 0 var(--radius-s) var(--radius-s);transition:background-color .3s var(--ease)}
-.step:nth-child(2){--h:1}.step:nth-child(3){--h:2}.step:nth-child(4){--h:3}
-.step:hover{background:rgba(245,244,241,.09)}
-.step__top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:auto;padding-bottom:1.5rem}
-.step__n{font-weight:800;font-size:clamp(2.5rem,1.6rem + 2.4vw,4rem);line-height:.8;color:var(--gold);font-variant-numeric:tabular-nums;letter-spacing:-.03em}
-.step__icon{width:3.25rem;height:3.25rem;color:var(--gold)}
+/* ---------- processo: uma etapa por linha, entrando uma de cada vez ---------- */
+.steps{grid-column:1/-1;position:relative}
+.step{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);row-gap:1.25rem;align-items:center;padding-block:clamp(2rem,4.5vw,3.5rem)}
+.step::before,.steps::after{content:"";position:absolute;left:0;right:0;height:1px;background:rgba(245,244,241,.2)}
+.step::before{top:0;transform-origin:left;transition:background-color .4s var(--ease)}
+.steps::after{bottom:0}
+.step__n{grid-column:1/span 3;font-weight:800;font-size:clamp(4.5rem,2rem + 7vw,9.5rem);line-height:.78;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:transparent;-webkit-text-stroke:1.5px var(--gold);transition:color .5s var(--ease)}
+.step__body{grid-column:4/span 6;display:grid;gap:.875rem}
+.step h3{font-weight:800;font-size:var(--fs-lg);line-height:1.05;letter-spacing:-.02em}
+.step p{color:var(--mist);max-width:46ch}
+.step__tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.375rem}
+.step__tags li{font-size:.8125rem;line-height:1;padding:.5rem .8rem;border:1px solid rgba(197,154,69,.45);border-radius:var(--radius-pill);color:var(--paper)}
+.step__icon{grid-column:11/span 2;justify-self:end;width:clamp(3.5rem,5vw,4.75rem);height:auto;color:var(--gold);transition:transform .5s var(--ease)}
 .step__icon :not(.dash){stroke-dasharray:var(--len,200);stroke-dashoffset:0}
-.step h3{font-weight:800;font-size:var(--fs-md);letter-spacing:-.015em;line-height:1.1}
-.step p{color:var(--mist);font-size:var(--fs-sm);line-height:1.6;max-width:30ch}
+/* etapa em foco (no meio da tela): número preenchido e linha dourada */
+.step.is-current .step__n,.step:hover .step__n{color:var(--gold)}
+.step.is-current::before{background:var(--gold)}
+.step:hover .step__icon{transform:rotate(-6deg) scale(1.06)}
 @media (prefers-reduced-motion:no-preference){
-  .js .steps .step{opacity:0;transform:translateY(2rem);transition:opacity .7s var(--ease),transform .7s var(--ease),background-color .3s var(--ease)}
-  .js .steps .step:nth-child(2){transition-delay:.12s,.12s,0s}
-  .js .steps .step:nth-child(3){transition-delay:.24s,.24s,0s}
-  .js .steps .step:nth-child(4){transition-delay:.36s,.36s,0s}
-  .js .steps .step__icon :not(.dash){stroke-dashoffset:var(--len,200);transition:stroke-dashoffset 1.2s var(--ease) .5s}
-  .js .steps.is-in .step{opacity:1;transform:none}
-  .js .steps.is-in .step__icon :not(.dash){stroke-dashoffset:0}
-  .step:hover .step__icon{animation:nudge .6s var(--ease)}
+  .js .step::before{transform:scaleX(0);transition:transform .9s var(--ease),background-color .4s var(--ease)}
+  .js .step__n{opacity:0;transform:translateY(40%);transition:opacity .8s var(--ease) .15s,transform .8s var(--ease) .15s,color .5s var(--ease)}
+  .js .step__body{opacity:0;transform:translateY(1.5rem);transition:opacity .8s var(--ease) .3s,transform .8s var(--ease) .3s}
+  .js .step__icon{opacity:0;transition:opacity .5s var(--ease) .45s,transform .5s var(--ease)}
+  .js .step__icon :not(.dash){stroke-dashoffset:var(--len,200);transition:stroke-dashoffset 1.3s var(--ease) .5s}
+  .js .step.is-in::before{transform:scaleX(1)}
+  .js .step.is-in .step__n,.js .step.is-in .step__body{opacity:1;transform:none}
+  .js .step.is-in .step__icon{opacity:1}
+  .js .step.is-in .step__icon :not(.dash){stroke-dashoffset:0}
 }
-@keyframes nudge{40%{transform:rotate(-8deg) scale(1.08)}}
 
 /* ---------- marcas (carrossel de logos) ---------- */
 .clients{padding-block:clamp(3rem,6vw,4.5rem);background:var(--paper);border-bottom:1px solid var(--line);overflow:hidden}
@@ -484,8 +491,6 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
   .nav ul{gap:1.25rem}
   .manifesto__aside{grid-column:1/span 5}
   .manifesto__main{grid-column:7/span 6}
-  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .step{min-height:15rem}
   .contact__intro{grid-column:1/-1;position:static}
   .form-card{grid-column:1/-1}
 }
@@ -502,6 +507,9 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
   .manifesto__main{margin-top:3rem}
   .team{max-width:16rem}
   .services-list{grid-template-columns:1fr;gap:3rem}
+  .step__n{grid-column:1/span 6;grid-row:1;align-self:end}
+  .step__icon{grid-column:7/span 6;grid-row:1;align-self:end;width:3rem}
+  .step__body{grid-column:1/-1;grid-row:2}
   .work-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .faq-list{grid-column:1/-1}
   .footer__close{text-align:left}
@@ -509,9 +517,6 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
 @media (max-width:600px){
   .brand svg{width:9.5rem}
   .hero{height:auto;aspect-ratio:4/5;min-height:0}
-  .steps{grid-template-columns:1fr}
-  .step,.step:nth-child(n){min-height:0}
-  .step__top{padding-bottom:1rem}
   .form-actions .btn--next{flex:1}
 }
 @media (prefers-reduced-motion:reduce){
@@ -683,40 +688,44 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
     </div>
     <ol class="steps">
       <li class="step">
-        <div class="step__top">
-          <span class="step__n" aria-hidden="true">1</span>
-          <!-- lupa tracejada -->
+        <span class="step__n" aria-hidden="true">01</span>
+        <div class="step__body">
+          <h3>Investigar</h3>
+          <p>Entendemos o negócio, o mercado e as pessoas por trás dele. Descobrimos o que sustenta a marca.</p>
+          <ul class="step__tags" aria-label="O que sai desta etapa"><li>Imersão</li><li>Pesquisa</li><li>Diagnóstico</li></ul>
+        </div>
+        <!-- lupa tracejada -->
           <svg class="step__icon" viewBox="0 0 52 52" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle class="dash" cx="22" cy="22" r="14" stroke-dasharray="4 4"/><path d="M32.5 32.5L46 46" style="--len:20"/><path d="M15 22a7 7 0 0 1 7-7" style="--len:12"/></svg>
-        </div>
-        <h3>Investigar</h3>
-        <p>Entendemos o negócio, o mercado e as pessoas por trás dele. Descobrimos o que sustenta a marca.</p>
       </li>
       <li class="step">
-        <div class="step__top">
-          <span class="step__n" aria-hidden="true">2</span>
-          <!-- alvo / direção -->
+        <span class="step__n" aria-hidden="true">02</span>
+        <div class="step__body">
+          <h3>Definir</h3>
+          <p>Transformamos o que foi descoberto em direção: posicionamento, personalidade e o que a marca precisa dizer.</p>
+          <ul class="step__tags" aria-label="O que sai desta etapa"><li>Posicionamento</li><li>Personalidade</li><li>Tom de voz</li></ul>
+        </div>
+        <!-- alvo / direção -->
           <svg class="step__icon" viewBox="0 0 52 52" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="24" cy="28" r="18" style="--len:115"/><circle cx="24" cy="28" r="9" style="--len:58"/><path d="M24 28L44 8M38 8h6v6" style="--len:40"/></svg>
-        </div>
-        <h3>Definir</h3>
-        <p>Transformamos o que foi descoberto em direção: posicionamento, personalidade e o que a marca precisa dizer.</p>
       </li>
       <li class="step">
-        <div class="step__top">
-          <span class="step__n" aria-hidden="true">3</span>
-          <!-- estrelinha -->
+        <span class="step__n" aria-hidden="true">03</span>
+        <div class="step__body">
+          <h3>Criar</h3>
+          <p>Damos forma, voz e presença à marca, com rigor no detalhe e liberdade na expressão.</p>
+          <ul class="step__tags" aria-label="O que sai desta etapa"><li>Identidade visual</li><li>Sistema gráfico</li><li>Aplicações</li></ul>
+        </div>
+        <!-- estrelinha -->
           <svg class="step__icon" viewBox="0 0 52 52" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M26 4c1.6 11.5 6.5 16.4 18 18-11.5 1.6-16.4 6.5-18 18-1.6-11.5-6.5-16.4-18-18 11.5-1.6 16.4-6.5 18-18z" style="--len:130"/><path d="M42 38c.6 4 2 5.4 6 6-4 .6-5.4 2-6 6-.6-4-2-5.4-6-6 4-.6 5.4-2 6-6z" style="--len:40"/></svg>
-        </div>
-        <h3>Criar</h3>
-        <p>Damos forma, voz e presença à marca, com rigor no detalhe e liberdade na expressão.</p>
       </li>
       <li class="step">
-        <div class="step__top">
-          <span class="step__n" aria-hidden="true">4</span>
-          <!-- livrinho / manual -->
-          <svg class="step__icon" viewBox="0 0 52 52" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M26 12c-5-4-12-4-20-3v31c8-1 15-1 20 3 5-4 12-4 20-3V9c-8-1-15-1-20 3z" style="--len:160"/><path d="M26 12v31" style="--len:31"/><path d="M12 18c3-.4 6-.2 9 .8M12 25c3-.4 6-.2 9 .8" style="--len:20"/></svg>
+        <span class="step__n" aria-hidden="true">04</span>
+        <div class="step__body">
+          <h3>Implementar</h3>
+          <p>Entregamos um sistema pronto para o dia a dia, com orientações claras para a marca seguir consistente.</p>
+          <ul class="step__tags" aria-label="O que sai desta etapa"><li>Manual de marca</li><li>Arquivos finais</li><li>Orientações de uso</li></ul>
         </div>
-        <h3>Implementar</h3>
-        <p>Entregamos um sistema pronto para o dia a dia, com orientações claras para a marca seguir consistente.</p>
+        <!-- livrinho / manual -->
+          <svg class="step__icon" viewBox="0 0 52 52" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M26 12c-5-4-12-4-20-3v31c8-1 15-1 20 3 5-4 12-4 20-3V9c-8-1-15-1-20 3z" style="--len:160"/><path d="M26 12v31" style="--len:31"/><path d="M12 18c3-.4 6-.2 9 .8M12 25c3-.4 6-.2 9 .8" style="--len:20"/></svg>
       </li>
     </ol>
   </div>
@@ -977,13 +986,14 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
       if(!extras().length) moreWrap.hidden=true;
     });
   }
-  /* processo: escadinha sobe quando entra na tela */
-  var steps=document.querySelector('.steps');
-  if(steps){
+  /* processo: cada etapa entra na sua vez; a do meio da tela fica em destaque */
+  var stepEls=[].slice.call(document.querySelectorAll('.step'));
+  if(stepEls.length){
     if('IntersectionObserver' in window){
-      var so=new IntersectionObserver(function(en){ if(en[0].isIntersecting){ steps.classList.add('is-in'); so.disconnect() } },{threshold:.25});
-      so.observe(steps);
-    } else steps.classList.add('is-in');
+      var inObs=new IntersectionObserver(function(en){en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('is-in'); inObs.unobserve(e.target) } })},{threshold:.35,rootMargin:'0px 0px -8% 0px'});
+      var curObs=new IntersectionObserver(function(en){en.forEach(function(e){ e.target.classList.toggle('is-current',e.isIntersecting) })},{rootMargin:'-45% 0px -45% 0px'});
+      stepEls.forEach(function(el){inObs.observe(el);curObs.observe(el)});
+    } else stepEls.forEach(function(el){el.classList.add('is-in')});
   }
 
   /* ---------- formulário em passos ---------- */

@@ -192,6 +192,44 @@ fieldset{border:0;min-width:0}
   .js.is-loaded .case-intro .case-title,.js.is-loaded .case-intro .case-desc{opacity:1;transform:none}
 }
 
+/* ---------- projetos: largura total, 4 por linha, quadrados ---------- */
+.work-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+.project{position:relative;display:block;aspect-ratio:1/1;overflow:hidden;text-decoration:none;isolation:isolate;background:var(--ink)}
+.project[hidden]{display:none}
+.project img,.project .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.ph{position:relative;isolation:isolate;display:flex;align-items:flex-end;justify-content:space-between;padding:clamp(1rem,2vw,1.5rem);background:var(--ph,var(--paper-2));color:var(--ph-ink,var(--ink))}
+.ph::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(calc(90deg - var(--slash)),transparent 0 22px,currentColor 22px 23px);opacity:.07;z-index:-1}
+.ph__name{font-weight:800;font-size:clamp(1.5rem,1rem + 1.6vw,2.75rem);line-height:.92;letter-spacing:-.035em;max-width:10ch}
+.ph__note{font-size:.8125rem;opacity:.75}
+.project__info{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:3rem clamp(1rem,2vw,1.5rem) clamp(1rem,2vw,1.25rem);color:var(--paper);background:linear-gradient(to top,rgba(29,29,29,.75),rgba(29,29,29,0));opacity:0;transform:translateY(.5rem);transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.project__info h3{font-weight:400;font-size:var(--fs-base)}
+.project__info span{font-size:var(--fs-sm);color:rgba(245,244,241,.82)}
+.project:hover img,.project:hover .ph,.project:focus-visible img,.project:focus-visible .ph{transform:scale(1.04)}
+.project:hover .project__info,.project:focus-visible .project__info{opacity:1;transform:none}
+.project:focus-visible{outline-offset:-4px}
+@media (hover:none){.project__info{opacity:1;transform:none}}
+@media (prefers-reduced-motion:no-preference){.project.is-new{animation:tile-in .6s var(--ease) both}}
+@keyframes tile-in{from{opacity:0;transform:translateY(1rem)}}
+
+/* ---------- veja mais projetos ---------- */
+.more{background:var(--paper-2);padding-top:clamp(4rem,8vw,6.5rem)}
+.more__head{display:flex;justify-content:space-between;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;margin-bottom:clamp(2rem,4vw,3rem)}
+.more__head h2{font-weight:800;font-size:var(--fs-xl);line-height:1.05;letter-spacing:-.03em}
+.more__all{display:inline-flex;align-items:center;gap:.6rem;min-height:2.75rem;font-size:var(--fs-sm);text-decoration:none;border-bottom:1px solid currentColor}
+.more__all:hover{color:var(--wine)}
+.more__all svg{width:14px;height:14px;transition:transform .25s var(--ease)}
+.more__all:hover svg{transform:translateX(3px)}
+/* ---------- CTA ---------- */
+.cta{position:relative;overflow:hidden;background:var(--wine);color:var(--paper);padding-block:clamp(5rem,11vw,9rem);isolation:isolate}
+.cta__symbol{position:absolute;right:calc(var(--gutter) * -1);top:50%;width:clamp(16rem,30vw,28rem);transform:translateY(-50%);color:var(--gold);opacity:.12;z-index:-1;pointer-events:none}
+.cta h2{font-weight:800;font-size:clamp(2.5rem,1.2rem + 4.4vw,5.5rem);line-height:.98;letter-spacing:-.035em;color:var(--gold);max-width:12ch}
+.cta p{margin-top:1.5rem;font-size:var(--fs-md);line-height:1.5;color:rgba(245,244,241,.85);max-width:36ch}
+.cta .btn{margin-top:2.25rem}
+@media (prefers-reduced-motion:no-preference){
+  .js .cta__inner{opacity:0;transform:translateY(1.5rem);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .js .cta__inner.is-in{opacity:1;transform:none}
+}
+
 /* ---------- rodapé ---------- */
 .site-footer{padding-block:clamp(3rem,6vw,4.5rem) 2rem;background:var(--ink);color:var(--paper)}
 .footer__top{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;padding-bottom:clamp(2rem,4vw,3rem)}
@@ -211,6 +249,7 @@ fieldset{border:0;min-width:0}
   .nav .btn{margin-top:1.5rem;min-height:3.25rem;font-size:var(--fs-base)}
   .case-title,.case-desc{grid-column:1/-1}
   .footer__close{text-align:left}
+  .work-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:600px){
   .brand svg{width:9.5rem}
@@ -286,6 +325,47 @@ fieldset{border:0;min-width:0}
       </div>
     </section>
   </article>
+
+  <!-- ============ VEJA MAIS PROJETOS ============
+       4 outros projetos. Troque os links (href) pelas páginas de cada projeto quando existirem. -->
+  <section class="more" aria-labelledby="more-title">
+    <div class="wrap more__head">
+      <h2 id="more-title">Veja mais projetos</h2>
+      <a class="more__all" href="../index.html#projetos">Ver todos os projetos <svg viewBox="0 0 14 14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h11M8 3l4 4-4 4"/></svg></a>
+    </div>
+    <div class="work-grid">
+      <a class="project" href="../index.html#projetos">
+        <div class="ph" style="--ph:#7A1531;--ph-ink:#C59A45"><span class="ph__name">Hunna</span></div>
+        <div class="project__info"><h3>Hunna</h3><span>Categoria</span></div>
+      </a>
+      <a class="project" href="../index.html#projetos">
+        <div class="ph" style="--ph:#1E4170;--ph-ink:#E0507A"><span class="ph__name">Lucas Martins</span></div>
+        <img src="../assets/img/lucas-martins-800.webp" width="1200" height="1200" loading="lazy" decoding="async" alt="Cartões de visita da identidade visual do psicólogo Lucas Martins" onerror="this.remove()">
+        <div class="project__info"><h3>Lucas Martins</h3><span>Identidade visual</span></div>
+      </a>
+      <a class="project" href="../index.html#projetos">
+        <div class="ph" style="--ph:#0F3C37;--ph-ink:#ECE6DA"><span class="ph__name">Deboo</span></div>
+        <div class="project__info"><h3>Deboo</h3><span>Categoria</span></div>
+      </a>
+      <a class="project" href="../index.html#projetos">
+        <div class="ph" style="--ph:#C59A45;--ph-ink:#1D1D1D"><span class="ph__name">Equilibre</span></div>
+        <div class="project__info"><h3>Equilibre</h3><span>Categoria</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============
+       No WordPress, aponte o botão para a página de contato (ex.: /contato/). -->
+  <section class="cta on-dark" aria-labelledby="cta-title">
+    <svg class="cta__symbol" viewBox="0 0 366.03 369.8" aria-hidden="true"><use href="#simbolo-fale"/></svg>
+    <div class="wrap">
+      <div class="cta__inner">
+        <h2 id="cta-title">Vamos fazer algo juntos?</h2>
+        <p>Conte sobre o seu negócio e vamos descobrir, juntos, o que a sua marca tem a dizer.</p>
+        <a class="btn btn--solid" href="../index.html#contato">Começar um projeto</a>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer class="site-footer on-dark">
@@ -314,7 +394,7 @@ fieldset{border:0;min-width:0}
   toggle.addEventListener('click',function(){setMenu(toggle.getAttribute('aria-expanded')!=='true')});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('is-open')){setMenu(false);toggle.focus()}});
   /* imagens entram quando chegam na tela */
-  var media=[].slice.call(document.querySelectorAll('.case-media'));
+  var media=[].slice.call(document.querySelectorAll('.case-media, .cta__inner'));
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-in');io.unobserve(e.target)}})},{threshold:.15});
     media.forEach(function(m){io.observe(m)});

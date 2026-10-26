@@ -409,6 +409,21 @@ fieldset{border:0;min-width:0}
   .marquee__track[aria-hidden]{display:none}
 }
 
+/* ---------- depoimentos ---------- */
+.testimonials-list{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gutter);align-items:start}
+.testimonial{margin:0;display:flex;flex-direction:column;gap:1.5rem;padding-top:1.75rem;border-top:2px solid var(--wine)}
+.testimonial__mark{width:2.25rem;height:auto;color:var(--gold)}
+.testimonial blockquote{margin:0}
+.testimonial__text{display:grid;gap:1em}
+.testimonial__text p{font-weight:300;font-size:var(--fs-md);line-height:1.5;max-width:52ch}
+.testimonial__text.is-clamped{max-height:calc(1.5em * 7 + 1rem);overflow:hidden;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+.testimonial__more{align-self:flex-start;display:inline-flex;align-items:center;gap:.5rem;min-height:2.75rem;padding:0;border:0;background:none;cursor:pointer;font-size:var(--fs-sm);color:var(--wine);border-bottom:1px solid currentColor;margin-top:-.5rem}
+.testimonial__more svg{width:12px;height:12px;transition:transform .25s var(--ease)}
+.testimonial__more[aria-expanded="true"] svg{transform:rotate(180deg)}
+.testimonial figcaption{display:grid;gap:.15rem;font-size:var(--fs-sm)}
+.testimonial figcaption strong{font-weight:800;font-size:var(--fs-base)}
+.testimonial figcaption span{color:var(--graphite)}
+
 /* ---------- perguntas frequentes ---------- */
 .faq-list{grid-column:4/span 9;border-top:1px solid var(--line)}
 .faq-item{border-bottom:1px solid var(--line)}
@@ -524,6 +539,7 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
   .step__body{grid-column:1/-1;grid-row:2}
   .work-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .faq-list{grid-column:1/-1}
+  .testimonials-list{grid-template-columns:1fr;gap:3rem}
   .footer__right{justify-items:start;text-align:left}
 }
 @media (max-width:600px){
@@ -745,6 +761,38 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
     <ul class="marquee__track" aria-hidden="true">
       <li>Hunna</li><li>DS</li><li>Deboo</li><li>Equilibre</li><li>Itaca</li><li>Festival Iguassu Inova</li><li>Quitutes</li><li>Lucas Martins</li>
     </ul>
+  </div>
+</section>
+
+<!-- ======================= DEPOIMENTOS ======================= -->
+<section class="section section--tint" id="depoimentos" aria-labelledby="depoimentos-title">
+  <div class="wrap grid">
+    <div class="section-head">
+      <p class="section-name">Depoimentos</p>
+      <h2 class="section-title" id="depoimentos-title">O que dizem as pessoas que trabalham com a gente.</h2>
+    </div>
+    <div class="testimonials-list">
+      <figure class="testimonial">
+        <svg class="testimonial__mark" viewBox="0 0 36 28" aria-hidden="true" fill="currentColor"><path d="M0 28V17.2C0 7.6 5.1 1.9 14.2 0l1.6 4.1C10.7 5.6 8.3 8.7 8 13.2h6.7V28H0zm20.2 0V17.2C20.2 7.6 25.3 1.9 34.4 0L36 4.1c-5.1 1.5-7.5 4.6-7.8 9.1h6.7V28H20.2z"/></svg>
+        <blockquote>
+          <div class="testimonial__text">
+            <p>O que mais valorizo nesse time é o cuidado em entender o briefing e transformar as ideias em entregas de alta qualidade. Trabalhei com esse time e são competentes, atentos aos detalhes e comprometidos com o resultado, super recomendo!</p>
+          </div>
+        </blockquote>
+        <figcaption><strong>Thalita Freitas</strong><span>Outback</span></figcaption>
+      </figure>
+      <figure class="testimonial">
+        <svg class="testimonial__mark" viewBox="0 0 36 28" aria-hidden="true" fill="currentColor"><path d="M0 28V17.2C0 7.6 5.1 1.9 14.2 0l1.6 4.1C10.7 5.6 8.3 8.7 8 13.2h6.7V28H0zm20.2 0V17.2C20.2 7.6 25.3 1.9 34.4 0L36 4.1c-5.1 1.5-7.5 4.6-7.8 9.1h6.7V28H20.2z"/></svg>
+        <blockquote>
+          <div class="testimonial__text" id="depoimento-tatiana">
+            <p>Trabalhar com esses designers é sempre uma experiência extremamente positiva e enriquecedora. O trabalho que desenvolvem é simplesmente primoroso, marcado por criatividade, uma sensibilidade estética ímpar, muito bom gosto e uma atenção aos detalhes que faz toda a diferença no resultado final. Além da excelência e da qualidade impecável imputada em cada um dos projetos, destaco também o profissionalismo, a agilidade, o cuidado e a dedicação com que acolhem cada uma das nossas demandas. Conseguem compreender perfeitamente minhas necessidades e as dos meus clientes, transformando ideias e expectativas em soluções elegantes, funcionais e de muito bom gosto. Outro grande diferencial é a combinação de tanta qualidade com valores justos e adequados, tornando a parceria ainda mais especial e confiável. É um privilégio contar com profissionais tão competentes, atenciosos e comprometidos, que tornam todo o processo leve, eficiente e prazeroso.</p>
+            <p>Recomendo de olhos fechados. É um grupo que entrega muito mais do que um excelente trabalho: entrega confiança, tranquilidade, cuidado e a certeza de que cada projeto está em ótimas mãos. Uma parceria que valorizo imensamente e que faço questão de indicar a todos que buscam design de excelência, profissionalismo e resultados verdadeiramente diferenciados.</p>
+          </div>
+        </blockquote>
+        <button class="testimonial__more" type="button" aria-controls="depoimento-tatiana" aria-expanded="false" hidden><span>Leia mais</span><svg viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4l4 4 4-4"/></svg></button>
+        <figcaption><strong>Tatiana Mazzei</strong><span>Hub1601</span></figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -973,6 +1021,20 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
       stepEls.forEach(function(el){inObs.observe(el);curObs.observe(el)});
     } else stepEls.forEach(function(el){el.classList.add('is-in')});
   }
+
+  /* depoimentos: "Leia mais" nos textos longos (o texto completo continua acessível a leitores de tela) */
+  [].forEach.call(document.querySelectorAll('.testimonial__more'),function(btn){
+    var box=document.getElementById(btn.getAttribute('aria-controls')); if(!box) return;
+    box.classList.add('is-clamped');
+    if(box.scrollHeight<=box.clientHeight+4){ box.classList.remove('is-clamped'); return }
+    btn.hidden=false;
+    btn.addEventListener('click',function(){
+      var open=btn.getAttribute('aria-expanded')==='true';
+      btn.setAttribute('aria-expanded',String(!open));
+      box.classList.toggle('is-clamped',open);
+      btn.querySelector('span').textContent=open?'Leia mais':'Ler menos';
+    });
+  });
 
   /* ---------- formulário em passos ---------- */
   var form=document.getElementById('brief'); if(!form) return;

@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contato | Estúdio F/Ale</title>
+<meta name="description" content="Conte sobre o seu negócio e o momento em que ele está. O Estúdio F/Ale entra em contato para marcar uma conversa sobre identidade visual estratégica, posicionamento e social media.">
+<link rel="canonical" href="https://www.estudiofale.com.br/contato/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#7A1531">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Estúdio F/Ale">
+<meta property="og:title" content="Vamos falar sobre o seu projeto? | Estúdio F/Ale">
+<meta property="og:description" content="Conte sobre o seu negócio e o momento em que ele está. O Estúdio F/Ale entra em contato para marcar uma conversa sobre identidade visual estratégica, posicionamento e social media.">
+<meta property="og:url" content="https://www.estudiofale.com.br/contato/">
+<meta property="og:image" content="https://www.estudiofale.com.br/assets/img/og-estudio-fale.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/logo/simbolo-fale.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ContactPage", "name": "Contato | Estúdio F/Ale", "url": "https://www.estudiofale.com.br/contato/", "inLanguage": "pt-BR", "description": "Conte sobre o seu negócio e o momento em que ele está. O Estúdio F/Ale entra em contato para marcar uma conversa sobre identidade visual estratégica, posicionamento e social media.", "about": {"@type": "Organization", "name": "Estúdio F/Ale", "url": "https://www.estudiofale.com.br/", "email": "ola@estudiofale.com.br"}}</script>
+<style>
+/* ==========================================================
+   Estúdio F/Ale — tokens
+   A paleta abaixo é provisória: troque só os valores em :root
+   para aplicar a paleta oficial em todo o site.
+   ========================================================== */
+@font-face{font-family:"Passeio";src:url("assets/fonts/Passeio-Light.ttf") format("truetype");font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:"Passeio";src:url("assets/fonts/Passeio-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Passeio";src:url("assets/fonts/Passeio-ExtraBold.ttf") format("truetype");font-weight:800;font-style:normal;font-display:swap}
+
+:root{
+  /* cor — paleta oficial Estúdio F/Ale */
+  --ink:#1D1D1D;          /* preto */
+  --paper:#F5F4F1;        /* off-white */
+  --paper-2:#ECE6DA;      /* creme */
+  --wine:#7A1531;         /* vinho */
+  --gold:#C59A45;         /* mostarda / dourado */
+  --green:#0F3C37;        /* verde-escuro */
+  --graphite:#55524C;     /* texto secundário no claro */
+  --mist:#B9B3A8;         /* texto secundário no escuro */
+  --accent:var(--wine);   /* ação no claro */
+  --accent-soft:var(--gold); /* ação no escuro */
+  --line:rgba(29,29,29,.16);
+  --line-dark:rgba(245,244,241,.2);
+  --error:#B3261E;
+
+  /* tipo — escala 1.25 sobre 17px */
+  --font:"Passeio",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --fs-sm:.875rem;
+  --fs-base:1.0625rem;
+  --fs-md:1.3125rem;
+  --fs-lg:clamp(1.375rem,1.1rem + .9vw,1.875rem);
+  --fs-xl:clamp(1.875rem,1.2rem + 2.2vw,3.25rem);
+  --fs-display:clamp(2.25rem,1.2rem + 3.6vw,4.75rem);
+
+  /* espaço — base 8 */
+  --gutter:clamp(1.25rem,4vw,3.5rem);
+  --section:clamp(5rem,10vw,10rem);
+  --maxw:90rem;
+
+  /* forma e movimento */
+  --radius-s:4px;
+  --radius-pill:999px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --slash:16.5deg; /* inclinação da barra do F/ALE */
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:5rem}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-weight:400;font-size:var(--fs-base);line-height:1.6;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+button,input,textarea,select{font:inherit;color:inherit}
+h1,h2,h3,h4,p,ul,ol,figure,fieldset{margin:0;padding:0}
+ul,ol{list-style:none}
+fieldset{border:0;min-width:0}
+::selection{background:var(--accent);color:var(--paper)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.on-dark :focus-visible{outline-color:var(--accent-soft)}
+
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:var(--gutter);top:-4rem;z-index:100;background:var(--ink);color:var(--paper);padding:.75rem 1rem;border-radius:var(--radius-s);text-decoration:none}
+.skip:focus{top:1rem}
+
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter)}
+
+/* ---------- botões ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.75rem;min-height:3.25rem;padding:.875rem 1.625rem;border-radius:var(--radius-pill);border:1.5px solid currentColor;background:transparent;font-weight:400;font-size:var(--fs-base);line-height:1;text-decoration:none;cursor:pointer;touch-action:manipulation;transition:background-color .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease),transform .15s var(--ease)}
+.btn:active{transform:scale(.98)}
+.btn--solid{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.btn--solid:hover{background:var(--accent);border-color:var(--accent)}
+.btn--ghost:hover{background:var(--ink);color:var(--paper)}
+.on-dark .btn--ghost:hover{background:var(--paper);color:var(--ink)}
+.on-dark .btn--solid{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.on-dark .btn--solid:hover{background:var(--paper);border-color:var(--paper)}
+.btn .slash{display:inline-block;width:1px;height:1.1em;background:currentColor;transform:skewX(calc(var(--slash) * -1)) rotate(var(--slash));opacity:.6}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+
+/* ---------- header ---------- */
+.site-header{position:sticky;top:0;z-index:50;background:var(--wine);color:var(--paper);border-bottom:1px solid transparent;transition:border-color .2s var(--ease)}
+.site-header.is-scrolled{border-bottom-color:var(--line-dark)}
+.site-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:2rem;min-height:4.5rem}
+.brand{display:inline-flex;align-items:center;text-decoration:none;padding-block:.5rem}
+.brand svg{width:11.5rem;height:auto;color:var(--gold)}
+.nav{display:flex;align-items:center;gap:2.25rem}
+.nav ul{display:flex;gap:1.75rem}
+.nav a:not(.btn){text-decoration:none;font-size:var(--fs-sm);padding-block:.75rem;position:relative}
+.nav a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:.45rem;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .25s var(--ease)}
+.nav a:not(.btn):hover::after,.nav a[aria-current="true"]::after{transform:scaleX(1)}
+.nav .btn{min-height:2.75rem;padding:.625rem 1.25rem;font-size:var(--fs-sm)}
+.menu-toggle{display:none;align-items:center;gap:.6rem;min-height:2.75rem;padding:.5rem .25rem;border:0;background:none;cursor:pointer;font-size:var(--fs-sm)}
+.menu-toggle span[aria-hidden]{display:grid;gap:5px}
+.menu-toggle span[aria-hidden] i{display:block;width:22px;height:1.5px;background:currentColor;transition:transform .25s var(--ease)}
+.menu-toggle[aria-expanded="true"] span[aria-hidden] i:first-child{transform:translateY(3.25px) rotate(45deg)}
+.menu-toggle[aria-expanded="true"] span[aria-hidden] i:last-child{transform:translateY(-3.25px) rotate(-45deg)}
+
+.section{padding-block:var(--section)}
+.section--wine{background:var(--wine);color:var(--paper)}
+/* ---------- página de contato ---------- */
+.contact-page{min-height:calc(100svh - 4.5rem);display:flex;align-items:center;position:relative;overflow:hidden;isolation:isolate}
+.contact-page__symbol{position:absolute;left:calc(var(--gutter) * -2);bottom:-5rem;width:clamp(16rem,30vw,28rem);color:var(--gold);opacity:.1;z-index:-1;pointer-events:none}
+.contact-page .wrap{width:100%}
+.contact-page .contact__intro h2{font-size:clamp(2.25rem,1.2rem + 3.4vw,4.25rem);color:var(--gold)}
+
+/* ---------- contato + formulário em passos ---------- */
+.contact .grid{row-gap:3rem;align-items:start}
+.contact__intro{grid-column:1/span 5;position:sticky;top:7rem}
+.contact__intro h2{font-weight:800;font-size:var(--fs-xl);line-height:1.05;letter-spacing:-.035em;margin-bottom:1.5rem;max-width:12ch}
+.contact__intro p{color:rgba(245,244,241,.82);max-width:34ch;font-size:var(--fs-md);line-height:1.5}
+.contact__direct{margin-top:2.5rem;display:grid;gap:.5rem;font-size:var(--fs-sm)}
+.contact__direct a{text-decoration:none;border-bottom:1px solid var(--line-dark);padding-block:.4rem;width:fit-content}
+.contact__direct a:hover{border-color:currentColor}
+
+.form-card .btn--solid{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.form-card .btn--solid:hover{background:var(--wine);border-color:var(--wine)}
+.form-card .btn--ghost{color:var(--ink)}
+.form-card .btn--ghost:hover{background:var(--ink);color:var(--paper)}
+.form-card :focus-visible{outline-color:var(--wine)}
+.form-card{grid-column:7/span 6;background:var(--paper);color:var(--ink);border-radius:6px;padding:clamp(1.5rem,3.5vw,3rem)}
+.progress{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.875rem;font-size:var(--fs-sm)}
+.progress__label{color:var(--graphite)}
+.progress__count{font-variant-numeric:tabular-nums}
+.progress__bar{height:3px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:clamp(2rem,4vw,2.75rem)}
+.progress__bar i{display:block;height:100%;width:25%;background:var(--accent);transition:width .4s var(--ease)}
+.step-panel{display:grid;gap:1.5rem}
+.step-panel[hidden]{display:none}
+.step-panel legend{font-weight:800;font-size:var(--fs-lg);line-height:1.05;letter-spacing:-.025em;margin-bottom:1.75rem;padding:0}
+.step-panel .hint{color:var(--graphite);font-size:var(--fs-sm);margin-top:-1.5rem}
+.field{display:grid;gap:.5rem}
+.field label,.field .label{font-size:var(--fs-sm)}
+.field .opt{color:var(--graphite)}
+.field .help{font-size:var(--fs-sm);color:var(--graphite);margin-top:-.25rem;max-width:52ch}
+.input{width:100%;min-height:3.25rem;padding:.75rem 0;border:0;border-bottom:1.5px solid var(--line);background:transparent;font-size:var(--fs-md);border-radius:0;transition:border-color .2s var(--ease)}
+.input::placeholder{color:#8B8B85}
+.input:hover{border-bottom-color:var(--graphite)}
+.input:focus{outline:none;border-bottom-color:var(--accent)}
+.input:focus-visible{outline:none}
+textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
+.field.has-error .input{border-bottom-color:var(--error)}
+.err{font-size:var(--fs-sm);color:var(--error);min-height:0}
+.err:empty{display:none}
+
+.chips{display:flex;flex-wrap:wrap;gap:.625rem}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.chip span{display:inline-flex;align-items:center;gap:.5rem;min-height:2.75rem;padding:.6rem 1.1rem;border:1.5px solid var(--line);border-radius:var(--radius-pill);font-size:var(--fs-sm);line-height:1.2;cursor:pointer;transition:border-color .2s var(--ease),background-color .2s var(--ease),color .2s var(--ease)}
+.chip span::before{content:"";width:.55rem;height:.55rem;border-radius:50%;border:1.5px solid currentColor;transition:background-color .2s var(--ease)}
+.chip input[type="checkbox"] + span::before{border-radius:2px}
+.chip:hover span{border-color:var(--graphite)}
+.chip input:checked + span{background:var(--wine);border-color:var(--wine);color:var(--paper)}
+.chip input:checked + span::before{background:currentColor}
+.chip input:focus-visible + span{outline:2px solid var(--accent);outline-offset:2px}
+.chips--stack{flex-direction:column;align-items:flex-start}
+.form-actions{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:clamp(2rem,4vw,2.75rem)}
+.form-actions .btn--back{border-color:transparent;padding-inline:.5rem}
+.form-actions .btn--back:hover{border-color:var(--line);background:transparent;color:var(--ink)}
+.form-actions .btn--back[hidden]{display:inline-flex;visibility:hidden}
+.summary{display:grid;gap:.25rem;padding:1.25rem;background:var(--paper-2);border-radius:var(--radius-s);font-size:var(--fs-sm)}
+.summary dt{color:var(--graphite)}
+.summary dd{margin:0 0 .75rem}
+.summary dd:last-child{margin-bottom:0}
+.done{display:grid;gap:1.25rem;text-align:left}
+.done[hidden]{display:none}
+.done svg{width:3.5rem;color:var(--wine)}
+.done h3{font-weight:800;font-size:var(--fs-lg);letter-spacing:-.025em;line-height:1.05}
+.done p{color:var(--graphite);max-width:36ch}
+.form-status{font-size:var(--fs-sm);color:var(--error)}
+.form-status:empty{display:none}
+
+/* ---------- rodapé ---------- */
+.site-footer{padding-block:clamp(3rem,6vw,4.5rem) 2rem;background:var(--ink);color:var(--paper)}
+.footer__top{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;padding-bottom:clamp(2rem,4vw,3rem)}
+.footer__top svg{width:clamp(11rem,16vw,14rem);height:auto;color:var(--gold)}
+.footer__close{font-weight:300;font-size:var(--fs-md);line-height:1.3;max-width:26ch;text-align:right}
+.footer__close b{font-weight:800;color:var(--gold)}
+.footer__legal{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.8125rem;color:var(--mist);padding-top:1.5rem;border-top:1px solid var(--line-dark)}
+
+/* ---------- responsivo ---------- */
+@media (max-width:1100px){
+  .contact__intro{grid-column:1/-1;position:static}
+  .form-card{grid-column:1/-1}
+}
+@media (max-width:900px){
+  .menu-toggle{display:inline-flex}
+  .nav{position:fixed;inset:4.5rem 0 0 0;overflow-y:auto;justify-content:flex-start;flex-direction:column;align-items:stretch;gap:0;padding:1rem var(--gutter) 2rem;background:var(--wine);transform:translateY(-.5rem);opacity:0;visibility:hidden;transition:opacity .2s var(--ease),transform .2s var(--ease),visibility 0s .2s}
+  .nav.is-open{opacity:1;visibility:visible;transform:none;transition:opacity .2s var(--ease),transform .2s var(--ease)}
+  .nav ul{flex-direction:column;gap:0}
+  .nav a:not(.btn){display:block;font-size:var(--fs-md);padding-block:.875rem;border-bottom:1px solid var(--line-dark)}
+  .nav a:not(.btn)::after{display:none}
+  .nav .btn{margin-top:1.5rem;min-height:3.25rem;font-size:var(--fs-base)}
+  .footer__close{text-align:left}
+}
+@media (max-width:600px){
+  .brand svg{width:9.5rem}
+  .form-actions .btn--next{flex:1}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="logo-fale" viewBox="0 0 511.75 78.96"><g fill="currentColor"><path d="M190.59,0h46.04v7.4h-33.34v26.67h29.48v7.5h-29.48v32.09h-12.71V0Z"/><path d="M280.87,0h4.58l-23.38,78.96h-4.67L280.87,0Z"/><path d="M331.53,0h10.83l29.48,73.65h-13.96l-7.08-18.34h-33.13l-7.19,18.34h-8.33L331.53,0ZM347.99,47.92l-13.65-35.11-13.75,35.11h27.4Z"/><path d="M392.99,0h12.71v66.26h33.75v7.4h-46.46V0Z"/><path d="M463.62,0h47.09v7.4h-34.38v24.59h30.52v7.5h-30.52v26.77h35.42v7.4h-48.13V0Z"/><path d="M0,31.48h13.63v2.14H3.68v7.12h8.84v2.17H3.68v7.75h10.25v2.14H0v-21.32Z"/><path d="M20.72,51.05v-4.74h1.81c0,1.67.43,2.89,1.28,3.67.85.77,2.12,1.16,3.79,1.16,1.51,0,2.67-.37,3.5-1.1.82-.73,1.24-1.65,1.24-2.76,0-.95-.29-1.66-.86-2.14s-1.45-.87-2.64-1.18l-2.84-.75c-3.5-.86-5.25-2.77-5.25-5.73,0-1.19.31-2.25.94-3.2.62-.94,1.51-1.69,2.65-2.23,1.15-.54,2.48-.81,4.01-.81,1.13,0,2.24.14,3.33.42,1.1.28,2.1.68,3,1.21v4.52h-1.78c0-1.47-.38-2.54-1.15-3.23-.76-.68-1.89-1.02-3.38-1.02-1.37,0-2.42.33-3.15,1-.73.66-1.1,1.5-1.1,2.5,0,.86.26,1.53.77,1.99.51.46,1.25.82,2.22,1.09l2.83.72c1.83.5,3.25,1.19,4.27,2.07,1.02.87,1.52,2.18,1.52,3.91,0,1.29-.33,2.43-1,3.44-.66,1.01-1.6,1.79-2.82,2.35-1.22.56-2.64.84-4.27.84-2.59,0-4.91-.66-6.94-1.99Z"/><path d="M48.59,33.62h-7.69v-2.14h19.06v2.14h-7.69v19.18h-3.68v-19.18Z"/><path d="M70.21,52c-1.35-.69-2.41-1.72-3.2-3.09-.78-1.37-1.18-3.02-1.18-4.95v-12.49h3.68v12.52c0,2.29.54,4.03,1.61,5.22,1.08,1.19,2.48,1.78,4.21,1.78s3.17-.59,4.25-1.78c1.09-1.19,1.63-2.93,1.63-5.22v-12.52h2.2v12.52c0,1.89-.36,3.51-1.07,4.87-.71,1.36-1.72,2.39-3.03,3.11s-2.82,1.07-4.55,1.07-3.21-.35-4.55-1.04ZM76.31,25.93h4.58l-6.27,3.89h-2.02l3.71-3.89Z"/><path d="M91.2,31.48h7.81c2.03,0,3.85.45,5.44,1.34,1.6.89,2.84,2.15,3.72,3.77.88,1.62,1.33,3.47,1.33,5.56s-.44,3.91-1.33,5.52c-.89,1.61-2.13,2.87-3.72,3.77-1.6.9-3.41,1.36-5.44,1.36h-7.81v-21.32ZM98.9,50.66c1.37,0,2.57-.35,3.6-1.04,1.03-.69,1.83-1.68,2.4-2.96.56-1.28.84-2.78.84-4.51s-.28-3.27-.84-4.55c-.56-1.29-1.36-2.27-2.4-2.96-1.04-.68-2.24-1.03-3.6-1.03h-4.01v17.04h4.01Z"/><path d="M116.66,31.48h3.68v21.32h-3.68v-21.32Z"/><path d="M132.76,51.67c-1.59-.91-2.86-2.2-3.82-3.86-.96-1.66-1.43-3.55-1.43-5.69s.48-4,1.43-5.66c.95-1.66,2.23-2.94,3.82-3.86,1.59-.91,3.31-1.37,5.16-1.37s3.57.46,5.17,1.37c1.6.92,2.88,2.2,3.83,3.86.95,1.66,1.43,3.55,1.43,5.69s-.48,4-1.43,5.65c-.96,1.66-2.23,2.95-3.83,3.86-1.6.92-3.31,1.37-5.14,1.37s-3.6-.46-5.19-1.37ZM132.31,46.9c.58,1.36,1.37,2.4,2.35,3.12s2.08,1.09,3.29,1.09,2.3-.35,3.29-1.06c.98-.7,1.76-1.73,2.34-3.08.57-1.35.86-2.96.86-4.83s-.29-3.42-.88-4.78c-.58-1.36-1.37-2.4-2.37-3.12-1-.72-2.09-1.09-3.27-1.09s-2.3.35-3.29,1.06-1.76,1.73-2.34,3.09-.86,2.96-.86,4.81.29,3.42.88,4.78Z"/></g></symbol><symbol id="simbolo-fale" viewBox="0 0 366.03 369.8"><g fill="currentColor"><path d="M81.81,75.91c-.98-23.98-.42-45.59,19.01-62.17,25.34-21.61,72.55-18.55,81.66,17.75,1.36.19.76-.16.99-.74,1.14-2.86,1.9-5.73,3.37-8.48,17.53-32.68,72.33-27.45,89.98,2.96,9.87,17.01,6.71,35.37,7.53,54.15.4.57,11.69.74,13.84.96,27.99,2.84,65.01,19.49,67.39,51.55,2.63,35.55-29.01,55.44-60.95,57.04-67.36,3.38-105.78-36.37-121.16-98.51-.21-.83.49-1.44-1-1.2,0,.86.06,1.73-.13,2.59-10.1,45.45-41.27,86.32-88.61,95.96l-9.47,1.63c43.75,4.31,77.59,35.81,92.65,75.88l6.3,20.35c8.02-38.23,32.93-74.71,70.2-89.2,34.58-13.44,104.76-9.81,112.02,36.77,5.9,37.87-34.68,58.59-66.75,60.32-2.19.12-13.7-.45-14.34.47.33,17.18-.68,33.03-9.69,48.05-21.55,35.96-79.01,39.73-91.45-5.08-1.77,3.76-2.86,7.72-4.93,11.36-14.61,25.67-49.59,27.17-71.77,10.56-36.25-27.15-21.83-77.45-24.7-116.44-.55-7.51-3.52-13.17-9.73-17.41-2.27-1.55-5.84-2.68-7.73-4.11-.56-.43-1.01-.51-.82-1.4h59.71v1.47c-8.86,1.9-16.07,6.68-17.71,16.1-2.2,12.59-.68,34.75-.57,48.33.12,14.22-1.05,29.87,3.12,43.76,14.12,47,70.3,35.97,71.44-12.67,1.21-51.5-49.59-115.52-101.5-122.1-57.47-7.28-75.56,59.47-27.16,86.38,9.07,5.05,19.1,7.34,29.45,7.82l-.49,4.44c-27.18,1.9-58.89-6.73-73.3-31.58-20.11-34.67,9.45-65.21,43.17-70.84l10.38-1.7c-32.03-.63-65.25-25.2-59.08-60.32,5.19-29.59,38.62-45.42,65.75-48.25,28.27-2.94,61.05,6.44,84.63-13.33v47.87c-1.76-2.18-2.63-5.1-4.05-7.55-8.05-13.89-19.88-19.69-35.69-21.07h-6.42s-.25,49.12-.25,49.12c.47,1.85.35,3.83.73,5.68,1.9,9.1,8.92,13.52,17.55,15.28v1.47h-59.71v-1.47c6.73-2,13.63-6.77,16.37-13.5.56-1.37,1.89-5.75,1.89-7v-50.09c-28.04-.57-56.65,21.77-58.75,50.56-2.71,37.3,30.45,54.96,63.68,45.42,52.93-15.2,96.82-80,92.77-134.72-3.24-43.82-61.78-48.89-72.5-6.38-2.84,11.26-1.75,23.7-2.01,35.25h-23.19ZM284.15,86.02v47.38c0,1.61.68,5.56,1.13,7.26,2.02,7.57,9.69,13.33,16.84,15.64l.29,1.52h-59.71v-1.47c10.26-2.05,17.28-7.61,18.25-18.52,1.53-17.17-.45-37.84-.53-55.26-.07-13.82,2.07-28.01-1.18-41.71-10.02-42.21-69.75-38.58-72.82,7.14-3.65,54.35,40.1,118.19,92.42,133.64,34.15,10.09,66.87-8.3,64.06-46.29-2.05-27.73-30.86-49.92-57.74-49.87-.58,0-.64.03-1.01.54ZM219.99,310.81v-43.92l6.16,8.4c9.57,10.08,26.65,12.66,39.96,13.33,20.28,1.02,37.34.58,54.41-11.26,40.39-28.01,23.27-86.14-27.25-83.51-55.38,2.88-112.72,74.78-106.29,128.98,4.77,40.19,51.66,51.14,68.62,12.49,6.03-13.74,5.52-28.05,5.35-42.78-4.57.22-8.99-.76-13.57-.49-8.42.5-16.08,3.51-21.73,9.86l-5.67,8.89Z"/><path d="M144,310.81l-4.73-7.85c-3.3-4.86-12.8-11.39-18.71-11.39h-13.57l.29-4.5c8.41-1.16,17.34-2.66,24.54-7.44,5.07-3.37,8.51-8.01,12.18-12.74v43.92Z"/><path d="M215.06,67.02c5.99,4.79,12.59,8.83,20.13,10.72,8.06,2.01,16.52,1.88,24.78,2.11v5.15c-.08.53-6.2.71-7.1.83-14.16,1.96-25.76,6.87-33.28,19.53l-4.54,9.03v-47.38Z"/><path d="M302.41,219.51c1.06.92-5.75,3.84-6.38,4.23-6.99,4.36-11.88,10.48-11.88,19.21v41.21h-23.19v-45.16c0-1.04-1.14-4.61-1.6-5.8-2.52-6.65-9.86-11.02-16.66-12.22v-1.47h59.71Z"/></g></symbol></defs></svg>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="site-header on-dark" id="topo">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Estúdio F/Ale, página inicial">
+      <svg viewBox="0 0 511.75 78.96" aria-hidden="true"><use href="#logo-fale"/></svg>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav">
+      <span class="menu-label">Menu</span><span aria-hidden="true"><i></i><i></i></span>
+    </button>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <ul>
+        <li><a href="index.html#manifesto">Manifesto</a></li>
+        <li><a href="index.html#servicos">Serviços</a></li>
+        <li><a href="index.html#projetos">Projetos</a></li>
+        <li><a href="index.html#processo">Processo</a></li>
+      </ul>
+      <a class="btn btn--solid" href="contato.html" aria-current="page">Começar um projeto</a>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo">
+<section class="section section--wine contact contact-page on-dark" id="contato" aria-labelledby="contato-title">
+  <svg class="contact-page__symbol" viewBox="0 0 366.03 369.8" aria-hidden="true"><use href="#simbolo-fale"/></svg>
+  <div class="wrap grid">
+    <div class="contact__intro">
+      <h2 id="contato-title">Vamos falar sobre o seu projeto?</h2>
+      <p>Conte um pouco sobre o seu negócio. A partir dessas informações, entraremos em contato para marcar uma conversa.</p>
+      <div class="contact__direct">
+        <a href="mailto:ola@estudiofale.com.br">ola@estudiofale.com.br</a>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <!-- Defina o endpoint em data-endpoint (Formspree, webhook, Elementor Forms etc.). Sem endpoint, o envio é simulado. -->
+      <form id="brief" novalidate data-endpoint="">
+        <div class="progress" aria-hidden="true">
+          <span class="progress__label" id="progress-label">Sobre você</span>
+          <span class="progress__count"><span id="progress-n">1</span> de 3</span>
+        </div>
+        <div class="progress__bar" role="progressbar" aria-label="Progresso do formulário" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1"><i></i></div>
+
+        <!-- Passo 1 -->
+        <fieldset class="step-panel" data-step="1" data-title="Sobre você">
+          <legend>Primeiro, quem é você?</legend>
+          <div class="field">
+            <label for="f-nome">Seu nome</label>
+            <input class="input" id="f-nome" name="nome" type="text" autocomplete="name" required aria-describedby="e-nome">
+            <p class="err" id="e-nome" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="f-contato">E-mail ou WhatsApp</label>
+            <input class="input" id="f-contato" name="contato" type="text" autocomplete="email" required aria-describedby="e-contato">
+            <p class="err" id="e-contato" aria-live="polite"></p>
+          </div>
+        </fieldset>
+
+        <!-- Passo 2 -->
+        <fieldset class="step-panel" data-step="2" data-title="Seu negócio" hidden>
+          <legend>Sobre o seu negócio.</legend>
+          <div class="field">
+            <label for="f-negocio">Qual é o nome e o segmento do seu negócio?</label>
+            <input class="input" id="f-negocio" name="negocio" type="text" autocomplete="organization" required aria-describedby="e-negocio">
+            <p class="err" id="e-negocio" aria-live="polite"></p>
+          </div>
+          <div class="field" role="radiogroup" aria-labelledby="l-momento" aria-describedby="e-momento">
+            <span class="label" id="l-momento">Em que momento ele está?</span>
+            <div class="chips chips--stack">
+              <label class="chip"><input type="radio" name="momento" value="Estou começando um novo negócio" required><span>Estou começando um novo negócio</span></label>
+              <label class="chip"><input type="radio" name="momento" value="Já estou no mercado, mas preciso construir uma presença mais profissional"><span>Já estou no mercado, mas preciso construir uma presença mais profissional</span></label>
+              <label class="chip"><input type="radio" name="momento" value="Minha marca já não representa o momento atual do negócio"><span>Minha marca já não representa o momento atual do negócio</span></label>
+              <label class="chip"><input type="radio" name="momento" value="Estou entrando em uma nova fase"><span>Estou entrando em uma nova fase</span></label>
+            </div>
+            <p class="err" id="e-momento" aria-live="polite"></p>
+          </div>
+        </fieldset>
+
+        <!-- Passo 3 -->
+        <fieldset class="step-panel" data-step="3" data-title="Seu projeto" hidden>
+          <legend>Sobre o projeto.</legend>
+          <div class="field">
+            <label for="f-projeto">Conte um pouco sobre o projeto e o que você gostaria de construir ou transformar.</label>
+            <p class="help" id="h-projeto">Não precisa saber exatamente qual serviço procura. Conte o que está acontecendo, quais são seus objetivos e do que sente falta hoje.</p>
+            <textarea class="input" id="f-projeto" name="projeto" rows="5" required aria-describedby="h-projeto e-projeto"></textarea>
+            <p class="err" id="e-projeto" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="f-link">Onde podemos conhecer melhor o seu negócio? <span class="opt">(opcional)</span></label>
+            <p class="help" id="h-link">Site, Instagram ou outro link.</p>
+            <input class="input" id="f-link" name="link" type="text" inputmode="url" aria-describedby="h-link">
+          </div>
+          <p class="form-status" id="form-status" role="alert"></p>
+        </fieldset>
+
+        <div class="form-actions" id="form-actions">
+          <button class="btn btn--back" type="button" id="btn-back" hidden>Voltar</button>
+          <button class="btn btn--solid btn--next" type="button" id="btn-next">Continuar</button>
+        </div>
+      </form>
+
+      <div class="done" id="done" hidden tabindex="-1">
+        <svg viewBox="0 0 56 56" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="28" cy="28" r="26"/><path d="M17 29l7 7 15-16"/></svg>
+        <h3>Recebemos suas informações.</h3>
+        <p>Vamos conhecer melhor o projeto e entraremos em contato em breve.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer on-dark">
+  <div class="wrap">
+    <div class="footer__top">
+      <svg viewBox="0 0 511.75 78.96" role="img" aria-label="Estúdio F/Ale"><use href="#logo-fale"/></svg>
+      <p class="footer__close">Estúdio de design especializado em identidade visual estratégica para marcas que <b>têm algo a dizer.</b></p>
+    </div>
+    <div class="footer__legal">
+      <span>© <span id="year">2026</span> Estúdio F/Ale</span>
+      <span>Identidade visual estratégica, posicionamento e social media</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var doc=document.documentElement; doc.classList.add('js');
+  var y=document.getElementById('year'); if(y) y.textContent=new Date().getFullYear();
+  var header=document.querySelector('.site-header');
+  var onScroll=function(){header.classList.toggle('is-scrolled',window.scrollY>8)};
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  var toggle=document.querySelector('.menu-toggle'), nav=document.getElementById('nav');
+  function setMenu(open){toggle.setAttribute('aria-expanded',String(open));toggle.querySelector('.menu-label').textContent=open?'Fechar':'Menu';nav.classList.toggle('is-open',open)}
+  toggle.addEventListener('click',function(){setMenu(toggle.getAttribute('aria-expanded')!=='true')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('is-open')){setMenu(false);toggle.focus()}});
+  /* ---------- formulário em passos ---------- */
+  var form=document.getElementById('brief'); if(!form) return;
+  var panels=[].slice.call(form.querySelectorAll('.step-panel'));
+  var total=panels.length, current=0;
+  var btnNext=document.getElementById('btn-next'), btnBack=document.getElementById('btn-back');
+  var bar=form.querySelector('.progress__bar'), barFill=bar.querySelector('i');
+  var lbl=document.getElementById('progress-label'), num=document.getElementById('progress-n');
+  var status=document.getElementById('form-status'), done=document.getElementById('done');
+  var reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var KEY='fale-projeto-v2', FIELDS=['nome','contato','negocio','momento','projeto','link'];
+
+  function val(name){
+    var el=form.elements[name]; if(!el) return '';
+    if(el instanceof RadioNodeList){var c=[].filter.call(el,function(i){return i.checked})[0]; return c?c.value:''}
+    return (el.value||'').trim();
+  }
+  function setErr(id,msg){
+    var e=document.getElementById(id); if(!e) return;
+    e.textContent=msg||'';
+    var wrap=e.closest('.field'); if(wrap) wrap.classList.toggle('has-error',!!msg);
+    var input=wrap&&wrap.querySelector('.input'); if(input) input.setAttribute('aria-invalid',msg?'true':'false');
+  }
+  function isContact(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) || v.replace(/\D/g,'').length>=10 }
+  function validate(step){
+    var firstBad=null, ok=true;
+    function check(cond,id,msg,el){ if(!cond){ok=false;setErr(id,msg);if(!firstBad) firstBad=el} else setErr(id,'') }
+    if(step===0){
+      check(val('nome').length>=2,'e-nome','Informe seu nome.',form.elements.nome);
+      var c=val('contato');
+      check(c.length>0,'e-contato','Informe um e-mail ou WhatsApp para retornarmos.',form.elements.contato);
+      if(c) check(isContact(c),'e-contato','Confira o contato: use um e-mail válido ou um WhatsApp com DDD.',form.elements.contato);
+    }
+    if(step===1){
+      check(val('negocio').length>=2,'e-negocio','Informe o nome e o segmento do negócio.',form.elements.negocio);
+      check(!!val('momento'),'e-momento','Escolha a opção mais próxima do momento do negócio.',form.elements.momento[0]);
+    }
+    if(step===2){
+      check(val('projeto').length>=10,'e-projeto','Conte um pouco sobre o projeto. Algumas linhas já ajudam.',form.elements.projeto);
+    }
+    if(firstBad) firstBad.focus();
+    return ok;
+  }
+  function show(i,focus){
+    current=i;
+    panels.forEach(function(p,k){p.hidden=k!==i});
+    var p=panels[i];
+    lbl.textContent=p.dataset.title; num.textContent=i+1;
+    barFill.style.width=((i+1)/total*100)+'%'; bar.setAttribute('aria-valuenow',i+1);
+    btnBack.hidden=i===0;
+    btnNext.textContent=i===total-1?'Enviar projeto':'Continuar';
+    if(focus){ p.setAttribute('tabindex','-1'); p.focus({preventScroll:true});
+      var top=form.getBoundingClientRect().top+window.scrollY-110; if(window.scrollY>top) window.scrollTo({top:top,behavior:reduceMotion?'auto':'smooth'}) }
+  }
+  function save(){ try{ var d={}; FIELDS.forEach(function(n){d[n]=val(n)}); localStorage.setItem(KEY,JSON.stringify(d)) }catch(e){} }
+  function restore(){
+    try{ var d=JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return;
+      FIELDS.forEach(function(n){ var el=form.elements[n]; if(!el||!d[n]) return;
+        if(el instanceof RadioNodeList) [].forEach.call(el,function(i){i.checked=i.value===d[n]}); else el.value=d[n];
+      });
+    }catch(e){}
+  }
+  restore();
+  /* limpa o erro do campo assim que a pessoa corrige (sem revalidar no blur, para o botão não "pular") */
+  function clearFieldErr(e){ var f=e.target.closest('.field'); if(!f||!f.classList.contains('has-error')) return; var err=f.querySelector('.err'); if(err) setErr(err.id,'') }
+  form.addEventListener('input',function(e){save(); if(e.target.value&&e.target.value.trim()) clearFieldErr(e)});
+  form.addEventListener('change',function(e){save(); if(e.target.type==='radio') clearFieldErr(e)});
+  form.addEventListener('keydown',function(e){ if(e.key==='Enter'&&e.target.tagName==='INPUT'){e.preventDefault();btnNext.click()} });
+  btnBack.addEventListener('click',function(){ if(current>0) show(current-1,true) });
+  btnNext.addEventListener('click',function(){
+    if(!validate(current)) return;
+    if(current<total-1){ show(current+1,true); return }
+    submit();
+  });
+  function submit(){
+    status.textContent='';
+    btnNext.disabled=true; btnBack.disabled=true; btnNext.textContent='Enviando…';
+    var data=new FormData(form), endpoint=form.dataset.endpoint;
+    var req=endpoint?fetch(endpoint,{method:'POST',body:data,headers:{Accept:'application/json'}}).then(function(r){if(!r.ok) throw new Error(r.status)}):new Promise(function(r){setTimeout(r,700)});
+    req.then(function(){
+      try{localStorage.removeItem(KEY)}catch(e){}
+      form.hidden=true; done.hidden=false; done.focus();
+    }).catch(function(){
+      status.textContent='Não foi possível enviar agora. Verifique sua conexão e tente de novo, ou escreva para ola@estudiofale.com.br.';
+    }).finally(function(){ btnNext.disabled=false; btnBack.disabled=false; btnNext.textContent='Enviar projeto' });
+  }
+  show(0,false);
+})();
+</script>
+</body>
+</html>

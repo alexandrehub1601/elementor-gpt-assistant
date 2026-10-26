@@ -38,7 +38,7 @@
     "name": "Estúdio F/Ale",
     "url": "https://www.estudiofale.com.br/"
    },
-   "keywords": "identidade visual, branding, festival, evento, Foz do Iguaçu, Festival Iguassu Inova"
+   "keywords": "identidade visual estratégica, identidade visual, festival, evento, Foz do Iguaçu, Festival Iguassu Inova"
   },
   {
    "@type": "BreadcrumbList",
@@ -163,6 +163,11 @@ fieldset{border:0;min-width:0}
 .menu-toggle[aria-expanded="true"] span[aria-hidden] i:first-child{transform:translateY(3.25px) rotate(45deg)}
 .menu-toggle[aria-expanded="true"] span[aria-hidden] i:last-child{transform:translateY(-3.25px) rotate(-45deg)}
 
+.nav a.nav__insta{display:inline-grid;place-items:center;width:2.75rem;height:2.75rem;padding:0;border-radius:50%;transition:background-color .2s var(--ease)}
+.nav a.nav__insta::after{display:none}
+.nav a.nav__insta:hover{background:rgba(245,244,241,.14)}
+.nav__insta svg{width:20px;height:20px}
+.nav__insta-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
 /* ==========================================================
    Página de projeto
    Estrutura pensada para o WordPress: 1 bloco de título + descrição
@@ -234,8 +239,11 @@ fieldset{border:0;min-width:0}
 .site-footer{padding-block:clamp(3rem,6vw,4.5rem) 2rem;background:var(--ink);color:var(--paper)}
 .footer__top{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;padding-bottom:clamp(2rem,4vw,3rem)}
 .footer__top svg{width:clamp(11rem,16vw,14rem);height:auto;color:var(--gold)}
-.footer__close{font-weight:300;font-size:var(--fs-md);line-height:1.3;max-width:26ch;text-align:right}
-.footer__close b{font-weight:800;color:var(--gold)}
+.footer__right{display:grid;justify-items:end;gap:1.75rem;text-align:right}
+.footer__tagline{font-weight:800;font-size:clamp(1.375rem,1rem + 1.4vw,2.25rem);line-height:1.04;letter-spacing:.01em;text-transform:uppercase;color:var(--gold);white-space:nowrap}
+.btn--insta{gap:.6rem;min-height:2.875rem;padding:.65rem 1.25rem;font-size:var(--fs-sm);color:var(--paper)}
+.btn--insta svg{width:18px;height:18px}
+.btn--insta:hover{background:var(--paper);color:var(--ink)}
 .footer__legal{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.8125rem;color:var(--mist);padding-top:1.5rem;border-top:1px solid var(--line-dark)}
 
 /* ---------- responsivo ---------- */
@@ -246,9 +254,12 @@ fieldset{border:0;min-width:0}
   .nav ul{flex-direction:column;gap:0}
   .nav a:not(.btn){display:block;font-size:var(--fs-md);padding-block:.875rem;border-bottom:1px solid var(--line-dark)}
   .nav a:not(.btn)::after{display:none}
+  .nav a.nav__insta{display:flex;width:auto;height:auto;border-radius:0;gap:.75rem;align-items:center;justify-content:flex-start;padding-block:.875rem;border-bottom:1px solid var(--line-dark)}
+  .nav a.nav__insta:hover{background:none}
+  .nav__insta-label{position:static;width:auto;height:auto;clip:auto}
   .nav .btn{margin-top:1.5rem;min-height:3.25rem;font-size:var(--fs-base)}
   .case-title,.case-desc{grid-column:1/-1}
-  .footer__close{text-align:left}
+  .footer__right{justify-items:start;text-align:left}
   .work-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:600px){
@@ -281,6 +292,7 @@ fieldset{border:0;min-width:0}
         <li><a href="../index.html#projetos" aria-current="page">Projetos</a></li>
         <li><a href="../index.html#processo">Processo</a></li>
       </ul>
+      <a class="nav__insta" href="https://www.instagram.com/estudiofale" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg><span class="nav__insta-label">Instagram</span></a>
       <a class="btn btn--solid" href="../contato.html">Começar um projeto</a>
     </nav>
   </div>
@@ -372,7 +384,10 @@ fieldset{border:0;min-width:0}
   <div class="wrap">
     <div class="footer__top">
       <svg viewBox="0 0 511.75 78.96" role="img" aria-label="Estúdio F/Ale"><use href="#logo-fale"/></svg>
-      <p class="footer__close">Estúdio de design especializado em identidade visual estratégica para marcas que <b>têm algo a dizer.</b></p>
+      <div class="footer__right">
+        <p class="footer__tagline">Para sua<br>marca dizer<br>a que veio</p>
+        <a class="btn btn--ghost btn--insta" href="https://www.instagram.com/estudiofale" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg><span>@estudiofale</span></a>
+      </div>
     </div>
     <div class="footer__legal">
       <span>© <span id="year">2026</span> Estúdio F/Ale</span>

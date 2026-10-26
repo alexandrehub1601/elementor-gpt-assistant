@@ -64,7 +64,6 @@
     "Identidade visual estratégica",
     "Identidade visual",
     "Posicionamento de marca",
-    "Branding",
     "Design de logotipo",
     "Manual de marca",
     "Identidade verbal",
@@ -72,7 +71,7 @@
     "Plano de comunicação"
    ],
    "sameAs": [
-    "https://instagram.com/"
+    "https://www.instagram.com/estudiofale"
    ],
    "hasOfferCatalog": {
     "@type": "OfferCatalog",
@@ -93,7 +92,7 @@
        "@type": "Service",
        "name": "Posicionamento de marca",
        "serviceType": "Posicionamento de marca",
-       "description": "A base da marca: entendemos o que sustenta o negócio para definir o que ele diz, como diz e o que defende. Inclui: diagnóstico e pesquisa, posicionamento, valores, identidade verbal e tom de voz."
+       "description": "A base da marca, de forma direta e objetiva: entendemos o que sustenta o negócio para definir o que ele diz, como diz e o que defende. Inclui: diagnóstico e pesquisa, posicionamento, valores, identidade verbal e tom de voz."
       }
      },
      {
@@ -147,10 +146,10 @@
     },
     {
      "@type": "Question",
-     "name": "Qual a diferença entre identidade visual estratégica e branding?",
+     "name": "Qual a diferença entre identidade visual estratégica e posicionamento de marca?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Branding é um processo amplo de construção de marca. A identidade visual estratégica é o nosso produto principal: reúne o essencial do posicionamento e a criação da identidade visual em um projeto direto, sem etapas de que o seu negócio não precisa."
+      "text": "O posicionamento de marca define o que o negócio diz, como diz e o que defende, a partir de um diagnóstico direto e sem processos longos. A identidade visual estratégica traduz essa direção em forma: logotipo, cores, tipografia e o sistema visual da marca. Os dois podem caminhar juntos ou separados, conforme o momento do negócio."
      }
     },
     {
@@ -279,6 +278,11 @@ fieldset{border:0;min-width:0}
 .menu-toggle[aria-expanded="true"] span[aria-hidden] i:first-child{transform:translateY(3.25px) rotate(45deg)}
 .menu-toggle[aria-expanded="true"] span[aria-hidden] i:last-child{transform:translateY(-3.25px) rotate(-45deg)}
 
+.nav a.nav__insta{display:inline-grid;place-items:center;width:2.75rem;height:2.75rem;padding:0;border-radius:50%;transition:background-color .2s var(--ease)}
+.nav a.nav__insta::after{display:none}
+.nav a.nav__insta:hover{background:rgba(245,244,241,.14)}
+.nav__insta svg{width:20px;height:20px}
+.nav__insta-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
 /* ---------- hero: vídeo do motion em tela cheia ---------- */
 .hero{position:relative;height:calc(100svh - 4.5rem);min-height:22rem;background:var(--wine);overflow:hidden;isolation:isolate}
 .hero__placeholder{position:absolute;inset:0;display:grid;place-items:center;color:var(--gold)}
@@ -484,8 +488,11 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
 .site-footer{padding-block:clamp(3rem,6vw,4.5rem) 2rem;background:var(--ink);color:var(--paper)}
 .footer__top{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;padding-bottom:clamp(2rem,4vw,3rem)}
 .footer__top svg{width:clamp(11rem,16vw,14rem);height:auto;color:var(--gold)}
-.footer__close{font-weight:300;font-size:var(--fs-md);line-height:1.3;max-width:26ch;text-align:right}
-.footer__close b{font-weight:800;color:var(--gold)}
+.footer__right{display:grid;justify-items:end;gap:1.75rem;text-align:right}
+.footer__tagline{font-weight:800;font-size:clamp(1.375rem,1rem + 1.4vw,2.25rem);line-height:1.04;letter-spacing:.01em;text-transform:uppercase;color:var(--gold);white-space:nowrap}
+.btn--insta{gap:.6rem;min-height:2.875rem;padding:.65rem 1.25rem;font-size:var(--fs-sm);color:var(--paper)}
+.btn--insta svg{width:18px;height:18px}
+.btn--insta:hover{background:var(--paper);color:var(--ink)}
 .footer__legal{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.8125rem;color:var(--mist);padding-top:1.5rem;border-top:1px solid var(--line-dark)}
 
 /* ---------- responsivo ---------- */
@@ -503,6 +510,9 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
   .nav ul{flex-direction:column;gap:0}
   .nav a:not(.btn){display:block;font-size:var(--fs-md);padding-block:.875rem;border-bottom:1px solid var(--line-dark)}
   .nav a:not(.btn)::after{display:none}
+  .nav a.nav__insta{display:flex;width:auto;height:auto;border-radius:0;gap:.75rem;align-items:center;justify-content:flex-start;padding-block:.875rem;border-bottom:1px solid var(--line-dark)}
+  .nav a.nav__insta:hover{background:none}
+  .nav__insta-label{position:static;width:auto;height:auto;clip:auto}
   .nav .btn{margin-top:1.5rem;min-height:3.25rem;font-size:var(--fs-base)}
   .section-name,.section-title{grid-column:1/-1}
   .manifesto__aside,.manifesto__main{grid-column:1/-1;position:static}
@@ -514,7 +524,7 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
   .step__body{grid-column:1/-1;grid-row:2}
   .work-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .faq-list{grid-column:1/-1}
-  .footer__close{text-align:left}
+  .footer__right{justify-items:start;text-align:left}
 }
 @media (max-width:600px){
   .brand svg{width:9.5rem}
@@ -547,6 +557,7 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
         <li><a href="#projetos">Projetos</a></li>
         <li><a href="#processo">Processo</a></li>
       </ul>
+      <a class="nav__insta" href="https://www.instagram.com/estudiofale" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg><span class="nav__insta-label">Instagram</span></a>
       <a class="btn btn--solid" href="#contato">Começar um projeto</a>
     </nav>
   </div>
@@ -621,7 +632,7 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
       <article class="service">
         <svg viewBox="0 0 36 36" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="18" cy="18" r="15"/><circle cx="18" cy="18" r="9"/><circle cx="18" cy="18" r="3" fill="currentColor"/></svg>
         <h3>Posicionamento de marca</h3>
-        <p>A base da marca: entendemos o que sustenta o negócio para definir o que ele diz, como diz e o que defende.</p>
+        <p>A base da marca, de forma direta e objetiva: entendemos o que sustenta o negócio para definir o que ele diz, como diz e o que defende.</p>
         <ul aria-label="Entregas de posicionamento de marca">
           <li>Diagnóstico e pesquisa</li>
           <li>Posicionamento</li>
@@ -750,8 +761,8 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
         <p>É uma identidade visual construída a partir do posicionamento do negócio. Antes de desenhar, entendemos o que torna a marca singular, o que ela precisa dizer e para quem. Logotipo, cores e tipografia nascem dessa direção, e não apenas de preferências estéticas.</p>
       </details>
       <details class="faq-item">
-        <summary>Qual a diferença entre identidade visual estratégica e branding?</summary>
-        <p>Branding é um processo amplo de construção de marca. A identidade visual estratégica é o nosso produto principal: reúne o essencial do posicionamento e a criação da identidade visual em um projeto direto, sem etapas de que o seu negócio não precisa.</p>
+        <summary>Qual a diferença entre identidade visual estratégica e posicionamento de marca?</summary>
+        <p>O posicionamento de marca define o que o negócio diz, como diz e o que defende, a partir de um diagnóstico direto e sem processos longos. A identidade visual estratégica traduz essa direção em forma: logotipo, cores, tipografia e o sistema visual da marca. Os dois podem caminhar juntos ou separados, conforme o momento do negócio.</p>
       </details>
       <details class="faq-item">
         <summary>O que um projeto de identidade visual estratégica inclui?</summary>
@@ -777,6 +788,7 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
       <p>Conte um pouco sobre o seu negócio. A partir dessas informações, entraremos em contato para marcar uma conversa.</p>
       <div class="contact__direct">
         <a href="mailto:ola@estudiofale.com.br">ola@estudiofale.com.br</a>
+        <a href="https://www.instagram.com/estudiofale" target="_blank" rel="noopener">Instagram @estudiofale</a>
       </div>
     </div>
 
@@ -863,7 +875,10 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
   <div class="wrap">
     <div class="footer__top">
       <svg viewBox="0 0 511.75 78.96" role="img" aria-label="Estúdio F/Ale"><use href="#logo-fale"/></svg>
-      <p class="footer__close">Estúdio de design especializado em identidade visual estratégica para marcas que <b>têm algo a dizer.</b></p>
+      <div class="footer__right">
+        <p class="footer__tagline">Para sua<br>marca dizer<br>a que veio</p>
+        <a class="btn btn--ghost btn--insta" href="https://www.instagram.com/estudiofale" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg><span>@estudiofale</span></a>
+      </div>
     </div>
     <div class="footer__legal">
       <span>© <span id="year">2026</span> Estúdio F/Ale</span>

@@ -34,56 +34,56 @@ ENTREGA = """
 
 PRODUTOS = [
     {
-        "pendente": True,            # aguardando dados reais da embalagem
+        # Rascunho: aguardando os dados reais da embalagem (não aparece na loja).
+        "pendente": True,
+        "rascunho": True,
         "posicao": 1,
-        "sku": "CC-SOL-55",
-        "nome": "Sol — Chocolate ao Leite 55%",
+        "sku": "CC-SOL",
+        "nome": "Sol — Ritual das Raízes",
         "slug": "sol",
-        "preco": "42.00",
-        "categorias": "Barras > Ao leite, Coleção Cosmo",
-        "tags": "ao leite, bean-to-bar, caramelo, presente",
-        "curta": "<p>A barra mais calorosa do nosso céu. Ao leite com 55% de cacau, macia e luminosa, com notas de caramelo, mel e castanhas tostadas.</p>"
-                 "<p><strong>80 g · bean-to-bar · pequenos lotes</strong></p>",
+        "preco": "",
+        "peso_kg": "0.06", "dim": ("12", "8", "3"),
+        "categorias": "Barras, Ritual das Raízes",
+        "tags": "",
+        "curta": "<p>Tudo começa com luz.</p><p>Ritual das Raízes · Cacau Cosmo</p>",
         "descricao": """<p><em>Tudo começa com luz.</em></p>
-<p>Sol é o centro da Coleção Cosmo: um chocolate ao leite intenso, com 55% de cacau, que derrete devagar e aquece. Torramos o cacau de forma suave para preservar o lado doce e tostado do grão, e refinamos por longas horas até a textura ficar sedosa.</p>
-<h3>Notas de degustação</h3>
-<p>Caramelo, mel, castanhas tostadas e um final longo de leite cozido.</p>
-<h3>Para acompanhar</h3>
-<p>Café coado, chá preto, vinho do Porto tawny ou simplesmente uma tarde sem pressa.</p>
+<p>Sol é o centro do nosso céu. Uma barra do Ritual das Raízes, feita em pequenos lotes pela Cacau Cosmo.</p>
 <h3>Ingredientes</h3>
-<p>Cacau, açúcar, leite em pó integral e manteiga de cacau.</p>
-<p><strong>Alérgicos:</strong> contém leite. Pode conter castanhas e amendoim.</p>
+<p>[ PREENCHER com os dados do verso da caixa ]</p>
+<p><strong>Alérgicos:</strong> [ PREENCHER com os dados do verso da caixa ]</p>
+<h3>Informação nutricional</h3>
+<p>[ PREENCHER com os dados do verso da caixa ]</p>
 """,
-        "atributos": [("Cacau", "55%"), ("Tipo", "Ao leite"), ("Peso", "80 g"),
-                      ("Notas", "Caramelo | Mel | Castanhas tostadas"), ("Origem do cacau", "Brasil")],
+        "atributos": [("Linha", "Ritual das Raízes")],
         "arte": "sol",
-        "subtitulo": "Chocolate ao leite 55%",
+        "subtitulo": "Ritual das Raízes",
+        "linha3": "Cacau Cosmo  ·  Brasil",
     },
     {
-        "pendente": True,            # aguardando dados reais da embalagem
+        # Rascunho: aguardando os dados reais da embalagem (não aparece na loja).
+        "pendente": True,
+        "rascunho": True,
         "posicao": 2,
-        "sku": "CC-LUA-35",
-        "nome": "Lua — Chocolate Branco 35%",
+        "sku": "CC-LUA",
+        "nome": "Lua — Ritual das Raízes",
         "slug": "lua",
-        "preco": "42.00",
-        "categorias": "Barras > Branco, Coleção Cosmo",
-        "tags": "chocolate branco, manteiga de cacau, baunilha, presente",
-        "curta": "<p>A face clara do cacau. Chocolate branco com 35% de manteiga de cacau prensada por nós, delicado, cremoso e pouco doce, com notas de baunilha e flor de laranjeira.</p>"
-                 "<p><strong>80 g · bean-to-bar · pequenos lotes</strong></p>",
+        "preco": "",
+        "peso_kg": "0.06", "dim": ("12", "8", "3"),
+        "categorias": "Barras, Ritual das Raízes",
+        "tags": "",
+        "curta": "<p>O que a noite revela.</p><p>Ritual das Raízes · Cacau Cosmo</p>",
         "descricao": """<p><em>O que a noite revela.</em></p>
-<p>Lua é a nossa leitura do chocolate branco: menos açúcar, mais cacau. Usamos manteiga de cacau com aroma, que guarda a memória do grão, e o resultado é uma barra cremosa, clara e surpreendentemente complexa.</p>
-<h3>Notas de degustação</h3>
-<p>Baunilha, leite fresco, flor de laranjeira e um fundo suave de cacau.</p>
-<h3>Para acompanhar</h3>
-<p>Chá verde, espumante brut, frutas vermelhas ou um café espresso curto.</p>
+<p>Lua é a face clara do nosso céu. Uma barra do Ritual das Raízes, feita em pequenos lotes pela Cacau Cosmo.</p>
 <h3>Ingredientes</h3>
-<p>Manteiga de cacau, açúcar, leite em pó integral e baunilha.</p>
-<p><strong>Alérgicos:</strong> contém leite. Pode conter castanhas e amendoim.</p>
+<p>[ PREENCHER com os dados do verso da caixa ]</p>
+<p><strong>Alérgicos:</strong> [ PREENCHER com os dados do verso da caixa ]</p>
+<h3>Informação nutricional</h3>
+<p>[ PREENCHER com os dados do verso da caixa ]</p>
 """,
-        "atributos": [("Cacau", "35% (manteiga de cacau)"), ("Tipo", "Branco"), ("Peso", "80 g"),
-                      ("Notas", "Baunilha | Leite fresco | Flor de laranjeira"), ("Origem do cacau", "Brasil")],
+        "atributos": [("Linha", "Ritual das Raízes")],
         "arte": "lua",
-        "subtitulo": "Chocolate branco 35%",
+        "subtitulo": "Ritual das Raízes",
+        "linha3": "Cacau Cosmo  ·  Brasil",
     },
     {
         # Dados reais da embalagem (verso da caixa). Preço: confirmar.
@@ -133,7 +133,9 @@ PRODUTOS = [
 
 
 # ---------------------------------------------------------------- CSV
-def gerar_csv(urls_imagens=None):
+def gerar_csv(urls_imagens=None, so=None, nome="produtos-cacau-cosmo.csv"):
+    """so = lista de slugs a incluir (None = todos)."""
+    lista = [p for p in PRODUTOS if so is None or p["slug"] in so]
     max_attr = max(len(p["atributos"]) for p in PRODUTOS)
     cab = ["Type", "SKU", "Name", "Slug", "Published", "Is featured?", "Visibility in catalog",
            "Short description", "Description", "Tax status", "In stock?", "Backorders allowed?",
@@ -142,21 +144,20 @@ def gerar_csv(urls_imagens=None):
     for i in range(1, max_attr + 1):
         cab += [f"Attribute {i} name", f"Attribute {i} value(s)", f"Attribute {i} visible", f"Attribute {i} global"]
 
-    path = OUT / "produtos-cacau-cosmo.csv"
+    path = OUT / nome
     with path.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(cab)
-        for p in PRODUTOS:
-            if p.get("pendente"):
-                continue
+        for p in lista:
             comp, larg, alt = p.get("dim", ("17", "8", "1.5"))
-            linha = ["simple", p["sku"], p["nome"], p["slug"], 1, 1, "visible",
+            linha = ["simple", p["sku"], p["nome"], p["slug"], -1 if p.get("rascunho") else 1,
+                     0 if p.get("rascunho") else 1, "visible",
                      p["curta"], p["descricao"].strip() + "\n" + ENTREGA.strip(), "taxable", 1, 0,
                      0, p.get("peso_kg", "0.12"), comp, larg, alt,
                      1, p["preco"], p["categorias"], p["tags"], "Chocolate",
                      (urls_imagens or {}).get(p["slug"], ""), p.get("posicao", 0)]
-            for nome, valor in p["atributos"]:
-                linha += [nome, valor, 1, 0]
+            for nome_a, valor in p["atributos"]:
+                linha += [nome_a, valor, 1, 0]
             linha += [""] * (len(cab) - len(linha))
             w.writerow(linha)
     return path
@@ -285,7 +286,7 @@ def arte(p):
     d.line([(W / 2 - 60, 1285), (W / 2 + 60, 1285)], fill=hexrgb(sub_cor, 200), width=2)
     d.text((W / 2, 1340), p["subtitulo"].upper(), font=fonte("PINOPOLIS.TTF", 34, "DejaVuSerif.ttf"),
            fill=hexrgb(sub_cor), anchor="mm")
-    d.text((W / 2, 1400), "80 g  ·  bean-to-bar  ·  Brasil", font=fonte("PINOPOLIS.TTF", 28, "DejaVuSerif.ttf"),
+    d.text((W / 2, 1400), p.get("linha3", "Cacau Cosmo  ·  Brasil"), font=fonte("PINOPOLIS.TTF", 28, "DejaVuSerif.ttf"),
            fill=hexrgb(texto, 170), anchor="mm")
 
     path = OUT / "imagens" / f"{p['slug']}-arte.jpg"
@@ -374,3 +375,6 @@ if __name__ == "__main__":
         print("ok", a.relative_to(OUT.parent.parent))
         print("ok", mockup(p, a).relative_to(OUT.parent.parent))
     print("ok", gerar_csv().relative_to(OUT.parent.parent))
+    faltam = [p["slug"] for p in PRODUTOS if p.get("rascunho")]
+    if faltam:
+        print("ok", gerar_csv(so=faltam, nome="produtos-sol-lua.csv").relative_to(OUT.parent.parent))

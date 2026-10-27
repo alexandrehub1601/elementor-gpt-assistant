@@ -95,7 +95,9 @@ Logado: "Olá, nome · Bem-vindo ao seu Círculo", cartões para Pedidos, Endere
 
 ## 3. Produtos
 
-`woocommerce/produtos-cacau-cosmo.csv` traz os produtos **com dados reais da embalagem**. Por enquanto: **Saturno 47% (Ritual das Raízes)**, com ingredientes, alérgicos, tabela nutricional completa, atributos (cacau, peso, linha, perfil, vegano, glúten), peso e medidas para o frete e posição na loja. Sol e Lua entram assim que os dados chegarem (estão marcados como `pendente` em `woocommerce/produtos.py`).
+`woocommerce/produtos-cacau-cosmo.csv` traz os produtos **com dados reais da embalagem**. Por enquanto: **Saturno 47% (Ritual das Raízes)**, com ingredientes, alérgicos, tabela nutricional completa, atributos (cacau, peso, linha, perfil, vegano, glúten), peso e medidas para o frete e posição na loja. **Sol** e **Lua** entram como **rascunho** (não aparecem na loja) até chegarem os dados reais da embalagem. Os textos marcados `[ PREENCHER ]` indicam o que falta.
+
+Se o Saturno já foi importado, use `woocommerce/produtos-sol-lua.csv`, que traz só os dois que faltam.
 
 1. Se você importou a versão antiga ("Saturno — Chocolate Amargo 80%"), mande esse produto para a lixeira antes.
 2. **Produtos → Importar → Escolher arquivo**: envie o CSV, clique em **Continuar** e depois em **Executar o importador**.

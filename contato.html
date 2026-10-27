@@ -123,16 +123,10 @@ fieldset{border:0;min-width:0}
 .nav a.nav__insta:hover{background:rgba(245,244,241,.14)}
 .nav__insta svg{width:20px;height:20px}
 .nav__insta-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
-/* ---------- página de contato ---------- */
-.contact-page{min-height:calc(100svh - 4.5rem);display:flex;align-items:center;position:relative;overflow:hidden;isolation:isolate}
-.contact-page__symbol{position:absolute;left:calc(var(--gutter) * -2);bottom:-5rem;width:clamp(16rem,30vw,28rem);color:var(--gold);opacity:.1;z-index:-1;pointer-events:none}
-.contact-page .wrap{width:100%}
-.contact-page .contact__intro h2{font-size:clamp(2.25rem,1.2rem + 3.4vw,4.25rem);color:var(--gold)}
-
 /* ---------- contato + formulário em passos ---------- */
 .contact .grid{row-gap:3rem;align-items:start}
 .contact__intro{grid-column:1/span 5;position:sticky;top:7rem}
-.contact__intro h2{font-weight:800;font-size:var(--fs-xl);line-height:1.05;letter-spacing:-.035em;margin-bottom:1.5rem;max-width:12ch}
+.contact__intro h1,.contact__intro h2{font-weight:800;font-size:var(--fs-xl);line-height:1.05;letter-spacing:-.035em;margin-bottom:1.5rem;max-width:12ch}
 .contact__intro p{color:rgba(245,244,241,.82);max-width:34ch;font-size:var(--fs-md);line-height:1.5}
 .contact__direct{margin-top:2.5rem;display:grid;gap:.5rem;font-size:var(--fs-sm)}
 .contact__direct a{text-decoration:none;border-bottom:1px solid var(--line-dark);padding-block:.4rem;width:fit-content}
@@ -156,6 +150,7 @@ fieldset{border:0;min-width:0}
 .field{display:grid;gap:.5rem}
 .field label,.field .label{font-size:var(--fs-sm)}
 .field .opt{color:var(--graphite)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .field .help{font-size:var(--fs-sm);color:var(--graphite);margin-top:-.25rem;max-width:52ch}
 .input{width:100%;min-height:3.25rem;padding:.75rem 0;border:0;border-bottom:1.5px solid var(--line);background:transparent;font-size:var(--fs-md);border-radius:0;transition:border-color .2s var(--ease)}
 .input::placeholder{color:#8B8B85}
@@ -259,11 +254,10 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
 </header>
 
 <main id="conteudo">
-<section class="section section--wine contact contact-page on-dark" id="contato" aria-labelledby="contato-title">
-  <svg class="contact-page__symbol" viewBox="0 0 366.03 369.8" aria-hidden="true"><use href="#simbolo-fale"/></svg>
+<section class="section section--wine contact on-dark" id="contato" aria-labelledby="contato-title">
   <div class="wrap grid">
     <div class="contact__intro">
-      <h2 id="contato-title">Vamos falar sobre o seu projeto?</h2>
+      <h1 id="contato-title">Vamos falar sobre o seu projeto?</h1>
       <p>Conte um pouco sobre o seu negócio. A partir dessas informações, entraremos em contato para marcar uma conversa.</p>
       <div class="contact__direct">
         <a href="mailto:ola@estudiofale.com.br">ola@estudiofale.com.br</a>
@@ -272,8 +266,9 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
     </div>
 
     <div class="form-card">
-      <!-- Defina o endpoint em data-endpoint (Formspree, webhook, Elementor Forms etc.). Sem endpoint, o envio é simulado. -->
-      <form id="brief" novalidate data-endpoint="">
+      <!-- Envia para a função /api/contato (Vercel). Se a API estiver em outro domínio, use a URL completa em data-endpoint. -->
+      <form id="brief" novalidate data-endpoint="/api/contato">
+        <div class="hp" aria-hidden="true"><label>Não preencha este campo <input type="text" name="site_empresa" tabindex="-1" autocomplete="off"></label></div>
         <div class="progress" aria-hidden="true">
           <span class="progress__label" id="progress-label">Sobre você</span>
           <span class="progress__count"><span id="progress-n">1</span> de 3</span>
@@ -451,13 +446,19 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
   function submit(){
     status.textContent='';
     btnNext.disabled=true; btnBack.disabled=true; btnNext.textContent='Enviando…';
-    var data=new FormData(form), endpoint=form.dataset.endpoint;
-    var req=endpoint?fetch(endpoint,{method:'POST',body:data,headers:{Accept:'application/json'}}).then(function(r){if(!r.ok) throw new Error(r.status)}):new Promise(function(r){setTimeout(r,700)});
+    var endpoint=form.dataset.endpoint, payload={};
+    new FormData(form).forEach(function(v,k){payload[k]=v});
+    /* abrindo o arquivo direto no computador não há servidor: simula o envio */
+    var simulate=!endpoint||location.protocol==='file:';
+    var req=simulate?new Promise(function(r){setTimeout(r,700)}):fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).then(function(r){
+      if(r.ok) return;
+      return r.json().catch(function(){return {}}).then(function(j){var e=new Error(j.erro||'erro'); e.status=r.status; throw e});
+    });
     req.then(function(){
       try{localStorage.removeItem(KEY)}catch(e){}
       form.hidden=true; done.hidden=false; done.focus();
-    }).catch(function(){
-      status.textContent='Não foi possível enviar agora. Verifique sua conexão e tente de novo, ou escreva para ola@estudiofale.com.br.';
+    }).catch(function(e){
+      status.textContent=(e&&(e.status===429||e.status===422)&&e.message)?e.message:'Não foi possível enviar agora. Verifique sua conexão e tente de novo, ou escreva para ola@estudiofale.com.br.';
     }).finally(function(){ btnNext.disabled=false; btnBack.disabled=false; btnNext.textContent='Enviar projeto' });
   }
   show(0,false);

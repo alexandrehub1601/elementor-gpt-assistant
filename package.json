@@ -15,5 +15,8 @@
   },
   "optionalDependencies": {
     "nodemailer": "^6.9.14"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

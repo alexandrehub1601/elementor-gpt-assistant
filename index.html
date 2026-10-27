@@ -345,7 +345,7 @@ fieldset{border:0;min-width:0}
 /* ---------- projetos: largura total, 4 por linha, quadrados ---------- */
 .work{padding-top:var(--section);background:var(--paper-2)}
 .work-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
-.project{position:relative;display:block;aspect-ratio:1/1;overflow:hidden;text-decoration:none;isolation:isolate;background:var(--ink)}
+.project{position:relative;display:block;aspect-ratio:3/2;overflow:hidden;text-decoration:none;isolation:isolate;background:var(--ink)}
 .project[hidden]{display:none}
 .project img,.project .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
 .ph{position:relative;isolation:isolate;display:flex;align-items:flex-end;justify-content:space-between;padding:clamp(1rem,2vw,1.5rem);background:var(--ph,var(--paper-2));color:var(--ph-ink,var(--ink))}
@@ -354,7 +354,6 @@ fieldset{border:0;min-width:0}
 .ph__note{font-size:.8125rem;opacity:.75}
 .project__info{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:3rem clamp(1rem,2vw,1.5rem) clamp(1rem,2vw,1.25rem);color:var(--paper);background:linear-gradient(to top,rgba(29,29,29,.75),rgba(29,29,29,0));opacity:0;transform:translateY(.5rem);transition:opacity .3s var(--ease),transform .3s var(--ease)}
 .project__info h3{font-weight:400;font-size:var(--fs-base)}
-.project__info span{font-size:var(--fs-sm);color:rgba(245,244,241,.82)}
 .project:hover img,.project:hover .ph,.project:focus-visible img,.project:focus-visible .ph{transform:scale(1.04)}
 .project:hover .project__info,.project:focus-visible .project__info{opacity:1;transform:none}
 .project:focus-visible{outline-offset:-4px}
@@ -685,25 +684,34 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
   </div>
   <div class="work-grid" id="work-grid">
       <a class="project" href="projetos/festival-iguassu-inova.html">
-        <img src="assets/img/festival-iguassu-inova-800.webp" srcset="assets/img/festival-iguassu-inova-600.webp 600w, assets/img/festival-iguassu-inova-800.webp 800w, assets/img/festival-iguassu-inova-1200.webp 1200w" sizes="(max-width: 900px) 50vw, 25vw" width="1200" height="1200" loading="lazy" decoding="async" alt="Identidade visual do Festival Iguassu Inova aplicada no painel do palco, com degradê de azul a vermelho e o lema Vários mundos, um só festival">
-        <div class="project__info"><h3>Festival Iguassu Inova</h3><span>Identidade visual</span></div>
+        <img src="assets/img/festival-iguassu-inova-800.webp" srcset="assets/img/festival-iguassu-inova-600.webp 600w, assets/img/festival-iguassu-inova-800.webp 800w, assets/img/festival-iguassu-inova-1200.webp 1200w" sizes="(max-width: 900px) 50vw, 25vw" width="1200" height="800" loading="lazy" decoding="async" alt="Identidade visual do Festival Iguassu Inova aplicada no painel do palco, com degradê de azul a vermelho e o lema Vários mundos, um só festival">
+        <div class="project__info"><h3>Festival Iguassu Inova</h3></div>
       </a>
-      <a class="project" href="#"><div class="ph" style="--ph:#7A1531;--ph-ink:#C59A45"><span class="ph__name">Hunna</span></div><div class="project__info"><h3>Hunna</h3><span>Categoria</span></div></a>
-      <a class="project" href="#"><div class="ph" style="--ph:#F5F4F1;--ph-ink:#7A1531"><span class="ph__name">DS</span></div><div class="project__info"><h3>DS</h3><span>Categoria</span></div></a>
-      <a class="project" href="#"><div class="ph" style="--ph:#0F3C37;--ph-ink:#ECE6DA"><span class="ph__name">Deboo</span></div><div class="project__info"><h3>Deboo</h3><span>Categoria</span></div></a>
-      <a class="project" href="#"><div class="ph" style="--ph:#C59A45;--ph-ink:#1D1D1D"><span class="ph__name">Equilibre</span></div><div class="project__info"><h3>Equilibre</h3><span>Categoria</span></div></a>
-      <a class="project" href="#"><div class="ph" style="--ph:#1D1D1D;--ph-ink:#C59A45"><span class="ph__name">Itaca</span></div><div class="project__info"><h3>Itaca</h3><span>Categoria</span></div></a>
-      <a class="project" href="#"><div class="ph" style="--ph:#7A1531;--ph-ink:#F5F4F1"><span class="ph__name">Quitutes</span></div><div class="project__info"><h3>Quitutes</h3><span>Categoria</span></div></a>
       <a class="project" href="#">
-        <div class="ph" style="--ph:#1E4170;--ph-ink:#E0507A"><span class="ph__name">Lucas Martins</span></div>
-        <img src="assets/img/lucas-martins-800.webp" srcset="assets/img/lucas-martins-600.webp 600w, assets/img/lucas-martins-800.webp 800w, assets/img/lucas-martins-1200.webp 1200w" sizes="(max-width: 900px) 50vw, 25vw" width="1200" height="1200" loading="lazy" decoding="async" alt="Cartões de visita da identidade visual do psicólogo Lucas Martins, em azul-marinho e rosa, com símbolo de balão de fala e cérebro" onerror="this.remove()">
-        <div class="project__info"><h3>Lucas Martins</h3><span>Identidade visual</span></div>
+        <img src="assets/img/lucas-martins-800.webp" srcset="assets/img/lucas-martins-600.webp 600w, assets/img/lucas-martins-800.webp 800w, assets/img/lucas-martins-1200.webp 1200w" sizes="(max-width: 900px) 50vw, 25vw" width="1200" height="800" loading="lazy" decoding="async" alt="Caderno com a identidade visual do psicólogo Lucas Martins: padrão de balões de fala em rosa e branco sobre azul-marinho">
+        <div class="project__info"><h3>Lucas Martins</h3></div>
       </a>
-      <!-- Projetos extras (placeholders): substitua pelos próximos projetos -->
-      <a class="project" href="#" hidden data-extra><div class="ph" style="--ph:#ECE6DA;--ph-ink:#7A1531"><span class="ph__name">Novo projeto</span></div><div class="project__info"><h3>Novo projeto</h3><span>Categoria</span></div></a>
-      <a class="project" href="#" hidden data-extra><div class="ph" style="--ph:#1D1D1D;--ph-ink:#C59A45"><span class="ph__name">Novo projeto</span></div><div class="project__info"><h3>Novo projeto</h3><span>Categoria</span></div></a>
-      <a class="project" href="#" hidden data-extra><div class="ph" style="--ph:#0F3C37;--ph-ink:#ECE6DA"><span class="ph__name">Novo projeto</span></div><div class="project__info"><h3>Novo projeto</h3><span>Categoria</span></div></a>
-      <a class="project" href="#" hidden data-extra><div class="ph" style="--ph:#C59A45;--ph-ink:#1D1D1D"><span class="ph__name">Novo projeto</span></div><div class="project__info"><h3>Novo projeto</h3><span>Categoria</span></div></a>
+      <a class="project" href="#">
+        <img src="assets/img/itaca-800.webp" srcset="assets/img/itaca-600.webp 600w, assets/img/itaca-800.webp 800w, assets/img/itaca-1200.webp 1200w" sizes="(max-width: 900px) 50vw, 25vw" width="1200" height="800" loading="lazy" decoding="async" alt="Notebook exibindo a identidade visual de Itaca, com colagem de gravuras náuticas em verde-azulado e linhas em laranja">
+        <div class="project__info"><h3>Itaca</h3></div>
+      </a>
+      <a class="project" href="#">
+        <img src="assets/img/casa-eurico-800.webp" srcset="assets/img/casa-eurico-600.webp 600w, assets/img/casa-eurico-800.webp 800w, assets/img/casa-eurico-1200.webp 1200w" sizes="(max-width: 900px) 50vw, 25vw" width="1200" height="800" loading="lazy" decoding="async" alt="Painel de cartazes da Casa Eurico em vermelho, rosa e branco, com o lema Todo passo é um grande passo e fotos históricas da loja">
+        <div class="project__info"><h3>Casa Eurico</h3></div>
+      </a>
+      <a class="project" href="#">
+        <img src="assets/img/equilibre-800.webp" srcset="assets/img/equilibre-600.webp 600w, assets/img/equilibre-800.webp 800w, assets/img/equilibre-1200.webp 1200w" sizes="(max-width: 900px) 50vw, 25vw" width="1200" height="800" loading="lazy" decoding="async" alt="Tablet com a identidade visual da Equilibre: degradê do azul ao laranja e a frase A mediação que impulsiona evolução">
+        <div class="project__info"><h3>Equilibre</h3></div>
+      </a>
+      <a class="project" href="#">
+        <img src="assets/img/ds-contabil-800.webp" srcset="assets/img/ds-contabil-600.webp 600w, assets/img/ds-contabil-800.webp 800w, assets/img/ds-contabil-1200.webp 1200w" sizes="(max-width: 900px) 50vw, 25vw" width="1200" height="800" loading="lazy" decoding="async" alt="Ecobag azul da DS Contábil com a frase A contabilidade que descomplica sua rotina e o logo em amarelo-limão">
+        <div class="project__info"><h3>DS Contábil</h3></div>
+      </a>
+      <a class="project" href="#"><div class="ph" style="--ph:#7A1531;--ph-ink:#C59A45"><span class="ph__name">Smiles</span></div><div class="project__info"><h3>Smiles</h3></div></a>
+      <a class="project" href="#"><div class="ph" style="--ph:#0F3C37;--ph-ink:#ECE6DA"><span class="ph__name">Gol</span></div><div class="project__info"><h3>Gol</h3></div></a>
+      <!-- Aparecem ao clicar em "Veja mais projetos" -->
+      <a class="project" href="#" hidden data-extra><div class="ph" style="--ph:#ECE6DA;--ph-ink:#7A1531"><span class="ph__name">Deboo</span></div><div class="project__info"><h3>Deboo</h3></div></a>
+      <a class="project" href="#" hidden data-extra><div class="ph" style="--ph:#C59A45;--ph-ink:#1D1D1D"><span class="ph__name">Quitutes & Batuques</span></div><div class="project__info"><h3>Quitutes & Batuques</h3></div></a>
   </div>
   <div class="work__more" id="work-more">
     <button class="btn btn--ghost" type="button" id="btn-more" aria-controls="work-grid">Veja mais projetos</button>

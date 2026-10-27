@@ -1,13 +1,28 @@
-Type,SKU,Name,Slug,Published,Is featured?,Visibility in catalog,Short description,Description,Tax status,In stock?,Backorders allowed?,Sold individually?,Weight (kg),Length (cm),Width (cm),Height (cm),Allow customer reviews?,Regular price,Categories,Tags,Shipping class,Images,Attribute 1 name,Attribute 1 value(s),Attribute 1 visible,Attribute 1 global,Attribute 2 name,Attribute 2 value(s),Attribute 2 visible,Attribute 2 global,Attribute 3 name,Attribute 3 value(s),Attribute 3 visible,Attribute 3 global,Attribute 4 name,Attribute 4 value(s),Attribute 4 visible,Attribute 4 global,Attribute 5 name,Attribute 5 value(s),Attribute 5 visible,Attribute 5 global
-simple,CC-SOL-55,Sol — Chocolate ao Leite 55%,sol,1,1,visible,"<p>A barra mais calorosa do nosso céu. Ao leite com 55% de cacau, macia e luminosa, com notas de caramelo, mel e castanhas tostadas.</p><p><strong>80 g · bean-to-bar · pequenos lotes</strong></p>","<p><em>Tudo começa com luz.</em></p>
-<p>Sol é o centro da Coleção Cosmo: um chocolate ao leite intenso, com 55% de cacau, que derrete devagar e aquece. Torramos o cacau de forma suave para preservar o lado doce e tostado do grão, e refinamos por longas horas até a textura ficar sedosa.</p>
-<h3>Notas de degustação</h3>
-<p>Caramelo, mel, castanhas tostadas e um final longo de leite cozido.</p>
-<h3>Para acompanhar</h3>
-<p>Café coado, chá preto, vinho do Porto tawny ou simplesmente uma tarde sem pressa.</p>
+Type,SKU,Name,Slug,Published,Is featured?,Visibility in catalog,Short description,Description,Tax status,In stock?,Backorders allowed?,Sold individually?,Weight (kg),Length (cm),Width (cm),Height (cm),Allow customer reviews?,Regular price,Categories,Tags,Shipping class,Images,Position,Attribute 1 name,Attribute 1 value(s),Attribute 1 visible,Attribute 1 global,Attribute 2 name,Attribute 2 value(s),Attribute 2 visible,Attribute 2 global,Attribute 3 name,Attribute 3 value(s),Attribute 3 visible,Attribute 3 global,Attribute 4 name,Attribute 4 value(s),Attribute 4 visible,Attribute 4 global,Attribute 5 name,Attribute 5 value(s),Attribute 5 visible,Attribute 5 global,Attribute 6 name,Attribute 6 value(s),Attribute 6 visible,Attribute 6 global,Attribute 7 name,Attribute 7 value(s),Attribute 7 visible,Attribute 7 global
+simple,CC-SATURNO-47,Saturno 47% — Ritual das Raízes,saturno,1,1,visible,"<p><strong>Suave, cremoso, lento.</strong> Chocolate 47% cacau feito com apenas 4 ingredientes: nibs de cacau, manteiga de cacau, açúcar de coco e flor de sal.</p><p>Vegano · sem glúten · artesanal · 33 g</p>","<p><em>Que minhas raízes cresçam profundas.</em></p>
+<p>Saturno é o planeta do tempo, e esta barra pede exatamente isso: tempo. Com 47% de cacau, é suave e cremosa, feita para derreter devagar. Faz parte do <strong>Ritual das Raízes</strong> &mdash; ao abrir a caixa, a tampa guarda uma intenção para acompanhar o momento.</p>
+<p>Produzida em pequenos lotes, <em>nibs to bar</em>: partimos dos nibs de cacau e adoçamos com açúcar de coco, com um toque de flor de sal.</p>
 <h3>Ingredientes</h3>
-<p>Cacau, açúcar, leite em pó integral e manteiga de cacau.</p>
-<p><strong>Alérgicos:</strong> contém leite. Pode conter castanhas e amendoim.</p>
+<p>Nibs de cacau, manteiga de cacau, açúcar de coco e flor de sal.</p>
+<p><strong>Alérgicos:</strong> produto vegano e artesanal. Pode conter leite, amêndoa e avelã. Não contém glúten.</p>
+<h3>Informação nutricional</h3>
+<p>Porções por embalagem: 6 porções. Porção: 5,5 g (1 pedaço).</p>
+<table class=""cc-nutri"">
+<thead><tr><th></th><th>100 g</th><th>5,5 g</th><th>%VD*</th></tr></thead>
+<tbody>
+<tr><td>Valor energético (kcal)</td><td>419</td><td>23</td><td>1%</td></tr>
+<tr><td>Carboidratos totais (g)</td><td>43</td><td>2,4</td><td>1%</td></tr>
+<tr><td>Açúcares totais (g)</td><td>41</td><td>2,3</td><td></td></tr>
+<tr><td>Açúcares adicionados (g)</td><td>40</td><td>2,2</td><td>4%</td></tr>
+<tr><td>Proteínas (g)</td><td>5,4</td><td>0</td><td>0%</td></tr>
+<tr><td>Gorduras totais (g)</td><td>25</td><td>1,4</td><td>2%</td></tr>
+<tr><td>Gorduras saturadas (g)</td><td>15</td><td>0,8</td><td>4%</td></tr>
+<tr><td>Gorduras trans (g)</td><td>0</td><td>0</td><td>0%</td></tr>
+<tr><td>Fibras alimentares (g)</td><td>2,9</td><td>0</td><td>0%</td></tr>
+<tr><td>Sódio (mg)</td><td>79</td><td>0</td><td>0%</td></tr>
+</tbody>
+</table>
+<p><small>*Percentual de valores diários fornecidos pela porção.</small></p>
 <h3>Entrega</h3>
 <ul>
 <li>Enviamos para todo o Brasil. Frete e prazo são calculados no carrinho pelo seu CEP.</li>
@@ -15,38 +30,4 @@ simple,CC-SOL-55,Sol — Chocolate ao Leite 55%,sol,1,1,visible,"<p>A barra mais
 <li>Embalagem térmica nos meses mais quentes. Em ondas de calor, podemos segurar o envio por alguns dias para proteger o chocolate &mdash; avisamos por e-mail.</li>
 </ul>
 <h3>Como guardar</h3>
-<p>Em local fresco, seco e longe da luz, idealmente entre 16&nbsp;°C e 20&nbsp;°C. Evite a geladeira: umidade e odores alteram textura e sabor. Se a barra ficar esbranquiçada, é só a manteiga de cacau aflorando &mdash; continua boa para comer.</p>",taxable,1,0,0,0.12,17,8,1.5,1,42.00,"Barras > Ao leite, Coleção Cosmo","ao leite, bean-to-bar, caramelo, presente",Chocolate,,Cacau,55%,1,0,Tipo,Ao leite,1,0,Peso,80 g,1,0,Notas,Caramelo | Mel | Castanhas tostadas,1,0,Origem do cacau,Brasil,1,0
-simple,CC-LUA-35,Lua — Chocolate Branco 35%,lua,1,1,visible,"<p>A face clara do cacau. Chocolate branco com 35% de manteiga de cacau prensada por nós, delicado, cremoso e pouco doce, com notas de baunilha e flor de laranjeira.</p><p><strong>80 g · bean-to-bar · pequenos lotes</strong></p>","<p><em>O que a noite revela.</em></p>
-<p>Lua é a nossa leitura do chocolate branco: menos açúcar, mais cacau. Usamos manteiga de cacau com aroma, que guarda a memória do grão, e o resultado é uma barra cremosa, clara e surpreendentemente complexa.</p>
-<h3>Notas de degustação</h3>
-<p>Baunilha, leite fresco, flor de laranjeira e um fundo suave de cacau.</p>
-<h3>Para acompanhar</h3>
-<p>Chá verde, espumante brut, frutas vermelhas ou um café espresso curto.</p>
-<h3>Ingredientes</h3>
-<p>Manteiga de cacau, açúcar, leite em pó integral e baunilha.</p>
-<p><strong>Alérgicos:</strong> contém leite. Pode conter castanhas e amendoim.</p>
-<h3>Entrega</h3>
-<ul>
-<li>Enviamos para todo o Brasil. Frete e prazo são calculados no carrinho pelo seu CEP.</li>
-<li>Os pedidos são despachados em até 2 dias úteis após a confirmação do pagamento.</li>
-<li>Embalagem térmica nos meses mais quentes. Em ondas de calor, podemos segurar o envio por alguns dias para proteger o chocolate &mdash; avisamos por e-mail.</li>
-</ul>
-<h3>Como guardar</h3>
-<p>Em local fresco, seco e longe da luz, idealmente entre 16&nbsp;°C e 20&nbsp;°C. Evite a geladeira: umidade e odores alteram textura e sabor. Se a barra ficar esbranquiçada, é só a manteiga de cacau aflorando &mdash; continua boa para comer.</p>",taxable,1,0,0,0.12,17,8,1.5,1,42.00,"Barras > Branco, Coleção Cosmo","chocolate branco, manteiga de cacau, baunilha, presente",Chocolate,,Cacau,35% (manteiga de cacau),1,0,Tipo,Branco,1,0,Peso,80 g,1,0,Notas,Baunilha | Leite fresco | Flor de laranjeira,1,0,Origem do cacau,Brasil,1,0
-simple,CC-SAT-80,Saturno — Chocolate Amargo 80%,saturno,1,1,visible,"<p>Denso, profundo e cheio de camadas, como os anéis de Saturno. Chocolate amargo com 80% de cacau e só dois ingredientes, com notas de frutas escuras, café e terra molhada.</p><p><strong>80 g · bean-to-bar · pequenos lotes</strong></p>","<p><em>O tempo em camadas.</em></p>
-<p>Saturno é a barra para quem gosta de ir fundo. Com 80% de cacau e apenas cacau e açúcar, ela mostra o grão sem filtros: fermentação, terra e fruta. Cada pedaço se abre em camadas, como os anéis do planeta que lhe dá nome.</p>
-<h3>Notas de degustação</h3>
-<p>Frutas escuras, café torrado, especiarias e terra molhada, com um final longo e seco.</p>
-<h3>Para acompanhar</h3>
-<p>Vinho tinto encorpado, whisky, café filtrado ou queijos curados.</p>
-<h3>Ingredientes</h3>
-<p>Cacau e açúcar.</p>
-<p><strong>Alérgicos:</strong> pode conter leite, castanhas e amendoim (produzido no mesmo ambiente).</p>
-<h3>Entrega</h3>
-<ul>
-<li>Enviamos para todo o Brasil. Frete e prazo são calculados no carrinho pelo seu CEP.</li>
-<li>Os pedidos são despachados em até 2 dias úteis após a confirmação do pagamento.</li>
-<li>Embalagem térmica nos meses mais quentes. Em ondas de calor, podemos segurar o envio por alguns dias para proteger o chocolate &mdash; avisamos por e-mail.</li>
-</ul>
-<h3>Como guardar</h3>
-<p>Em local fresco, seco e longe da luz, idealmente entre 16&nbsp;°C e 20&nbsp;°C. Evite a geladeira: umidade e odores alteram textura e sabor. Se a barra ficar esbranquiçada, é só a manteiga de cacau aflorando &mdash; continua boa para comer.</p>",taxable,1,0,0,0.12,17,8,1.5,1,46.00,"Barras > Intenso, Coleção Cosmo","amargo, 80%, bean-to-bar, sem leite",Chocolate,,Cacau,80%,1,0,Tipo,Amargo,1,0,Peso,80 g,1,0,Notas,Frutas escuras | Café | Terra molhada,1,0,Origem do cacau,Brasil,1,0
+<p>Armazenar em local seco e fresco, longe da luz &mdash; idealmente entre 16&nbsp;°C e 20&nbsp;°C. Evite a geladeira: umidade e odores alteram textura e sabor. Se a barra ficar esbranquiçada, é só a manteiga de cacau aflorando &mdash; continua boa para comer.</p>",taxable,1,0,0,0.06,12,8,3,1,,"Barras, Ritual das Raízes","vegano, sem glúten, açúcar de coco, flor de sal, 4 ingredientes",Chocolate,,3,Cacau,47%,1,0,Peso,33 g,1,0,Linha,Ritual das Raízes,1,0,Perfil,Suave | Cremoso | Lento,1,0,Ingredientes,Nibs de cacau | Manteiga de cacau | Açúcar de coco | Flor de sal,1,0,Vegano,Sim,1,0,Glúten,Não contém,1,0

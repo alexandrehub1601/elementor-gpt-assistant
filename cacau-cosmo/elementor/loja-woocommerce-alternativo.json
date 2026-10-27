@@ -173,7 +173,7 @@
        "elType": "widget",
        "widgetType": "shortcode",
        "settings": {
-        "shortcode": "[products skus=\"CC-SOL-55,CC-LUA-35,CC-SAT-80\" columns=\"3\" orderby=\"date\" order=\"ASC\"]"
+        "shortcode": "[products limit=\"12\" columns=\"3\" orderby=\"menu_order\" order=\"ASC\"]"
        },
        "elements": []
       }

@@ -245,8 +245,8 @@ def build_loja():
         ]),
         t.con("cc-shop-main", [
             t.w("woocommerce-notices"),
-            # vitrine fixa: só a Coleção Cosmo, na ordem Sol, Lua, Saturno
-            t.w("shortcode", {"shortcode": '[products skus="CC-SOL-55,CC-LUA-35,CC-SAT-80" columns="3" orderby="date" order="ASC"]'}),
+            # vitrine: todos os produtos publicados, na ordem do campo Posição (Sol, Lua, Saturno)
+            t.w("shortcode", {"shortcode": '[products limit="12" columns="3" orderby="menu_order" order="ASC"]'}),
         ]),
         t.html(TRUST_HTML),
         t.html(FEATURE_HTML),
@@ -410,7 +410,7 @@ def build_carrinho():
         ]),
         t.con("cc-cart-more", [
             t.w("heading", {"title": "Complete o ritual", "header_size": "h2"}, "cc-more-title"),
-            t.w("shortcode", {"shortcode": '[products skus="CC-SOL-55,CC-LUA-35,CC-SAT-80" columns="3" orderby="date" order="ASC"]'}),
+            t.w("shortcode", {"shortcode": '[products limit="12" columns="3" orderby="menu_order" order="ASC"]'}),
         ]),
         t.html(TRUST_HTML),
         t.html(tpl_footer(CART_JS + WOO_CARDS_JS), "cc-footer"),

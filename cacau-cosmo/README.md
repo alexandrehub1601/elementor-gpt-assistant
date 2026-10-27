@@ -93,18 +93,17 @@ Usa o checkout clássico do WooCommerce (`[woocommerce_checkout]`), compatível 
 
 Logado: "Olá, nome · Bem-vindo ao seu Círculo", cartões para Pedidos, Endereços, Dados da conta, Loja, Journal e Contato, e o menu normal do WooCommerce. Deslogado: "Entre no seu Círculo" com Entrar e Criar conta lado a lado.
 
-## 3. Produtos (Coleção Cosmo: Sol, Lua, Saturno)
+## 3. Produtos
 
-`woocommerce/produtos-cacau-cosmo.csv` tem os 3 produtos completos: nome, SKU, preço, categorias (**Barras › Ao leite / Branco / Intenso** e **Coleção Cosmo**), tags, descrição curta e longa (notas, harmonização, ingredientes, alérgicos, entrega e conservação), peso e medidas para o frete, classe de entrega **Chocolate** e atributos (Cacau, Tipo, Peso, Notas, Origem), que aparecem na aba "Informação adicional".
+`woocommerce/produtos-cacau-cosmo.csv` traz os produtos **com dados reais da embalagem**. Por enquanto: **Saturno 47% (Ritual das Raízes)**, com ingredientes, alérgicos, tabela nutricional completa, atributos (cacau, peso, linha, perfil, vegano, glúten), peso e medidas para o frete e posição na loja. Sol e Lua entram assim que os dados chegarem (estão marcados como `pendente` em `woocommerce/produtos.py`).
 
-1. **Produtos → Importar → Escolher arquivo**: envie o CSV e clique em **Continuar**.
-2. Na tela de mapeamento as colunas já vêm certas. Clique em **Executar o importador**.
-3. Abra cada produto e, em **Imagem do produto**, envie `woocommerce/imagens/sol.jpg`, `lua.jpg` ou `saturno.jpg` (foto da embalagem em fundo claro). Em **Galeria do produto**, adicione a arte correspondente (`*-arte.jpg`). São imagens provisórias até as fotos reais ficarem prontas.
-4. Em **WooCommerce → Configurações → Entrega**, adicione a classe **Chocolate** nas suas zonas de entrega, se quiser um frete diferente para ela.
+1. Se você importou a versão antiga ("Saturno — Chocolate Amargo 80%"), mande esse produto para a lixeira antes.
+2. **Produtos → Importar → Escolher arquivo**: envie o CSV, clique em **Continuar** e depois em **Executar o importador**.
+3. Abra o produto e preencha o **preço** (veio em branco de propósito).
+4. **Imagem do produto:** `woocommerce/imagens/saturno.jpg` (caixa em 3D). **Galeria:** `saturno-frente.jpg`, `saturno-verso.jpg` (tabela nutricional) e `saturno-tampa.jpg`.
+5. Em **Posição** (aba Avançado do produto) ficou Sol = 1, Lua = 2, Saturno = 3. A loja e o carrinho mostram os produtos publicados nessa ordem.
 
-**Revise antes de publicar:** preços, ingredientes e alérgicos (obrigatórios por lei), prazo de despacho e embalagem térmica. São sugestões e precisam bater com o produto real.
-
-Para mudar textos, preços ou imagens, edite `woocommerce/produtos.py` e rode `python3 cacau-cosmo/woocommerce/produtos.py`.
+As faces originais da caixa estão em `woocommerce/fotos-reais/saturno/`. Para gerar as fotos de novo, rode `python3 cacau-cosmo/woocommerce/fotos_reais.py saturno`.
 
 ## 4. Posts do Journal
 

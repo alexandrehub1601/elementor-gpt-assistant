@@ -20,6 +20,7 @@ FONTS = Path(sys.argv[1]) if len(sys.argv) > 1 else None
 NAVY, CREAM, GOLD, PINK, BROWN, BLUSH = "#00062E", "#F1E8D0", "#C9A84C", "#D293A8", "#4A2C1D", "#E9D9D2"
 
 # Envio e conservação: entra no fim da descrição de todos os produtos.
+# [ REVISAR ] prazo de despacho e embalagem térmica.
 ENTREGA = """
 <h3>Entrega</h3>
 <ul>
@@ -28,11 +29,13 @@ ENTREGA = """
 <li>Embalagem térmica nos meses mais quentes. Em ondas de calor, podemos segurar o envio por alguns dias para proteger o chocolate &mdash; avisamos por e-mail.</li>
 </ul>
 <h3>Como guardar</h3>
-<p>Em local fresco, seco e longe da luz, idealmente entre 16&nbsp;°C e 20&nbsp;°C. Evite a geladeira: umidade e odores alteram textura e sabor. Se a barra ficar esbranquiçada, é só a manteiga de cacau aflorando &mdash; continua boa para comer.</p>
+<p>Armazenar em local seco e fresco, longe da luz &mdash; idealmente entre 16&nbsp;°C e 20&nbsp;°C. Evite a geladeira: umidade e odores alteram textura e sabor. Se a barra ficar esbranquiçada, é só a manteiga de cacau aflorando &mdash; continua boa para comer.</p>
 """
 
 PRODUTOS = [
     {
+        "pendente": True,            # aguardando dados reais da embalagem
+        "posicao": 1,
         "sku": "CC-SOL-55",
         "nome": "Sol — Chocolate ao Leite 55%",
         "slug": "sol",
@@ -57,6 +60,8 @@ PRODUTOS = [
         "subtitulo": "Chocolate ao leite 55%",
     },
     {
+        "pendente": True,            # aguardando dados reais da embalagem
+        "posicao": 2,
         "sku": "CC-LUA-35",
         "nome": "Lua — Chocolate Branco 35%",
         "slug": "lua",
@@ -81,28 +86,48 @@ PRODUTOS = [
         "subtitulo": "Chocolate branco 35%",
     },
     {
-        "sku": "CC-SAT-80",
-        "nome": "Saturno — Chocolate Amargo 80%",
+        # Dados reais da embalagem (verso da caixa). Preço: confirmar.
+        "real": True,
+        "posicao": 3,
+        "sku": "CC-SATURNO-47",
+        "nome": "Saturno 47% — Ritual das Raízes",
         "slug": "saturno",
-        "preco": "46.00",
-        "categorias": "Barras > Intenso, Coleção Cosmo",
-        "tags": "amargo, 80%, bean-to-bar, sem leite",
-        "curta": "<p>Denso, profundo e cheio de camadas, como os anéis de Saturno. Chocolate amargo com 80% de cacau e só dois ingredientes, com notas de frutas escuras, café e terra molhada.</p>"
-                 "<p><strong>80 g · bean-to-bar · pequenos lotes</strong></p>",
-        "descricao": """<p><em>O tempo em camadas.</em></p>
-<p>Saturno é a barra para quem gosta de ir fundo. Com 80% de cacau e apenas cacau e açúcar, ela mostra o grão sem filtros: fermentação, terra e fruta. Cada pedaço se abre em camadas, como os anéis do planeta que lhe dá nome.</p>
-<h3>Notas de degustação</h3>
-<p>Frutas escuras, café torrado, especiarias e terra molhada, com um final longo e seco.</p>
-<h3>Para acompanhar</h3>
-<p>Vinho tinto encorpado, whisky, café filtrado ou queijos curados.</p>
+        "preco": "",                 # [ PREENCHER ] preço em reais, ex.: "39.00"
+        "peso_kg": "0.06", "dim": ("12", "8", "3"),   # caixa de 33 g + proteção (estimado)
+        "categorias": "Barras, Ritual das Raízes",
+        "tags": "vegano, sem glúten, açúcar de coco, flor de sal, 4 ingredientes",
+        "curta": "<p><strong>Suave, cremoso, lento.</strong> Chocolate 47% cacau feito com apenas 4 ingredientes: nibs de cacau, manteiga de cacau, açúcar de coco e flor de sal.</p>"
+                 "<p>Vegano · sem glúten · artesanal · 33 g</p>",
+        "descricao": """<p><em>Que minhas raízes cresçam profundas.</em></p>
+<p>Saturno é o planeta do tempo, e esta barra pede exatamente isso: tempo. Com 47% de cacau, é suave e cremosa, feita para derreter devagar. Faz parte do <strong>Ritual das Raízes</strong> &mdash; ao abrir a caixa, a tampa guarda uma intenção para acompanhar o momento.</p>
+<p>Produzida em pequenos lotes, <em>nibs to bar</em>: partimos dos nibs de cacau e adoçamos com açúcar de coco, com um toque de flor de sal.</p>
 <h3>Ingredientes</h3>
-<p>Cacau e açúcar.</p>
-<p><strong>Alérgicos:</strong> pode conter leite, castanhas e amendoim (produzido no mesmo ambiente).</p>
+<p>Nibs de cacau, manteiga de cacau, açúcar de coco e flor de sal.</p>
+<p><strong>Alérgicos:</strong> produto vegano e artesanal. Pode conter leite, amêndoa e avelã. Não contém glúten.</p>
+<h3>Informação nutricional</h3>
+<p>Porções por embalagem: 6 porções. Porção: 5,5 g (1 pedaço).</p>
+<table class="cc-nutri">
+<thead><tr><th></th><th>100 g</th><th>5,5 g</th><th>%VD*</th></tr></thead>
+<tbody>
+<tr><td>Valor energético (kcal)</td><td>419</td><td>23</td><td>1%</td></tr>
+<tr><td>Carboidratos totais (g)</td><td>43</td><td>2,4</td><td>1%</td></tr>
+<tr><td>Açúcares totais (g)</td><td>41</td><td>2,3</td><td></td></tr>
+<tr><td>Açúcares adicionados (g)</td><td>40</td><td>2,2</td><td>4%</td></tr>
+<tr><td>Proteínas (g)</td><td>5,4</td><td>0</td><td>0%</td></tr>
+<tr><td>Gorduras totais (g)</td><td>25</td><td>1,4</td><td>2%</td></tr>
+<tr><td>Gorduras saturadas (g)</td><td>15</td><td>0,8</td><td>4%</td></tr>
+<tr><td>Gorduras trans (g)</td><td>0</td><td>0</td><td>0%</td></tr>
+<tr><td>Fibras alimentares (g)</td><td>2,9</td><td>0</td><td>0%</td></tr>
+<tr><td>Sódio (mg)</td><td>79</td><td>0</td><td>0%</td></tr>
+</tbody>
+</table>
+<p><small>*Percentual de valores diários fornecidos pela porção.</small></p>
 """,
-        "atributos": [("Cacau", "80%"), ("Tipo", "Amargo"), ("Peso", "80 g"),
-                      ("Notas", "Frutas escuras | Café | Terra molhada"), ("Origem do cacau", "Brasil")],
+        "atributos": [("Cacau", "47%"), ("Peso", "33 g"), ("Linha", "Ritual das Raízes"),
+                      ("Perfil", "Suave | Cremoso | Lento"), ("Ingredientes", "Nibs de cacau | Manteiga de cacau | Açúcar de coco | Flor de sal"),
+                      ("Vegano", "Sim"), ("Glúten", "Não contém")],
         "arte": "saturno",
-        "subtitulo": "Chocolate amargo 80%",
+        "subtitulo": "Chocolate 47% cacau",
     },
 ]
 
@@ -113,7 +138,7 @@ def gerar_csv(urls_imagens=None):
     cab = ["Type", "SKU", "Name", "Slug", "Published", "Is featured?", "Visibility in catalog",
            "Short description", "Description", "Tax status", "In stock?", "Backorders allowed?",
            "Sold individually?", "Weight (kg)", "Length (cm)", "Width (cm)", "Height (cm)",
-           "Allow customer reviews?", "Regular price", "Categories", "Tags", "Shipping class", "Images"]
+           "Allow customer reviews?", "Regular price", "Categories", "Tags", "Shipping class", "Images", "Position"]
     for i in range(1, max_attr + 1):
         cab += [f"Attribute {i} name", f"Attribute {i} value(s)", f"Attribute {i} visible", f"Attribute {i} global"]
 
@@ -122,11 +147,14 @@ def gerar_csv(urls_imagens=None):
         w = csv.writer(f)
         w.writerow(cab)
         for p in PRODUTOS:
+            if p.get("pendente"):
+                continue
+            comp, larg, alt = p.get("dim", ("17", "8", "1.5"))
             linha = ["simple", p["sku"], p["nome"], p["slug"], 1, 1, "visible",
                      p["curta"], p["descricao"].strip() + "\n" + ENTREGA.strip(), "taxable", 1, 0,
-                     0, "0.12", "17", "8", "1.5",
+                     0, p.get("peso_kg", "0.12"), comp, larg, alt,
                      1, p["preco"], p["categorias"], p["tags"], "Chocolate",
-                     (urls_imagens or {}).get(p["slug"], "")]
+                     (urls_imagens or {}).get(p["slug"], ""), p.get("posicao", 0)]
             for nome, valor in p["atributos"]:
                 linha += [nome, valor, 1, 0]
             linha += [""] * (len(cab) - len(linha))
@@ -340,6 +368,8 @@ def mockup(p, arte_path):
 
 if __name__ == "__main__":
     for p in PRODUTOS:
+        if p.get("real"):      # foto real: gerada por fotos_reais.py
+            continue
         a = arte(p)
         print("ok", a.relative_to(OUT.parent.parent))
         print("ok", mockup(p, a).relative_to(OUT.parent.parent))

@@ -116,3 +116,13 @@
 }
 @media (max-width:560px){.cc-ritual__grid{grid-template-columns:1fr}
   .cc-root .woocommerce-tabs ul.tabs{justify-content:flex-start;overflow-x:auto}}
+
+/* tabela nutricional (na descrição do produto) */
+.cc-root table.cc-nutri{width:100%;max-width:560px;border-collapse:collapse;margin:6px 0 10px;font-family:var(--font-body);font-size:14px;
+  border:1px solid rgba(0,6,46,.2)!important;border-radius:0}
+.cc-root table.cc-nutri th,.cc-root table.cc-nutri td{border:0!important;border-bottom:1px solid rgba(0,6,46,.12)!important;padding:10px 14px!important;
+  background:none!important;text-align:right;color:var(--cc-text-dark)}
+.cc-root table.cc-nutri th:first-child,.cc-root table.cc-nutri td:first-child{text-align:left}
+.cc-root table.cc-nutri thead th{background:var(--cc-navy)!important;color:var(--cc-cream)!important;font-size:12px;letter-spacing:.06em;text-transform:none;font-weight:600}
+.cc-root table.cc-nutri tbody tr:nth-child(even) td{background:rgba(0,6,46,.03)!important}
+.cc-root .woocommerce-Tabs-panel small{font-size:12px;opacity:.7}

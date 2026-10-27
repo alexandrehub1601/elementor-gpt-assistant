@@ -1,0 +1,168 @@
+<!-- =====================================================================
+     CACAU COSMO — FORMULÁRIO "ENTRAR NO CÍRCULO"
+     Envia para o WordPress (menu "Círculo"), que salva, manda para o
+     Mailchimp e avisa no WhatsApp. Precisa do código wordpress/circulo.php.
+
+     Onde colar:
+       1. Home: dentro de <div id="newsletter-circulo"> … </div>, no lugar
+          do formulário antigo do Mailchimp (style + form + script).
+       2. Popup "O próximo ritual está chegando": substitua todo o conteúdo
+          do widget HTML por este bloco.
+     Pode aparecer mais de uma vez na mesma página.
+     ===================================================================== -->
+<style>
+.cc-circ{--cc-campo:rgba(78,80,110,.88);--cc-borda:rgba(255,255,255,.16);--cc-botao:#f0e5bd;--cc-botao-txt:#08052e;
+  width:100%;max-width:520px;margin:0 auto;text-align:left;position:relative;z-index:5}
+.cc-circ *,.cc-circ *::before,.cc-circ *::after{box-sizing:border-box}
+.cc-circ p{max-width:none!important;opacity:1}
+.cc-circ .cc-circ__msg,.cc-circ .cc-circ__login{width:100%;margin-left:0!important;margin-right:0!important}
+.cc-circ form{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0}
+.cc-circ .cc-circ__full{grid-column:1/-1}
+.cc-circ input,.cc-circ select{display:block;width:100%;height:59px;margin:0;padding:0 20px;border:1px solid var(--cc-borda);border-radius:6px;
+  background:var(--cc-campo);color:#fff;font-family:"Pinopolis",monospace;font-size:17px;font-weight:400;letter-spacing:0;outline:none;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  -webkit-appearance:none;appearance:none;transition:background .25s,border-color .25s,box-shadow .25s}
+.cc-circ input::placeholder{color:rgba(255,255,255,.72);opacity:1}
+.cc-circ select{cursor:pointer;padding-right:44px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='white' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 20px center;background-size:12px}
+.cc-circ select:invalid{color:rgba(255,255,255,.72)}
+.cc-circ select option{color:#08052e;background:#fff}
+.cc-circ input:focus,.cc-circ select:focus{border-color:rgba(240,229,189,.75);box-shadow:0 0 0 3px rgba(240,229,189,.18)}
+.cc-circ input:user-invalid{border-color:#e7a0ad}
+.cc-circ .cc-circ__hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.cc-circ .cc-circ__consent{grid-column:1/-1;display:flex;gap:10px;align-items:flex-start;font-family:"Pinopolis",monospace;font-size:13px;
+  line-height:1.5;opacity:.85;cursor:pointer;margin:2px 0 0}
+.cc-circ .cc-circ__consent input{width:18px;height:18px;flex:none;margin:1px 0 0;padding:0;border-radius:3px;-webkit-appearance:auto;appearance:auto;
+  accent-color:#08052e;background:none;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.cc-circ .cc-circ__consent a{color:inherit;text-decoration:underline}
+.cc-circ button{grid-column:1/-1;display:block;width:230px;max-width:100%;height:52px;margin:10px auto 0;padding:0;border:0;border-radius:5px;
+  background:var(--cc-botao);color:var(--cc-botao-txt);font-family:"Pinopolis",monospace;font-size:17px;font-weight:400;letter-spacing:0;
+  cursor:pointer;transition:transform .2s,background .2s,box-shadow .2s}
+.cc-circ button:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(8,5,46,.18)}
+.cc-circ button:disabled{opacity:.6;cursor:wait;transform:none}
+.cc-circ .cc-circ__msg{grid-column:1/-1;min-height:1.2em;margin:0;text-align:center;font-family:"Pinopolis",monospace;font-size:14px}
+.cc-circ .cc-circ__msg.err{color:#a3404f}
+.cc-circ .cc-circ__login{grid-column:1/-1;text-align:center;margin:2px 0 0;font-family:"Pinopolis",monospace;font-size:13px;opacity:.8}
+.cc-circ .cc-circ__login a{color:inherit;text-decoration:underline}
+.cc-circ .cc-circ__aviso{margin:0 0 18px;padding:14px 18px;border-radius:6px;background:rgba(8,5,46,.08);border-left:3px solid #c9a84c;
+  font-family:"Pinopolis",monospace;font-size:14px;line-height:1.55;text-align:left}
+.cc-circ .cc-circ__ok{text-align:center;padding:28px 22px;border-radius:8px;background:rgba(8,5,46,.06);font-family:"Pinopolis",monospace}
+.cc-circ .cc-circ__ok b{display:block;font-family:"Recoleta",Georgia,serif;font-weight:700;font-size:26px;line-height:1.2;margin:0 0 8px}
+.cc-circ .cc-circ__ok span{font-size:16px;line-height:1.6;opacity:.85}
+.cc-circ .cc-circ__ok i{display:block;font-style:normal;color:#c9a84c;font-size:22px;margin-bottom:10px}
+@media (max-width:620px){
+  .cc-circ form{grid-template-columns:1fr;gap:12px}
+  .cc-circ input,.cc-circ select{height:54px;font-size:16px}
+  .cc-circ button{width:100%}
+}
+</style>
+
+<div class="cc-circ" data-endpoint="/wp-json/cacau/v1/circulo">
+  <form novalidate>
+    <input class="cc-circ__full" type="text" name="nome" placeholder="Nome" autocomplete="name" required data-ph-en="Name">
+    <input type="email" name="email" placeholder="E-mail" autocomplete="email" required data-ph-en="Email">
+    <input type="tel" name="whatsapp" placeholder="WhatsApp" autocomplete="tel" inputmode="tel" required data-ph-en="WhatsApp">
+    <input type="text" name="instagram" placeholder="Instagram (@)" autocomplete="off" data-ph-en="Instagram (@)">
+    <input type="number" name="idade" placeholder="Idade" min="1" max="120" inputmode="numeric" required data-ph-en="Age">
+    <select name="estado" required aria-label="Estado">
+      <option value="" disabled selected data-en="State">Estado</option>
+      <option value="AC">Acre</option><option value="AL">Alagoas</option><option value="AP">Amapá</option><option value="AM">Amazonas</option>
+      <option value="BA">Bahia</option><option value="CE">Ceará</option><option value="DF">Distrito Federal</option><option value="ES">Espírito Santo</option>
+      <option value="GO">Goiás</option><option value="MA">Maranhão</option><option value="MT">Mato Grosso</option><option value="MS">Mato Grosso do Sul</option>
+      <option value="MG">Minas Gerais</option><option value="PA">Pará</option><option value="PB">Paraíba</option><option value="PR">Paraná</option>
+      <option value="PE">Pernambuco</option><option value="PI">Piauí</option><option value="RJ">Rio de Janeiro</option><option value="RN">Rio Grande do Norte</option>
+      <option value="RS">Rio Grande do Sul</option><option value="RO">Rondônia</option><option value="RR">Roraima</option><option value="SC">Santa Catarina</option>
+      <option value="SP">São Paulo</option><option value="SE">Sergipe</option><option value="TO">Tocantins</option>
+    </select>
+    <input type="text" name="cidade" placeholder="Cidade" autocomplete="address-level2" required data-ph-en="City">
+    <input class="cc-circ__hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <label class="cc-circ__consent">
+      <input type="checkbox" name="consentimento" value="1" required>
+      <span data-en='I agree to the <a href="/politica-de-privacidade/" target="_blank">Privacy Policy</a> and to receive messages from Cacau Cosmo.'>Concordo com a <a href="/politica-de-privacidade/" target="_blank">Política de Privacidade</a> e em receber mensagens da Cacau Cosmo.</span>
+    </label>
+    <button type="submit" data-en="Join the circle">Entrar no círculo</button>
+    <p class="cc-circ__msg" role="status" aria-live="polite"></p>
+    <p class="cc-circ__login"><span data-en="Already a member?">Já faz parte?</span> <a href="/minha-conta/" data-en="Sign in">Entrar</a></p>
+  </form>
+</div>
+
+<script>
+(function(){
+  if(window.__ccCirculo) return; window.__ccCirculo=true;   /* um script para todos os formulários da página */
+
+  var T={
+    pt:{ok:'Solicitação enviada!',okSub:'Respondemos em até 48h, fique de olho no seu e-mail.',env:'Enviando…',
+        campos:'Preencha nome, e-mail, WhatsApp, idade, estado e cidade.',termos:'É preciso aceitar a Política de Privacidade.',
+        erro:'Não foi possível enviar agora. Tente novamente em instantes.',
+        membros:'A loja, o Journal e as demais páginas são exclusivos para quem faz parte do Círculo. Solicite seu acesso abaixo &mdash; ou <a href="/minha-conta/">entre na sua conta</a>.',
+        analise:'Sua solicitação está em análise. Assim que for aprovada, você recebe um e-mail com o acesso.'},
+    en:{ok:'Request sent!',okSub:'We reply within 48h, keep an eye on your inbox.',env:'Sending…',
+        campos:'Please fill in name, email, WhatsApp, age, state and city.',termos:'Please accept the Privacy Policy.',
+        erro:'Could not send right now. Please try again shortly.',
+        membros:'The shop, the Journal and the other pages are for Circle members only. Request your access below &mdash; or <a href="/minha-conta/">sign in</a>.',
+        analise:'Your request is under review. Once approved, you will receive an email with your access.'}
+  };
+  function lang(){ var l=''; try{ l=localStorage.getItem('cc-lang'); }catch(e){} return l==='en'||document.documentElement.lang==='en'?'en':'pt'; }
+
+  function traduz(){
+    var en=lang()==='en';
+    document.querySelectorAll('.cc-circ [data-ph-en]').forEach(function(el){
+      if(!el.dataset.phPt) el.dataset.phPt=el.placeholder; el.placeholder=en?el.dataset.phEn:el.dataset.phPt; });
+    document.querySelectorAll('.cc-circ [data-en]').forEach(function(el){
+      if(!el.dataset.pt) el.dataset.pt=el.innerHTML; el.innerHTML=en?el.dataset.en:el.dataset.pt; });
+  }
+
+  function mascara(e){
+    var d=e.target.value.replace(/\D/g,'').slice(0,13), br=d.length<=11;
+    if(!br) return;
+    e.target.value = d.length>10 ? '('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7)
+                   : d.length>6 ? '('+d.slice(0,2)+') '+d.slice(2,6)+'-'+d.slice(6)
+                   : d.length>2 ? '('+d.slice(0,2)+') '+d.slice(2) : d;
+  }
+
+  function iniciar(box){
+    if(box._cc) return; box._cc=1;
+    var form=box.querySelector('form'), msg=box.querySelector('.cc-circ__msg'), btn=form.querySelector('button');
+    form.whatsapp.addEventListener('input',mascara);
+    form.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var t=T[lang()];
+      if(form._gotcha.value) return;
+      msg.className='cc-circ__msg';
+      if(!form.nome.value.trim()||!form.email.checkValidity()||!form.email.value||form.whatsapp.value.replace(/\D/g,'').length<10||
+         !form.idade.value||!form.estado.value||!form.cidade.value.trim()){
+        msg.textContent=t.campos; msg.className='cc-circ__msg err';
+        var bad=[form.nome,form.email,form.whatsapp,form.idade,form.estado,form.cidade].filter(function(i){return !i.value.trim()||!i.checkValidity()})[0];
+        if(bad) bad.focus(); return;
+      }
+      if(!form.consentimento.checked){ msg.textContent=t.termos; msg.className='cc-circ__msg err'; return; }
+      btn.disabled=true; msg.textContent=t.env;
+      fetch(box.getAttribute('data-endpoint'),{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'},credentials:'same-origin'})
+        .then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ if(!r.ok) throw (j&&j.message)||0; return j; }); })
+        .then(function(j){
+          var titulo=j.membro? (lang()==='en'?'You are already in.':'Você já faz parte.') : t.ok;
+          var sub=j.membro? '<a href="'+(j.login||'/minha-conta/')+'" style="color:inherit;text-decoration:underline">'+(lang()==='en'?'Sign in to your account':'Entre na sua conta')+'</a>' : t.okSub;
+          box.innerHTML='<div class="cc-circ__ok" role="status"><i>✦</i><b>'+titulo+'</b><span>'+sub+'</span></div>';
+        })
+        .catch(function(e){ msg.textContent=typeof e==='string'&&e?e:t.erro; msg.className='cc-circ__msg err'; btn.disabled=false; });
+    });
+  }
+
+  function aviso(){
+    var m=(location.search.match(/[?&]acesso=(membros|analise)/)||[])[1]; if(!m) return;
+    var alvo=document.querySelector('#circulo .cc-circ')||document.querySelector('.cc-circ'); if(!alvo) return;
+    var p=document.createElement('p'); p.className='cc-circ__aviso'; p.innerHTML=T[lang()][m];
+    alvo.insertBefore(p,alvo.firstChild);
+    var sec=document.getElementById('circulo');
+    if(sec) setTimeout(function(){ sec.scrollIntoView({behavior:'smooth',block:'start'}); },400);
+  }
+
+  function pronto(){
+    document.querySelectorAll('.cc-circ').forEach(iniciar);
+    traduz(); aviso();
+    document.addEventListener('click',function(e){ if(e.target.closest('[data-lang]')) setTimeout(traduz,30); });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',pronto); else pronto();
+})();
+</script>

@@ -14,6 +14,9 @@ Mesmo visual da Home (cores, Recoleta, Pinopolis e Syne, céu estrelado, menu la
 | `elementor/carrinho-woocommerce.json` | Página de carrinho | Importar e inserir na página /carrinho/ |
 | `elementor/checkout-woocommerce.json` | Finalizar compra + pedido confirmado | Importar e inserir na página /finalizar-compra/ |
 | `elementor/minha-conta-woocommerce.json` | Minha conta (Círculo) | Importar e inserir na página /minha-conta/ |
+| `wordpress/circulo.php` | O Círculo: cadastro, curadoria, e-mails e site fechado | Colar no plugin WPCode |
+| `paginas/home.html` | Home com o formulário novo do Círculo | Widget **HTML** da Home |
+| `paginas/formulario-circulo.html` | Só o formulário (para o popup) | Widget **HTML** do popup |
 | `wordpress/mensagens-contato.php` | Painel "Mensagens" do Contato | Colar no plugin WPCode |
 
 ## 1. Quem Somos e Contato (igual à Home)
@@ -35,6 +38,31 @@ O formulário do Contato envia para o painel do WordPress. Para ativar (uma vez 
 Pronto: aparece o menu **Mensagens** no wp-admin, com contador de mensagens novas, e cada mensagem também chega em `ola@cacaucosmo.com.br`. Responder esse e-mail responde direto ao cliente. A lista tem botão **Exportar CSV**. Para trocar o e-mail, mude `CC_CONTATO_EMAIL` no início do código.
 
 Para mostrar o WhatsApp na página, preencha `WHATSAPP: '5521999999999'` em `window.CC_CONTACT`, no fim do `contato.html`.
+
+## 1b. O Círculo (cadastro → aprovação → acesso)
+
+Segue o fluxo combinado em 23/10: a Home fica aberta com o formulário; Loja, Journal, Quem somos, Contato e Minha conta só abrem para membros aprovados.
+
+**Instalar (uma vez):**
+1. **WPCode → Add Snippet → PHP Snippet**: cole `wordpress/circulo.php` sem a primeira linha `<?php`. Antes de ativar, preencha a CONFIGURAÇÃO no topo:
+   - `CC_MC_API_KEY`: no Mailchimp, **Perfil → Extras → Chaves de API → Criar chave** (a chave termina em `-us22`). O ID da audiência já está certo. Os campos WhatsApp, Instagram, Estado, Cidade e Idade são criados sozinhos na audiência.
+   - `CC_WHATSAPP_AVISOS`: telefone e apikey da Nicole e da Isa no CallMeBot. Cada uma salva o contato **+34 694 25 79 57** e manda "I allow callmebot to send me messages"; o bot responde com a apikey.
+   - `CC_CIRCULO_IDADE_MIN` (18) e `CC_CIRCULO_EMAIL_AVISO` (ola@cacaucosmo.com.br).
+2. **WooCommerce → Configurações → Visibilidade do site → Ao vivo.** O modo "Em breve" do WooCommerce sai; quem fecha o site agora é o Círculo.
+3. **Home:** no widget HTML da Home, troque o código por `paginas/home.html` (é a Home atual com o formulário novo no lugar do Mailchimp).
+4. **Popup** "O próximo ritual está chegando": troque o conteúdo do widget HTML por `paginas/formulario-circulo.html`.
+5. Instale **WP Mail SMTP** para os e-mails de aprovação não caírem no spam.
+
+**No dia a dia (menu Círculo no wp-admin):**
+- Cada solicitação chega no WhatsApp da Nicole e da Isa e por e-mail, com o link para decidir.
+- Filtros: Aguardando, Aprovadas, Lista de espera. Busca por nome, e-mail, cidade ou Instagram. Exportar CSV.
+- **Aprovar**: cria o login (cliente do WooCommerce, já com WhatsApp, estado e cidade no cadastro), envia o e-mail "Você foi selecionada" com o botão para criar a senha e troca a tag no Mailchimp para `circulo-aprovada`.
+- **Não aprovar**: envia o e-mail de lista de espera e marca `circulo-espera` no Mailchimp.
+- Dá para aprovar vários de uma vez (Ações em massa) e reenviar o e-mail de acesso.
+- Clientes antigos ou convidados: **Usuários → editar → "Membro do Círculo"**.
+- Pedido pago: a Nicole recebe no WhatsApp os dados de envio.
+
+Os textos dos e-mails ficam nas funções `cc_circulo_email_aprovada` e `cc_circulo_email_espera`, no próprio snippet.
 
 ## 2. Templates WooCommerce e Post (Elementor Pro)
 

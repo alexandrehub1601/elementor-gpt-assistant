@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Cacau Cosmo — Chocolate, from another universe.</title>
+<meta name="description" content="Cacau Cosmo — chocolate bean-to-bar brasileiro feito em pequenos lotes, entre origem, ciência, ritual e transformação.">
+
+<meta property="og:title" content="Cacau Cosmo — Chocolate, from another universe.">
+<meta property="og:description" content="Chocolate bean-to-bar brasileiro feito em pequenos lotes, entre origem, ciência, ritual e transformação.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://cacaucosmo.com.br/">
+<meta property="og:image" content="https://cacaucosmo.com.br/wp-content/uploads/2026/08/mark-bege-transparente.png">
+<meta name="theme-color" content="#00062E">
+
+<!-- FAVICON — substituir
+<link rel="icon" href="https://cacaucosmo.com.br/wp-content/uploads/favicon.png">
+-->
+
+<!--
+=====================================================================
+CACAU COSMO — BRAND ASSETS
+=====================================================================
+LOGO
+  marca bege   https://cacaucosmo.com.br/wp-content/uploads/2026/08/mark-bege-transparente.png
+  lockup navy  https://cacaucosmo.com.br/wp-content/uploads/2026/08/logo-navy-transparente.png
+  Fallback vetorial embutido em <symbol id="cc-mark"> caso a URL falhe.
+
+FONTS
+  --font-display  Recoleta (Light/Regular/SemiBold/Bold) -> @font-face  (/wp-content/uploads/fonts/)
+  --font-body     Syne               -> Google Fonts
+  --font-mono     Pinopolis          -> @font-face  (/wp-content/uploads/fonts/)
+  Recoleta e Pinopolis são comerciais: uso webfont costuma exigir licença própria.
+
+IMAGES
+  Sem banco de imagem. Cada area editorial tem um <img> comentado, marcado [ TROCAR FOTO ].
+
+PALETTE
+  --cc-navy  #00062E   --cc-navy-2 #0A1240   --cc-pink #D293A8
+  --cc-blush #E9D9D2   --cc-cream #F1E8D0    --cc-paper #EFE8DC
+  --cc-gold  #C9A84C   --cc-brown #4A2C1D
+=====================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://cacaucosmo.com.br" crossorigin>
+
+<!-- Preload das fontes próprias: evita o "salto" de altura que acontecia
+     quando Recoleta/Pinopolis carregavam depois do texto já ter sido
+     desenhado com a fonte de fallback (era isso que deixava o bloco
+     Manifesto/Founder às vezes bem mais alto do que devia). -->
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Bold.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="https://cacaucosmo.com.br/wp-content/uploads/fonts/Pinopolis.woff2">
+
+<style>
+/* ===== FONTES PROPRIAS ===================================== */
+@font-face{font-family:'Recoleta';
+  src:url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Light.woff2') format('woff2'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Light.ttf') format('truetype');
+  font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'Recoleta';
+  src:url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Regular.woff2') format('woff2'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Regular.ttf') format('truetype');
+  font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Recoleta';
+  src:url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20SemiBold.woff2') format('woff2'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20SemiBold.ttf') format('truetype');
+  font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Recoleta';
+  src:url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Bold.woff2') format('woff2'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Recoleta%20Bold.ttf') format('truetype');
+  font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Pinopolis';
+  src:url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Pinopolis.woff2') format('woff2'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/Pinopolis.woff') format('woff'),
+      url('https://cacaucosmo.com.br/wp-content/uploads/fonts/PINOPOLIS.TTF') format('truetype');
+  font-weight:400;font-style:normal;font-display:swap}
+
+/* ===== TOKENS ============================================== */
+:root{
+  --cc-navy:#00062E; --cc-navy-2:#0A1240;
+  --cc-pink:#D293A8; --cc-blush:#E9D9D2;
+  --cc-cream:#F1E8D0; --cc-paper:#EFE8DC;
+  --cc-gold:#C9A84C;  --cc-brown:#4A2C1D;
+  --cc-text-light:#F1E8D0; --cc-text-dark:#00062E;
+
+  --font-display:'Recoleta',Georgia,'Times New Roman',serif;
+  --font-body:'Syne','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --font-mono:'Pinopolis','Iowan Old Style','Palatino Linotype',Georgia,serif;
+
+  --pad:clamp(22px,4.4vw,74px);
+  --bar:clamp(76px,7vw,108px);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+/* ===== BASE ================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-mono);background:var(--cc-navy);color:var(--cc-text-light);
+  line-height:1.7;overflow-x:hidden;font-size:clamp(14px,1vw,16px)}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--cc-gold);outline-offset:3px}
+::selection{background:var(--cc-pink);color:var(--cc-navy)}
+
+/* ---------- ATRIBUICAO DE FONTES -------------------------
+   TITULOS ......... Recoleta Black
+   CORPO ........... Pinopolis
+   CABECALHO/RODAPE  Syne
+   ---------------------------------------------------------- */
+h1,h2,h3,.display,.em,.pillar span{font-family:var(--font-display)!important}
+body,p,li,ul,.label,.cta,.sig,.sig b,.form input,.form button,.formnote,
+.hero__sub,.duo li,.manifesto p,.campaign p,.circle p,.founder__body p,
+.pane p,.footer__place{font-family:var(--font-mono)!important}
+.topbar,.topbar *,.drawer,.drawer *,.footer,.footer *{font-family:var(--font-body)!important}
+/* excecao: o claim do rodape e uma frase-titulo */
+.footer__claim{font-family:var(--font-display)!important}
+
+.label{font-size:clamp(9px,.66vw,11px);letter-spacing:.36em;text-transform:uppercase;
+  font-weight:600;color:var(--cc-gold);text-indent:.36em}
+.display{font-family:var(--font-display);font-weight:700;line-height:1.08;letter-spacing:-.015em}
+.em{font-family:var(--font-display);font-style:italic;color:var(--cc-pink)}
+
+.rv{opacity:0;transform:translateY(22px);
+  transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}}
+
+.stars{position:absolute;inset:0;pointer-events:none}
+
+/* ===== TOPO FIXO -- logo completo centralizado ============== */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:70;height:var(--bar);
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  padding:0 var(--pad);transition:background .6s var(--ease)}
+.topbar.solid{background:rgba(0,6,46,.92);backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(241,232,208,.1)}
+.burger{display:flex;flex-direction:column;gap:5px;padding:10px;margin-left:-10px;justify-self:start}
+.burger span{display:block;width:24px;height:1px;background:var(--cc-cream);
+  transition:transform .5s var(--ease)}
+.burger:hover span:nth-child(1){transform:translateX(4px)}
+.burger:hover span:nth-child(3){transform:translateX(-4px)}
+
+.brand{display:flex;flex-direction:column;align-items:center;gap:7px;justify-self:center}
+.brand img,.brand svg{width:clamp(38px,3vw,48px);height:auto;object-fit:contain;display:block}
+.brand b{font-weight:500;font-size:clamp(8px,.62vw,10px);letter-spacing:.38em;
+  text-transform:uppercase;color:var(--cc-cream);text-indent:.38em;white-space:nowrap}
+
+.util{display:flex;align-items:center;gap:clamp(12px,1.6vw,26px);justify-self:end}
+.lang{display:flex;gap:10px;font-size:10px;letter-spacing:.2em}
+.lang button{opacity:.5;transition:opacity .4s}
+.lang button.on,.lang button:hover{opacity:1;color:var(--cc-gold)}
+.cart{opacity:.85;transition:opacity .4s}
+.cart:hover{opacity:1}
+
+/* ===== MENU LATERAL ======================================== */
+.scrim{position:fixed;inset:0;z-index:80;background:rgba(0,6,46,.6);backdrop-filter:blur(3px);
+  opacity:0;visibility:hidden;transition:opacity .7s var(--ease),visibility .7s}
+.scrim.open{opacity:1;visibility:visible}
+
+.drawer{position:fixed;top:0;right:0;z-index:90;height:100dvh;width:32%;min-width:400px;
+  background:var(--cc-navy);transform:translateX(100%);transition:transform .85s var(--ease);
+  display:flex;flex-direction:column;padding:clamp(26px,2.6vw,40px) clamp(30px,3.4vw,58px);
+  border-left:1px solid rgba(241,232,208,.12);overflow:hidden auto}
+.drawer.open{transform:none}
+.drawer .stars{opacity:.55}
+.drawer__top{display:flex;align-items:flex-start;justify-content:space-between;position:relative}
+.close{font-size:24px;line-height:1;padding:10px;margin:-10px;transition:transform .5s var(--ease)}
+.close:hover{transform:rotate(90deg)}
+
+.nav{display:flex;flex-direction:column;gap:clamp(8px,1vw,14px);
+  padding:clamp(30px,5vh,62px) 0 0;position:relative}
+.nav a{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,2vw,32px);
+  color:var(--cc-cream);letter-spacing:.04em;opacity:0;transform:translateX(18px);
+  display:flex;align-items:baseline;gap:14px;
+  transition:opacity .7s var(--ease),transform .7s var(--ease),color .4s}
+.nav a .badge-soon{font-family:var(--font-body)!important;font-size:9px}
+.drawer.open .nav a{opacity:1;transform:none}
+.drawer.open .nav a:nth-child(1){transition-delay:.16s}
+.drawer.open .nav a:nth-child(2){transition-delay:.21s}
+.drawer.open .nav a:nth-child(3){transition-delay:.26s}
+.drawer.open .nav a:nth-child(4){transition-delay:.31s}
+.drawer.open .nav a:nth-child(5){transition-delay:.36s}
+.drawer.open .nav a:nth-child(6){transition-delay:.41s}
+.nav a:hover{color:var(--cc-pink)}
+
+.drawer__rule{width:64px;height:1px;background:rgba(241,232,208,.3);
+  margin:clamp(26px,3vw,40px) 0;position:relative}
+.btn-circle{display:block;text-align:center;background:var(--cc-pink);color:var(--cc-navy);
+  font-size:10px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;
+  padding:16px 20px;position:relative;transition:background .5s var(--ease)}
+.btn-circle:hover{background:var(--cc-gold)}
+
+.drawer__links{display:flex;flex-direction:column;gap:8px;margin-top:clamp(24px,2.6vw,34px);
+  position:relative}
+.drawer__links a{font-size:10px;letter-spacing:.26em;text-transform:uppercase;opacity:.62;
+  transition:opacity .4s}
+.drawer__links a:hover{opacity:1}
+
+.drawer__quote{margin-top:auto;padding-top:40px;position:relative}
+.drawer__quote p{font-family:var(--font-display);font-style:italic;
+  font-size:clamp(15px,1.3vw,19px);line-height:1.6;color:var(--cc-cream);opacity:.9}
+.drawer__lang{display:flex;gap:14px;font-size:10px;letter-spacing:.22em;
+  margin-top:clamp(22px,2.4vw,32px);position:relative}
+.drawer__lang button{opacity:.5;transition:opacity .4s}
+.drawer__lang button.on{opacity:1;border-bottom:1px solid var(--cc-gold);padding-bottom:3px}
+
+/* ===== 1 - HERO ============================================ */
+.hero{position:relative;min-height:clamp(520px,78svh,860px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:calc(var(--bar) + 4vh) var(--pad) 8vh;overflow:hidden;
+  background:var(--cc-navy)}
+.orb{position:absolute;right:-12%;top:6%;width:min(58vw,760px);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(38% 38% at 34% 30%,rgba(210,147,168,.22) 0%,rgba(74,44,29,.20) 45%,rgba(0,6,46,0) 72%);
+  pointer-events:none}
+.orb::after{content:'';position:absolute;inset:0;border-radius:50%;
+  border:1px solid rgba(210,147,168,.13)}
+.hero__kicker{margin-bottom:clamp(14px,1.7vw,22px);position:relative}
+.hero h1{font-size:clamp(38px,6.6vw,104px);color:var(--cc-cream);max-width:15ch;position:relative}
+.hero__sub{margin-top:clamp(16px,1.8vw,24px);font-family:var(--font-mono);
+  font-size:clamp(13px,1.1vw,17px);opacity:.82;max-width:38ch;position:relative}
+.scrollcue{position:absolute;bottom:clamp(22px,4vh,44px);left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  font-size:9px;letter-spacing:.38em;text-transform:uppercase;opacity:.62}
+.scrollcue svg{width:14px;color:var(--cc-gold)}
+
+/* ===== 2 - ORIGEM ========================================== */
+.split{display:grid;grid-template-columns:1fr 1fr}
+.media{position:relative;overflow:hidden;min-height:clamp(300px,42vh,520px);background:var(--cc-brown)}
+.media img{width:100%;height:100%;object-fit:cover}
+.artframe{position:absolute;inset:0;display:grid;place-items:center}
+.artframe svg{width:min(56%,340px);height:auto}
+.pane{display:flex;flex-direction:column;justify-content:center;padding:clamp(30px,3.8vw,66px)}
+.pane--cream{background:var(--cc-cream);color:var(--cc-text-dark)}
+.pane h2{font-size:clamp(26px,3.2vw,50px);margin:13px 0 16px;max-width:13ch}
+.pane p{max-width:42ch;opacity:.82}
+.cta{display:inline-flex;align-items:center;gap:11px;margin-top:clamp(16px,1.9vw,26px);
+  font-size:10px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;
+  padding-bottom:7px;border-bottom:1px solid currentColor;width:fit-content;
+  transition:gap .5s var(--ease)}
+.cta:hover{gap:20px}
+
+/* ===== 3 - CACAU x COSMO =================================== */
+.duo{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;position:relative}
+.duo__side{padding:clamp(30px,3.6vw,60px) clamp(26px,3.2vw,56px);
+  min-height:clamp(280px,38vh,440px);display:flex;flex-direction:column;justify-content:center;
+  position:relative;overflow:hidden}
+.duo__terra{background:var(--cc-blush);color:var(--cc-brown)}
+.duo__cosmo{background:var(--cc-navy);color:var(--cc-cream)}
+.duo ul{list-style:none;display:flex;flex-direction:column;gap:4px;position:relative;z-index:2}
+.duo li{font-family:var(--font-mono);font-size:clamp(15px,1.5vw,23px);opacity:.9}
+.duo .label{position:relative;z-index:2;margin-bottom:clamp(12px,1.4vw,20px)}
+.duo__branch,.duo__moon{opacity:0;transition:opacity 1.4s var(--ease) .2s}
+.duo.seen .duo__branch{opacity:.85}
+.duo.seen .duo__moon{opacity:.9}
+
+/* ramo botanico: grande, encostado na emenda */
+.duo__branch{position:absolute;right:clamp(40px,7vw,120px);top:50%;transform:translateY(-50%);
+  width:clamp(104px,12vw,168px);aspect-ratio:240/300;height:auto;
+  color:var(--cc-brown);opacity:.85;pointer-events:none;z-index:1}
+
+/* lua: disco de luz na borda direita, sem render 3D */
+.duo__moon{position:absolute;right:-7%;top:50%;transform:translateY(-50%);
+  width:min(38%,280px);aspect-ratio:1;border-radius:50%;pointer-events:none;z-index:1;opacity:.9;
+  background:
+    radial-gradient(26% 22% at 38% 30%, rgba(241,232,208,.16) 0%, rgba(241,232,208,0) 60%),
+    radial-gradient(18% 16% at 66% 62%, rgba(241,232,208,.12) 0%, rgba(241,232,208,0) 62%),
+    radial-gradient(circle at 33% 30%, #E4D8D4 0%, #C4B4B6 26%, #8E8296 52%, #4A4460 74%, #1E2142 100%);
+  box-shadow:0 0 90px rgba(210,147,168,.22)}
+
+/* emenda: circulo + estrela cavalgando a divisa */
+.duo__seam{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;
+  width:clamp(74px,8.4vw,126px);aspect-ratio:1;border-radius:50%;
+  border:1px solid rgba(201,168,76,.6);background:transparent;
+  display:grid;place-items:center;pointer-events:none}
+.duo__seam svg{width:46%;color:var(--cc-gold);
+  filter:drop-shadow(0 0 10px rgba(201,168,76,.45))}
+
+/* ===== 4 - CHOCOLATE ======================================= */
+.campaign{position:relative;min-height:clamp(340px,50vh,560px);display:flex;align-items:center;
+  overflow:hidden;background:#1B1008;padding:clamp(38px,4.6vw,78px) var(--pad)}
+.campaign__bg{position:absolute;inset:0}
+.campaign__bg img{width:100%;height:100%;object-fit:cover}
+.campaign__veil{position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(20,11,6,.94) 0%,rgba(20,11,6,.72) 38%,rgba(20,11,6,.25) 100%)}
+.campaign__in{position:relative;max-width:640px}
+.campaign h2{font-size:clamp(28px,4.4vw,68px);color:var(--cc-cream);letter-spacing:.01em}
+.campaign p{margin-top:clamp(12px,1.4vw,20px);font-family:var(--font-mono);
+  font-size:clamp(13px,1.1vw,18px);opacity:.82}
+
+/* ===== 5 - MANIFESTO + FOUNDER ============================= */
+.band{display:grid;grid-template-columns:1.05fr .82fr .9fr}
+.manifesto{background:var(--cc-navy);position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center;
+  min-height:clamp(290px,40vh,480px);
+  padding:clamp(32px,3.8vw,64px) clamp(26px,3.2vw,54px)}
+.manifesto>*{position:relative}
+.manifesto h2{font-size:clamp(24px,2.7vw,42px);color:var(--cc-cream);margin-bottom:clamp(14px,1.7vw,22px)}
+.manifesto p{font-family:var(--font-mono);font-size:clamp(12px,1vw,15px);
+  opacity:.84;margin-bottom:11px;max-width:42ch}
+.pillar{margin:clamp(16px,1.9vw,26px) 0;padding:clamp(11px,1.3vw,17px) 0;
+  border-top:1px solid rgba(201,168,76,.4);border-bottom:1px solid rgba(201,168,76,.4);max-width:42ch}
+.pillar span{font-family:var(--font-display);font-weight:700;
+  font-size:clamp(14px,1.35vw,21px);color:var(--cc-gold);letter-spacing:.06em;
+  text-transform:uppercase;display:block}
+.founder__media{position:relative;overflow:hidden;background:var(--cc-brown);
+  min-height:clamp(290px,40vh,480px)}
+.founder__media img{width:100%;height:100%;object-fit:cover}
+.founder__body{background:var(--cc-cream);color:var(--cc-text-dark);
+  display:flex;flex-direction:column;justify-content:center;padding:clamp(28px,3.2vw,56px)}
+.founder__body h2{font-size:clamp(22px,2.4vw,38px);margin:12px 0 15px}
+.founder__body p{font-size:clamp(12px,1vw,15px);opacity:.84;max-width:34ch;margin-bottom:10px}
+.sig{margin-top:22px;font-family:var(--font-mono);line-height:1.55}
+.sig b{display:block;font-weight:400;font-size:clamp(14px,1.2vw,18px)}
+.sig i{font-style:normal;font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+
+/* ===== 6 - CÍRCULO ========================================= */
+.circle{position:relative;overflow:hidden;background:var(--cc-blush);color:var(--cc-text-dark);
+  padding:clamp(42px,4.8vw,84px) var(--pad);text-align:center}
+.circle__moon{position:absolute;left:-6%;bottom:-42%;width:min(42vw,460px);aspect-ratio:1;
+  border-radius:50%;pointer-events:none;
+  background:radial-gradient(42% 42% at 46% 36%,rgba(210,147,168,.5) 0%,rgba(210,147,168,.14) 52%,rgba(233,217,210,0) 74%)}
+.circle>*:not(.circle__moon){position:relative}
+.circle h2{font-size:clamp(24px,3.2vw,50px);margin:12px auto clamp(11px,1.4vw,18px);max-width:19ch}
+.circle p{max-width:44ch;margin:0 auto;opacity:.78;font-size:clamp(12px,1vw,15px)}
+.form{display:flex;justify-content:center;flex-wrap:wrap;margin-top:clamp(20px,2.3vw,32px)}
+.form input{font-family:var(--font-body);font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  background:transparent;border:1px solid rgba(0,6,46,.28);border-right:0;
+  padding:16px 20px;min-width:min(320px,72vw);color:var(--cc-text-dark);transition:border-color .5s}
+.form input::placeholder{color:rgba(0,6,46,.42)}
+.form input:focus{outline:none;border-color:var(--cc-navy)}
+.form button{background:var(--cc-navy);color:var(--cc-cream);font-size:10px;letter-spacing:.24em;
+  text-transform:uppercase;font-weight:600;padding:16px 30px;transition:background .5s var(--ease)}
+.form button:hover{background:var(--cc-gold);color:var(--cc-navy)}
+.formnote{margin-top:14px;font-size:10px;letter-spacing:.14em;opacity:.55;min-height:1em}
+
+/* ===== EM BREVE / LOJA ===================================== */
+.badge-soon{display:inline-flex;align-items:center;margin-left:10px;
+  padding:4px 10px;border:1px solid rgba(201,168,76,.55);border-radius:20px;
+  font-family:var(--font-body)!important;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;font-weight:600;color:var(--cc-gold);
+  vertical-align:middle;white-space:nowrap}
+a.is-soon{cursor:default}
+.cart.is-soon{opacity:.55;position:relative}
+.cart.is-soon:hover{opacity:.85}
+
+/* ===== 7 - FOOTER ========================================== */
+.footer{background:var(--cc-paper);color:var(--cc-text-dark);
+  padding:clamp(20px,2.2vw,34px) var(--pad);
+  display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;
+  gap:clamp(18px,3vw,50px);border-top:1px solid rgba(0,6,46,.1)}
+.footer__brand{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--cc-navy)}
+.footer__brand img,.footer__brand svg{width:96px;height:auto;object-fit:contain}
+.footer__brand b{font-weight:500;font-size:8px;letter-spacing:.32em;text-transform:uppercase;
+  text-indent:.32em;white-space:nowrap}
+.footer__place{font-family:var(--font-mono);font-size:12px;opacity:.7}
+.footer__claim{font-family:var(--font-display);font-weight:700;font-size:clamp(10px,.9vw,13px);
+  letter-spacing:.16em;text-transform:uppercase;color:var(--cc-brown)}
+.footer__social{display:flex;gap:14px}
+.footer__social a{opacity:.7;transition:opacity .4s}
+.footer__social a:hover{opacity:1}
+.footer__legal{grid-column:1/-1;display:flex;gap:22px;flex-wrap:wrap;
+  padding-top:16px;margin-top:6px;border-top:1px solid rgba(0,6,46,.1)}
+.footer__legal a,.footer__legal small{font-size:9px;letter-spacing:.2em;text-transform:uppercase;opacity:.5}
+
+/* ===== RESPONSIVO ========================================== */
+@media (max-width:1100px){
+  .band{grid-template-columns:1fr 1fr}
+  .founder__body{grid-column:1/-1}
+}
+@media (max-width:900px){
+  .drawer{width:46%;min-width:330px}
+  .split{grid-template-columns:1fr}
+  .media{order:-1;min-height:46vh}
+  .duo{grid-template-columns:1fr}
+  .duo__seam{display:none}
+  .duo__branch{right:-6%;height:96%;opacity:.55}
+  .duo__moon{right:-22%;width:min(58%,300px)}
+  .band{grid-template-columns:1fr}
+  .founder__media{min-height:46vh}
+  .campaign__veil{background:linear-gradient(180deg,rgba(20,11,6,.55) 0%,rgba(20,11,6,.92) 78%)}
+  .footer{grid-template-columns:1fr;justify-items:center;text-align:center;gap:20px}
+}
+@media (max-width:620px){
+  .drawer{width:100%;min-width:0;border-left:0}
+  .hero{padding-top:calc(var(--bar) + 12vh)}
+  .hero h1{max-width:11ch}
+  .util .lang{display:none}
+  .form input{min-width:100%;border-right:1px solid rgba(0,6,46,.28)}
+  .form button{width:100%}
+}
+</style>
+</head>
+
+<body data-rsssl=1>
+
+<!-- ===== SPRITE ============================================ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="cc-mark" viewBox="0 0 120 74">
+    <path fill="currentColor" d="M52.4 37C52.4 20.6 41.3 7.2 27.4 7.2 17.6 7.2 9 13.9 4.9 23.7c3.6-12.8 13-21.8 24-21.8 15.1 0 27.4 15.7 27.4 35.1 0 19.4-12.3 35.1-27.4 35.1-11 0-20.4-9-24-21.8C9 60.1 17.6 66.8 27.4 66.8 41.3 66.8 52.4 53.4 52.4 37Z"/>
+    <path fill="currentColor" d="M67.6 37c0 16.4 11.1 29.8 25 29.8 9.8 0 18.4-6.7 22.5-16.5-3.6 12.8-13 21.8-24 21.8-15.1 0-27.4-15.7-27.4-35.1C63.7 17.6 76 1.9 91.1 1.9c11 0 20.4 9 24 21.8-4.1-9.8-12.7-16.5-22.5-16.5C78.7 7.2 67.6 20.6 67.6 37Z"/>
+  </symbol>
+
+  <symbol id="art-branch" viewBox="0 0 240 300">
+    <g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+      <!-- caule -->
+      <path d="M120 24C122 86 118 160 120 214" stroke-width="1.7"/>
+      <!-- broto -->
+      <path d="M120 24C114 16 114 9 120 5C126 9 126 16 120 24Z"/>
+      <!-- tres pares de folhas -->
+      <path d="M120 72 C98 46 62 40 26 59 C56 87 96 91 120 72Z"/>
+      <path d="M120 72 C96 67 58 63 28 60" opacity=".65"/>
+      <path d="M104 68 C98 73 92 77 84 79M84 64 C78 69 72 73 62 75M64 61 C58 65 52 68 44 70" opacity=".4"/>
+      <path d="M120 72 C142 46 178 40 214 59 C184 87 144 91 120 72Z"/>
+      <path d="M120 72 C144 67 182 63 212 60" opacity=".65"/>
+      <path d="M136 68 C142 73 148 77 156 79M156 64 C162 69 168 73 178 75M176 61 C182 65 188 68 196 70" opacity=".4"/>
+      <path d="M120 126 C98 100 62 94 26 113 C56 141 96 145 120 126Z"/>
+      <path d="M120 126 C96 121 58 117 28 114" opacity=".65"/>
+      <path d="M104 122 C98 127 92 131 84 133M84 118 C78 123 72 127 62 129M64 115 C58 119 52 122 44 124" opacity=".4"/>
+      <path d="M120 126 C142 100 178 94 214 113 C184 141 144 145 120 126Z"/>
+      <path d="M120 126 C144 121 182 117 212 114" opacity=".65"/>
+      <path d="M136 122 C142 127 148 131 156 133M156 118 C162 123 168 127 178 129M176 115 C182 119 188 122 196 124" opacity=".4"/>
+      <path d="M120 180 C98 154 62 148 26 167 C56 195 96 199 120 180Z"/>
+      <path d="M120 180 C96 175 58 171 28 168" opacity=".65"/>
+      <path d="M104 176 C98 181 92 185 84 187M84 172 C78 177 72 181 62 183M64 169 C58 173 52 176 44 178" opacity=".4"/>
+      <path d="M120 180 C142 154 178 148 214 167 C184 195 144 199 120 180Z"/>
+      <path d="M120 180 C144 175 182 171 212 168" opacity=".65"/>
+      <path d="M136 176 C142 181 148 185 156 187M156 172 C162 177 168 181 178 183M176 169 C182 173 188 176 196 178" opacity=".4"/>
+      <!-- pedunculo e fruto -->
+      <path d="M120 208C112 212 104 216 99 222"/>
+      <path d="M96 216C116 230 126 248 126 264C126 282 112 294 96 294C80 294 66 282 66 264C66 248 76 230 96 216Z" stroke-width="1.6"/>
+      <path d="M96 219V291" opacity=".55"/>
+      <path d="M79 227C72 243 70 262 75 282M113 227C120 243 122 262 117 282" opacity=".55"/>
+      <path d="M87 240C84 252 84 264 87 276M105 240C108 252 108 264 105 276" opacity=".3"/>
+    </g>
+  </symbol>
+
+  <symbol id="art-pod" viewBox="0 0 200 320">
+    <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+      <path d="M100 16c34 30 56 78 56 140s-22 110-56 148c-34-38-56-86-56-148S66 46 100 16Z"/>
+      <path d="M100 22v292M70 40c-10 34-14 70-14 114s4 80 14 114M130 40c10 34 14 70 14 114s-4 80-14 114"/>
+      <path d="M86 96c6 10 6 22 0 32M114 96c-6 10-6 22 0 32M86 176c6 10 6 22 0 32M114 176c-6 10-6 22 0 32"/>
+    </g>
+  </symbol>
+
+  <symbol id="art-bar" viewBox="0 0 260 150">
+    <rect x="6" y="6" width="248" height="138" rx="16" fill="none" stroke="currentColor" stroke-width="2.4"/>
+    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".8">
+      <path d="M56 34H38a10 10 0 0 0-10 10v22a10 10 0 0 0 10 10h18"/>
+      <path d="M92 34h18a10 10 0 0 1 10 10v22a10 10 0 0 1-10 10H92"/>
+      <path d="M164 34h-18a10 10 0 0 0-10 10v22a10 10 0 0 0 10 10h18"/>
+      <path d="M200 34h18a10 10 0 0 1 10 10v22a10 10 0 0 1-10 10h-18"/>
+      <path d="M56 96H38a10 10 0 0 0-10 10v8a10 10 0 0 0 10 10h18"/>
+      <path d="M92 96h18a10 10 0 0 1 10 10v8a10 10 0 0 1-10 10H92"/>
+      <path d="M164 96h-18a10 10 0 0 0-10 10v8a10 10 0 0 0 10 10h18"/>
+      <path d="M200 96h18a10 10 0 0 1 10 10v8a10 10 0 0 1-10 10h-18"/>
+    </g>
+  </symbol>
+
+  <symbol id="art-orbit" viewBox="0 0 200 200">
+    <g fill="none" stroke="currentColor" stroke-width="1.6">
+      <ellipse cx="100" cy="100" rx="88" ry="30" transform="rotate(-22 100 100)"/>
+      <ellipse cx="100" cy="100" rx="70" ry="48" transform="rotate(34 100 100)" opacity=".6"/>
+    </g>
+    <path fill="currentColor" d="M100 72c1.4 15 7.6 21.2 22.6 22.6-15 1.4-21.2 7.6-22.6 22.6-1.4-15-7.6-21.2-22.6-22.6 15-1.4 21.2-7.6 22.6-22.6Z"/>
+  </symbol>
+
+  <symbol id="ic-star" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M12 1c1 8.6 2.4 10 11 11-8.6 1-10 2.4-11 11-1-8.6-2.4-10-11-11 8.6-1 10-2.4 11-11Z"/>
+  </symbol>
+  <symbol id="ic-bag" viewBox="0 0 24 24">
+    <path fill="none" stroke="currentColor" stroke-width="1.4" d="M5 8h14l-1.2 13H6.2L5 8Zm3.4 0V6a3.6 3.6 0 0 1 7.2 0v2"/>
+  </symbol>
+  <symbol id="ic-ig" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.4">
+      <rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5"/><circle cx="12" cy="12" r="4"/>
+      <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/>
+    </g>
+  </symbol>
+</svg>
+
+
+<!-- ===== TOPO ============================================== -->
+<header class="topbar" id="topbar">
+  <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="drawer">
+    <span></span><span></span><span></span>
+  </button>
+
+  <a class="brand" href="#hero" aria-label="Cacau Cosmo, início">
+    <img decoding="async" src="https://cacaucosmo.com.br/wp-content/uploads/2026/08/mark-bege-transparente.png"
+         alt="" onerror="ccFallback(this)">
+    <b>Cacau Cosmo</b>
+  </a>
+
+  <div class="util">
+    <div class="lang" role="group" aria-label="Idioma">
+      <button class="on" data-lang="pt" aria-pressed="true">PT</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <a href="#chocolate" class="cart is-soon js-soon" aria-label="Loja — em breve" title="Loja em breve">
+      <svg viewBox="0 0 24 24" style="width:17px;color:var(--cc-cream)"><use href="#ic-bag"></use></svg>
+    </a>
+  </div>
+</header>
+
+
+<!-- ===== MENU LATERAL ====================================== -->
+<div class="scrim" id="scrim" hidden></div>
+
+<aside class="drawer" id="drawer" aria-label="Navegação principal" aria-hidden="true">
+  <canvas class="stars" id="starsD" aria-hidden="true"></canvas>
+
+  <div class="drawer__top">
+    <span class="brand" style="align-items:flex-start">
+      <img decoding="async" src="https://cacaucosmo.com.br/wp-content/uploads/2026/08/mark-bege-transparente.png"
+           alt="Cacau Cosmo" style="width:52px" onerror="ccFallback(this)">
+      <b>Cacau Cosmo</b>
+    </span>
+    <button class="close" id="close" aria-label="Fechar menu">&times;</button>
+  </div>
+
+  <nav class="nav">
+    <a href="#hero" data-i18n="t-nav-home">Home</a>
+    <a href="#chocolate" class="js-soon">
+    <a href="https://cacaucosmo.com.br/loja-soon/">  <span data-i18n="t-nav-shop">Shop</span></a>
+      <span class="badge-soon" data-i18n="t-soon">Em breve</span>
+    </a>
+    
+    <a href="/journal" data-i18n="t-nav-journal">Journal</a>
+  </nav>
+
+  <div class="drawer__rule"></div>
+  <a class="btn-circle" href="#circulo" data-i18n="t-btncircle">Entrar no Círculo</a>
+
+  <div class="drawer__links">
+    <a href="https://instagram.com/cacaucosmo" target="_blank" rel="noopener">Instagram</a>
+    <a href="#contato" data-i18n="t-contact">Contato</a>
+  </div>
+
+  <div class="drawer__quote">
+    <p data-i18n="t-drawerquote">&ldquo;Um pequeno universo entre<br>o cacau e o cosmo.&rdquo;</p>
+    <div class="drawer__lang" role="group" aria-label="Idioma">
+      <button class="on" data-lang="pt" aria-pressed="true">PT</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</aside>
+
+
+<main>
+
+<!-- ===== 1 - HERO ========================================== -->
+<section class="hero" id="hero">
+  <canvas class="stars" id="stars1" aria-hidden="true"></canvas>
+  <div class="orb" aria-hidden="true"></div>
+
+  <p class="label hero__kicker rv" data-i18n="t-herokicker">Nascido no Brasil</p>
+  <h1 class="display rv d1" data-i18n="t-heroh1">Entre o cacau<br>e o <span class="em">cosmo.</span></h1>
+  <p class="hero__sub rv d2" data-i18n="t-herosub">Chocolate bean-to-bar feito em pequenos lotes.</p>
+
+  <a class="scrollcue" href="#origem" aria-label="Explorar">
+    <svg viewBox="0 0 24 24"><use href="#ic-star"></use></svg>
+    <span data-i18n="t-explore">Explorar</span>
+  </a>
+</section>
+
+
+<!-- ===== 2 - ORIGEM ======================================== -->
+<section class="split" id="origem">
+  <div class="media">
+    <!-- [ TROCAR FOTO ] fruto de cacau no tronco, luz dura, grão de filme
+         <img decoding="async" src="https://cacaucosmo.com.br/wp-content/uploads/2026/08/origem.jpg"
+              alt="Fruto de cacau no tronco da árvore" loading="lazy">
+         Ao inserir a foto, apagar a .artframe abaixo. -->
+    <div class="artframe" style="color:var(--cc-cream);
+      background:linear-gradient(160deg,#2A1A12 0%,#4A2C1D 54%,#23150E 100%)">
+      <svg><use href="#art-pod"></use></svg>
+    </div>
+  </div>
+
+  <div class="pane pane--cream">
+    <p class="label rv" style="color:var(--cc-brown)" data-i18n="t-origemlabel">Origem</p>
+    <h2 class="display rv d1" data-i18n="t-origemh2">Antes do chocolate,<br>existe a floresta.</h2>
+    <p class="rv d2" data-i18n="t-origemp">Trabalhamos com cacau de origem, respeitando as pessoas,
+      os territórios e o tempo da natureza.</p>
+    <a class="cta rv d3" href="#origem"><span data-i18n="t-origemcta">Conheça nossa origem</span> <span aria-hidden="true">&mdash;</span></a>
+  </div>
+</section>
+
+
+<!-- ===== 3 - CACAU x COSMO ================================= -->
+<section class="duo" id="cosmo">
+  <div class="duo__seam" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#ic-star"></use></svg></div>
+
+  <div class="duo__side duo__terra">
+    <p class="label rv" style="color:var(--cc-brown)" data-i18n="t-duolabel-cacau">Cacau</p>
+    <ul class="rv d1">
+      <li data-i18n="t-duo-terra">Terra.</li><li data-i18n="t-duo-fruto">Fruto.</li><li data-i18n="t-duo-ferment">Fermentação.</li><li data-i18n="t-duo-materia">Matéria.</li>
+    </ul>
+    <svg class="duo__branch" viewBox="0 0 240 300" aria-hidden="true">
+      <use href="#art-branch"></use></svg>
+  </div>
+
+  <div class="duo__side duo__cosmo">
+    <canvas class="stars" id="stars2" aria-hidden="true"></canvas>
+    <div class="duo__moon" aria-hidden="true"></div>
+    <p class="label rv" data-i18n="t-duolabel-cosmo">Cosmo</p>
+    <ul class="rv d1">
+      <li data-i18n="t-duo-curio">Curiosidade.</li><li data-i18n="t-duo-ciencia">Ciência.</li><li data-i18n="t-duo-ritual">Ritual.</li><li data-i18n="t-duo-transf">Transformação.</li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- ===== 4 - CHOCOLATE ===================================== -->
+<section class="campaign" id="chocolate">
+  <div class="campaign__bg">
+    <!-- [ TROCAR FOTO ] barra quebrada sobre pedra, luz lateral quente
+         <img decoding="async" src="https://cacaucosmo.com.br/wp-content/uploads/2026/08/barra.jpg"
+              alt="Barras de chocolate bean-to-bar quebradas" loading="lazy"> -->
+    <div class="artframe" style="color:rgba(241,232,208,.42);
+      background:linear-gradient(200deg,#1B1008 0%,#3A2216 50%,#120A05 100%)">
+      <svg style="width:min(42%,460px)"><use href="#art-bar"></use></svg>
+    </div>
+  </div>
+  <div class="campaign__veil" aria-hidden="true"></div>
+
+  <div class="campaign__in">
+    <h2 class="display rv">Chocolate,<br>from another<br>universe.</h2>
+    <p class="rv d1" data-i18n="t-campaignp">Pequenos lotes. Grandes conversas.</p>
+    <a class="cta rv d2 js-soon" href="#chocolate" style="color:var(--cc-cream)">
+      <span data-i18n="t-campaigncta"><a href="https://cacaucosmo.com.br/loja-soon/">Descobrir os chocolates</a></span> <span aria-hidden="true">&mdash;</span>
+      <span class="badge-soon" data-i18n="t-soon">Em breve</span></a>
+  </div>
+</section>
+
+
+<!-- ===== 5 - MANIFESTO + FOUNDER =========================== -->
+<section class="band">
+
+  <div class="manifesto" id="manifesto">
+    <canvas class="stars" id="stars3" aria-hidden="true"></canvas>
+    <h2 class="display rv" data-i18n="t-manifh2">O Manifesto</h2>
+    <p class="rv d1" data-i18n="t-manifp1">Vivemos rápido. Comemos rápido. Pensamos rápido.<br>
+      Cacau Cosmo nasce como um convite a sentir mais.</p>
+    <p class="rv d2" data-i18n="t-manifp2">Tudo o que é vivo tem seu tempo.<br>
+      O fruto amadurece. O cacau fermenta.<br>
+      A matéria se transforma. E nós também.</p>
+
+    <div class="pillar rv"><span data-i18n="t-pillar">O tempo é ingrediente.</span></div>
+
+    <p class="rv" data-i18n="t-manifp3">Cacau como origem. Chocolate como ritual.<br>
+      Um pequeno universo entre o cacau e o cosmo.</p>
+  </div>
+
+  <div class="founder__media" id="founder">
+    <!-- [ TROCAR FOTO ] mãos segurando fruto aberto, luz natural, documental
+         <img decoding="async" src="https://cacaucosmo.com.br/wp-content/uploads/2026/08/founder.jpg"
+              alt="Mãos segurando um fruto de cacau aberto" loading="lazy"> -->
+    <div class="artframe" style="color:var(--cc-cream);
+      background:linear-gradient(150deg,#2B1B12 0%,#4A2C1D 55%,#1E120B 100%)">
+      <svg style="width:min(50%,260px)"><use href="#art-pod"></use></svg>
+    </div>
+  </div>
+
+  <div class="founder__body">
+    <p class="label rv" style="color:var(--cc-brown)">Founder</p>
+    <h2 class="display rv d1">Founder</h2>
+    <p class="rv d1" data-i18n="t-founderp1">Cacau Cosmo começou antes de existir como marca. Começou na cozinha,
+      quando passei a fazer chocolate para a minha avó, que vive com Alzheimer.</p>
+    <p class="rv d2" data-i18n="t-founderp2">No alimento, encontrei uma forma de cuidado &mdash; e no cacau, um encontro
+      entre gastronomia, natureza, ciência e ritual.</p>
+    <p class="rv d2" data-i18n="t-founderp3">Minha formação em gastronomia me ensinou a transformar ingredientes.
+      O yoga, a estar presente durante o processo.</p>
+    <p class="rv d3" data-i18n="t-founderp4">Porque, para mim, fazer chocolate sempre foi uma forma de cuidar.</p>
+
+    <div class="sig rv d3">
+      <b>Nicole Buffara</b>
+      <i>Founder, Cacau Cosmo</i>
+    </div>
+    <a class="cta rv d3" href="#founder"><span data-i18n="t-foundercta">Conheça a história</span> <span aria-hidden="true">&mdash;</span></a>
+  </div>
+
+</section>
+
+
+<!-- ===== 6 - CÍRCULO ======================================= -->
+<section class="circle" id="circulo">
+  <div class="circle__moon" aria-hidden="true"></div>
+
+  <p class="label rv" style="color:var(--cc-brown)" data-i18n="t-circlelabel">O Círculo</p>
+  <h2 class="display rv d1" data-i18n="t-circleh2">O próximo ritual começa aqui.</h2>
+  <p class="rv d2" data-i18n="t-circlep">Pequenos lotes, cartas do Cosmo e convites para o que estamos criando.</p>
+
+  <div class="rv d2" style="max-width:520px;margin:clamp(20px,2.3vw,32px) auto 0">
+  <div id="newsletter-circulo">
+<!-- =====================================================================
+     CACAU COSMO — FORMULÁRIO "ENTRAR NO CÍRCULO"
+     Envia para o WordPress (menu "Círculo"), que salva, manda para o
+     Mailchimp e avisa no WhatsApp. Precisa do código wordpress/circulo.php.
+
+     Onde colar:
+       1. Home: dentro de <div id="newsletter-circulo"> … </div>, no lugar
+          do formulário antigo do Mailchimp (style + form + script).
+       2. Popup "O próximo ritual está chegando": substitua todo o conteúdo
+          do widget HTML por este bloco.
+     Pode aparecer mais de uma vez na mesma página.
+     ===================================================================== -->
+<style>
+.cc-circ{--cc-campo:rgba(78,80,110,.88);--cc-borda:rgba(255,255,255,.16);--cc-botao:#f0e5bd;--cc-botao-txt:#08052e;
+  width:100%;max-width:520px;margin:0 auto;text-align:left;position:relative;z-index:5}
+.cc-circ *,.cc-circ *::before,.cc-circ *::after{box-sizing:border-box}
+.cc-circ p{max-width:none!important;opacity:1}
+.cc-circ .cc-circ__msg,.cc-circ .cc-circ__login{width:100%;margin-left:0!important;margin-right:0!important}
+.cc-circ form{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0}
+.cc-circ .cc-circ__full{grid-column:1/-1}
+.cc-circ input,.cc-circ select{display:block;width:100%;height:59px;margin:0;padding:0 20px;border:1px solid var(--cc-borda);border-radius:6px;
+  background:var(--cc-campo);color:#fff;font-family:"Pinopolis",monospace;font-size:17px;font-weight:400;letter-spacing:0;outline:none;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  -webkit-appearance:none;appearance:none;transition:background .25s,border-color .25s,box-shadow .25s}
+.cc-circ input::placeholder{color:rgba(255,255,255,.72);opacity:1}
+.cc-circ select{cursor:pointer;padding-right:44px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='white' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 20px center;background-size:12px}
+.cc-circ select:invalid{color:rgba(255,255,255,.72)}
+.cc-circ select option{color:#08052e;background:#fff}
+.cc-circ input:focus,.cc-circ select:focus{border-color:rgba(240,229,189,.75);box-shadow:0 0 0 3px rgba(240,229,189,.18)}
+.cc-circ input:user-invalid{border-color:#e7a0ad}
+.cc-circ .cc-circ__hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.cc-circ .cc-circ__consent{grid-column:1/-1;display:flex;gap:10px;align-items:flex-start;font-family:"Pinopolis",monospace;font-size:13px;
+  line-height:1.5;opacity:.85;cursor:pointer;margin:2px 0 0}
+.cc-circ .cc-circ__consent input{width:18px;height:18px;flex:none;margin:1px 0 0;padding:0;border-radius:3px;-webkit-appearance:auto;appearance:auto;
+  accent-color:#08052e;background:none;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.cc-circ .cc-circ__consent a{color:inherit;text-decoration:underline}
+.cc-circ button{grid-column:1/-1;display:block;width:230px;max-width:100%;height:52px;margin:10px auto 0;padding:0;border:0;border-radius:5px;
+  background:var(--cc-botao);color:var(--cc-botao-txt);font-family:"Pinopolis",monospace;font-size:17px;font-weight:400;letter-spacing:0;
+  cursor:pointer;transition:transform .2s,background .2s,box-shadow .2s}
+.cc-circ button:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(8,5,46,.18)}
+.cc-circ button:disabled{opacity:.6;cursor:wait;transform:none}
+.cc-circ .cc-circ__msg{grid-column:1/-1;min-height:1.2em;margin:0;text-align:center;font-family:"Pinopolis",monospace;font-size:14px}
+.cc-circ .cc-circ__msg.err{color:#a3404f}
+.cc-circ .cc-circ__login{grid-column:1/-1;text-align:center;margin:2px 0 0;font-family:"Pinopolis",monospace;font-size:13px;opacity:.8}
+.cc-circ .cc-circ__login a{color:inherit;text-decoration:underline}
+.cc-circ .cc-circ__aviso{margin:0 0 18px;padding:14px 18px;border-radius:6px;background:rgba(8,5,46,.08);border-left:3px solid #c9a84c;
+  font-family:"Pinopolis",monospace;font-size:14px;line-height:1.55;text-align:left}
+.cc-circ .cc-circ__ok{text-align:center;padding:28px 22px;border-radius:8px;background:rgba(8,5,46,.06);font-family:"Pinopolis",monospace}
+.cc-circ .cc-circ__ok b{display:block;font-family:"Recoleta",Georgia,serif;font-weight:700;font-size:26px;line-height:1.2;margin:0 0 8px}
+.cc-circ .cc-circ__ok span{font-size:16px;line-height:1.6;opacity:.85}
+.cc-circ .cc-circ__ok i{display:block;font-style:normal;color:#c9a84c;font-size:22px;margin-bottom:10px}
+@media (max-width:620px){
+  .cc-circ form{grid-template-columns:1fr;gap:12px}
+  .cc-circ input,.cc-circ select{height:54px;font-size:16px}
+  .cc-circ button{width:100%}
+}
+</style>
+
+<div class="cc-circ" data-endpoint="/wp-json/cacau/v1/circulo">
+  <form novalidate>
+    <input class="cc-circ__full" type="text" name="nome" placeholder="Nome" autocomplete="name" required data-ph-en="Name">
+    <input type="email" name="email" placeholder="E-mail" autocomplete="email" required data-ph-en="Email">
+    <input type="tel" name="whatsapp" placeholder="WhatsApp" autocomplete="tel" inputmode="tel" required data-ph-en="WhatsApp">
+    <input type="text" name="instagram" placeholder="Instagram (@)" autocomplete="off" data-ph-en="Instagram (@)">
+    <input type="number" name="idade" placeholder="Idade" min="1" max="120" inputmode="numeric" required data-ph-en="Age">
+    <select name="estado" required aria-label="Estado">
+      <option value="" disabled selected data-en="State">Estado</option>
+      <option value="AC">Acre</option><option value="AL">Alagoas</option><option value="AP">Amapá</option><option value="AM">Amazonas</option>
+      <option value="BA">Bahia</option><option value="CE">Ceará</option><option value="DF">Distrito Federal</option><option value="ES">Espírito Santo</option>
+      <option value="GO">Goiás</option><option value="MA">Maranhão</option><option value="MT">Mato Grosso</option><option value="MS">Mato Grosso do Sul</option>
+      <option value="MG">Minas Gerais</option><option value="PA">Pará</option><option value="PB">Paraíba</option><option value="PR">Paraná</option>
+      <option value="PE">Pernambuco</option><option value="PI">Piauí</option><option value="RJ">Rio de Janeiro</option><option value="RN">Rio Grande do Norte</option>
+      <option value="RS">Rio Grande do Sul</option><option value="RO">Rondônia</option><option value="RR">Roraima</option><option value="SC">Santa Catarina</option>
+      <option value="SP">São Paulo</option><option value="SE">Sergipe</option><option value="TO">Tocantins</option>
+    </select>
+    <input type="text" name="cidade" placeholder="Cidade" autocomplete="address-level2" required data-ph-en="City">
+    <input class="cc-circ__hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <label class="cc-circ__consent">
+      <input type="checkbox" name="consentimento" value="1" required>
+      <span data-en='I agree to the <a href="/politica-de-privacidade/" target="_blank">Privacy Policy</a> and to receive messages from Cacau Cosmo.'>Concordo com a <a href="/politica-de-privacidade/" target="_blank">Política de Privacidade</a> e em receber mensagens da Cacau Cosmo.</span>
+    </label>
+    <button type="submit" data-en="Join the circle">Entrar no círculo</button>
+    <p class="cc-circ__msg" role="status" aria-live="polite"></p>
+    <p class="cc-circ__login"><span data-en="Already a member?">Já faz parte?</span> <a href="/minha-conta/" data-en="Sign in">Entrar</a></p>
+  </form>
+</div>
+
+<script>
+(function(){
+  if(window.__ccCirculo) return; window.__ccCirculo=true;   /* um script para todos os formulários da página */
+
+  var T={
+    pt:{ok:'Solicitação enviada!',okSub:'Respondemos em até 48h, fique de olho no seu e-mail.',env:'Enviando…',
+        campos:'Preencha nome, e-mail, WhatsApp, idade, estado e cidade.',termos:'É preciso aceitar a Política de Privacidade.',
+        erro:'Não foi possível enviar agora. Tente novamente em instantes.',
+        membros:'A loja, o Journal e as demais páginas são exclusivos para quem faz parte do Círculo. Solicite seu acesso abaixo &mdash; ou <a href="/minha-conta/">entre na sua conta</a>.',
+        analise:'Sua solicitação está em análise. Assim que for aprovada, você recebe um e-mail com o acesso.'},
+    en:{ok:'Request sent!',okSub:'We reply within 48h, keep an eye on your inbox.',env:'Sending…',
+        campos:'Please fill in name, email, WhatsApp, age, state and city.',termos:'Please accept the Privacy Policy.',
+        erro:'Could not send right now. Please try again shortly.',
+        membros:'The shop, the Journal and the other pages are for Circle members only. Request your access below &mdash; or <a href="/minha-conta/">sign in</a>.',
+        analise:'Your request is under review. Once approved, you will receive an email with your access.'}
+  };
+  function lang(){ var l=''; try{ l=localStorage.getItem('cc-lang'); }catch(e){} return l==='en'||document.documentElement.lang==='en'?'en':'pt'; }
+
+  function traduz(){
+    var en=lang()==='en';
+    document.querySelectorAll('.cc-circ [data-ph-en]').forEach(function(el){
+      if(!el.dataset.phPt) el.dataset.phPt=el.placeholder; el.placeholder=en?el.dataset.phEn:el.dataset.phPt; });
+    document.querySelectorAll('.cc-circ [data-en]').forEach(function(el){
+      if(!el.dataset.pt) el.dataset.pt=el.innerHTML; el.innerHTML=en?el.dataset.en:el.dataset.pt; });
+  }
+
+  function mascara(e){
+    var d=e.target.value.replace(/\D/g,'').slice(0,13), br=d.length<=11;
+    if(!br) return;
+    e.target.value = d.length>10 ? '('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7)
+                   : d.length>6 ? '('+d.slice(0,2)+') '+d.slice(2,6)+'-'+d.slice(6)
+                   : d.length>2 ? '('+d.slice(0,2)+') '+d.slice(2) : d;
+  }
+
+  function iniciar(box){
+    if(box._cc) return; box._cc=1;
+    var form=box.querySelector('form'), msg=box.querySelector('.cc-circ__msg'), btn=form.querySelector('button');
+    form.whatsapp.addEventListener('input',mascara);
+    form.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var t=T[lang()];
+      if(form._gotcha.value) return;
+      msg.className='cc-circ__msg';
+      if(!form.nome.value.trim()||!form.email.checkValidity()||!form.email.value||form.whatsapp.value.replace(/\D/g,'').length<10||
+         !form.idade.value||!form.estado.value||!form.cidade.value.trim()){
+        msg.textContent=t.campos; msg.className='cc-circ__msg err';
+        var bad=[form.nome,form.email,form.whatsapp,form.idade,form.estado,form.cidade].filter(function(i){return !i.value.trim()||!i.checkValidity()})[0];
+        if(bad) bad.focus(); return;
+      }
+      if(!form.consentimento.checked){ msg.textContent=t.termos; msg.className='cc-circ__msg err'; return; }
+      btn.disabled=true; msg.textContent=t.env;
+      fetch(box.getAttribute('data-endpoint'),{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'},credentials:'same-origin'})
+        .then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ if(!r.ok) throw (j&&j.message)||0; return j; }); })
+        .then(function(j){
+          var titulo=j.membro? (lang()==='en'?'You are already in.':'Você já faz parte.') : t.ok;
+          var sub=j.membro? '<a href="'+(j.login||'/minha-conta/')+'" style="color:inherit;text-decoration:underline">'+(lang()==='en'?'Sign in to your account':'Entre na sua conta')+'</a>' : t.okSub;
+          box.innerHTML='<div class="cc-circ__ok" role="status"><i>✦</i><b>'+titulo+'</b><span>'+sub+'</span></div>';
+        })
+        .catch(function(e){ msg.textContent=typeof e==='string'&&e?e:t.erro; msg.className='cc-circ__msg err'; btn.disabled=false; });
+    });
+  }
+
+  function aviso(){
+    var m=(location.search.match(/[?&]acesso=(membros|analise)/)||[])[1]; if(!m) return;
+    var alvo=document.querySelector('#circulo .cc-circ')||document.querySelector('.cc-circ'); if(!alvo) return;
+    var p=document.createElement('p'); p.className='cc-circ__aviso'; p.innerHTML=T[lang()][m];
+    alvo.insertBefore(p,alvo.firstChild);
+    var sec=document.getElementById('circulo');
+    if(sec) setTimeout(function(){ sec.scrollIntoView({behavior:'smooth',block:'start'}); },400);
+  }
+
+  function pronto(){
+    document.querySelectorAll('.cc-circ').forEach(iniciar);
+    traduz(); aviso();
+    document.addEventListener('click',function(e){ if(e.target.closest('[data-lang]')) setTimeout(traduz,30); });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',pronto); else pronto();
+})();
+</script>
+</div>
+  </div>
+</section>
+
+
+</main>
+
+
+<!-- ===== 7 - FOOTER ======================================== -->
+<footer class="footer" id="contato">
+  <a class="footer__brand" href="#hero" aria-label="Cacau Cosmo">
+    <img decoding="async" src="https://cacaucosmo.com.br/wp-content/uploads/2026/09/logo_cacaucosmo_navy_transparente_3600px-scaled.png"
+         alt="Cacau Cosmo" style="width:96px" onerror="ccFallback(this)">
+  </a>
+
+  <p class="footer__place" data-i18n="t-footerplace">Rio de Janeiro, Brasil</p>
+  <p class="footer__claim" data-i18n="t-footerclaim">O tempo é ingrediente.</p>
+
+  <div class="footer__social">
+    <a href="https://instagram.com/cacaucosmo" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" style="width:15px;color:var(--cc-navy)"><use href="#ic-ig"></use></svg>
+    </a>
+    <a href="mailto:ola@cacaucosmo.com.br" aria-label="Contato">
+      <svg viewBox="0 0 24 24" style="width:15px;color:var(--cc-navy)"><use href="#ic-star"></use></svg>
+    </a>
+  </div>
+
+  <div class="footer__legal">
+    <a href="#privacidade" data-i18n="t-privacy">Política de Privacidade</a>
+    <a href="#termos" data-i18n="t-terms">Termos</a>
+    <small>&copy; <span id="ano"></span> Cacau Cosmo</small>
+  </div>
+</footer>
+
+
+<script>
+/* ===== FALLBACK DO LOGO ==================================== */
+function ccFallback(img){
+  var w = img.getBoundingClientRect().width || 40;
+  var s = document.createElementNS('http://www.w3.org/2000/svg','svg');
+  s.setAttribute('viewBox','0 0 120 74');
+  s.setAttribute('aria-hidden','true');
+  s.style.width = w + 'px'; s.style.height = 'auto'; s.style.display = 'block';
+  s.style.color = 'currentColor';
+  var u = document.createElementNS('http://www.w3.org/2000/svg','use');
+  u.setAttribute('href','#cc-mark'); s.appendChild(u);
+  img.replaceWith(s);
+}
+
+/* ===== MENU LATERAL ======================================== */
+(function(){
+  var drawer=document.getElementById('drawer'), scrim=document.getElementById('scrim'),
+      burger=document.getElementById('burger'), closeBtn=document.getElementById('close');
+  function open(){
+    scrim.hidden=false;
+    requestAnimationFrame(function(){drawer.classList.add('open');scrim.classList.add('open')});
+    drawer.setAttribute('aria-hidden','false');
+    burger.setAttribute('aria-expanded','true');
+    document.body.style.overflow='hidden';
+    drawer.querySelector('.nav a').focus({preventScroll:true});
+  }
+  function close(){
+    drawer.classList.remove('open'); scrim.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
+    burger.setAttribute('aria-expanded','false');
+    document.body.style.overflow='';
+    setTimeout(function(){scrim.hidden=true},700);
+    burger.focus({preventScroll:true});
+  }
+  burger.addEventListener('click',open);
+  closeBtn.addEventListener('click',close);
+  scrim.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&drawer.classList.contains('open'))close();
+  });
+  drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',close)});
+})();
+
+/* ===== TOPO GANHA FUNDO ==================================== */
+(function(){
+  var bar=document.getElementById('topbar');
+  var f=function(){bar.classList.toggle('solid',window.scrollY>60)};
+  window.addEventListener('scroll',f,{passive:true}); f();
+})();
+
+/* ===== REVEAL ============================================== */
+(function(){
+  var els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+  },{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+  els.forEach(function(e){io.observe(e)});
+})();
+
+/* ===== ARTE DA FAIXA CACAU x COSMO ======================== */
+(function(){
+  var d=document.getElementById('cosmo'); if(!d)return;
+  if(!('IntersectionObserver' in window)){d.classList.add('seen');return}
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target)}});
+  },{threshold:.2});
+  io.observe(d);
+})();
+
+/* ===== CAMPO ESTELAR ======================================= */
+(function(){
+  function paint(c,density){
+    if(!c)return;
+    var ctx=c.getContext('2d'), dpr=Math.min(window.devicePixelRatio||1,2),
+        r=c.getBoundingClientRect();
+    if(!r.width||!r.height)return;
+    c.width=r.width*dpr; c.height=r.height*dpr; ctx.scale(dpr,dpr);
+    ctx.clearRect(0,0,r.width,r.height);
+    var n=Math.round(r.width*r.height/density);
+    for(var i=0;i<n;i++){
+      var x=Math.random()*r.width, y=Math.random()*r.height, m=Math.random(),
+          rad=.3+Math.pow(m,3)*1.6;
+      ctx.beginPath();
+      ctx.fillStyle = m>.95 ? 'rgba(201,168,76,.9)' : 'rgba(241,232,208,'+(.16+m*.42)+')';
+      ctx.arc(x,y,rad,0,Math.PI*2); ctx.fill();
+    }
+  }
+  function all(){
+    paint(document.getElementById('stars1'),4600);
+    paint(document.getElementById('stars2'),7000);
+    paint(document.getElementById('stars3'),6200);
+    paint(document.getElementById('starsD'),6000);
+  }
+  window.addEventListener('load',all);
+  var t; window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(all,220)});
+  document.getElementById('burger').addEventListener('click',function(){setTimeout(all,140)});
+})();
+
+/* ===== LOJA — "EM BREVE" ==================================== */
+(function(){
+  document.querySelectorAll('.js-soon').forEach(function(a){
+    a.addEventListener('click',function(e){ e.preventDefault(); });
+  });
+})();
+
+/* ===== IDIOMA — PT / EN ===================================== */
+(function(){
+  var STORAGE_KEY = 'cc-lang';
+
+  var dict = {
+    't-nav-home':       'Home',
+    't-nav-shop':       'Shop',
+    't-nav-brand':      'Cacau Cosmo',
+    't-nav-journal':    'Journal',
+    't-btncircle':      'Join the Circle',
+    't-contact':        'Contact',
+    't-drawerquote':    '&ldquo;A small universe between<br>cacao and cosmos.&rdquo;',
+
+    't-herokicker':     'Born in Brazil',
+    't-heroh1':         'Between cacao<br>and the <span class="em">cosmos.</span>',
+    't-herosub':        'Bean-to-bar chocolate made in small batches.',
+    't-explore':        'Explore',
+
+    't-origemlabel':    'Origin',
+    't-origemh2':       'Before chocolate,<br>there is the forest.',
+    't-origemp':        'We work with origin cacao, respecting people, territories and nature\u2019s own time.',
+    't-origemcta':      'Discover our origin',
+
+    't-duolabel-cacau': 'Cacao',
+    't-duo-terra':      'Earth.',
+    't-duo-fruto':      'Fruit.',
+    't-duo-ferment':    'Fermentation.',
+    't-duo-materia':    'Matter.',
+    't-duolabel-cosmo': 'Cosmos',
+    't-duo-curio':      'Curiosity.',
+    't-duo-ciencia':    'Science.',
+    't-duo-ritual':     'Ritual.',
+    't-duo-transf':     'Transformation.',
+
+    't-campaignp':      'Small batches. Big conversations.',
+    't-campaigncta':    'Discover the chocolates',
+    't-soon':           'Coming soon',
+
+    't-manifh2':        'The Manifesto',
+    't-manifp1':        'We live fast. We eat fast. We think fast.<br>Cacau Cosmo is born as an invitation to feel more.',
+    't-manifp2':        'Everything alive has its own time.<br>The fruit ripens. The cacao ferments.<br>Matter transforms. And so do we.',
+    't-pillar':         'Time is an ingredient.',
+    't-manifp3':        'Cacao as origin. Chocolate as ritual.<br>A small universe between cacao and cosmos.',
+
+    't-founderp1':      'Cacau Cosmo began before it existed as a brand. It began in the kitchen, when I started making chocolate for my grandmother, who lives with Alzheimer\u2019s.',
+    't-founderp2':      'In food, I found a form of care &mdash; and in cacao, a meeting of gastronomy, nature, science and ritual.',
+    't-founderp3':      'My training in gastronomy taught me to transform ingredients. Yoga taught me to stay present through the process.',
+    't-founderp4':      'Because, for me, making chocolate has always been a way of caring.',
+    't-foundercta':     'Discover the story',
+
+    't-circlelabel':    'The Circle',
+    't-circleh2':       'The next ritual begins here.',
+    't-circlep':        'Small batches, letters from the Cosmos and invitations to what we\u2019re creating.',
+    't-ph-nome':        'Name',
+    't-ph-email':       'Email',
+    't-submit':         'Join the circle',
+
+    't-footerplace':    'Rio de Janeiro, Brazil',
+    't-footerclaim':    'Time is an ingredient.',
+    't-privacy':        'Privacy Policy',
+    't-terms':          'Terms'
+  };
+
+  var innerEls = Array.prototype.slice.call(document.querySelectorAll('[data-i18n]'));
+  var placeholderEls = Array.prototype.slice.call(document.querySelectorAll('[data-i18n-placeholder]'));
+  var valueEls = Array.prototype.slice.call(document.querySelectorAll('[data-i18n-value]'));
+
+  innerEls.forEach(function(el){ el.dataset.pt = el.innerHTML; });
+  placeholderEls.forEach(function(el){ el.dataset.ptPlaceholder = el.placeholder; });
+  valueEls.forEach(function(el){ el.dataset.ptValue = el.value; });
+
+  function apply(lang){
+    var isEN = lang === 'en';
+
+    innerEls.forEach(function(el){
+      var key = el.getAttribute('data-i18n');
+      el.innerHTML = isEN ? (dict[key] || el.dataset.pt) : el.dataset.pt;
+    });
+    placeholderEls.forEach(function(el){
+      var key = el.getAttribute('data-i18n-placeholder');
+      el.placeholder = isEN ? (dict[key] || el.dataset.ptPlaceholder) : el.dataset.ptPlaceholder;
+    });
+    valueEls.forEach(function(el){
+      var key = el.getAttribute('data-i18n-value');
+      el.value = isEN ? (dict[key] || el.dataset.ptValue) : el.dataset.ptValue;
+    });
+
+    document.documentElement.lang = isEN ? 'en' : 'pt-BR';
+
+    document.querySelectorAll('.lang button, .drawer__lang button').forEach(function(b){
+      var on = b.getAttribute('data-lang') === lang;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+
+    try{ localStorage.setItem(STORAGE_KEY, lang); }catch(e){}
+  }
+
+  document.querySelectorAll('.lang button, .drawer__lang button').forEach(function(b){
+    b.addEventListener('click', function(){ apply(b.getAttribute('data-lang')); });
+  });
+
+  var saved = null;
+  try{ saved = localStorage.getItem(STORAGE_KEY); }catch(e){}
+  if(saved === 'en') apply('en');
+})();
+
+document.getElementById('ano').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

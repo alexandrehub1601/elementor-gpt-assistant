@@ -43,6 +43,19 @@ if ( ! defined( 'CC_CIRCULO_PAGINAS_LIVRES' ) ) {
 	define( 'CC_CIRCULO_PAGINAS_LIVRES', array( 'politica-de-privacidade', 'termos' ) );
 }
 
+/* Remetente dos e-mails do Círculo (o que a pessoa vê na caixa de entrada). */
+if ( ! defined( 'CC_EMAIL_NOME' ) ) {
+	define( 'CC_EMAIL_NOME', 'Cacau Cosmo' );
+}
+if ( ! defined( 'CC_EMAIL_DE' ) ) {
+	define( 'CC_EMAIL_DE', 'ola@cacaucosmo.com.br' );
+}
+/* true = os e-mails de cadastro, aprovação e lista de espera saem pelo Mailchimp
+   (Customer Journeys disparadas pelas tags). false = saem pelo WordPress. */
+if ( ! defined( 'CC_EMAILS_PELO_MAILCHIMP' ) ) {
+	define( 'CC_EMAILS_PELO_MAILCHIMP', false );
+}
+
 /* Mailchimp: Perfil → Extras → Chaves de API → "Criar chave". Cole a chave inteira
    (termina em -us22). O ID da audiência já é o do formulário atual da Home. */
 if ( ! defined( 'CC_MC_API_KEY' ) ) {
@@ -249,6 +262,7 @@ function cc_circulo_receber( WP_REST_Request $req ) {
 	cc_circulo_mailchimp( $id, $existente ? array() : array( 'circulo-pendente' => 'active', 'circulo-site' => 'active' ) );
 
 	if ( ! $existente ) {
+		cc_circulo_email_recebida( $id );
 		cc_circulo_avisar_nova( $id );
 	}
 
@@ -289,7 +303,7 @@ function cc_mc_req( $metodo, $caminho, $corpo = null ) {
 
 /* Cria na audiência os campos que o formulário usa (uma vez só). */
 function cc_mc_campos() {
-	if ( get_option( 'cc_mc_campos_ok' ) === CC_MC_LIST_ID ) {
+	if ( get_option( 'cc_mc_campos_v2' ) === CC_MC_LIST_ID ) {
 		return;
 	}
 	$atuais = cc_mc_req( 'GET', '/lists/' . CC_MC_LIST_ID . '/merge-fields?count=100&fields=merge_fields.tag' );
@@ -298,13 +312,23 @@ function cc_mc_campos() {
 	}
 	$tem = wp_list_pluck( isset( $atuais['merge_fields'] ) ? $atuais['merge_fields'] : array(), 'tag' );
 	$quer = array( 'FNAME' => 'Nome', 'WHATSAPP' => 'WhatsApp', 'INSTAGRAM' => 'Instagram',
-		'ESTADO' => 'Estado', 'CIDADE' => 'Cidade', 'IDADE' => 'Idade' );
+		'ESTADO' => 'Estado', 'CIDADE' => 'Cidade', 'IDADE' => 'Idade', 'LINKSENHA' => 'Link para criar senha' );
 	foreach ( $quer as $tag => $nome ) {
 		if ( ! in_array( $tag, $tem, true ) ) {
 			cc_mc_req( 'POST', '/lists/' . CC_MC_LIST_ID . '/merge-fields', array( 'tag' => $tag, 'name' => $nome, 'type' => 'text' ) );
 		}
 	}
-	update_option( 'cc_mc_campos_ok', CC_MC_LIST_ID, false );
+	update_option( 'cc_mc_campos_v2', CC_MC_LIST_ID, false );
+}
+
+function cc_circulo_tags_do_status( $id ) {
+	$s = cc_circulo_status( $id );
+	return array(
+		'circulo-site'     => 'active',
+		'circulo-pendente' => 'pendente' === $s ? 'active' : 'inactive',
+		'circulo-aprovada' => 'aprovada' === $s ? 'active' : 'inactive',
+		'circulo-espera'   => 'espera' === $s ? 'active' : 'inactive',
+	);
 }
 
 function cc_circulo_mailchimp( $id, $tags = array() ) {
@@ -325,6 +349,7 @@ function cc_circulo_mailchimp( $id, $tags = array() ) {
 			'ESTADO'    => cc_circulo_get( $id, 'estado' ),
 			'CIDADE'    => cc_circulo_get( $id, 'cidade' ),
 			'IDADE'     => cc_circulo_get( $id, 'idade' ),
+			'LINKSENHA' => cc_circulo_get( $id, 'link' ),
 		),
 	) );
 	if ( ! is_wp_error( $r ) && $tags ) {
@@ -381,7 +406,7 @@ function cc_circulo_avisar_nova( $id ) {
 	cc_whatsapp( $texto );
 	if ( CC_CIRCULO_EMAIL_AVISO ) {
 		wp_mail( CC_CIRCULO_EMAIL_AVISO, '[Círculo] Nova solicitação — ' . cc_circulo_get( $id, 'nome' ), $texto,
-			array( 'Reply-To: ' . cc_circulo_get( $id, 'nome' ) . ' <' . cc_circulo_get( $id, 'email' ) . '>' ) );
+			array( cc_circulo_remetente(), 'Reply-To: ' . cc_circulo_get( $id, 'nome' ) . ' <' . cc_circulo_get( $id, 'email' ) . '>' ) );
 	}
 }
 
@@ -414,8 +439,43 @@ function cc_circulo_botao( $url, $texto ) {
 		esc_html( $texto ) . '</a></p>';
 }
 
-function cc_circulo_enviar( $para, $assunto, $titulo, $corpo ) {
-	return wp_mail( $para, $assunto, cc_circulo_email_html( $titulo, $corpo ), array( 'Content-Type: text/html; charset=UTF-8' ) );
+function cc_circulo_remetente() {
+	return 'From: ' . CC_EMAIL_NOME . ' <' . CC_EMAIL_DE . '>';
+}
+
+function cc_circulo_enviar( $para, $assunto, $titulo, $corpo, $id = 0, $tipo = '' ) {
+	if ( CC_EMAILS_PELO_MAILCHIMP && $tipo ) {
+		/* quem envia é a jornada do Mailchimp, disparada pela tag */
+		if ( $id ) {
+			update_post_meta( $id, '_cc_email_' . $tipo, 'pelo Mailchimp ' . current_time( 'd/m/Y H:i' ) );
+		}
+		return true;
+	}
+	$ok = wp_mail( $para, $assunto, cc_circulo_email_html( $titulo, $corpo ),
+		array( 'Content-Type: text/html; charset=UTF-8', cc_circulo_remetente() ) );
+	if ( $id && $tipo ) {
+		update_post_meta( $id, '_cc_email_' . $tipo, ( $ok ? '' : 'FALHOU ' ) . current_time( 'd/m/Y H:i' ) );
+	}
+	return $ok;
+}
+
+/* Todos os e-mails do site que sairiam como "WordPress" passam a sair como Cacau Cosmo */
+add_filter( 'wp_mail_from_name', function ( $nome ) {
+	return ( '' === $nome || 'WordPress' === $nome ) ? CC_EMAIL_NOME : $nome;
+} );
+add_filter( 'wp_mail_from', function ( $email ) {
+	return 0 === strpos( $email, 'wordpress@' ) ? CC_EMAIL_DE : $email;
+} );
+
+/* [ TEXTO ] e-mail de cadastro recebido — ajuste à vontade */
+function cc_circulo_email_recebida( $id ) {
+	$nome  = esc_html( strtok( cc_circulo_get( $id, 'nome' ), ' ' ) );
+	$corpo = '<p>Olá, ' . $nome . '.</p>' .
+		'<p>Recebemos sua solicitação para entrar no <strong>Círculo</strong>. Que bom ter você por aqui.</p>' .
+		'<p>Lemos cada pedido com calma e respondemos em até <strong>48 horas</strong>, por este e-mail. Se for aprovado, você recebe o link para criar sua senha e acessar a loja, o Journal e os próximos lotes.</p>' .
+		'<p>Enquanto isso, acompanhe o que estamos criando no Instagram: <a href="https://instagram.com/cacaucosmo" style="color:#4A2C1D">@cacaucosmo</a>.</p>' .
+		'<p>Com carinho,<br>Cacau Cosmo</p>';
+	return cc_circulo_enviar( cc_circulo_get( $id, 'email' ), 'Recebemos sua solicitação para o Círculo ✦', 'Recebemos seu pedido.', $corpo, $id, 'recebida' );
 }
 
 /* [ TEXTO ] e-mail de aprovação — ajuste à vontade */
@@ -425,6 +485,7 @@ function cc_circulo_email_aprovada( $id, $user ) {
 	$link  = is_wp_error( $chave ) ? cc_circulo_url_login() : ( function_exists( 'wc_get_endpoint_url' )
 		? add_query_arg( array( 'key' => $chave, 'id' => $user->ID ), wc_get_endpoint_url( 'lost-password', '', wc_get_page_permalink( 'myaccount' ) ) )
 		: network_site_url( 'wp-login.php?action=rp&key=' . $chave . '&login=' . rawurlencode( $user->user_login ), 'login' ) );
+	update_post_meta( $id, '_cc_link', $link );
 	$corpo = '<p>Olá, ' . $nome . '.</p>' .
 		'<p>Que alegria: sua entrada no <strong>Círculo</strong> foi aprovada. A partir de agora, a loja, o Journal e os próximos lotes estão abertos para você.</p>' .
 		'<p>Para entrar, crie sua senha no botão abaixo. Seu login é este e-mail: <strong>' . esc_html( $user->user_email ) . '</strong>.</p>' .
@@ -432,7 +493,7 @@ function cc_circulo_email_aprovada( $id, $user ) {
 		'<p style="font-size:14px;opacity:.8">O link vale por 24 horas. Se expirar, é só acessar <a href="' . esc_url( cc_circulo_url_login() ) . '" style="color:#4A2C1D">' .
 		esc_html( preg_replace( '#^https?://#', '', cc_circulo_url_login() ) ) . '</a> e clicar em "Perdeu sua senha?".</p>' .
 		'<p>Boas-vindas ao Círculo. O próximo ritual começa agora.</p>';
-	return cc_circulo_enviar( $user->user_email, 'Você foi selecionada para o Círculo ✦', 'Você foi selecionada.', $corpo );
+	return cc_circulo_enviar( $user->user_email, 'Você foi selecionada para o Círculo ✦', 'Você foi selecionada.', $corpo, $id, 'aprovada' );
 }
 
 /* [ TEXTO A DEFINIR ] e-mail de lista de espera — ajuste à vontade */
@@ -443,7 +504,7 @@ function cc_circulo_email_espera( $id ) {
 		'<p>Neste momento não conseguimos abrir espaço para todo mundo, mas <strong>seu nome ficou na nossa lista de espera</strong>. Quando abrirmos novas vagas, você estará entre as primeiras pessoas a saber.</p>' .
 		'<p>Enquanto isso, acompanhe o que estamos criando no Instagram: <a href="https://instagram.com/cacaucosmo" style="color:#4A2C1D">@cacaucosmo</a>.</p>' .
 		'<p>Com carinho,<br>Cacau Cosmo</p>';
-	return cc_circulo_enviar( cc_circulo_get( $id, 'email' ), 'Sua solicitação para o Círculo', 'Você está na nossa lista.', $corpo );
+	return cc_circulo_enviar( cc_circulo_get( $id, 'email' ), 'Sua solicitação para o Círculo', 'Você está na nossa lista.', $corpo, $id, 'espera' );
 }
 
 /* =====================================================================
@@ -540,6 +601,9 @@ add_action( 'admin_notices', function () {
 		'recusar'  => 'Enviada para a lista de espera. O e-mail de retorno foi enviado.',
 		'reenviar' => 'E-mail de aprovação reenviado.',
 		'erro'     => 'Não foi possível concluir. Verifique se o e-mail já pertence a outro usuário.',
+		'mailchimp' => 'Enviado para o Mailchimp. Veja o resultado de cada pessoa na coluna "Envios".',
+		'recebida'  => 'E-mail de cadastro recebido enviado.',
+		'sync'      => 'Sincronização com o Mailchimp concluída. Veja o resultado na coluna "Envios".',
 	);
 	$k = sanitize_key( $_GET['cc_msg'] );
 	if ( isset( $m[ $k ] ) ) {
@@ -561,6 +625,7 @@ add_filter( 'manage_' . CC_CIRCULO_CPT . '_posts_columns', function () {
 		'cc_local'    => 'Cidade',
 		'cc_idade'    => 'Idade',
 		'cc_data'     => 'Recebida em',
+		'cc_envios'   => 'Envios',
 	);
 } );
 
@@ -594,6 +659,18 @@ add_action( 'manage_' . CC_CIRCULO_CPT . '_posts_custom_column', function ( $col
 			break;
 		case 'cc_data':
 			echo esc_html( get_the_date( 'd/m/Y H:i', $id ) );
+			break;
+		case 'cc_envios':
+			$mc  = cc_circulo_get( $id, 'mc' );
+			$cor = 'ok' === $mc ? '#2f6b45' : ( $mc ? '#a3404f' : '#888' );
+			echo '<span style="color:' . esc_attr( $cor ) . '" title="' . esc_attr( $mc ) . '">Mailchimp: ' . esc_html( 'ok' === $mc ? 'ok' : ( $mc ? 'erro' : '—' ) ) . '</span><br>';
+			foreach ( array( 'recebida' => 'Cadastro', 'aprovada' => 'Aprovação', 'espera' => 'Lista de espera' ) as $tipo => $rotulo ) {
+				$quando = cc_circulo_get( $id, 'email_' . $tipo );
+				if ( $quando ) {
+					$falhou = 0 === strpos( $quando, 'FALHOU' );
+					echo '<span style="color:' . ( $falhou ? '#a3404f' : '#555' ) . '" title="' . esc_attr( $quando ) . '">' . ( $falhou ? '✕ ' : '✓ ' ) . esc_html( $rotulo ) . '</span><br>';
+				}
+			}
 			break;
 	}
 }, 10, 2 );
@@ -660,18 +737,33 @@ add_action( 'pre_get_posts', function ( $q ) {
 
 /* Ações em massa */
 add_filter( 'bulk_actions-edit-' . CC_CIRCULO_CPT, function ( $a ) {
-	return array( 'cc_aprovar' => 'Aprovar', 'cc_recusar' => 'Não aprovar (lista de espera)' ) + $a;
+	return array(
+		'cc_aprovar'   => 'Aprovar',
+		'cc_recusar'   => 'Não aprovar (lista de espera)',
+		'cc_mailchimp' => 'Enviar para o Mailchimp',
+		'cc_recebida'  => 'Enviar e-mail de cadastro recebido',
+	) + $a;
 } );
 add_filter( 'handle_bulk_actions-edit-' . CC_CIRCULO_CPT, function ( $volta, $acao, $ids ) {
-	if ( ! in_array( $acao, array( 'cc_aprovar', 'cc_recusar' ), true ) ) {
+	$msgs = array( 'cc_aprovar' => 'aprovar', 'cc_recusar' => 'recusar', 'cc_mailchimp' => 'mailchimp', 'cc_recebida' => 'recebida' );
+	if ( ! isset( $msgs[ $acao ] ) ) {
 		return $volta;
 	}
 	foreach ( $ids as $id ) {
-		if ( current_user_can( 'edit_post', $id ) ) {
-			'cc_aprovar' === $acao ? cc_circulo_aprovar( $id ) : cc_circulo_recusar( $id );
+		if ( ! current_user_can( 'edit_post', $id ) ) {
+			continue;
+		}
+		if ( 'cc_aprovar' === $acao ) {
+			cc_circulo_aprovar( $id );
+		} elseif ( 'cc_recusar' === $acao ) {
+			cc_circulo_recusar( $id );
+		} elseif ( 'cc_mailchimp' === $acao ) {
+			cc_circulo_mailchimp( $id, cc_circulo_tags_do_status( $id ) );
+		} else {
+			cc_circulo_email_recebida( $id );
 		}
 	}
-	return add_query_arg( 'cc_msg', 'cc_aprovar' === $acao ? 'aprovar' : 'recusar', $volta );
+	return add_query_arg( array( 'cc_msg' => $msgs[ $acao ], 'cc_n' => count( $ids ) ), $volta );
 }, 10, 3 );
 
 /* Contador de solicitações aguardando no menu */
@@ -717,6 +809,12 @@ function cc_circulo_box( $post ) {
 	echo '<tr><th><strong>Recebida em</strong></th><td>' . esc_html( get_the_date( 'd/m/Y \à\s H:i', $post ) ) . '</td></tr>';
 	echo '<tr><th><strong>Consentimento</strong></th><td>' . esc_html( cc_circulo_get( $post->ID, 'consentimento' ) ) . '</td></tr>';
 	echo '<tr><th><strong>Mailchimp</strong></th><td>' . esc_html( cc_circulo_get( $post->ID, 'mc' ) ) . '</td></tr>';
+	foreach ( array( 'recebida' => 'E-mail de cadastro', 'aprovada' => 'E-mail de aprovação', 'espera' => 'E-mail de lista de espera' ) as $tipo => $rotulo ) {
+		$q = cc_circulo_get( $post->ID, 'email_' . $tipo );
+		if ( $q ) {
+			echo '<tr><th><strong>' . esc_html( $rotulo ) . '</strong></th><td>' . esc_html( $q ) . '</td></tr>';
+		}
+	}
 	echo '</tbody></table>';
 	$h = get_post_meta( $post->ID, '_cc_historico', true );
 	if ( is_array( $h ) && $h ) {
@@ -744,7 +842,49 @@ add_action( 'manage_posts_extra_tablenav', function ( $which ) {
 	if ( 'top' !== $which || CC_CIRCULO_CPT !== get_current_screen()->post_type ) {
 		return;
 	}
-	echo '<div class="alignleft actions"><a class="button" href="' . esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=cc_circulo_csv' ), 'cc_circulo_csv' ) ) . '">Exportar CSV</a></div>';
+	echo '<div class="alignleft actions"><a class="button" href="' . esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=cc_circulo_csv' ), 'cc_circulo_csv' ) ) . '">Exportar CSV</a> ' .
+		'<a class="button" href="' . esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=cc_circulo_sync' ), 'cc_circulo_sync' ) ) . '">Sincronizar todas com o Mailchimp</a></div>';
+} );
+
+/* Leva ao Mailchimp todas as solicitações, com a tag do status atual */
+add_action( 'admin_post_cc_circulo_sync', function () {
+	if ( ! current_user_can( 'edit_posts' ) || ! check_admin_referer( 'cc_circulo_sync' ) ) {
+		wp_die( 'Sem permissão.' );
+	}
+	if ( function_exists( 'set_time_limit' ) ) {
+		@set_time_limit( 300 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors
+	}
+	$ids = get_posts( array( 'post_type' => CC_CIRCULO_CPT, 'post_status' => 'private', 'posts_per_page' => -1, 'fields' => 'ids' ) );
+	foreach ( $ids as $id ) {
+		cc_circulo_mailchimp( $id, cc_circulo_tags_do_status( $id ) );
+	}
+	wp_safe_redirect( add_query_arg( array( 'cc_msg' => 'sync', 'cc_n' => count( $ids ) ), admin_url( 'edit.php?post_type=' . CC_CIRCULO_CPT ) ) );
+	exit;
+} );
+
+/* Aviso no topo do menu Círculo quando o Mailchimp não está conectado */
+add_action( 'admin_notices', function () {
+	$tela = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+	if ( ! $tela || CC_CIRCULO_CPT !== $tela->post_type ) {
+		return;
+	}
+	if ( ! CC_MC_API_KEY ) {
+		echo '<div class="notice notice-warning"><p><strong>Mailchimp ainda não está conectado.</strong> As solicitações ficam salvas aqui, mas não vão para a audiência. ' .
+			'Cole a chave em <code>CC_MC_API_KEY</code>, no topo do snippet "Círculo" do WPCode, e depois clique em <em>Sincronizar todas com o Mailchimp</em>.</p></div>';
+		return;
+	}
+	$ok = get_transient( 'cc_mc_ping' );
+	if ( false === $ok ) {
+		$r  = cc_mc_req( 'GET', '/lists/' . CC_MC_LIST_ID . '?fields=name' );
+		$ok = is_wp_error( $r ) ? 'erro: ' . $r->get_error_message() : 'ok:' . ( isset( $r['name'] ) ? $r['name'] : '' );
+		set_transient( 'cc_mc_ping', $ok, 10 * MINUTE_IN_SECONDS );
+	}
+	if ( 0 === strpos( $ok, 'ok:' ) ) {
+		echo '<div class="notice notice-success"><p>Mailchimp conectado à audiência <strong>' . esc_html( substr( $ok, 3 ) ) . '</strong>.</p></div>';
+	} else {
+		echo '<div class="notice notice-error"><p><strong>O Mailchimp recusou a conexão</strong> (' . esc_html( $ok ) . '). Confira se a chave em <code>CC_MC_API_KEY</code> está completa e se o ID da audiência <code>' .
+			esc_html( CC_MC_LIST_ID ) . '</code> é o da audiência do site.</p></div>';
+	}
 } );
 add_action( 'admin_post_cc_circulo_csv', function () {
 	if ( ! current_user_can( 'edit_posts' ) || ! check_admin_referer( 'cc_circulo_csv' ) ) {

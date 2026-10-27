@@ -62,7 +62,9 @@ Segue o fluxo combinado em 23/10: a Home fica aberta com o formulário; Loja, Jo
 - Clientes antigos ou convidados: **Usuários → editar → "Membro do Círculo"**.
 - Pedido pago: a Nicole recebe no WhatsApp os dados de envio.
 
-Os textos dos e-mails ficam nas funções `cc_circulo_email_aprovada` e `cc_circulo_email_espera`, no próprio snippet.
+**E-mails para a pessoa** (remetente **Cacau Cosmo <ola@cacaucosmo.com.br>**): cadastro recebido (na hora), aprovação e lista de espera. Os textos ficam nas funções `cc_circulo_email_recebida`, `cc_circulo_email_aprovada` e `cc_circulo_email_espera`. A coluna **Envios** mostra, para cada pessoa, se foi para o Mailchimp e quais e-mails recebeu.
+
+**Mailchimp:** **Sincronizar todas com o Mailchimp** leva quem já se cadastrou, com a tag do status atual. Para os e-mails saírem pelo Mailchimp em vez do WordPress, veja `wordpress/emails-mailchimp.md`.
 
 ## 2. Templates WooCommerce e Post (Elementor Pro)
 

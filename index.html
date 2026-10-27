@@ -26,6 +26,7 @@
 <meta name="twitter:image" content="https://www.estudiofale.com.br/assets/img/og-estudio-fale.jpg">
 <link rel="icon" href="assets/logo/simbolo-fale.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preload" as="image" href="assets/img/hero-poster.webp">
 <link rel="preload" href="assets/fonts/Passeio-ExtraBold.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="preload" href="assets/fonts/Passeio-Regular.ttf" as="font" type="font/ttf" crossorigin>
 <script type="application/ld+json">
@@ -289,8 +290,7 @@ fieldset{border:0;min-width:0}
 .hero__placeholder svg{width:clamp(8rem,18vw,15rem);height:auto;opacity:.9}
 @media (prefers-reduced-motion:no-preference){.hero__placeholder svg{animation:breathe 6s var(--ease) infinite}}
 @keyframes breathe{50%{transform:scale(1.05);opacity:.75}}
-.hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s var(--ease)}
-.hero__video.is-ready{opacity:1}
+.hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--wine)}
 .hero__pause{position:absolute;right:var(--gutter);bottom:clamp(1rem,3vw,2rem);min-width:2.75rem;min-height:2.75rem;border:1px solid rgba(245,244,241,.6);border-radius:var(--radius-pill);background:rgba(29,29,29,.25);color:var(--paper);cursor:pointer;display:grid;place-items:center}
 .hero__pause svg{width:12px;height:12px}
 .hero__pause[hidden]{display:none}
@@ -582,14 +582,15 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
 <main id="conteudo">
 
 <!-- ======================= HERO ======================= -->
-<!-- Vídeo do motion: descomente as <source> e coloque os arquivos em assets/video/.
-     Use também poster="assets/img/hero-poster.webp" (primeiro quadro do vídeo) para carregar mais rápido. -->
+<!-- Vídeo do motion (sem áudio). Celular recebe a versão 720p; computador, WebM ou MP4 1080p. -->
 <section class="hero" aria-labelledby="hero-title">
   <h1 class="visually-hidden" id="hero-title">Estúdio F/Ale: estúdio de identidade visual estratégica</h1>
   <div class="hero__placeholder" aria-hidden="true"><svg viewBox="0 0 366.03 369.8"><use href="#simbolo-fale"/></svg></div>
-  <video class="hero__video" id="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-    <!-- <source src="assets/video/hero.webm" type="video/webm"> -->
-    <!-- <source src="assets/video/hero.mp4" type="video/mp4"> -->
+  <video class="hero__video" id="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/img/hero-poster.webp" aria-hidden="true">
+    <source src="assets/video/hero-720.webm" type="video/webm" media="(max-width: 900px)">
+    <source src="assets/video/hero-720.mp4" type="video/mp4" media="(max-width: 900px)">
+    <source src="assets/video/hero-1080.webm" type="video/webm">
+    <source src="assets/video/hero-1080.mp4" type="video/mp4">
   </video>
   <button class="hero__pause" type="button" id="hero-pause" aria-label="Pausar vídeo" hidden>
     <svg viewBox="0 0 12 12" aria-hidden="true" fill="currentColor"><rect x="2" y="1" width="3" height="10"/><rect x="7" y="1" width="3" height="10"/></svg>
@@ -998,15 +999,16 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
   }
 
 
-  /* hero: vídeo do motion (aparece quando carrega; respeita redução de movimento) */
+  /* hero: vídeo do motion (botão de pausa; com redução de movimento fica parado no primeiro quadro) */
   var video=document.getElementById('hero-video'), vbtn=document.getElementById('hero-pause');
   if(video&&video.querySelector('source')){
     var playIcon='<svg viewBox="0 0 12 12" aria-hidden="true" fill="currentColor"><path d="M3 1l8 5-8 5z"/></svg>', pauseIcon=vbtn.innerHTML;
     var syncBtn=function(){var p=video.paused; vbtn.innerHTML=p?playIcon:pauseIcon; vbtn.setAttribute('aria-label',p?'Reproduzir vídeo':'Pausar vídeo')};
-    video.addEventListener('loadeddata',function(){video.classList.add('is-ready'); vbtn.hidden=false});
+    vbtn.hidden=false;
     video.addEventListener('play',syncBtn); video.addEventListener('pause',syncBtn);
     vbtn.addEventListener('click',function(){ if(video.paused) video.play().catch(function(){}); else video.pause() });
     if(reduce){ video.removeAttribute('autoplay'); video.pause() }
+    syncBtn();
   }
 
   /* processo: cada etapa entra na sua vez; a do meio da tela fica em destaque */

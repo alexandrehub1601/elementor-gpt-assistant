@@ -126,3 +126,29 @@
 .cc-root table.cc-nutri thead th{background:var(--cc-navy)!important;color:var(--cc-cream)!important;font-size:12px;letter-spacing:.06em;text-transform:none;font-weight:600}
 .cc-root table.cc-nutri tbody tr:nth-child(even) td{background:rgba(0,6,46,.03)!important}
 .cc-root .woocommerce-Tabs-panel small{font-size:12px;opacity:.7}
+
+/* ===== FUNDO AZUL NA PÁGINA DE PRODUTO ===================== */
+.elementor .cc-prod.e-con{background:var(--cc-navy)!important;color:var(--cc-cream)}
+.cc-root .cc-prod,.cc-root .cc-prod p,.cc-root .cc-prod li,.cc-root .cc-prod span,.cc-root .cc-prod label{color:var(--cc-cream)}
+.cc-root .cc-prod .woocommerce-breadcrumb,.cc-root .cc-prod .woocommerce-breadcrumb a{color:var(--cc-cream)!important}
+.cc-root .cc-prod-info .product_title{color:var(--cc-cream)!important}
+.cc-root .cc-prod-info .price,.cc-root .cc-prod-info .price .amount{color:var(--cc-cream)!important}
+.cc-root .cc-prod-info .woocommerce-review-link{color:var(--cc-pink)!important}
+.cc-root .cc-prod-info .woocommerce-product-details__short-description{border-color:rgba(241,232,208,.18)}
+.cc-root .cc-prod-info .woocommerce-product-details__short-description p{color:var(--cc-cream)}
+.cc-root .cc-prod-info form.cart .quantity .qty{border-color:rgba(241,232,208,.4)!important;color:var(--cc-cream)}
+.cc-root .cc-prod-info .single_add_to_cart_button{background:var(--cc-cream)!important;border-color:var(--cc-cream)!important;color:var(--cc-navy)!important}
+.cc-root .cc-prod-info .single_add_to_cart_button:hover{background:var(--cc-gold)!important;border-color:var(--cc-gold)!important}
+.cc-root .cc-prod .product_meta{border-color:rgba(241,232,208,.18);color:var(--cc-cream)}
+.cc-root .cc-prod .product_meta a{color:var(--cc-cream)!important}
+.cc-root .cc-prod .cc-perks svg{color:var(--cc-gold)}
+.cc-root .cc-prod .woocommerce-product-gallery__image{background:var(--cc-navy)}
+.cc-root .cc-prod .woocommerce-product-gallery .flex-control-thumbs img{opacity:.5}
+.cc-root .cc-prod .woocommerce-product-gallery .flex-control-thumbs img.flex-active{opacity:1;outline:1px solid var(--cc-gold);outline-offset:2px}
+.cc-root .cc-prod .woocommerce-product-gallery__trigger{background:var(--cc-cream)!important}
+
+/* indisponível (Sol) */
+.cc-root .cc-prod-info .stock.out-of-stock{display:inline-block;color:var(--cc-navy)!important;background:var(--cc-pink);border-radius:30px;
+  padding:9px 16px;font-size:10px;letter-spacing:.22em;margin:4px 0 20px}
+.cc-root .cc-prod-info .cc-avise{margin:0 0 26px;font-size:13px;opacity:.85}
+.cc-root .cc-prod-info .cc-avise a{color:var(--cc-pink)!important;text-decoration:underline}

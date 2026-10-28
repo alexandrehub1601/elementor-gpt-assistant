@@ -72,7 +72,7 @@ body.cc-tpl{background:var(--cc-cream)}
 .cc-root ul.products li.product .cc-imgbox{display:block;width:100%;overflow:hidden;border-radius:4px;margin:0 0 22px;position:relative}
 .cc-root ul.products li.product .cc-imgbox img{margin:0!important}
 .cc-root ul.products li.product:hover .cc-imgbox img{transform:scale(1.04)}
-.cc-root ul.products li.product .cc-imgbox::after{content:'✦  Bean-to-bar';position:absolute;top:14px;left:14px;
+.cc-root ul.products li.product .cc-imgbox::after{content:'✦  Nibs to bar';position:absolute;top:14px;left:14px;
   background:var(--cc-cream);color:var(--cc-text-dark);border-radius:6px;padding:7px 12px;
   font-family:var(--font-body);font-size:11px;letter-spacing:.04em;font-weight:500;box-shadow:0 2px 10px rgba(0,6,46,.08)}
 .cc-root ul.products li.product .woocommerce-loop-product__title{font-family:var(--font-body)!important;font-weight:500!important;
@@ -140,3 +140,10 @@ body.cc-tpl{background:var(--cc-cream)}
 .cc-root .cc-feature__body p,.cc-root .cc-feature__body .cta{color:var(--cc-brown)!important}
 .cc-root .phero h1,.cc-root .phero .display{color:var(--cc-cream)!important}
 .cc-root .phero .cc-hero-sub{color:var(--cc-cream)!important}
+
+/* Produto indisponível no cartão (loja, relacionados) */
+.cc-root ul.products li.product.outofstock .cc-imgbox::after{content:'Indisponível';background:var(--cc-pink);color:var(--cc-navy);font-weight:600}
+.cc-root ul.products li.product.outofstock .cc-imgbox img{filter:saturate(.55) brightness(.85)}
+.cc-root ul.products li.product.outofstock .price{opacity:.5}
+.cc-root ul.products li.product.outofstock .button{border-style:dashed!important;opacity:.85}
+.cc-root ul.products li.product.outofstock .button::before{display:none}

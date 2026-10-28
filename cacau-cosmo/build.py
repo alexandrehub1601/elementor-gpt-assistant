@@ -165,7 +165,7 @@ TRUST_HTML = """<!-- [ REVISAR ] confirme estas promessas antes de publicar -->
   <div class="cc-trust__grid">
     <div class="cc-trust__item">
       <svg viewBox="0 0 260 150"><use href="#art-bar"></use></svg>
-      <div><h3 data-i18n="t-trust1-h">Pequenos lotes</h3><p data-i18n="t-trust1-p">Bean-to-bar, feito à mão. Quando um lote acaba, acaba.</p></div>
+      <div><h3 data-i18n="t-trust1-h">Pequenos lotes</h3><p data-i18n="t-trust1-p">Nibs to bar, feito à mão. Quando um lote acaba, acaba.</p></div>
     </div>
     <div class="cc-trust__item">
       <svg viewBox="0 0 200 320"><use href="#art-pod"></use></svg>
@@ -192,21 +192,21 @@ FEATURE_HTML = """<section class="cc-feature">
     <svg viewBox="0 0 260 150"><use href="#art-bar"></use></svg>
   </div>
   <div class="cc-feature__body">
-    <p class="label" style="color:var(--cc-brown)" data-i18n="t-feat-label">Do grão à barra</p>
+    <p class="label" style="color:var(--cc-brown)" data-i18n="t-feat-label">Nibs to bar</p>
     <h2 data-i18n="t-feat-h2">O tempo é ingrediente.</h2>
-    <p data-i18n="t-feat-p">Fermentação, torra, refino e temperagem acontecem aqui, em pequenos lotes. Cada barra carrega o tempo que levou para existir.</p>
-    <a class="cta" href="/quem-somos/#processo" data-i18n="t-feat-cta">Conheça o processo &mdash;</a>
+    <p data-i18n="t-feat-p">Partimos dos nibs de cacau e fazemos cada barra à mão, em pequenos lotes, no tempo que o chocolate pede. Cada barra carrega o tempo que levou para existir.</p>
+    <a class="cta" href="/quem-somos/" data-i18n="t-feat-cta">Conheça a Cacau Cosmo &mdash;</a>
   </div>
 </section>"""
 
 SHOP_DICT = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
-  't-shop-label': 'Shop', 't-shop-sub': 'Bean-to-bar chocolate in small batches. When it\\u2019s gone, it\\u2019s gone.',
-  't-trust1-h': 'Small batches', 't-trust1-p': 'Bean-to-bar, handmade. When a batch is gone, it\\u2019s gone.',
+  't-shop-label': 'Shop', 't-shop-sub': 'Nibs-to-bar chocolate in small batches. When it\\u2019s gone, it\\u2019s gone.',
+  't-trust1-h': 'Small batches', 't-trust1-p': 'Nibs to bar, handmade. When a batch is gone, it\\u2019s gone.',
   't-trust2-h': 'Origin cacao', 't-trust2-p': 'Respecting people, territories and nature\\u2019s own time.',
   't-trust3-h': 'Careful shipping', 't-trust3-p': 'Packaging designed so the chocolate arrives whole, anywhere in Brazil.',
-  't-feat-label': 'Bean to bar', 't-feat-h2': 'Time is an ingredient.',
-  't-feat-p': 'Fermentation, roasting, refining and tempering happen here, in small batches. Every bar carries the time it took to exist.',
-  't-feat-cta': 'See the process &mdash;',
+  't-feat-label': 'Nibs to bar', 't-feat-h2': 'Time is an ingredient.',
+  't-feat-p': 'We start from cacao nibs and make every bar by hand, in small batches, at the pace chocolate asks for. Every bar carries the time it took to exist.',
+  't-feat-cta': 'Meet Cacau Cosmo &mdash;',
   't-circ-label': 'The Circle', 't-circ-h2': 'The next ritual begins here.',
   't-circ-p': 'Small batches, letters from the Cosmos and invitations to what we\\u2019re creating.'
 });
@@ -228,6 +228,7 @@ WOO_CARDS_JS = """/* ===== CARTÕES DE PRODUTO =================================
     }
     var b=li.querySelector('.button.add_to_cart_button');
     if(b&&/carrinho|cart/i.test(b.textContent)) b.textContent=en?'Add':'Adicionar';
+    if(li.classList.contains('outofstock')){ var v=li.querySelector('a.button'); if(v) v.textContent=en?'Unavailable':'Indisponível'; }
   });
 })();
 """
@@ -241,7 +242,7 @@ def build_loja():
             t.html(DECO, "cc-deco"),
             t.html('<p class="label" data-i18n="t-shop-label">Loja</p>', "cc-label"),
             t.w("theme-archive-title", {"header_size": "h1", "align": "center"}),
-            t.html('<p class="cc-hero-sub" data-i18n="t-shop-sub">Chocolate bean-to-bar em pequenos lotes. Quando acaba, acaba.</p>'),
+            t.html('<p class="cc-hero-sub" data-i18n="t-shop-sub">Chocolate nibs to bar em pequenos lotes. Quando acaba, acaba.</p>'),
         ]),
         t.con("cc-shop-main", [
             t.w("woocommerce-notices"),
@@ -262,7 +263,7 @@ def build_loja():
 # ---- PRODUTO ---------------------------------------------------------
 PERKS_HTML = """<!-- [ REVISAR ] ajuste os selos para cada produto, se quiser -->
 <ul class="cc-perks">
-  <li><svg viewBox="0 0 24 24"><use href="#ic-star"></use></svg><span><b data-i18n="t-perk1-h">Bean-to-bar</b><span data-i18n="t-perk1-p">Do grão à barra, em pequenos lotes.</span></span></li>
+  <li><svg viewBox="0 0 24 24"><use href="#ic-star"></use></svg><span><b data-i18n="t-perk1-h">Nibs to bar</b><span data-i18n="t-perk1-p">Feito à mão, em pequenos lotes.</span></span></li>
   <li><svg viewBox="0 0 24 24"><use href="#ic-star"></use></svg><span><b data-i18n="t-perk2-h">Envio para todo o Brasil</b><span data-i18n="t-perk2-p">Frete calculado no carrinho pelo CEP.</span></span></li>
   <li><svg viewBox="0 0 24 24"><use href="#ic-star"></use></svg><span><b data-i18n="t-perk3-h">Como guardar</b><span data-i18n="t-perk3-p">Local fresco e seco, entre 16 e 20 °C. Evite a geladeira.</span></span></li>
 </ul>"""
@@ -283,8 +284,19 @@ RITUAL_HTML = """<section class="cc-ritual cc-band">
   </div>
 </section>"""
 
+PROD_JS = """/* ===== PRODUTO INDISPONÍVEL =============================== */
+(function(){
+  var en=document.documentElement.lang==='en';
+  document.querySelectorAll('.cc-prod-info .stock.out-of-stock').forEach(function(s){
+    s.textContent=en?'Unavailable for now':'Indisponível no momento';
+    if(!document.querySelector('.cc-avise')) s.insertAdjacentHTML('afterend','<p class="cc-avise">'+(en?'This bar will be back soon. ':'Esta barra volta em breve. ')+
+      '<a href="/contato/">'+(en?'Ask us to let you know':'Peça para avisarmos')+'</a>.</p>');
+  });
+})();
+"""
+
 PROD_DICT = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
-  't-perk1-h': 'Bean-to-bar', 't-perk1-p': 'From bean to bar, in small batches.',
+  't-perk1-h': 'Nibs to bar', 't-perk1-p': 'Handmade, in small batches.',
   't-perk2-h': 'Shipping across Brazil', 't-perk2-p': 'Shipping calculated in the cart by postcode.',
   't-perk3-h': 'How to store', 't-perk3-p': 'Cool and dry, between 16 and 20 °C. Avoid the fridge.',
   't-rit-label': 'Tasting ritual', 't-rit-h2': 'Slowly. That\\u2019s how you taste.',
@@ -326,7 +338,7 @@ def build_produto():
             t.w("woocommerce-product-upsell", {"columns": "4", "orderby": "date", "order": "desc"}),
             t.w("woocommerce-product-related", {"posts_per_page": 4, "columns": "4", "orderby": "rand", "order": "desc"}),
         ]),
-        t.html(tpl_footer(PROD_DICT + WOO_CARDS_JS), "cc-footer"),
+        t.html(tpl_footer(PROD_DICT + WOO_CARDS_JS + PROD_JS), "cc-footer"),
     ])]
     return export("produto-woocommerce", "Cacau Cosmo — Produto (Single Product)", "product", content)
 
@@ -335,7 +347,7 @@ def build_produto():
 CART_JS = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
   't-cart-label': 'Cart', 't-cart-h1': 'Your small <span class="em">universe.</span>',
   't-cart-sub': 'Review your bars, apply a coupon and calculate shipping before checkout.',
-  't-trust1-h': 'Small batches', 't-trust1-p': 'Bean-to-bar, handmade. When a batch is gone, it\\u2019s gone.',
+  't-trust1-h': 'Small batches', 't-trust1-p': 'Nibs to bar, handmade. When a batch is gone, it\\u2019s gone.',
   't-trust2-h': 'Origin cacao', 't-trust2-p': 'Respecting people, territories and nature\\u2019s own time.',
   't-trust3-h': 'Careful shipping', 't-trust3-p': 'Packaging designed so the chocolate arrives whole, anywhere in Brazil.'
 });
@@ -521,7 +533,7 @@ ACC_MORE = """<section class="cc-acc-more">
     <svg class="art" viewBox="0 0 260 150" aria-hidden="true"><use href="#art-bar"></use></svg>
     <span class="label" data-i18n="t-acc-s-label">Coleção Cosmo</span>
     <h2 data-i18n="t-acc-s-h2">Sol, Lua e Saturno.</h2>
-    <p data-i18n="t-acc-s-p">Bean-to-bar em pequenos lotes. Quando acaba, acaba.</p>
+    <p data-i18n="t-acc-s-p">Nibs to bar em pequenos lotes. Quando acaba, acaba.</p>
     <em data-i18n="t-acc-s-cta">Ir para a loja</em>
   </a>
 </section>"""
@@ -530,7 +542,7 @@ ACC_JS = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
   't-acc-j-label': 'Journal', 't-acc-j-h2': 'Notes from the world between cacao and cosmos.',
   't-acc-j-p': 'Stories of origin, ritual and science, to read slowly.', 't-acc-j-cta': 'Read the Journal',
   't-acc-s-label': 'Cosmos Collection', 't-acc-s-h2': 'Sun, Moon and Saturn.',
-  't-acc-s-p': 'Bean-to-bar in small batches. When it\\u2019s gone, it\\u2019s gone.', 't-acc-s-cta': 'Go to the shop'
+  't-acc-s-p': 'Nibs to bar in small batches. When it\\u2019s gone, it\\u2019s gone.', 't-acc-s-cta': 'Go to the shop'
 });
 /* ===== MINHA CONTA ======================================== */
 (function(){

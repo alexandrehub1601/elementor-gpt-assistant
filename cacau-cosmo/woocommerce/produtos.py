@@ -1,23 +1,19 @@
 #!/usr/bin/env python3
-"""Gera o CSV de importação do WooCommerce e as imagens provisórias
-da Coleção Cosmo (Sol, Lua, Saturno).
+"""Gera o CSV de importação do WooCommerce da Coleção Cacau Cosmo:
+Saturno 47%, Lua 100% e Sol 70%, cada um em 33 g e 100 g (6 produtos).
 
-Uso:  python3 cacau-cosmo/woocommerce/produtos.py [pasta-das-fontes]
-A pasta das fontes deve ter Recoleta-Bold.ttf, Recoleta-Light.ttf e PINOPOLIS.TTF
-(as mesmas do site). Sem ela, as imagens usam DejaVu.
+Fonte dos dados: página "Coleção Cacau Cosmo 3D" (nome, percentual, ritual,
+perfil, intenção da tampa, ingredientes e situação de cada barra) e o verso
+da caixa do Saturno (tabela nutricional).
+
+Uso:   python3 cacau-cosmo/woocommerce/produtos.py
+Saída: cacau-cosmo/woocommerce/produtos-cacau-cosmo.csv
+Fotos: python3 cacau-cosmo/woocommerce/fotos_reais.py
 """
 import csv
-import math
-import random
-import sys
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
-
 OUT = Path(__file__).resolve().parent
-FONTS = Path(sys.argv[1]) if len(sys.argv) > 1 else None
-
-NAVY, CREAM, GOLD, PINK, BROWN, BLUSH = "#00062E", "#F1E8D0", "#C9A84C", "#D293A8", "#4A2C1D", "#E9D9D2"
 
 # Envio e conservação: entra no fim da descrição de todos os produtos.
 # [ REVISAR ] prazo de despacho e embalagem térmica.
@@ -29,113 +25,118 @@ ENTREGA = """
 <li>Embalagem térmica nos meses mais quentes. Em ondas de calor, podemos segurar o envio por alguns dias para proteger o chocolate &mdash; avisamos por e-mail.</li>
 </ul>
 <h3>Como guardar</h3>
-<p>Armazenar em local seco e fresco, longe da luz &mdash; idealmente entre 16&nbsp;°C e 20&nbsp;°C. Evite a geladeira: umidade e odores alteram textura e sabor. Se a barra ficar esbranquiçada, é só a manteiga de cacau aflorando &mdash; continua boa para comer.</p>
+<p>Armazenar em local seco e fresco, longe da luz &mdash; idealmente entre 16&nbsp;°C e 20&nbsp;°C. Evite a geladeira: umidade e odores alteram textura e sabor.</p>
 """
 
-PRODUTOS = [
+# Tabela do verso da caixa do Saturno (por 100 g e por porção de 5,5 g).
+NUTRI_SATURNO = [
+    ("Valor energético (kcal)", "419", "23", "1%"),
+    ("Carboidratos totais (g)", "43", "2,4", "1%"),
+    ("Açúcares totais (g)", "41", "2,3", ""),
+    ("Açúcares adicionados (g)", "40", "2,2", "4%"),
+    ("Proteínas (g)", "5,4", "0", "0%"),
+    ("Gorduras totais (g)", "25", "1,4", "2%"),
+    ("Gorduras saturadas (g)", "15", "0,8", "4%"),
+    ("Gorduras trans (g)", "0", "0", "0%"),
+    ("Fibras alimentares (g)", "2,9", "0", "0%"),
+    ("Sódio (mg)", "79", "0", "0%"),
+]
+
+# Peso e medidas para o frete. [ CONFIRMAR ] com as caixas reais.
+EMBALAGEM = {
+    "33":  {"peso_kg": "0.06", "dim": ("12", "8", "3"), "porcoes": "6 porções"},
+    "100": {"peso_kg": "0.15", "dim": ("16", "11", "4"), "porcoes": "aproximadamente 18 porções"},
+}
+
+BARRAS = [
     {
-        # Rascunho: aguardando os dados reais da embalagem (não aparece na loja).
-        "pendente": True,
-        "rascunho": True,
-        "posicao": 1,
-        "sku": "CC-SOL",
-        "nome": "Sol — Ritual das Raízes",
-        "slug": "sol",
-        "preco": "",
-        "peso_kg": "0.06", "dim": ("12", "8", "3"),
-        "categorias": "Barras, Ritual das Raízes",
-        "tags": "",
-        "curta": "<p>Tudo começa com luz.</p><p>Ritual das Raízes · Cacau Cosmo</p>",
-        "descricao": """<p><em>Tudo começa com luz.</em></p>
-<p>Sol é o centro do nosso céu. Uma barra do Ritual das Raízes, feita em pequenos lotes pela Cacau Cosmo.</p>
-<h3>Ingredientes</h3>
-<p>[ PREENCHER com os dados do verso da caixa ]</p>
-<p><strong>Alérgicos:</strong> [ PREENCHER com os dados do verso da caixa ]</p>
-<h3>Informação nutricional</h3>
-<p>[ PREENCHER com os dados do verso da caixa ]</p>
-""",
-        "atributos": [("Linha", "Ritual das Raízes")],
-        "arte": "sol",
-        "subtitulo": "Ritual das Raízes",
-        "linha3": "Cacau Cosmo  ·  Brasil",
+        "slug": "saturno", "nome": "Saturno", "cacau": "47%",
+        "ritual": "Ritual das Raízes", "perfil": "Suave, cremoso, lento",
+        "intencao": "Que minhas raízes cresçam profundas.",
+        "ingredientes": ["Cacau", "açúcar de coco", "aveia", "shiitake"],
+        # aveia é cereal com glúten na rotulagem de alergênicos: [ CONFIRMAR ] a frase de glúten
+        "alergicos": "Produto vegano e artesanal. Contém aveia. Pode conter leite, amêndoa e avelã.",
+        "nutri": NUTRI_SATURNO,
+        "disponivel": True, "posicao": 1,
+        "texto": "Saturno é o planeta do tempo, e esta barra pede exatamente isso: tempo. "
+                 "Com 47% de cacau, adoçada com açúcar de coco e com aveia e shiitake na receita, "
+                 "é suave e cremosa, feita para derreter devagar.",
+        "tags": "47%, vegano, açúcar de coco, aveia, shiitake",
     },
     {
-        # Rascunho: aguardando os dados reais da embalagem (não aparece na loja).
-        "pendente": True,
-        "rascunho": True,
-        "posicao": 2,
-        "sku": "CC-LUA",
-        "nome": "Lua — Ritual das Raízes",
-        "slug": "lua",
-        "preco": "",
-        "peso_kg": "0.06", "dim": ("12", "8", "3"),
-        "categorias": "Barras, Ritual das Raízes",
-        "tags": "",
-        "curta": "<p>O que a noite revela.</p><p>Ritual das Raízes · Cacau Cosmo</p>",
-        "descricao": """<p><em>O que a noite revela.</em></p>
-<p>Lua é a face clara do nosso céu. Uma barra do Ritual das Raízes, feita em pequenos lotes pela Cacau Cosmo.</p>
-<h3>Ingredientes</h3>
-<p>[ PREENCHER com os dados do verso da caixa ]</p>
-<p><strong>Alérgicos:</strong> [ PREENCHER com os dados do verso da caixa ]</p>
-<h3>Informação nutricional</h3>
-<p>[ PREENCHER com os dados do verso da caixa ]</p>
-""",
-        "atributos": [("Linha", "Ritual das Raízes")],
-        "arte": "lua",
-        "subtitulo": "Ritual das Raízes",
-        "linha3": "Cacau Cosmo  ·  Brasil",
+        "slug": "lua", "nome": "Lua", "cacau": "100%",
+        "ritual": "Ritual dos Ciclos", "perfil": "Intensa, profunda, intuitiva",
+        "intencao": "Sou inteira em todas as minhas fases.",
+        "ingredientes": ["Cacau"],
+        "alergicos": "Produto vegano e artesanal. Pode conter leite, amêndoa e avelã. Não contém glúten.",
+        "nutri": None,                       # [ PREENCHER ] o verso da caixa repete o rótulo do Saturno
+        "disponivel": True, "posicao": 3,
+        "texto": "A Lua não tem pressa de se mostrar inteira. Chocolate 100% cacau, com um único ingrediente: "
+                 "o próprio cacau, sem açúcar. Intensa e profunda, para quem gosta de sentir o grão sem filtros.",
+        "tags": "100%, sem açúcar, vegano, 1 ingrediente",
     },
     {
-        # Dados reais da embalagem (verso da caixa). Preço: confirmar.
-        "real": True,
-        "posicao": 3,
-        "sku": "CC-SATURNO-47",
-        "nome": "Saturno 47% — Ritual das Raízes",
-        "slug": "saturno",
-        "preco": "",                 # [ PREENCHER ] preço em reais, ex.: "39.00"
-        "peso_kg": "0.06", "dim": ("12", "8", "3"),   # caixa de 33 g + proteção (estimado)
-        "categorias": "Barras, Ritual das Raízes",
-        "tags": "vegano, sem glúten, açúcar de coco, flor de sal, 4 ingredientes",
-        "curta": "<p><strong>Suave, cremoso, lento.</strong> Chocolate 47% cacau feito com apenas 4 ingredientes: nibs de cacau, manteiga de cacau, açúcar de coco e flor de sal.</p>"
-                 "<p>Vegano · sem glúten · artesanal · 33 g</p>",
-        "descricao": """<p><em>Que minhas raízes cresçam profundas.</em></p>
-<p>Saturno é o planeta do tempo, e esta barra pede exatamente isso: tempo. Com 47% de cacau, é suave e cremosa, feita para derreter devagar. Faz parte do <strong>Ritual das Raízes</strong> &mdash; ao abrir a caixa, a tampa guarda uma intenção para acompanhar o momento.</p>
-<p>Produzida em pequenos lotes, <em>nibs to bar</em>: partimos dos nibs de cacau e adoçamos com açúcar de coco, com um toque de flor de sal.</p>
-<h3>Ingredientes</h3>
-<p>Nibs de cacau, manteiga de cacau, açúcar de coco e flor de sal.</p>
-<p><strong>Alérgicos:</strong> produto vegano e artesanal. Pode conter leite, amêndoa e avelã. Não contém glúten.</p>
-<h3>Informação nutricional</h3>
-<p>Porções por embalagem: 6 porções. Porção: 5,5 g (1 pedaço).</p>
-<table class="cc-nutri">
-<thead><tr><th></th><th>100 g</th><th>5,5 g</th><th>%VD*</th></tr></thead>
-<tbody>
-<tr><td>Valor energético (kcal)</td><td>419</td><td>23</td><td>1%</td></tr>
-<tr><td>Carboidratos totais (g)</td><td>43</td><td>2,4</td><td>1%</td></tr>
-<tr><td>Açúcares totais (g)</td><td>41</td><td>2,3</td><td></td></tr>
-<tr><td>Açúcares adicionados (g)</td><td>40</td><td>2,2</td><td>4%</td></tr>
-<tr><td>Proteínas (g)</td><td>5,4</td><td>0</td><td>0%</td></tr>
-<tr><td>Gorduras totais (g)</td><td>25</td><td>1,4</td><td>2%</td></tr>
-<tr><td>Gorduras saturadas (g)</td><td>15</td><td>0,8</td><td>4%</td></tr>
-<tr><td>Gorduras trans (g)</td><td>0</td><td>0</td><td>0%</td></tr>
-<tr><td>Fibras alimentares (g)</td><td>2,9</td><td>0</td><td>0%</td></tr>
-<tr><td>Sódio (mg)</td><td>79</td><td>0</td><td>0%</td></tr>
-</tbody>
-</table>
-<p><small>*Percentual de valores diários fornecidos pela porção.</small></p>
-""",
-        "atributos": [("Cacau", "47%"), ("Peso", "33 g"), ("Linha", "Ritual das Raízes"),
-                      ("Perfil", "Suave | Cremoso | Lento"), ("Ingredientes", "Nibs de cacau | Manteiga de cacau | Açúcar de coco | Flor de sal"),
-                      ("Vegano", "Sim"), ("Glúten", "Não contém")],
-        "arte": "saturno",
-        "subtitulo": "Chocolate 47% cacau",
+        "slug": "sol", "nome": "Sol", "cacau": "70%",
+        "ritual": "Ritual da Luz", "perfil": "Vibrante, forte, radiante",
+        "intencao": "Que minha luz esteja a serviço da vida.",
+        "ingredientes": ["Cacau", "açúcar de coco", "cogumelo do sol"],
+        "alergicos": "Produto vegano e artesanal. Pode conter leite, amêndoa e avelã. Não contém glúten.",
+        "nutri": None,                       # [ PREENCHER ] o verso da caixa repete o rótulo do Saturno
+        "disponivel": False, "posicao": 5,   # entra no site como indisponível
+        "texto": "O Sol é a barra mais luminosa do nosso céu. Chocolate 70% cacau, adoçado com açúcar de coco "
+                 "e com cogumelo do sol na receita. Vibrante e forte, com presença do começo ao fim.",
+        "tags": "70%, vegano, açúcar de coco, cogumelo do sol",
     },
 ]
 
 
-# ---------------------------------------------------------------- CSV
-def gerar_csv(urls_imagens=None, so=None, nome="produtos-cacau-cosmo.csv"):
-    """so = lista de slugs a incluir (None = todos)."""
-    lista = [p for p in PRODUTOS if so is None or p["slug"] in so]
+def tabela(nutri, peso):
+    linhas = "\n".join(f"<tr><td>{n}</td><td>{a}</td><td>{b}</td><td>{c}</td></tr>" for n, a, b, c in nutri)
+    return (f"<p>Porções por embalagem: {EMBALAGEM[peso]['porcoes']}. Porção: 5,5 g (1 pedaço).</p>\n"
+            '<table class="cc-nutri">\n<thead><tr><th></th><th>100 g</th><th>5,5 g</th><th>%VD*</th></tr></thead>\n'
+            f"<tbody>\n{linhas}\n</tbody>\n</table>\n"
+            "<p><small>*Percentual de valores diários fornecidos pela porção.</small></p>")
+
+
+def produto(b, peso):
+    ing = ", ".join([b["ingredientes"][0]] + [i for i in b["ingredientes"][1:]])
+    n_ing = len(b["ingredientes"])
+    nome = f"{b['nome']} {b['cacau']} · {peso} g"
+    curta = (f"<p><strong>{b['perfil']}.</strong> Chocolate {b['cacau']} cacau do {b['ritual']}, "
+             f"feito com {'um único ingrediente' if n_ing == 1 else f'{n_ing} ingredientes'}.</p>"
+             f"<p>Nibs to bar · vegano · {peso} g</p>")
+    desc = (f"<p><em>{b['intencao']}</em></p>\n<p>{b['texto']}</p>\n"
+            f"<h3>O ritual</h3>\n<p>{b['nome']} faz parte do <strong>{b['ritual']}</strong>. "
+            f"Ao abrir a caixa, a tampa guarda uma intenção para acompanhar o momento: "
+            f"<em>&ldquo;{b['intencao']}&rdquo;</em> Quebre um pedaço, respire o aroma e deixe derreter devagar, sem morder.</p>\n"
+            f"<h3>Ingredientes</h3>\n<p>{ing}.</p>\n"
+            f"<p><strong>Alérgicos:</strong> {b['alergicos']}</p>\n")
+    if b["nutri"]:
+        desc += "<h3>Informação nutricional</h3>\n" + tabela(b["nutri"], peso) + "\n"
+    emb = EMBALAGEM[peso]
+    return {
+        "sku": f"CC-{b['slug'].upper()}-{peso}",
+        "nome": nome,
+        "slug": f"{b['slug']}-{b['cacau'].rstrip('%')}-{peso}g",
+        "curta": curta,
+        "descricao": desc.strip() + "\n" + ENTREGA.strip(),
+        "disponivel": b["disponivel"],
+        "peso_kg": emb["peso_kg"], "dim": emb["dim"],
+        "categorias": f"Barras, {b['ritual']}",
+        "tags": b["tags"] + f", {peso} g",
+        "posicao": b["posicao"] + (0 if peso == "33" else 1),
+        "imagem": f"{b['slug']}-{peso}g.jpg",
+        "galeria": [f"{b['slug']}-frente.jpg", f"{b['slug']}-tampa.jpg"],
+        "atributos": [("Cacau", b["cacau"]), ("Peso", f"{peso} g"), ("Ritual", b["ritual"]),
+                      ("Perfil", b["perfil"].replace(", ", " | ")), ("Ingredientes", ing.replace(", ", " | ")),
+                      ("Vegano", "Sim")],
+    }
+
+
+PRODUTOS = [produto(b, peso) for b in BARRAS for peso in ("33", "100")]
+
+
+def gerar_csv(nome="produtos-cacau-cosmo.csv"):
     max_attr = max(len(p["atributos"]) for p in PRODUTOS)
     cab = ["Type", "SKU", "Name", "Slug", "Published", "Is featured?", "Visibility in catalog",
            "Short description", "Description", "Tax status", "In stock?", "Backorders allowed?",
@@ -143,19 +144,16 @@ def gerar_csv(urls_imagens=None, so=None, nome="produtos-cacau-cosmo.csv"):
            "Allow customer reviews?", "Regular price", "Categories", "Tags", "Shipping class", "Images", "Position"]
     for i in range(1, max_attr + 1):
         cab += [f"Attribute {i} name", f"Attribute {i} value(s)", f"Attribute {i} visible", f"Attribute {i} global"]
-
     path = OUT / nome
     with path.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(cab)
-        for p in lista:
-            comp, larg, alt = p.get("dim", ("17", "8", "1.5"))
-            linha = ["simple", p["sku"], p["nome"], p["slug"], -1 if p.get("rascunho") else 1,
-                     0 if p.get("rascunho") else 1, "visible",
-                     p["curta"], p["descricao"].strip() + "\n" + ENTREGA.strip(), "taxable", 1, 0,
-                     0, p.get("peso_kg", "0.12"), comp, larg, alt,
-                     1, p["preco"], p["categorias"], p["tags"], "Chocolate",
-                     (urls_imagens or {}).get(p["slug"], ""), p.get("posicao", 0)]
+        for p in sorted(PRODUTOS, key=lambda x: x["posicao"]):
+            comp, larg, alt = p["dim"]
+            linha = ["simple", p["sku"], p["nome"], p["slug"], 1, 1, "visible",
+                     p["curta"], p["descricao"], "taxable", 1 if p["disponivel"] else 0, 0,
+                     0, p["peso_kg"], comp, larg, alt,
+                     1, "", p["categorias"], p["tags"], "Chocolate", "", p["posicao"]]
             for nome_a, valor in p["atributos"]:
                 linha += [nome_a, valor, 1, 0]
             linha += [""] * (len(cab) - len(linha))
@@ -163,218 +161,8 @@ def gerar_csv(urls_imagens=None, so=None, nome="produtos-cacau-cosmo.csv"):
     return path
 
 
-# ---------------------------------------------------------------- imagens
-def fonte(nome, tam, reserva="DejaVuSerif-Bold.ttf"):
-    if FONTS and (FONTS / nome).exists():
-        return ImageFont.truetype(str(FONTS / nome), tam)
-    return ImageFont.truetype(f"/usr/share/fonts/truetype/dejavu/{reserva}", tam)
-
-
-def hexrgb(h, a=255):
-    h = h.lstrip("#")
-    return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4)) + (a,)
-
-
-def gradiente(w, h, c1, c2):
-    img = Image.new("RGBA", (w, h))
-    d = ImageDraw.Draw(img)
-    a, b = hexrgb(c1), hexrgb(c2)
-    for y in range(h):
-        t = y / h
-        d.line([(0, y), (w, y)], fill=tuple(int(a[i] + (b[i] - a[i]) * t) for i in range(4)))
-    return img
-
-
-def esfera(diam, luz, meio, sombra):
-    """Planeta com luz vinda do canto superior esquerdo."""
-    s = Image.new("RGBA", (diam, diam), (0, 0, 0, 0))
-    px = s.load()
-    cl, cm, cs = hexrgb(luz), hexrgb(meio), hexrgb(sombra)
-    r = diam / 2
-    lx, ly = r * 0.62, r * 0.55
-    for y in range(diam):
-        for x in range(diam):
-            dx, dy = x - r, y - r
-            if dx * dx + dy * dy > r * r:
-                continue
-            t = min(1, math.hypot(x - lx, y - ly) / (diam * 0.95))
-            if t < .5:
-                k = t / .5
-                c = tuple(int(cl[i] + (cm[i] - cl[i]) * k) for i in range(3))
-            else:
-                k = (t - .5) / .5
-                c = tuple(int(cm[i] + (cs[i] - cm[i]) * k) for i in range(3))
-            px[x, y] = c + (255,)
-    return s
-
-
-def estrelas(img, n, seed, cor=(241, 232, 208)):
-    rnd = random.Random(seed)
-    d = ImageDraw.Draw(img)
-    w, h = img.size
-    for _ in range(n):
-        x, y, m = rnd.random() * w, rnd.random() * h, rnd.random()
-        rad = .6 + m ** 3 * 2.6
-        c = (201, 168, 76, 230) if m > .95 else cor + (int(50 + m * 120),)
-        d.ellipse([x - rad, y - rad, x + rad, y + rad], fill=c)
-
-
-def brilho(diam, cor, alpha):
-    g = Image.new("RGBA", (diam, diam), (0, 0, 0, 0))
-    ImageDraw.Draw(g).ellipse([diam * .2, diam * .2, diam * .8, diam * .8], fill=hexrgb(cor, alpha))
-    return g.filter(ImageFilter.GaussianBlur(diam * .12))
-
-
-def estrela4(d, cx, cy, r, cor):
-    pts = []
-    for i in range(16):
-        ang = i * math.pi / 8 - math.pi / 2
-        rr = r if i % 4 == 0 else (r * .16 if i % 2 else r * .3)
-        pts.append((cx + rr * math.cos(ang), cy + rr * math.sin(ang)))
-    d.polygon(pts, fill=cor)
-
-
-def arte(p):
-    W, H = 1200, 1500
-    tipo = p["arte"]
-    if tipo == "sol":
-        img = gradiente(W, H, "#1B1008", "#3A2216")
-        estrelas(img, 260, 1)
-        img.alpha_composite(brilho(1100, "#E9A54C", 120), (50, 120))
-        img.alpha_composite(esfera(560, "#F6D58A", "#D9973F", "#7A3E17"), (320, 390))
-        texto, sub_cor = CREAM, GOLD
-    elif tipo == "lua":
-        img = gradiente(W, H, "#0A1240", "#00062E")
-        estrelas(img, 320, 2)
-        img.alpha_composite(brilho(1000, PINK, 70), (100, 160))
-        lua = esfera(540, "#F3ECE6", "#C4B4B6", "#4A4460")
-        crat = Image.new("RGBA", lua.size, (0, 0, 0, 0))
-        d = ImageDraw.Draw(crat)
-        rnd = random.Random(7)
-        for _ in range(9):  # crateras
-            x, y, r = rnd.randint(130, 400), rnd.randint(130, 400), rnd.randint(14, 44)
-            d.ellipse([x - r, y - r, x + r, y + r], fill=(110, 100, 120, 40))
-        crat = crat.filter(ImageFilter.GaussianBlur(3))
-        crat.putalpha(Image.composite(crat.getchannel("A"), Image.new("L", lua.size, 0), lua.getchannel("A")))
-        lua.alpha_composite(crat)
-        img.alpha_composite(lua, (330, 400))
-        texto, sub_cor = CREAM, PINK
-    else:
-        img = gradiente(W, H, "#00062E", "#0A1240")
-        estrelas(img, 360, 3)
-        img.alpha_composite(brilho(1000, "#8E8296", 60), (100, 160))
-        cx, cy, R = 600, 680, 250
-        aneis = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-        da = ImageDraw.Draw(aneis)
-        for k, (rx, ry, cor, lw) in enumerate([(470, 120, GOLD, 5), (420, 104, CREAM, 3), (380, 92, "#C4A57A", 7)]):
-            da.ellipse([cx - rx, cy - ry, cx + rx, cy + ry], outline=hexrgb(cor, 200 - k * 30), width=lw)
-        aneis = aneis.rotate(-14, center=(cx, cy), resample=Image.BICUBIC)
-        traseiro = aneis.crop((0, 0, W, cy))
-        img.alpha_composite(traseiro, (0, 0))
-        img.alpha_composite(esfera(2 * R, "#E8CFA0", "#B3825A", "#3A2216"), (cx - R, cy - R))
-        frente = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-        frente.paste(aneis.crop((0, cy, W, H)), (0, cy))
-        img.alpha_composite(frente)
-        texto, sub_cor = CREAM, GOLD
-
-    d = ImageDraw.Draw(img)
-    marca = fonte("PINOPOLIS.TTF", 30, "DejaVuSerif.ttf")
-    d.text((W / 2, 120), "C A C A U   C O S M O", font=marca, fill=hexrgb(texto, 220), anchor="mm")
-    estrela4(d, W / 2, 190, 16, hexrgb(GOLD))
-
-    d.text((W / 2, 1180), p["nome"].split(" — ")[0], font=fonte("Recoleta-Bold.ttf", 150), fill=hexrgb(texto), anchor="mm")
-    d.line([(W / 2 - 60, 1285), (W / 2 + 60, 1285)], fill=hexrgb(sub_cor, 200), width=2)
-    d.text((W / 2, 1340), p["subtitulo"].upper(), font=fonte("PINOPOLIS.TTF", 34, "DejaVuSerif.ttf"),
-           fill=hexrgb(sub_cor), anchor="mm")
-    d.text((W / 2, 1400), p.get("linha3", "Cacau Cosmo  ·  Brasil"), font=fonte("PINOPOLIS.TTF", 28, "DejaVuSerif.ttf"),
-           fill=hexrgb(texto, 170), anchor="mm")
-
-    path = OUT / "imagens" / f"{p['slug']}-arte.jpg"
-    path.parent.mkdir(exist_ok=True)
-    img.convert("RGB").save(path, quality=90, optimize=True, progressive=True)
-    return path
-
-
-def mockup(p, arte_path):
-    """Foto de produto em fundo claro: embalagem com a arte cósmica, aberta no
-    topo mostrando a barra e o papel-alumínio, com sombra suave."""
-    W, H = 1200, 1500
-    rnd = random.Random(p["slug"])
-    bg = gradiente(W, H, "#F4EDE1", "#E6DACB")
-    grao = Image.effect_noise((W, H), 18).convert("L").point(lambda v: 128 + (v - 128) // 3)
-    bg = Image.blend(bg.convert("RGB"), Image.merge("RGB", (grao, grao, grao)), 0.06).convert("RGBA")
-
-    pw, ph = 540, 880                       # embalagem
-    x0, y0 = (W - pw) // 2, 330
-    sombra = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    ds = ImageDraw.Draw(sombra)
-    ds.rounded_rectangle([x0 + 34, y0 + 60, x0 + pw + 46, y0 + ph + 40], 18, fill=(60, 36, 20, 120))
-    sombra = sombra.filter(ImageFilter.GaussianBlur(38))
-    bg.alpha_composite(sombra)
-
-    # barra de chocolate saindo pelo topo
-    choc = {"sol": ("#8A5530", "#6E4024"), "lua": ("#EFE3CF", "#DCCBB0"), "saturno": ("#4A2A1A", "#33190E")}[p["arte"]]
-    barra = Image.new("RGBA", (pw - 40, 230), (0, 0, 0, 0))
-    db = ImageDraw.Draw(barra)
-    db.rounded_rectangle([0, 0, pw - 41, 260], 14, fill=hexrgb(choc[0]))
-    for i in range(1, 3):                    # gomos
-        x = i * (pw - 40) / 3
-        db.line([(x, 14), (x, 230)], fill=hexrgb(choc[1]), width=4)
-    db.line([(14, 115), (pw - 54, 115)], fill=hexrgb(choc[1]), width=4)
-    for i in range(3):
-        for j in range(2):
-            cx, cy = (i + .5) * (pw - 40) / 3, 57 + j * 115
-            db.rounded_rectangle([cx - 70, cy - 36, cx + 70, cy + 36], 10, outline=hexrgb(choc[1], 160), width=3)
-    bg.alpha_composite(barra, (x0 + 20, y0 - 150))
-
-    # papel-alumínio
-    foil = Image.new("RGBA", (pw, 170), (0, 0, 0, 0))
-    df = ImageDraw.Draw(foil)
-    pts = [(0, 170), (0, 40)]
-    for k in range(13):
-        pts.append((k * pw / 12, 30 + rnd.randint(-22, 22)))
-    pts += [(pw, 40), (pw, 170)]
-    df.polygon(pts, fill=(214, 214, 210, 255))
-    for k in range(14):
-        x = rnd.randint(10, pw - 10)
-        df.line([(x, 40), (x + rnd.randint(-30, 30), 170)], fill=(245, 245, 242, 140), width=rnd.randint(2, 6))
-    foil = foil.filter(ImageFilter.GaussianBlur(.8))
-    bg.alpha_composite(foil, (x0, y0 - 40))
-
-    # embalagem com a arte
-    arte_img = Image.open(arte_path).convert("RGBA")
-    cw = int(1500 * pw / ph)                # recorta a arte na proporção da embalagem
-    emb = arte_img.crop(((1200 - cw) // 2, 0, (1200 + cw) // 2, 1500)).resize((pw, ph), Image.LANCZOS)
-    mask = Image.new("L", (pw, ph), 0)
-    ImageDraw.Draw(mask).rounded_rectangle([0, 0, pw - 1, ph + 20], 14, fill=255)
-    luz = gradiente(pw, ph, "#FFFFFF", "#000000").convert("L")
-    emb = Image.composite(emb, Image.new("RGBA", (pw, ph)), mask)
-    brilho_lat = Image.new("RGBA", (pw, ph), (0, 0, 0, 0))
-    dl = ImageDraw.Draw(brilho_lat)
-    for x in range(pw):                       # leve volume cilíndrico
-        t = x / pw
-        a = int(60 * max(0, .25 - abs(t - .22)) * 4) if t < .5 else int(70 * max(0, t - .78) * 4.5)
-        dl.line([(x, 0), (x, ph)], fill=(255, 255, 255, a) if t < .5 else (0, 0, 0, a))
-    brilho_lat.putalpha(Image.composite(brilho_lat.getchannel("A"), Image.new("L", (pw, ph), 0), mask))
-    emb.alpha_composite(brilho_lat)
-    bg.alpha_composite(emb, (x0, y0 + 100))
-    # faixa da aba aberta
-    dd = ImageDraw.Draw(bg)
-    dd.line([(x0 + 4, y0 + 102), (x0 + pw - 4, y0 + 102)], fill=(0, 0, 0, 90), width=3)
-
-    path = OUT / "imagens" / f"{p['slug']}.jpg"
-    bg.convert("RGB").save(path, quality=92, optimize=True, progressive=True)
-    return path
-
-
 if __name__ == "__main__":
-    for p in PRODUTOS:
-        if p.get("real"):      # foto real: gerada por fotos_reais.py
-            continue
-        a = arte(p)
-        print("ok", a.relative_to(OUT.parent.parent))
-        print("ok", mockup(p, a).relative_to(OUT.parent.parent))
     print("ok", gerar_csv().relative_to(OUT.parent.parent))
-    faltam = [p["slug"] for p in PRODUTOS if p.get("rascunho")]
-    if faltam:
-        print("ok", gerar_csv(so=faltam, nome="produtos-sol-lua.csv").relative_to(OUT.parent.parent))
+    for p in sorted(PRODUTOS, key=lambda x: x["posicao"]):
+        print(f"   {p['posicao']}. {p['sku']:<16} {p['nome']:<22} {'à venda' if p['disponivel'] else 'INDISPONÍVEL':<13} "
+              f"foto: {p['imagem']}  galeria: {', '.join(p['galeria'])}")

@@ -123,19 +123,24 @@ Usa o checkout clássico do WooCommerce (`[woocommerce_checkout]`), compatível 
 
 Logado: "Olá, nome · Bem-vindo ao seu Círculo", cartões para Pedidos, Endereços, Dados da conta, Loja, Journal e Contato, e o menu normal do WooCommerce. Deslogado: "Entre no seu Círculo" com Entrar e Criar conta lado a lado.
 
-## 3. Produtos
+## 3. Produtos (6: Saturno, Lua e Sol em 33 g e 100 g)
 
-`woocommerce/produtos-cacau-cosmo.csv` traz os produtos **com dados reais da embalagem**. Por enquanto: **Saturno 47% (Ritual das Raízes)**, com ingredientes, alérgicos, tabela nutricional completa, atributos (cacau, peso, linha, perfil, vegano, glúten), peso e medidas para o frete e posição na loja. **Sol** e **Lua** entram como **rascunho** (não aparecem na loja) até chegarem os dados reais da embalagem. Os textos marcados `[ PREENCHER ]` indicam o que falta.
+`woocommerce/produtos-cacau-cosmo.csv` traz os seis produtos, com dados da página "Coleção Cacau Cosmo 3D": nome, percentual, ritual, perfil, intenção da tampa, ingredientes, alérgicos, descrição, ficha técnica, peso e medidas para o frete e posição na loja.
 
-Se o Saturno já foi importado, use `woocommerce/produtos-sol-lua.csv`, que traz só os dois que faltam.
+| SKU | Produto | Situação |
+|---|---|---|
+| CC-SATURNO-33 / CC-SATURNO-100 | Saturno 47% · Ritual das Raízes | à venda |
+| CC-LUA-33 / CC-LUA-100 | Lua 100% · Ritual dos Ciclos | à venda |
+| CC-SOL-33 / CC-SOL-100 | Sol 70% · Ritual da Luz | **indisponível** (aparece no site, sem botão de comprar) |
 
-1. Se você importou a versão antiga ("Saturno — Chocolate Amargo 80%"), mande esse produto para a lixeira antes.
-2. **Produtos → Importar → Escolher arquivo**: envie o CSV, clique em **Continuar** e depois em **Executar o importador**.
-3. Abra o produto e preencha o **preço** (veio em branco de propósito).
-4. **Imagem do produto:** `woocommerce/imagens/saturno.jpg` (caixa em 3D). **Galeria:** `saturno-frente.jpg`, `saturno-verso.jpg` (tabela nutricional) e `saturno-tampa.jpg`.
-5. Em **Posição** (aba Avançado do produto) ficou Sol = 1, Lua = 2, Saturno = 3. A loja e o carrinho mostram os produtos publicados nessa ordem.
+1. Mande para a lixeira os produtos antigos (Saturno, Sol e Lua da versão anterior).
+2. **Produtos → Importar**: envie o CSV e execute o importador.
+3. Em cada produto, preencha o **preço** e coloque as fotos de `woocommerce/imagens/`: principal `<produto>-33g.jpg` ou `<produto>-100g.jpg`; galeria `<produto>-frente.jpg` e `<produto>-tampa.jpg`.
+4. **WooCommerce → Configurações → Produtos → Inventário**: deixe desmarcado "Ocultar itens fora de estoque", para o Sol continuar aparecendo.
 
-As faces originais da caixa estão em `woocommerce/fotos-reais/saturno/`. Para gerar as fotos de novo, rode `python3 cacau-cosmo/woocommerce/fotos_reais.py saturno`.
+**Pendências:** a tabela nutricional da Lua e do Sol (os versos das caixas repetem o rótulo do Saturno); confirmar no Saturno a receita (cacau, açúcar de coco, aveia e shiitake) e a frase de glúten; peso e medidas das caixas.
+
+Fotos: `python3 cacau-cosmo/woocommerce/fotos_reais.py` (fundo azul, caixa de 100 g maior). Produtos: `python3 cacau-cosmo/woocommerce/produtos.py`.
 
 ## 4. Posts do Journal
 

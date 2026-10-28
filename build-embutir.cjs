@@ -14,6 +14,68 @@ const LARGURAS = { 'img/hero.webp': 2400 };  // a hero ocupa a tela inteira
 const QUALIDADE = 0.78;
 const CHROME = process.env.CHROME_PATH || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
 
+
+/**
+ * Encaixota a folha de estilo sob um id.
+ *
+ * Colada num widget HTML, a pagina disputa o cascata com o tema do WordPress.
+ * Regras como `.elementor h3{font-family:serif;color:#d6336c}` tem duas
+ * classes de especificidade e vencem as nossas, que quase todas tem uma so —
+ * tipografia e cor saiam erradas em 16 dos 20 componentes medidos.
+ * Prefixar cada seletor com um id soma 1-0-0 e devolve a vitoria para a nossa
+ * folha, sem espalhar !important por centenas de regras.
+ *
+ * `html` fica de fora: scroll-behavior e scroll-padding precisam continuar no
+ * documento. `:root` e `body` viram o proprio container.
+ */
+function encaixotaCss(css, id) {
+  const escopo = '#' + id;
+
+  const umSeletor = (sel) => {
+    sel = sel.trim();
+    if (!sel) return sel;
+    if (sel === ':root' || sel === 'body') return escopo;
+    if (/^html\b/.test(sel)) return sel;                 // fica no documento
+    if (/^body\b/.test(sel)) return escopo + sel.slice(4);
+    return escopo + ' ' + sel;
+  };
+
+  const listaDeSeletores = (lista) => lista.split(',').map(umSeletor).join(',');
+
+  // percorre o css acompanhando a profundidade das chaves
+  const transforma = (texto) => {
+    let saida = '', i = 0;
+    while (i < texto.length) {
+      const abre = texto.indexOf('{', i);
+      if (abre === -1) { saida += texto.slice(i); break; }
+
+      const cabecalho = texto.slice(i, abre);
+      // fecha o bloco correspondente contando chaves
+      let nivel = 1, j = abre + 1;
+      while (j < texto.length && nivel > 0) {
+        if (texto[j] === '{') nivel++;
+        else if (texto[j] === '}') nivel--;
+        j++;
+      }
+      const corpo = texto.slice(abre + 1, j - 1);
+
+      if (/@media|@supports/.test(cabecalho)) {
+        saida += cabecalho + '{' + transforma(corpo) + '}';
+      } else if (/@/.test(cabecalho)) {
+        saida += cabecalho + '{' + corpo + '}';           // keyframes e afins: intocados
+      } else {
+        // preserva comentarios que vem antes do seletor
+        const m = cabecalho.match(/^([\s\S]*?\*\/\s*)?([\s\S]*)$/);
+        saida += (m[1] || '') + listaDeSeletores(m[2]) + '{' + corpo + '}';
+      }
+      i = j;
+    }
+    return saida;
+  };
+
+  return transforma(css);
+}
+
 (async () => {
   const html = fs.readFileSync('index.html', 'utf8');
   const usadas = [...new Set([...html.matchAll(/(?:src|href)="(img\/[^"]+)"/g)].map(m => m[1]))];
@@ -55,6 +117,19 @@ const CHROME = process.env.CHROME_PATH || '/opt/pw-browsers/chromium-1194/chrome
                 uri === origem ? '(original, sem reencode)' : '');
   }
   await browser.close();
+
+  // --- escopo contra o CSS do tema ---
+  const ID = 'mrice';
+  // Encaixotar resolve o que a nossa folha declara, mas nao o que ela deixa
+  // herdar: o tema crava color e font-family no proprio elemento, e regra
+  // direta sempre vence valor herdado. Esta base devolve a heranca com
+  // especificidade 1-0-1 — acima do tema, abaixo das nossas regras de classe.
+  const BASE_HERANCA = '\n#' + ID + ' :is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,dl,ul,ol,span,a,button,small,strong,b,em,i,figcaption,label){'
+    + 'color:inherit;font-family:inherit}\n';
+  saida = saida.replace(/<style>([\s\S]*?)<\/style>/, (_, css) =>
+    '<style>' + encaixotaCss(css, ID) + BASE_HERANCA + '</style>');
+  saida = saida.replace(/<body>/, '<body>\n<div id="' + ID + '">')
+               .replace(/<\/body>/, '</div>\n</body>');
 
   fs.writeFileSync('mr-ice-lp.html', saida);
   console.log('\nmr-ice-lp.html:', (saida.length / 1024 / 1024).toFixed(2), 'MB',

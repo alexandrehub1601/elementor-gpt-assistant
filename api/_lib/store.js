@@ -1,6 +1,6 @@
 // Armazenamento das mensagens.
-// Produção: Upstash Redis (integração "Upstash for Redis" / antigo Vercel KV no painel da Vercel).
-//   Variáveis: KV_REST_API_URL e KV_REST_API_TOKEN (ou UPSTASH_REDIS_REST_URL e UPSTASH_REDIS_REST_TOKEN).
+// Produção: Upstash for Redis (REST: KV_REST_API_URL/KV_REST_API_TOKEN, com ou sem prefixo)
+//   ou qualquer Redis com endereço redis:// em REDIS_URL (ex.: Redis Cloud).
 // Desenvolvimento local: arquivo JSON (FALE_DATA_FILE), só fora da Vercel.
 import fs from "node:fs/promises";
 
@@ -20,11 +20,28 @@ if (!URL_ || !TOKEN) {
     if (/\.upstash\.io$/.test(u.hostname) && u.password) { URL_ = "https://" + u.hostname; TOKEN = decodeURIComponent(u.password); }
   } catch { /* sem conexão */ }
 }
-export const storageInfo = () => ({ redis: !!(URL_ && TOKEN) });
+// Outros provedores de Redis (ex.: Redis Cloud) usam conexão direta redis:// em vez de REST.
+const TCP_URL = URL_ && TOKEN ? "" : findEnv(["REDIS_URL", "KV_URL", "UPSTASH_REDIS_URL"]);
+let tcpClient = null;
+async function tcp() {
+  if (!tcpClient) {
+    const { createClient } = await import("redis");
+    const c = createClient({ url: TCP_URL, socket: { connectTimeout: 5000 } });
+    c.on("error", () => {});
+    await c.connect();
+    tcpClient = c;
+  }
+  return tcpClient;
+}
+export const storageInfo = () => ({ redis: !!((URL_ && TOKEN) || TCP_URL) });
 const LIST = "fale:mensagens";
 const KEY = (id) => `fale:mensagem:${id}`;
 
 async function redis(cmd) {
+  if (!(URL_ && TOKEN)) {
+    try { return await (await tcp()).sendCommand(cmd.map(String)); }
+    catch (e) { tcpClient = null; throw Object.assign(new Error("Erro no banco de dados: " + e.message), { status: 502 }); }
+  }
   const r = await fetch(URL_, { method: "POST", headers: { Authorization: `Bearer ${TOKEN}` }, body: JSON.stringify(cmd) });
   const j = await r.json().catch(() => ({}));
   if (!r.ok || j.error) throw Object.assign(new Error("Erro no banco de dados: " + (j.error || r.status)), { status: 502 });
@@ -39,7 +56,7 @@ async function readFile() {
 async function writeFile(d) { await fs.writeFile(FILE, JSON.stringify(d, null, 2)); }
 
 function backend() {
-  if (URL_ && TOKEN) return "redis";
+  if ((URL_ && TOKEN) || TCP_URL) return "redis";
   if (FILE && !process.env.VERCEL) return "file";
   throw Object.assign(new Error("Armazenamento não configurado: conecte o Upstash for Redis ao projeto na Vercel e faça Redeploy."), { status: 500 });
 }
@@ -114,7 +131,12 @@ async function ensureSeed() {
   return d.casos.map((c) => c.slug);
 }
 
+// Sem banco conectado, as páginas públicas usam os cases iniciais (o site nunca fica quebrado).
+function configured() { try { backend(); return true; } catch { return false; } }
+const seedCopy = () => JSON.parse(JSON.stringify(SEED));
+
 export async function listCases() {
+  if (!configured()) return seedCopy();
   const slugs = await ensureSeed();
   if (backend() === "redis") {
     if (!slugs.length) return [];
@@ -125,6 +147,7 @@ export async function listCases() {
 }
 
 export async function getCase(slug) {
+  if (!configured()) return seedCopy().find((c) => c.slug === slug) || null;
   await ensureSeed();
   if (backend() === "redis") {
     const v = await redis(["GET", CKEY(slug)]);

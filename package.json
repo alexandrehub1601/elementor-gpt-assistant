@@ -11,9 +11,13 @@
     "tickets:selftest": "node tickets/test/offline-test.js"
   },
   "dependencies": {
-    "openai": "^4.68.4"
+    "openai": "^4.68.4",
+    "@vercel/blob": "^2.8.2"
   },
   "optionalDependencies": {
     "nodemailer": "^6.9.14"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

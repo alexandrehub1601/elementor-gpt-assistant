@@ -89,6 +89,16 @@
   cart();
   if(window.jQuery){jQuery(document.body).on('added_to_cart removed_from_cart updated_cart_totals',cart)}
 
+  /* ===== MINHA CONTA / SAIR ================================ */
+  var U=window.CC_USER||{logado:document.body.classList.contains('logged-in')};
+  document.querySelectorAll('.js-sair').forEach(function(a){
+    if(!U.logado){a.hidden=true;return}
+    if(U.sair)a.href=U.sair;
+  });
+  if(!U.logado)document.querySelectorAll('.js-acct-txt').forEach(function(e){
+    e.setAttribute('data-i18n','t-login'); e.textContent='Entrar';
+  });
+
   document.querySelectorAll('.js-ano').forEach(function(e){e.textContent=new Date().getFullYear()});
 })();
 
@@ -101,6 +111,9 @@
     't-nav-about':   'About us',
     't-nav-journal': 'Journal',
     't-contact':     'Contact',
+    't-account':     'My account',
+    't-logout':      'Log out',
+    't-login':       'Log in',
     't-btncircle':   'Join the Circle',
     't-drawerquote': '&ldquo;A small universe between<br>cacao and cosmos.&rdquo;',
     't-footerplace': 'Rio de Janeiro, Brazil',

@@ -35,7 +35,7 @@ O formulário do Contato envia para o painel do WordPress. Para ativar (uma vez 
 3. Cole o conteúdo de `wordpress/mensagens-contato.php` **sem a primeira linha `<?php`**.
 4. Em *Insert Method*, deixe **Auto Insert / Run Everywhere**. Ative e salve.
 
-Pronto: aparece o menu **Mensagens** no wp-admin, com contador de mensagens novas, e cada mensagem também chega em `ola@cacaucosmo.com.br`. Responder esse e-mail responde direto ao cliente. A lista tem botão **Exportar CSV**. Para trocar o e-mail, mude `CC_CONTATO_EMAIL` no início do código.
+Pronto: aparece o menu **Mensagens** no wp-admin, com contador de mensagens novas, e cada mensagem também chega em `hello@cacaucosmo.com`. Responder esse e-mail responde direto ao cliente. A lista tem botão **Exportar CSV**. Para trocar o e-mail, mude `CC_CONTATO_EMAIL` no início do código.
 
 Para mostrar o WhatsApp na página, preencha `WHATSAPP: '5521999999999'` em `window.CC_CONTACT`, no fim do `contato.html`.
 
@@ -47,7 +47,7 @@ Segue o fluxo combinado em 23/10: a Home fica aberta com o formulário; Loja, Jo
 1. **WPCode → Add Snippet → PHP Snippet**: cole `wordpress/circulo.php` sem a primeira linha `<?php`. Antes de ativar, preencha a CONFIGURAÇÃO no topo:
    - `CC_MC_API_KEY`: no Mailchimp, **Perfil → Extras → Chaves de API → Criar chave** (a chave termina em `-us22`). O ID da audiência já está certo. Os campos WhatsApp, Instagram, Estado, Cidade e Idade são criados sozinhos na audiência.
    - `CC_WHATSAPP_AVISOS`: telefone e apikey da Nicole e da Isa no CallMeBot. Cada uma salva o contato **+34 694 25 79 57** e manda "I allow callmebot to send me messages"; o bot responde com a apikey.
-   - `CC_CIRCULO_IDADE_MIN` (18) e `CC_CIRCULO_EMAIL_AVISO` (ola@cacaucosmo.com.br).
+   - `CC_CIRCULO_IDADE_MIN` (18) e `CC_CIRCULO_EMAIL_AVISO` (hello@cacaucosmo.com).
 2. **WooCommerce → Configurações → Visibilidade do site → Ao vivo.** O modo "Em breve" do WooCommerce sai; quem fecha o site agora é o Círculo.
 3. **Home:** no widget HTML da Home, troque o código por `paginas/home.html` (é a Home atual com o formulário novo no lugar do Mailchimp).
 4. **Popup** "O próximo ritual está chegando": troque o conteúdo do widget HTML por `paginas/formulario-circulo.html`.
@@ -62,7 +62,7 @@ Segue o fluxo combinado em 23/10: a Home fica aberta com o formulário; Loja, Jo
 - Clientes antigos ou convidados: **Usuários → editar → "Membro do Círculo"**.
 - Pedido pago: a Nicole recebe no WhatsApp os dados de envio.
 
-**E-mails para a pessoa** (remetente **Cacau Cosmo <ola@cacaucosmo.com.br>**): cadastro recebido (na hora), aprovação e lista de espera. Os textos ficam nas funções `cc_circulo_email_recebida`, `cc_circulo_email_aprovada` e `cc_circulo_email_espera`. A coluna **Envios** mostra, para cada pessoa, se foi para o Mailchimp e quais e-mails recebeu.
+**E-mails para a pessoa** (remetente **Cacau Cosmo <ola@cacaucosmo.com.br>**; quem clica em Responder escreve para **hello@cacaucosmo.com**, em `CC_EMAIL_RESPONDER`): cadastro recebido (na hora), aprovação e lista de espera. Os textos ficam nas funções `cc_circulo_email_recebida`, `cc_circulo_email_aprovada` e `cc_circulo_email_espera`. A coluna **Envios** mostra, para cada pessoa, se foi para o Mailchimp e quais e-mails recebeu.
 
 **Mailchimp:** **Sincronizar todas com o Mailchimp** leva quem já se cadastrou, com a tag do status atual. Para os e-mails saírem pelo Mailchimp em vez do WordPress, veja `wordpress/emails-mailchimp.md`.
 
@@ -158,3 +158,12 @@ Para a caixa 3D aparecer, envie as 21 faces de `woocommerce/faces-3d.zip` em **M
 4. Clique em **Enviar**. As imagens são baixadas uma a uma, então pode levar 1 ou 2 minutos.
 
 Para baixar de novo (por exemplo, se entrarem posts novos lá), rode `python3 cacau-cosmo/journal/importar_posts.py`. Para importar como rascunho, troque `STATUS = "draft"` no script.
+
+
+## Topo: home x páginas internas
+
+- **Home** (`elementor/pagina-home.json`, ou o HTML em `paginas/home.html`): menu só com **Home**, botão **Entrar no Círculo** (leva ao formulário) e ícone de pessoa (login em `/minha-conta/`). Para quem já está logado o botão vira **Ir para a loja**.
+- **Páginas internas** (loja, produto, carrinho, checkout, conta, journal, Quem Somos, Contato): no topo e no menu lateral, **Minha conta** e **Sair**. Sem nenhum "Entrar no Círculo": a faixa que convidava para o Círculo virou um convite para o Journal.
+- O link **Sair** já vem assinado pelo WordPress (sai direto, sem tela de confirmação). Isso vem do `circulo.php` (`window.CC_USER`), então cole a versão nova no WPCode.
+- E-mail de contato: **hello@cacaucosmo.com**. O remetente técnico continua `CC_EMAIL_DE`, porque o envio sai do servidor do `.com.br`.
+- Também há `pagina-quem-somos.json` e `pagina-contato.json` para importar como página.

@@ -7,7 +7,7 @@ Requer um plano do Mailchimp com **Customer Journeys** (confira no seu plano).
 2. No WordPress, menu **Círculo → Sincronizar todas com o Mailchimp** (cria o campo LINKSENHA e aplica as tags).
 3. No Mailchimp, crie 3 jornadas em **Automações → Customer Journeys → Criar**, cada uma com
    o ponto de partida **Contact activity → Tag added** e um passo **Send email**.
-   Remetente: **Cacau Cosmo** · ola@cacaucosmo.com.br.
+   Remetente: **Cacau Cosmo** · ola@cacaucosmo.com.br (responder para: hello@cacaucosmo.com).
    Em cada jornada, deixe marcado que o contato só pode entrar **uma vez**.
 
 > Faça o passo 2 **antes** de ligar as jornadas. Senão, quem já foi aprovado antes recebe de novo o e-mail de aprovação, sem link.

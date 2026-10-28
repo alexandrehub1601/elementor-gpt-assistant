@@ -7,7 +7,7 @@
                    Vazio = abre o app de e-mail do visitante já preenchido.
    ============================================================ */
 window.CC_CONTACT = {
-  EMAIL: 'ola@cacaucosmo.com.br',
+  EMAIL: 'hello@cacaucosmo.com',
   WHATSAPP: '',
   FORM_ENDPOINT: '/wp-json/cacau/v1/contato'
 };

@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /* E-mail que recebe a cópia de cada mensagem. Vazio = só fica no painel. */
 if ( ! defined( 'CC_CONTATO_EMAIL' ) ) {
-	define( 'CC_CONTATO_EMAIL', 'ola@cacaucosmo.com.br' );
+	define( 'CC_CONTATO_EMAIL', 'hello@cacaucosmo.com' );
 }
 
 if ( ! defined( 'CC_MSG_CPT' ) ) {

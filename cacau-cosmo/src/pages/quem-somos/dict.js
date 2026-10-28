@@ -48,7 +48,8 @@ window.CC_DICT = {
   't-qs-next1-h2':      'Taste what time has made.',
   't-qs-next1-p':       'Origin bars, in small batches. When it’s gone, it’s gone.',
   't-qs-next1-cta':     'Go to the shop',
-  't-qs-next2-label':   'The Circle',
-  't-qs-next2-h2':      'The next ritual begins here.',
-  't-qs-next2-p':       'Small batches, letters from the Cosmos and invitations to what we’re creating.'
+  't-qs-next2-label':   'Journal',
+  't-qs-next2-h2':      'Letters from the Cosmos.',
+  't-qs-next2-p':       'Rituals, origin and the time of cacao, written for those already in the Circle.',
+  't-qs-next2-cta':     'Read the Journal'
 };

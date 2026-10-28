@@ -353,6 +353,28 @@ a.is-soon{cursor:default}
 .cart.is-soon{opacity:.55;position:relative}
 .cart.is-soon:hover{opacity:.85}
 
+/* ===== TOPO DA HOME: ENTRAR NO CÍRCULO + CONTA ============== */
+.hdr-circ{font-family:var(--font-body)!important;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;
+  color:var(--cc-navy)!important;background:var(--cc-pink);padding:11px 18px;border-radius:30px;white-space:nowrap;
+  text-decoration:none;transition:background .4s}
+.hdr-circ:hover{background:var(--cc-gold)}
+.hdr-user{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;
+  border:1px solid rgba(241,232,208,.35);color:var(--cc-cream);transition:border-color .4s,background .4s}
+.hdr-user:hover{border-color:var(--cc-cream);background:rgba(241,232,208,.08)}
+.hdr-user svg{width:18px;height:18px}
+.drawer__login{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px;position:relative;
+  font-size:10px;letter-spacing:.24em;text-transform:uppercase;opacity:.7;transition:opacity .4s}
+.drawer__login:hover{opacity:1}
+.drawer__login svg{width:16px;height:16px}
+@media (max-width:620px){
+  .topbar{grid-template-columns:auto 1fr auto}
+  .brand b{display:none}
+  .util{gap:8px}
+  .hdr-circ{font-size:9px;letter-spacing:.14em;padding:10px 12px}
+  .hdr-user{width:34px;height:34px}
+}
+
+
 /* ===== 7 - FOOTER ========================================== */
 .footer{background:var(--cc-paper);color:var(--cc-text-dark);
   padding:clamp(20px,2.2vw,34px) var(--pad);
@@ -480,6 +502,9 @@ a.is-soon{cursor:default}
   <symbol id="ic-bag" viewBox="0 0 24 24">
     <path fill="none" stroke="currentColor" stroke-width="1.4" d="M5 8h14l-1.2 13H6.2L5 8Zm3.4 0V6a3.6 3.6 0 0 1 7.2 0v2"/>
   </symbol>
+  <symbol id="ic-user" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.9-3.9 3.9-6 7.5-6s6.6 2.1 7.5 6"/></g>
+  </symbol>
   <symbol id="ic-ig" viewBox="0 0 24 24">
     <g fill="none" stroke="currentColor" stroke-width="1.4">
       <rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5"/><circle cx="12" cy="12" r="4"/>
@@ -506,8 +531,9 @@ a.is-soon{cursor:default}
       <button class="on" data-lang="pt" aria-pressed="true">PT</button>
       <button data-lang="en" aria-pressed="false">EN</button>
     </div>
-    <a href="#chocolate" class="cart is-soon js-soon" aria-label="Loja — em breve" title="Loja em breve">
-      <svg viewBox="0 0 24 24" style="width:17px;color:var(--cc-cream)"><use href="#ic-bag"></use></svg>
+    <a href="#circulo" class="hdr-circ js-hdr-circ" data-i18n="t-btncircle">Entrar no Círculo</a>
+    <a href="/minha-conta/" class="hdr-user" aria-label="Entrar na minha conta" title="Minha conta">
+      <svg viewBox="0 0 24 24"><use href="#ic-user"></use></svg>
     </a>
   </div>
 </header>
@@ -530,20 +556,18 @@ a.is-soon{cursor:default}
 
   <nav class="nav">
     <a href="#hero" data-i18n="t-nav-home">Home</a>
-    <a href="#chocolate" class="js-soon">
-    <a href="https://cacaucosmo.com.br/loja-soon/">  <span data-i18n="t-nav-shop">Shop</span></a>
-      <span class="badge-soon" data-i18n="t-soon">Em breve</span>
-    </a>
-    
-    <a href="/journal" data-i18n="t-nav-journal">Journal</a>
   </nav>
 
   <div class="drawer__rule"></div>
-  <a class="btn-circle" href="#circulo" data-i18n="t-btncircle">Entrar no Círculo</a>
+  <a class="btn-circle js-hdr-circ" href="#circulo" data-i18n="t-btncircle">Entrar no Círculo</a>
+  <a class="drawer__login" href="/minha-conta/">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-user"></use></svg>
+    <span data-i18n="t-login">Já faço parte · Entrar</span>
+  </a>
 
   <div class="drawer__links">
     <a href="https://instagram.com/cacaucosmo" target="_blank" rel="noopener">Instagram</a>
-    <a href="#contato" data-i18n="t-contact">Contato</a>
+    <a href="mailto:hello@cacaucosmo.com" style="text-transform:none;letter-spacing:.12em">hello@cacaucosmo.com</a>
   </div>
 
   <div class="drawer__quote">
@@ -892,7 +916,7 @@ a.is-soon{cursor:default}
     <a href="https://instagram.com/cacaucosmo" target="_blank" rel="noopener" aria-label="Instagram">
       <svg viewBox="0 0 24 24" style="width:15px;color:var(--cc-navy)"><use href="#ic-ig"></use></svg>
     </a>
-    <a href="mailto:ola@cacaucosmo.com.br" aria-label="Contato">
+    <a href="mailto:hello@cacaucosmo.com" aria-label="E-mail: hello@cacaucosmo.com">
       <svg viewBox="0 0 24 24" style="width:15px;color:var(--cc-navy)"><use href="#ic-star"></use></svg>
     </a>
   </div>
@@ -1004,6 +1028,17 @@ function ccFallback(img){
   document.getElementById('burger').addEventListener('click',function(){setTimeout(all,140)});
 })();
 
+/* ===== QUEM JÁ É DO CÍRCULO (logado) ======================== */
+(function(){
+  var U=window.CC_USER||{logado:document.body.classList.contains('logged-in')};
+  if(!U.logado) return;
+  document.querySelectorAll('.js-hdr-circ').forEach(function(a){
+    a.href='/loja/'; a.setAttribute('data-i18n','t-goshop'); a.textContent='Ir para a loja';
+  });
+  var l=document.querySelector('.drawer__login span');
+  if(l){ l.setAttribute('data-i18n','t-account'); l.textContent='Minha conta'; }
+})();
+
 /* ===== LOJA — "EM BREVE" ==================================== */
 (function(){
   document.querySelectorAll('.js-soon').forEach(function(a){
@@ -1017,6 +1052,9 @@ function ccFallback(img){
 
   var dict = {
     't-nav-home':       'Home',
+    't-login':          'Already a member · Log in',
+    't-account':        'My account',
+    't-goshop':         'Go to the shop',
     't-nav-shop':       'Shop',
     't-nav-brand':      'Cacau Cosmo',
     't-nav-journal':    'Journal',

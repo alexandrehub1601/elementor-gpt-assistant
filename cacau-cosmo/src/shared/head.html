@@ -126,6 +126,12 @@ body{margin:0;font-family:var(--font-mono);background:var(--cc-navy);color:var(-
 .cc-cartlink{opacity:.85;transition:opacity .4s;display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.14em}
 .cc-cartlink:hover{opacity:1}
 .cc-cartlink svg{width:17px;height:17px;color:var(--cc-cream)}
+.cc-acct{display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.85;transition:opacity .4s}
+.cc-acct:hover{opacity:1}
+.cc-acct svg{width:18px;height:18px;color:var(--cc-cream)}
+.cc-sair{font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.55;transition:opacity .4s;
+  padding-left:clamp(12px,1.6vw,26px);border-left:1px solid rgba(241,232,208,.25)}
+.cc-sair:hover{opacity:1}
 .cart__n{min-width:16px;height:16px;border-radius:8px;background:var(--cc-pink);color:var(--cc-navy);
   font-size:9px;font-weight:700;display:none;align-items:center;justify-content:center;padding:0 4px;letter-spacing:0}
 .cart__n.on{display:inline-flex}
@@ -170,6 +176,11 @@ body{margin:0;font-family:var(--font-mono);background:var(--cc-navy);color:var(-
   font-size:10px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;
   padding:16px 20px;position:relative;transition:background .5s var(--ease)}
 .btn-circle:hover{background:var(--cc-gold)}
+.btn-acct{display:flex;align-items:center;justify-content:center;gap:10px}
+.btn-acct svg{width:16px;height:16px}
+.drawer__sair{display:block;text-align:center;margin-top:14px;font-size:10px;letter-spacing:.26em;text-transform:uppercase;opacity:.62;transition:opacity .4s;position:relative}
+.drawer__sair:hover{opacity:1}
+.js-sair[hidden]{display:none!important}
 .drawer__links{display:flex;flex-direction:column;gap:8px;margin-top:clamp(24px,2.6vw,34px);position:relative}
 .drawer__links a{font-size:10px;letter-spacing:.26em;text-transform:uppercase;opacity:.62;transition:opacity .4s}
 .drawer__links a:hover{opacity:1}
@@ -232,6 +243,7 @@ body{margin:0;font-family:var(--font-mono);background:var(--cc-navy);color:var(-
 @media (max-width:620px){
   .drawer{width:100%;min-width:0;border-left:0}
   .util .lang{display:none}
+  .cc-acct span,.util .cc-sair{display:none}
   .cc .crumbs{white-space:normal;width:90%;text-align:center}
 }
 </style>

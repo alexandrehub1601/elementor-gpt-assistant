@@ -180,10 +180,10 @@ TRUST_HTML = """<!-- [ REVISAR ] confirme estas promessas antes de publicar -->
 
 CIRCLE_HTML = """<section class="cc-circle cc-band">
   <canvas class="stars" data-density="5600" aria-hidden="true"></canvas>
-  <p class="label" style="font-family:var(--font-mono);font-size:clamp(9px,.66vw,11px);letter-spacing:.36em;text-transform:uppercase;font-weight:600;color:var(--cc-gold)" data-i18n="t-circ-label">O Círculo</p>
-  <h2 data-i18n="t-circ-h2">O próximo ritual começa aqui.</h2>
-  <p data-i18n="t-circ-p">Pequenos lotes, cartas do Cosmo e convites para o que estamos criando.</p>
-  <a class="btn btn--pink" href="/#circulo" data-i18n="t-btncircle">Entrar no Círculo</a>
+  <p class="label" style="font-family:var(--font-mono);font-size:clamp(9px,.66vw,11px);letter-spacing:.36em;text-transform:uppercase;font-weight:600;color:var(--cc-gold)" data-i18n="t-circ-label">Journal</p>
+  <h2 data-i18n="t-circ-h2">Cartas do Cosmo.</h2>
+  <p data-i18n="t-circ-p">Rituais, origem e o tempo do cacau, escritos para quem já está no Círculo.</p>
+  <a class="btn btn--pink" href="/journal/" data-i18n="t-circ-cta">Ler o Journal</a>
 </section>"""
 
 FEATURE_HTML = """<section class="cc-feature">
@@ -207,8 +207,8 @@ SHOP_DICT = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
   't-feat-label': 'Nibs to bar', 't-feat-h2': 'Time is an ingredient.',
   't-feat-p': 'We start from cacao nibs and make every bar by hand, in small batches, at the pace chocolate asks for. Every bar carries the time it took to exist.',
   't-feat-cta': 'Meet Cacau Cosmo &mdash;',
-  't-circ-label': 'The Circle', 't-circ-h2': 'The next ritual begins here.',
-  't-circ-p': 'Small batches, letters from the Cosmos and invitations to what we\\u2019re creating.'
+  't-circ-label': 'Journal', 't-circ-h2': 'Letters from the Cosmos.',
+  't-circ-p': 'Rituals, origin and the time of cacao, written for those already in the Circle.', 't-circ-cta': 'Read the Journal'
 });
 """
 
@@ -768,8 +768,8 @@ SHARE_HTML = """<div class="cc-share">
 
 POST_JS = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
   't-share': 'Share', 't-related': 'Keep reading',
-  't-circ-label': 'The Circle', 't-circ-h2': 'The next ritual begins here.',
-  't-circ-p': 'Small batches, letters from the Cosmos and invitations to what we\\u2019re creating.'
+  't-circ-label': 'Journal', 't-circ-h2': 'Letters from the Cosmos.',
+  't-circ-p': 'Rituals, origin and the time of cacao, written for those already in the Circle.', 't-circ-cta': 'Read the Journal'
 });
 /* ===== COMPARTILHAR ======================================= */
 (function(){
@@ -836,8 +836,17 @@ def build_post():
     return export("post-journal", "Cacau Cosmo — Post do Journal (Single Post)", "single-post", content)
 
 
+# ---- PÁGINAS EM JSON (home, quem somos, contato) --------------------
+def build_pagina_json(slug, titulo):
+    t = Tpl(f"pg-{slug}")
+    content = [t.con("cc-root cc-pagina", [t.html(read(ROOT / "paginas" / f"{slug}.html"))])]
+    return export(f"pagina-{slug}", titulo, "page", content)
+
+
 if __name__ == "__main__":
     for slug in ("quem-somos", "contato"):
         print("ok", build_page(slug).relative_to(ROOT.parent))
     for fn in (build_loja, build_produto, build_carrinho, build_checkout, build_conta, build_post):
         print("ok", fn().relative_to(ROOT.parent))
+    for slug, titulo in (("home", "Cacau Cosmo — Home"), ("quem-somos", "Cacau Cosmo — Quem Somos"), ("contato", "Cacau Cosmo — Contato")):
+        print("ok", build_pagina_json(slug, titulo).relative_to(ROOT.parent))

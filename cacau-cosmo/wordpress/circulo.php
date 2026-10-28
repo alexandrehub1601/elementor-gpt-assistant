@@ -36,7 +36,7 @@ if ( ! defined( 'CC_CIRCULO_IDADE_MIN' ) ) {
 }
 /* E-mail que recebe o aviso de cada solicitação (vazio = não envia). */
 if ( ! defined( 'CC_CIRCULO_EMAIL_AVISO' ) ) {
-	define( 'CC_CIRCULO_EMAIL_AVISO', 'ola@cacaucosmo.com.br' );
+	define( 'CC_CIRCULO_EMAIL_AVISO', 'hello@cacaucosmo.com' );
 }
 /* Páginas abertas para todo mundo, além da Home (slugs). */
 if ( ! defined( 'CC_CIRCULO_PAGINAS_LIVRES' ) ) {
@@ -49,6 +49,10 @@ if ( ! defined( 'CC_EMAIL_NOME' ) ) {
 }
 if ( ! defined( 'CC_EMAIL_DE' ) ) {
 	define( 'CC_EMAIL_DE', 'ola@cacaucosmo.com.br' );
+}
+/* quando a pessoa clica em "Responder", a resposta vai para o e-mail de contato */
+if ( ! defined( 'CC_EMAIL_RESPONDER' ) ) {
+	define( 'CC_EMAIL_RESPONDER', 'hello@cacaucosmo.com' );
 }
 /* true = os e-mails de cadastro, aprovação e lista de espera saem pelo Mailchimp
    (Customer Journeys disparadas pelas tags). false = saem pelo WordPress. */
@@ -452,12 +456,21 @@ function cc_circulo_enviar( $para, $assunto, $titulo, $corpo, $id = 0, $tipo = '
 		return true;
 	}
 	$ok = wp_mail( $para, $assunto, cc_circulo_email_html( $titulo, $corpo ),
-		array( 'Content-Type: text/html; charset=UTF-8', cc_circulo_remetente() ) );
+		array( 'Content-Type: text/html; charset=UTF-8', cc_circulo_remetente(), 'Reply-To: ' . CC_EMAIL_NOME . ' <' . CC_EMAIL_RESPONDER . '>' ) );
 	if ( $id && $tipo ) {
 		update_post_meta( $id, '_cc_email_' . $tipo, ( $ok ? '' : 'FALHOU ' ) . current_time( 'd/m/Y H:i' ) );
 	}
 	return $ok;
 }
+
+/* O topo das páginas usa isto para mostrar "Minha conta / Sair" (com o link de sair já assinado) */
+add_action( 'wp_head', function () {
+	$u = array( 'logado' => is_user_logged_in() );
+	if ( $u['logado'] ) {
+		$u['sair'] = wp_logout_url( home_url( '/' ) );
+	}
+	echo '<script>window.CC_USER=' . wp_json_encode( $u ) . ';</script>' . "\n";
+}, 1 );
 
 /* Todos os e-mails do site que sairiam como "WordPress" passam a sair como Cacau Cosmo */
 add_filter( 'wp_mail_from_name', function ( $nome ) {

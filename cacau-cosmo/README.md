@@ -162,7 +162,7 @@ Para baixar de novo (por exemplo, se entrarem posts novos lá), rode `python3 ca
 
 ## Topo: home x páginas internas
 
-- **Home** (`elementor/pagina-home.json`, ou o HTML em `paginas/home.html`): menu só com **Home**, botão **Entrar no Círculo** (leva ao formulário) e ícone de pessoa (login em `/minha-conta/`). Para quem já está logado o botão vira **Ir para a loja**.
+- **Home** (`elementor/pagina-home.json`, ou o HTML em `paginas/home.html`): menu só com **Home**, botão **Entrar no Círculo** (leva ao formulário) e ícone de pessoa (login em `/minha-conta/`). O botão vai sempre para o formulário do Círculo. Seções tiradas: "Chocolate, from another universe" e os links "Conheça nossa origem" e "Conheça a história".
 - **Páginas internas** (loja, produto, carrinho, checkout, conta, journal, Quem Somos, Contato): no topo e no menu lateral, **Minha conta** e **Sair**. Sem nenhum "Entrar no Círculo": a faixa que convidava para o Círculo virou um convite para o Journal.
 - O link **Sair** já vem assinado pelo WordPress (sai direto, sem tela de confirmação). Isso vem do `circulo.php` (`window.CC_USER`), então cole a versão nova no WPCode.
 - E-mail de contato: **hello@cacaucosmo.com**. O remetente técnico continua `CC_EMAIL_DE`, porque o envio sai do servidor do `.com.br`.

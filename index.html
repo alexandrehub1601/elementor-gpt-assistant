@@ -543,6 +543,28 @@ button{font:inherit;color:inherit}
 .footer__legal a{display:inline-flex;align-items:center;min-height:44px;color:rgba(255,255,255,.9);text-decoration:none}
 .footer__legal a:hover{text-decoration:underline;color:#fff}
 .footer__legal .sep{opacity:.5}
+
+/* =========================================================
+   DEFESA CONTRA O CSS DO TEMA
+   Colada num widget HTML do WordPress, a pagina disputa com regras como
+   `.elementor img{height:auto;max-width:100%}` e `img{height:auto}`, que tem
+   especificidade maior e desmontam as imagens dimensionadas por CSS: o logo
+   volta ao tamanho natural e as fotos perdem o preenchimento da caixa.
+   So estas quatro imagens dependem de CSS para ter tamanho; o resto da
+   folha nao precisa de reforco.
+   ========================================================= */
+.header .brand__logo{height:68px!important;width:auto!important;max-width:none!important}
+.header.is-scrolled .brand__logo{height:56px!important}
+.footer .brand__logo{height:86px!important;width:auto!important;max-width:none!important}
+@media (max-width:760px){
+  .header .brand__logo{height:56px!important}
+  .header.is-scrolled .brand__logo{height:48px!important}
+}
+.hero__bg img,
+.card__art .card__photo,
+.store__photo img{
+  width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;
+}
 </style>
 </head>
 

@@ -7,7 +7,7 @@
  *  2. Formulário "Entrar no Círculo": nome, e-mail, WhatsApp, Instagram, estado, cidade, idade.
  *  3. Confirmação na tela.
  *  4. Aviso no WhatsApp (Nicole e Isa) + e-mail; contato salvo aqui e no Mailchimp.
- *  5. Não aprovada  -> e-mail gentil, fica na lista de espera.
+ *  5. Não aprovada  -> e-mail "Sua solicitação não foi aprovada".
  *  6. Aprovada      -> cria o login e envia "Você foi selecionada" com link para criar a senha.
  *  7. Membro logado acessa tudo.
  *  9. Pedido pago   -> aviso no WhatsApp da Nicole com os dados de envio.
@@ -54,11 +54,8 @@ if ( ! defined( 'CC_EMAIL_DE' ) ) {
 if ( ! defined( 'CC_EMAIL_RESPONDER' ) ) {
 	define( 'CC_EMAIL_RESPONDER', 'hello@cacaucosmo.com' );
 }
-/* true = os e-mails de cadastro, aprovação e lista de espera saem pelo Mailchimp
-   (Customer Journeys disparadas pelas tags). false = saem pelo WordPress. */
-if ( ! defined( 'CC_EMAILS_PELO_MAILCHIMP' ) ) {
-	define( 'CC_EMAILS_PELO_MAILCHIMP', false );
-}
+/* Os 3 e-mails (solicitação enviada, aprovada, não aprovada) saem direto do WordPress.
+   O Mailchimp recebe os dados e a situação de cada pessoa, mas não envia esses e-mails. */
 
 /* Mailchimp: Perfil → Extras → Chaves de API → "Criar chave". Cole a chave inteira
    (termina em -us22). O ID da audiência já é o do formulário atual da Home. */
@@ -105,7 +102,7 @@ if ( ! defined( 'CC_CIRCULO_CPT' ) ) {
 	define( 'CC_CIRCULO_STATUS', array(
 		'pendente'  => 'Aguardando',
 		'aprovada'  => 'Aprovada',
-		'espera'    => 'Lista de espera',
+		'espera'    => 'Não aprovada',
 	) );
 	define( 'CC_UFS', array(
 		'AC' => 'Acre', 'AL' => 'Alagoas', 'AP' => 'Amapá', 'AM' => 'Amazonas', 'BA' => 'Bahia', 'CE' => 'Ceará',
@@ -263,7 +260,7 @@ function cc_circulo_receber( WP_REST_Request $req ) {
 	}
 	update_post_meta( $id, '_cc_consentimento', current_time( 'mysql' ) . ' · IP ' . $ip );
 
-	cc_circulo_mailchimp( $id, $existente ? array() : array( 'circulo-pendente' => 'active', 'circulo-site' => 'active' ) );
+	cc_circulo_mailchimp( $id, cc_circulo_tags_do_status( $id ) );
 
 	if ( ! $existente ) {
 		cc_circulo_email_recebida( $id );
@@ -307,7 +304,7 @@ function cc_mc_req( $metodo, $caminho, $corpo = null ) {
 
 /* Cria na audiência os campos que o formulário usa (uma vez só). */
 function cc_mc_campos() {
-	if ( get_option( 'cc_mc_campos_v2' ) === CC_MC_LIST_ID ) {
+	if ( get_option( 'cc_mc_campos_v3' ) === CC_MC_LIST_ID ) {
 		return;
 	}
 	$atuais = cc_mc_req( 'GET', '/lists/' . CC_MC_LIST_ID . '/merge-fields?count=100&fields=merge_fields.tag' );
@@ -316,13 +313,14 @@ function cc_mc_campos() {
 	}
 	$tem = wp_list_pluck( isset( $atuais['merge_fields'] ) ? $atuais['merge_fields'] : array(), 'tag' );
 	$quer = array( 'FNAME' => 'Nome', 'WHATSAPP' => 'WhatsApp', 'INSTAGRAM' => 'Instagram',
-		'ESTADO' => 'Estado', 'CIDADE' => 'Cidade', 'IDADE' => 'Idade', 'LINKSENHA' => 'Link para criar senha' );
+		'ESTADO' => 'Estado', 'CIDADE' => 'Cidade', 'IDADE' => 'Idade', 'LINKSENHA' => 'Link para criar senha',
+		'SITUACAO' => 'Situação no Círculo', 'DATACIRC' => 'Data da solicitação' );
 	foreach ( $quer as $tag => $nome ) {
 		if ( ! in_array( $tag, $tem, true ) ) {
 			cc_mc_req( 'POST', '/lists/' . CC_MC_LIST_ID . '/merge-fields', array( 'tag' => $tag, 'name' => $nome, 'type' => 'text' ) );
 		}
 	}
-	update_option( 'cc_mc_campos_v2', CC_MC_LIST_ID, false );
+	update_option( 'cc_mc_campos_v3', CC_MC_LIST_ID, false );
 }
 
 function cc_circulo_tags_do_status( $id ) {
@@ -331,7 +329,8 @@ function cc_circulo_tags_do_status( $id ) {
 		'circulo-site'     => 'active',
 		'circulo-pendente' => 'pendente' === $s ? 'active' : 'inactive',
 		'circulo-aprovada' => 'aprovada' === $s ? 'active' : 'inactive',
-		'circulo-espera'   => 'espera' === $s ? 'active' : 'inactive',
+		'circulo-nao-aprovada' => 'espera' === $s ? 'active' : 'inactive',
+		'circulo-espera'   => 'inactive',
 	);
 }
 
@@ -354,6 +353,8 @@ function cc_circulo_mailchimp( $id, $tags = array() ) {
 			'CIDADE'    => cc_circulo_get( $id, 'cidade' ),
 			'IDADE'     => cc_circulo_get( $id, 'idade' ),
 			'LINKSENHA' => cc_circulo_get( $id, 'link' ),
+			'SITUACAO'  => CC_CIRCULO_STATUS[ cc_circulo_status( $id ) ],
+			'DATACIRC'  => get_the_date( 'd/m/Y', $id ),
 		),
 	) );
 	if ( ! is_wp_error( $r ) && $tags ) {
@@ -448,13 +449,6 @@ function cc_circulo_remetente() {
 }
 
 function cc_circulo_enviar( $para, $assunto, $titulo, $corpo, $id = 0, $tipo = '' ) {
-	if ( CC_EMAILS_PELO_MAILCHIMP && $tipo ) {
-		/* quem envia é a jornada do Mailchimp, disparada pela tag */
-		if ( $id ) {
-			update_post_meta( $id, '_cc_email_' . $tipo, 'pelo Mailchimp ' . current_time( 'd/m/Y H:i' ) );
-		}
-		return true;
-	}
 	$ok = wp_mail( $para, $assunto, cc_circulo_email_html( $titulo, $corpo ),
 		array( 'Content-Type: text/html; charset=UTF-8', cc_circulo_remetente(), 'Reply-To: ' . CC_EMAIL_NOME . ' <' . CC_EMAIL_RESPONDER . '>' ) );
 	if ( $id && $tipo ) {
@@ -509,15 +503,16 @@ function cc_circulo_email_aprovada( $id, $user ) {
 	return cc_circulo_enviar( $user->user_email, 'Você foi selecionada para o Círculo ✦', 'Você foi selecionada.', $corpo, $id, 'aprovada' );
 }
 
-/* [ TEXTO A DEFINIR ] e-mail de lista de espera — ajuste à vontade */
-function cc_circulo_email_espera( $id ) {
+/* [ TEXTO ] e-mail de solicitação não aprovada — ajuste à vontade */
+function cc_circulo_email_recusada( $id ) {
 	$nome  = esc_html( strtok( cc_circulo_get( $id, 'nome' ), ' ' ) );
 	$corpo = '<p>Olá, ' . $nome . '.</p>' .
-		'<p>Obrigada por querer fazer parte do Círculo. Cada lote nosso é pequeno, feito à mão e no tempo do cacau &mdash; por isso as vagas também são poucas.</p>' .
-		'<p>Neste momento não conseguimos abrir espaço para todo mundo, mas <strong>seu nome ficou na nossa lista de espera</strong>. Quando abrirmos novas vagas, você estará entre as primeiras pessoas a saber.</p>' .
+		'<p>Obrigada por querer fazer parte do <strong>Círculo</strong> e pelo carinho com a Cacau Cosmo.</p>' .
+		'<p>Lemos sua solicitação com atenção e, desta vez, <strong>ela não foi aprovada</strong>. Nossos lotes são pequenos, feitos à mão e no tempo do cacau, e por isso o Círculo abre poucas vagas a cada ciclo.</p>' .
+		'<p>Isso não fecha a porta: quando abrirmos novas vagas, você pode fazer uma nova solicitação pelo site.</p>' .
 		'<p>Enquanto isso, acompanhe o que estamos criando no Instagram: <a href="https://instagram.com/cacaucosmo" style="color:#4A2C1D">@cacaucosmo</a>.</p>' .
 		'<p>Com carinho,<br>Cacau Cosmo</p>';
-	return cc_circulo_enviar( cc_circulo_get( $id, 'email' ), 'Sua solicitação para o Círculo', 'Você está na nossa lista.', $corpo, $id, 'espera' );
+	return cc_circulo_enviar( cc_circulo_get( $id, 'email' ), 'Sobre sua solicitação para o Círculo', 'Sua solicitação não foi aprovada.', $corpo, $id, 'espera' );
 }
 
 /* =====================================================================
@@ -563,7 +558,7 @@ function cc_circulo_aprovar( $id ) {
 	update_post_meta( $id, '_cc_user', $user->ID );
 	cc_circulo_historico( $id, 'Aprovada' );
 	cc_circulo_email_aprovada( $id, $user );
-	cc_circulo_mailchimp( $id, array( 'circulo-aprovada' => 'active', 'circulo-pendente' => 'inactive', 'circulo-espera' => 'inactive' ) );
+	cc_circulo_mailchimp( $id, cc_circulo_tags_do_status( $id ) );
 	return true;
 }
 
@@ -573,9 +568,9 @@ function cc_circulo_recusar( $id ) {
 	if ( $uid ) {
 		delete_user_meta( $uid, 'cc_circulo_membro' );
 	}
-	cc_circulo_historico( $id, 'Lista de espera' );
-	cc_circulo_email_espera( $id );
-	cc_circulo_mailchimp( $id, array( 'circulo-espera' => 'active', 'circulo-pendente' => 'inactive', 'circulo-aprovada' => 'inactive' ) );
+	cc_circulo_historico( $id, 'Não aprovada' );
+	cc_circulo_email_recusada( $id );
+	cc_circulo_mailchimp( $id, cc_circulo_tags_do_status( $id ) );
 	return true;
 }
 
@@ -611,7 +606,7 @@ add_action( 'admin_notices', function () {
 	}
 	$m = array(
 		'aprovar'  => 'Aprovada! O login foi criado e o e-mail "Você foi selecionada" foi enviado.',
-		'recusar'  => 'Enviada para a lista de espera. O e-mail de retorno foi enviado.',
+		'recusar'  => 'Marcada como não aprovada. O e-mail "Sua solicitação não foi aprovada" foi enviado.',
 		'reenviar' => 'E-mail de aprovação reenviado.',
 		'erro'     => 'Não foi possível concluir. Verifique se o e-mail já pertence a outro usuário.',
 		'mailchimp' => 'Enviado para o Mailchimp. Veja o resultado de cada pessoa na coluna "Envios".',
@@ -677,7 +672,7 @@ add_action( 'manage_' . CC_CIRCULO_CPT . '_posts_custom_column', function ( $col
 			$mc  = cc_circulo_get( $id, 'mc' );
 			$cor = 'ok' === $mc ? '#2f6b45' : ( $mc ? '#a3404f' : '#888' );
 			echo '<span style="color:' . esc_attr( $cor ) . '" title="' . esc_attr( $mc ) . '">Mailchimp: ' . esc_html( 'ok' === $mc ? 'ok' : ( $mc ? 'erro' : '—' ) ) . '</span><br>';
-			foreach ( array( 'recebida' => 'Cadastro', 'aprovada' => 'Aprovação', 'espera' => 'Lista de espera' ) as $tipo => $rotulo ) {
+			foreach ( array( 'recebida' => 'Cadastro', 'aprovada' => 'Aprovação', 'espera' => 'Não aprovada' ) as $tipo => $rotulo ) {
 				$quando = cc_circulo_get( $id, 'email_' . $tipo );
 				if ( $quando ) {
 					$falhou = 0 === strpos( $quando, 'FALHOU' );
@@ -700,7 +695,7 @@ add_filter( 'post_row_actions', function ( $acoes, $post ) {
 	}
 	if ( 'espera' !== $s ) {
 		$novas['cc_recusar'] = '<a style="color:#a3404f" href="' . esc_url( cc_circulo_url_acao( $post->ID, 'recusar' ) ) .
-			'" onclick="return confirm(\'Enviar para a lista de espera? A pessoa recebe o e-mail de retorno.\')">Não aprovar</a>';
+			'" onclick="return confirm(\'Não aprovar? A pessoa recebe o e-mail avisando.\')">Não aprovar</a>';
 	}
 	if ( isset( $acoes['trash'] ) ) {
 		$novas['trash'] = $acoes['trash'];
@@ -708,7 +703,7 @@ add_filter( 'post_row_actions', function ( $acoes, $post ) {
 	return $novas;
 }, 10, 2 );
 
-/* Filtros por status (Aguardando / Aprovadas / Lista de espera) */
+/* Filtros por status (Aguardando / Aprovadas / Não aprovadas) */
 add_filter( 'views_edit-' . CC_CIRCULO_CPT, function ( $views ) {
 	$atual = isset( $_GET['cc_status'] ) ? sanitize_key( $_GET['cc_status'] ) : '';
 	$base  = admin_url( 'edit.php?post_type=' . CC_CIRCULO_CPT );
@@ -752,7 +747,7 @@ add_action( 'pre_get_posts', function ( $q ) {
 add_filter( 'bulk_actions-edit-' . CC_CIRCULO_CPT, function ( $a ) {
 	return array(
 		'cc_aprovar'   => 'Aprovar',
-		'cc_recusar'   => 'Não aprovar (lista de espera)',
+		'cc_recusar'   => 'Não aprovar',
 		'cc_mailchimp' => 'Enviar para o Mailchimp',
 		'cc_recebida'  => 'Enviar e-mail de cadastro recebido',
 	) + $a;
@@ -822,7 +817,7 @@ function cc_circulo_box( $post ) {
 	echo '<tr><th><strong>Recebida em</strong></th><td>' . esc_html( get_the_date( 'd/m/Y \à\s H:i', $post ) ) . '</td></tr>';
 	echo '<tr><th><strong>Consentimento</strong></th><td>' . esc_html( cc_circulo_get( $post->ID, 'consentimento' ) ) . '</td></tr>';
 	echo '<tr><th><strong>Mailchimp</strong></th><td>' . esc_html( cc_circulo_get( $post->ID, 'mc' ) ) . '</td></tr>';
-	foreach ( array( 'recebida' => 'E-mail de cadastro', 'aprovada' => 'E-mail de aprovação', 'espera' => 'E-mail de lista de espera' ) as $tipo => $rotulo ) {
+	foreach ( array( 'recebida' => 'E-mail de cadastro', 'aprovada' => 'E-mail de aprovação', 'espera' => 'E-mail de não aprovada' ) as $tipo => $rotulo ) {
 		$q = cc_circulo_get( $post->ID, 'email_' . $tipo );
 		if ( $q ) {
 			echo '<tr><th><strong>' . esc_html( $rotulo ) . '</strong></th><td>' . esc_html( $q ) . '</td></tr>';
@@ -845,7 +840,7 @@ function cc_circulo_box_acoes( $post ) {
 	}
 	if ( 'espera' !== $s ) {
 		echo '<p><a class="button" style="width:100%;text-align:center;color:#a3404f;border-color:#a3404f" href="' . esc_url( cc_circulo_url_acao( $post->ID, 'recusar' ) ) .
-			'" onclick="return confirm(\'Enviar para a lista de espera? A pessoa recebe o e-mail de retorno.\')">Não aprovar (lista de espera)</a></p>';
+			'" onclick="return confirm(\'Não aprovar? A pessoa recebe o e-mail avisando.\')">Não aprovar</a></p>';
 	}
 	echo '<p><a href="' . esc_url( admin_url( 'edit.php?post_type=' . CC_CIRCULO_CPT ) ) . '">← Voltar para a lista</a></p>';
 }

@@ -308,20 +308,141 @@ PROD_DICT = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
 """
 
 
+# ---- PRODUTO EM 3D (céu e caixa de cada astro) -----------------------
+SKY_HTML = '<div class="cc-sky__in"><canvas class="cc-sky__c" aria-hidden="true"></canvas></div>'
+
+VIEWER_HTML = """<div class="cc3d" id="cc3d" aria-label="Caixa em 3D">
+  <div class="cc3d__stage" id="cc3dStage">
+    <div class="cc3d__shadow" aria-hidden="true"></div>
+    <div class="cc3d__box" id="cc3dBox">
+      <div class="cc3d__f fr" data-k="frente"></div><div class="cc3d__f bk" data-k="verso"></div>
+      <div class="cc3d__f lf" data-k="esquerda"></div><div class="cc3d__f rt" data-k="direita"></div>
+      <div class="cc3d__f tp" data-k="topo"></div><div class="cc3d__f bt" data-k="base"></div>
+    </div>
+  </div>
+  <div class="cc3d__inside" id="cc3dInside" hidden role="img"></div>
+  <p class="cc3d__hint" id="cc3dHint" data-i18n="t-3d-hint">Arraste a caixa para girar</p>
+  <div class="cc3d__views" role="group" aria-label="Vistas da caixa">
+    <button type="button" data-v="front" aria-pressed="true" data-i18n="t-3d-fr">Frente</button>
+    <button type="button" data-v="left" data-i18n="t-3d-lf">Lateral</button>
+    <button type="button" data-v="back" data-i18n="t-3d-bk">Verso</button>
+    <button type="button" data-v="right" data-i18n="t-3d-rt">Outro lado</button>
+    <button type="button" data-v="top" data-i18n="t-3d-tp">Topo</button>
+    <button type="button" data-v="inside" data-i18n="t-3d-in">Por dentro</button>
+  </div>
+</div>"""
+
+ESCOLHA_HTML = """<div class="cc-escolha" id="ccEscolha" hidden>
+  <div class="cc-escolha__linha"><span data-i18n="t-3d-astro">Astro</span>
+    <a data-a="lua" href="#">Lua</a><a data-a="sol" href="#">Sol</a><a data-a="saturno" href="#">Saturno</a></div>
+  <div class="cc-escolha__linha"><span data-i18n="t-3d-peso">Tamanho</span>
+    <a data-p="33" href="#">33 g</a><a data-p="100" href="#">100 g</a></div>
+</div>"""
+
+PROD_3D_JS = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
+  't-3d-hint': 'Drag the box to rotate', 't-3d-fr': 'Front', 't-3d-lf': 'Side', 't-3d-bk': 'Back', 't-3d-rt': 'Other side',
+  't-3d-tp': 'Top', 't-3d-in': 'Inside', 't-3d-astro': 'Star', 't-3d-peso': 'Size'
+});
+/* ===== PRODUTO NO CÉU DO ASTRO + CAIXA 3D ==================
+   Astro e tamanho vêm do endereço (/produto/lua-100-33g/) ou do título.
+   As faces da caixa são as imagens "cc3d-<astro>-<face>" da Biblioteca de Mídia. */
+(function(){
+  var prod=document.querySelector('.cc-prod'); if(!prod) return;
+  var ASTROS={
+    lua:{pct:'100',sky:'#030303',glow:'#1c1c22'},
+    sol:{pct:'70',sky:'#3a2108',glow:'#7a4a14',esgotado:true},
+    saturno:{pct:'47',sky:'#00062E',glow:'#0d1450'}
+  };
+  var m=location.pathname.match(/\\/(lua|sol|saturno)-\\d+-(33|100)g\\/?$/), astro, peso;
+  if(m){ astro=m[1]; peso=m[2]; }
+  else{
+    var tt=((document.querySelector('.product_title')||{}).textContent||'').toLowerCase();
+    astro=/\\blua\\b/.test(tt)?'lua':/\\bsol\\b/.test(tt)?'sol':/saturno/.test(tt)?'saturno':null;
+    peso=/100\\s*g/.test(tt)?'100':'33';
+  }
+  if(!astro) return;
+  var A=ASTROS[astro];
+  document.body.classList.add('cc-astro-'+astro,'cc-p'+peso);
+
+  /* céu estrelado */
+  var c=prod.querySelector('.cc-sky__c');
+  function ceu(){
+    if(!c) return; var r=prod.getBoundingClientRect(), d=Math.min(devicePixelRatio||1,2), x=c.getContext('2d');
+    c.width=r.width*d; c.height=r.height*d; x.setTransform(d,0,0,d,0,0); x.clearRect(0,0,r.width,r.height);
+    var s=7, rnd=function(){ return (s=(s*16807)%2147483647)/2147483647; };
+    for(var i=0;i<r.width*r.height/2600;i++){ x.globalAlpha=.25+rnd()*.65; x.fillStyle=rnd()>.85?'#C9A86A':'#EFE6D2';
+      x.beginPath(); x.arc(rnd()*r.width,rnd()*r.height,rnd()*1.3+.3,0,7); x.fill(); }
+    x.globalAlpha=1;
+  }
+  ceu(); addEventListener('load',ceu); var to; addEventListener('resize',function(){ clearTimeout(to); to=setTimeout(ceu,200); });
+
+  /* trocar de astro e de tamanho */
+  var esc=document.getElementById('ccEscolha');
+  if(esc){
+    var info=prod.querySelector('.cc-prod-info .product_title');
+    var alvo=info&&info.closest('.elementor-element'); if(alvo) alvo.after(esc.closest('.elementor-element')||esc);
+    esc.hidden=false;
+    esc.querySelectorAll('[data-a]').forEach(function(a){ var k=a.dataset.a;
+      a.href='/produto/'+k+'-'+ASTROS[k].pct+'-'+peso+'g/'; a.setAttribute('aria-current',String(k===astro)); if(ASTROS[k].esgotado) a.classList.add('esgotado'); });
+    esc.querySelectorAll('[data-p]').forEach(function(a){ var p=a.dataset.p;
+      a.href='/produto/'+astro+'-'+A.pct+'-'+p+'g/'; a.setAttribute('aria-current',String(p===peso)); });
+  }
+
+  /* caixa 3D */
+  var viewer=document.getElementById('cc3d'); if(!viewer||!window.fetch) return;
+  var box=document.getElementById('cc3dBox'), stage=document.getElementById('cc3dStage'),
+      inside=document.getElementById('cc3dInside'), hint=document.getElementById('cc3dHint');
+  var FACES=['frente','verso','esquerda','direita','topo','base','tampa'];
+  fetch('/wp-json/wp/v2/media?search=cc3d-'+astro+'&per_page=30&_fields=source_url',{credentials:'same-origin'})
+    .then(function(r){ return r.ok?r.json():[]; })
+    .then(function(lista){
+      var tex={};
+      (lista||[]).forEach(function(m){
+        var f=(m.source_url||'').split('/').pop().match(new RegExp('^cc3d-'+astro+'-(frente|verso|esquerda|direita|topo|base|tampa)(?:-\\\\d+)?\\\\.(jpe?g|png|webp)$','i'));
+        if(f&&!tex[f[1]]) tex[f[1]]=m.source_url;
+      });
+      if(FACES.slice(0,6).some(function(k){ return !tex[k]; })) return;      /* faltam faces: fica a galeria */
+      box.querySelectorAll('.cc3d__f').forEach(function(f){ f.style.backgroundImage='url('+tex[f.dataset.k]+')'; });
+      if(tex.tampa) inside.style.backgroundImage='url('+tex.tampa+')';
+      else viewer.querySelector('[data-v="inside"]').remove();
+      viewer.classList.add('on');
+    }).catch(function(){});
+
+  var V={front:[-14,-28],left:[-10,62],back:[-14,152],right:[-10,-118],top:[-58,-24]}, rx=-14, ry=-28, drag=null;
+  function aplica(){ box.style.transform='rotateX('+rx+'deg) rotateY('+ry+'deg)'; }
+  function marca(v){ viewer.querySelectorAll('[data-v]').forEach(function(b){ b.setAttribute('aria-pressed',String(b.dataset.v===v)); }); }
+  function vista(v){
+    marca(v); var dentro=v==='inside'; inside.hidden=!dentro; stage.hidden=dentro; hint.hidden=dentro;
+    if(!dentro){ rx=V[v][0]; ry=V[v][1]; aplica(); }
+  }
+  viewer.querySelectorAll('[data-v]').forEach(function(b){ b.addEventListener('click',function(){ vista(b.dataset.v); }); });
+  stage.addEventListener('pointerdown',function(e){ drag={x:e.clientX,y:e.clientY,rx:rx,ry:ry}; box.classList.add('drag'); stage.setPointerCapture(e.pointerId); });
+  stage.addEventListener('pointermove',function(e){ if(!drag) return; ry=drag.ry+(e.clientX-drag.x)*.5;
+    rx=Math.max(-80,Math.min(80,drag.rx-(e.clientY-drag.y)*.4)); aplica(); });
+  function solta(){ if(!drag) return; drag=null; box.classList.remove('drag'); marca(''); }
+  stage.addEventListener('pointerup',solta); stage.addEventListener('pointercancel',solta);
+  aplica();
+})();
+"""
+
+
 def build_produto():
     t = Tpl("produto")
     content = [t.con("cc cc-root", [
-        t.html(tpl_header(read("elementor/produto.css")), "cc-header"),
+        t.html(tpl_header(read("elementor/produto.css") + "\n" + read("elementor/produto-3d.css")), "cc-header"),
         t.con("cc-prod", [
+            t.html(SKY_HTML, "cc-sky"),
             t.con("cc-crumbs", [t.w("woocommerce-breadcrumb")]),
             t.w("woocommerce-notices"),
             t.con("cc-prod-grid", [
                 t.con("cc-prod-gallery", [
+                    t.html(VIEWER_HTML, "cc-3d"),
                     t.w("woocommerce-product-images", {"sale_flash": "yes"}),
                 ]),
                 t.con("cc-prod-info", [
                     t.dyn_heading("post-terms", {"taxonomy": "product_cat", "separator": " · ", "link": ""}, "p", "cc-label"),
                     t.w("woocommerce-product-title", {"header_size": "h1"}),
+                    t.html(ESCOLHA_HTML, "cc-escolha-w"),
                     t.w("woocommerce-product-rating"),
                     t.w("woocommerce-product-price"),
                     t.w("woocommerce-product-short-description"),
@@ -338,7 +459,7 @@ def build_produto():
             t.w("woocommerce-product-upsell", {"columns": "4", "orderby": "date", "order": "desc"}),
             t.w("woocommerce-product-related", {"posts_per_page": 4, "columns": "4", "orderby": "rand", "order": "desc"}),
         ]),
-        t.html(tpl_footer(PROD_DICT + WOO_CARDS_JS + PROD_JS), "cc-footer"),
+        t.html(tpl_footer(PROD_DICT + WOO_CARDS_JS + PROD_JS + PROD_3D_JS), "cc-footer"),
     ])]
     return export("produto-woocommerce", "Cacau Cosmo — Produto (Single Product)", "product", content)
 

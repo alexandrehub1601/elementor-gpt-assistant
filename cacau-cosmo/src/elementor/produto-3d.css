@@ -1,0 +1,101 @@
+/* ===== PRODUTO NO CÉU DE CADA ASTRO (igual à Coleção 3D) ====
+   As cores vêm do astro da página: Saturno azul, Lua quase preta, Sol âmbar. */
+:root{--sky:#00062E;--glow:#0d1450}
+body.cc-astro-saturno{--sky:#00062E;--glow:#0d1450}
+body.cc-astro-lua{--sky:#030303;--glow:#1c1c22}
+body.cc-astro-sol{--sky:#3a2108;--glow:#7a4a14}
+
+.elementor .cc-prod.e-con{background:radial-gradient(70% 60% at 50% 42%,var(--glow) 0%,var(--sky) 100%)!important;position:relative;overflow:hidden}
+.cc-prod>.cc-sky{position:absolute!important;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;margin:0!important;max-width:none!important}
+.cc-prod>.cc-sky canvas{display:block;width:100%;height:100%}
+.cc-prod>.elementor-element:not(.cc-sky){position:relative;z-index:1}
+body[class*="cc-astro-"] .topbar.solid{background:color-mix(in srgb,var(--sky) 92%,transparent)}
+body[class*="cc-astro-"] .drawer{background:var(--sky)}
+
+/* abas, ritual e informação nutricional no mesmo céu */
+body[class*="cc-astro-"] .elementor .cc-tabs.e-con{background:var(--sky)!important}
+body[class*="cc-astro-"] .cc-root .woocommerce-tabs ul.tabs{border-color:rgba(239,230,210,.18)}
+body[class*="cc-astro-"] .cc-root .woocommerce-tabs ul.tabs li a{color:#EFE6D2!important}
+body[class*="cc-astro-"] .cc-root .woocommerce-tabs ul.tabs li.active a,
+body[class*="cc-astro-"] .cc-root .woocommerce-tabs ul.tabs li a:hover{border-bottom-color:#EFE6D2}
+body[class*="cc-astro-"] .cc-root .woocommerce-Tabs-panel,body[class*="cc-astro-"] .cc-root .woocommerce-Tabs-panel *{color:#EFE6D2}
+body[class*="cc-astro-"] .cc-root .woocommerce-Tabs-panel a{color:var(--cc-pink)!important}
+body[class*="cc-astro-"] .cc-root table.cc-nutri{border-color:rgba(239,230,210,.28)!important}
+body[class*="cc-astro-"] .cc-root table.cc-nutri th,body[class*="cc-astro-"] .cc-root table.cc-nutri td{color:#EFE6D2!important;border-bottom-color:rgba(239,230,210,.14)!important}
+body[class*="cc-astro-"] .cc-root table.cc-nutri thead th{background:rgba(239,230,210,.1)!important}
+body[class*="cc-astro-"] .cc-root table.cc-nutri tbody tr:nth-child(even) td{background:rgba(239,230,210,.04)!important}
+body[class*="cc-astro-"] .cc-root table.shop_attributes th,body[class*="cc-astro-"] .cc-root table.shop_attributes td{color:#EFE6D2!important;border-bottom-color:rgba(239,230,210,.14)!important}
+body[class*="cc-astro-"] .cc-ritual{background:color-mix(in srgb,var(--sky) 86%,#000)}
+
+/* ===== CAIXA 3D ============================================= */
+.cc3d{display:none;flex-direction:column;align-items:center;gap:18px;width:100%}
+.cc3d.on{display:flex}
+.cc3d.on~.elementor-widget-woocommerce-product-images,.cc-prod-gallery:has(.cc3d.on) .elementor-widget-woocommerce-product-images{display:none!important}
+.cc3d__stage{--bw:clamp(170px,22vw,280px);--k:1;position:relative;width:100%;height:calc(var(--bw)*2.1);display:grid;place-items:center;
+  perspective:1400px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+body.cc-p100 .cc3d__stage{--k:1.32;height:calc(var(--bw)*2.55)}
+.cc3d__stage:active{cursor:grabbing}
+.cc3d__box{--w:calc(var(--bw)*var(--k));--h:calc(var(--bw)*1.4375*var(--k));--d:calc(var(--bw)*.2667*var(--k));
+  width:var(--w);height:var(--h);position:relative;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+body.cc-p100 .cc3d__box{--d:calc(var(--bw)*.2667*1.12*var(--k))}
+.cc3d__box.drag{transition:none}
+.cc3d__f{position:absolute;left:50%;top:50%;background-size:100% 100%;background-color:var(--sky);backface-visibility:hidden}
+.cc3d__f.fr,.cc3d__f.bk{width:var(--w);height:var(--h);margin:calc(var(--h)/-2) 0 0 calc(var(--w)/-2)}
+.cc3d__f.lf,.cc3d__f.rt{width:var(--d);height:var(--h);margin:calc(var(--h)/-2) 0 0 calc(var(--d)/-2)}
+.cc3d__f.tp,.cc3d__f.bt{width:var(--w);height:var(--d);margin:calc(var(--d)/-2) 0 0 calc(var(--w)/-2)}
+.cc3d__f.fr{transform:translateZ(calc(var(--d)/2))}
+.cc3d__f.bk{transform:rotateY(180deg) translateZ(calc(var(--d)/2))}
+.cc3d__f.lf{transform:rotateY(-90deg) translateZ(calc(var(--w)/2));filter:brightness(.72)}
+.cc3d__f.rt{transform:rotateY(90deg) translateZ(calc(var(--w)/2));filter:brightness(.72)}
+.cc3d__f.tp{transform:rotateX(90deg) translateZ(calc(var(--h)/2));filter:brightness(1.12)}
+.cc3d__f.bt{transform:rotateX(-90deg) translateZ(calc(var(--h)/2));filter:brightness(.6)}
+.cc3d__shadow{position:absolute;left:50%;bottom:8%;width:calc(var(--bw)*1.1*var(--k));height:22px;transform:translateX(-50%);
+  border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.55),transparent);filter:blur(6px);pointer-events:none}
+.cc3d__inside{width:min(100%,520px);aspect-ratio:840/700;background-size:cover;background-position:center;border-radius:6px;
+  box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.cc3d__hint{margin:0;font-family:var(--font-body);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#EFE6D2;opacity:.6}
+.cc3d__views{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.cc3d__views button,.cc-escolha a{font-family:var(--font-body)!important;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;
+  color:#EFE6D2!important;background:transparent;border:1px solid rgba(239,230,210,.28);border-radius:30px;padding:9px 14px;cursor:pointer;
+  text-decoration:none;transition:background .3s,border-color .3s,color .3s}
+.cc3d__views button:hover,.cc-escolha a:hover{border-color:#EFE6D2}
+.cc3d__views button[aria-pressed="true"],.cc-escolha a[aria-current="true"]{background:#EFE6D2;color:var(--sky)!important;border-color:#EFE6D2}
+
+/* escolher astro e tamanho (coluna da direita) */
+.cc-escolha{display:grid;gap:14px;margin:4px 0 24px}
+.cc-escolha__linha{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.cc-escolha__linha>span{font-family:var(--font-body);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:#EFE6D2;opacity:.6;min-width:84px}
+.cc-escolha a.esgotado{opacity:.6}
+.cc-escolha a.esgotado::after{content:' · esgotado';text-transform:none;letter-spacing:0}
+
+@media (max-width:900px){.cc3d__stage{--bw:clamp(150px,44vw,230px)}}
+@media (prefers-reduced-motion:reduce){.cc3d__box{transition:none}}
+.cc-prod>.cc-sky .elementor-widget-container,.cc-prod>.cc-sky .cc-sky__in{position:absolute;inset:0}
+
+/* ===== SIMULAÇÃO DE FRETE (plugin Melhor Envio) ==============
+   O plugin coloca a caixa dentro do formulário de compra; aqui ela ganha
+   linha própria, acima da quantidade e do botão. */
+.cc-root .cc-prod-info form.cart{flex-wrap:wrap!important;align-items:stretch}
+.cc-root .cc-prod-info .containerCalculator{order:-1;flex:0 0 100%!important;width:100%!important;max-width:100%!important;box-sizing:border-box;
+  margin:0 0 4px!important;padding:16px 18px!important;background:rgba(239,230,210,.06)!important;border:1px solid rgba(239,230,210,.2)!important;border-radius:6px!important}
+.cc-root .cc-prod-info .containerCalculator .row,.cc-root .cc-prod-info .containerCalculator .col-75,
+.cc-root .cc-prod-info .containerCalculator .col-25{float:none!important;width:100%!important;margin:0!important}
+.cc-root .cc-prod-info .containerCalculator p{font-family:var(--font-body)!important;font-size:9px!important;letter-spacing:.3em;text-transform:uppercase;
+  font-weight:600;color:#EFE6D2!important;opacity:.7;margin:0 0 8px!important;line-height:1.4}
+.cc-root .cc-prod-info .containerCalculator input[type=text]{width:100%!important;height:48px;padding:0 14px!important;border-radius:4px!important;
+  background:transparent!important;border:1px solid rgba(239,230,210,.35)!important;color:#EFE6D2!important;font-family:var(--font-body)!important;
+  font-size:15px!important;letter-spacing:.04em;box-shadow:none!important;margin:0!important}
+.cc-root .cc-prod-info .containerCalculator input[type=text]::placeholder{color:rgba(239,230,210,.55)}
+.cc-root .cc-prod-info .containerCalculator input[type=text]:focus{outline:none;border-color:#EFE6D2!important;box-shadow:0 0 0 3px rgba(239,230,210,.12)!important}
+.cc-root .cc-prod-info #calcular-frete-loader{padding-top:10px}
+.cc-root .cc-prod-info #calcular-frete-loader img{width:26px;height:auto}
+.cc-root .cc-prod-info .resultado-frete table{width:100%;margin:12px 0 4px!important;border:0!important;border-collapse:collapse;background:none!important}
+.cc-root .cc-prod-info .resultado-frete th,.cc-root .cc-prod-info .resultado-frete td{padding:9px 0!important;border:0!important;
+  border-bottom:1px solid rgba(239,230,210,.12)!important;background:none!important;color:#EFE6D2!important;font-family:var(--font-body)!important;
+  font-size:13px;text-align:left;vertical-align:middle}
+.cc-root .cc-prod-info .resultado-frete td:last-child{text-align:right;font-weight:600}
+.cc-root .cc-prod-info .resultado-frete small{display:block;color:#EFE6D2!important;opacity:.7;font-size:12px;margin-top:6px}
+.cc-root .cc-prod-info .resultado-frete br{display:none}
+.cc-root .cc-prod-info form.cart .quantity{align-self:stretch}
+.cc-root .cc-prod-info form.cart .single_add_to_cart_button{letter-spacing:.16em!important;white-space:nowrap}
+@media (max-width:620px){.cc-escolha__linha>span{flex:0 0 100%;margin-bottom:-2px}}

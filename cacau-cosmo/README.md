@@ -142,6 +142,12 @@ Logado: "Olá, nome · Bem-vindo ao seu Círculo", cartões para Pedidos, Endere
 
 Fotos: `python3 cacau-cosmo/woocommerce/fotos_reais.py` (fundo azul, caixa de 100 g maior). Produtos: `python3 cacau-cosmo/woocommerce/produtos.py`.
 
+### Página de produto no céu de cada astro (caixa 3D)
+
+O template de produto se adapta sozinho a cada barra, pelo endereço (`/produto/lua-100-33g/`): céu e cor da Lua, do Sol ou do Saturno, caixa 3D que gira (Frente, Lateral, Verso, Outro lado, Topo, Por dentro), botões para trocar de astro e de tamanho (33 g / 100 g, com a caixa de 100 g maior) e a simulação de frete do Melhor Envio em linha própria.
+
+Para a caixa 3D aparecer, envie as 21 faces de `woocommerce/faces-3d.zip` em **Mídia → Adicionar nova** (arraste todas de uma vez, sem renomear). O template procura as imagens `cc3d-<astro>-<face>`; enquanto elas não estiverem lá, a página mostra a galeria de fotos normal.
+
 ## 4. Posts do Journal
 
 `journal/journal-posts.xml` tem os 12 posts da categoria Blog de theamazonapothecary.com, com data original, resumo, tags, imagem destacada e imagens do texto. Os posts entram na categoria **Blog**.

@@ -79,3 +79,79 @@ export async function hit(key, windowSec) {
   d.contadores[key] = c && c.ate > now ? { n: c.n + 1, ate: c.ate } : { n: 1, ate: now + windowSec * 1000 };
   await writeFile(d); return d.contadores[key].n;
 }
+
+/* ======================= CASES ======================= */
+import SEED from "./seed.js";
+const ORDER = "fale:cases:ordem";
+const CKEY = (slug) => `fale:case:${slug}`;
+
+async function ensureSeed() {
+  if (backend() === "redis") {
+    const order = await redis(["GET", ORDER]);
+    if (order) return JSON.parse(order);
+    for (const c of SEED) await redis(["SET", CKEY(c.slug), JSON.stringify(c)]);
+    const slugs = SEED.map((c) => c.slug);
+    await redis(["SET", ORDER, JSON.stringify(slugs)]);
+    return slugs;
+  }
+  const d = await readFile();
+  if (!d.casos) { d.casos = JSON.parse(JSON.stringify(SEED)); await writeFile(d); }
+  return d.casos.map((c) => c.slug);
+}
+
+export async function listCases() {
+  const slugs = await ensureSeed();
+  if (backend() === "redis") {
+    if (!slugs.length) return [];
+    const vals = await redis(["MGET", ...slugs.map(CKEY)]);
+    return vals.filter(Boolean).map((v) => JSON.parse(v));
+  }
+  return (await readFile()).casos;
+}
+
+export async function getCase(slug) {
+  await ensureSeed();
+  if (backend() === "redis") {
+    const v = await redis(["GET", CKEY(slug)]);
+    return v ? JSON.parse(v) : null;
+  }
+  return (await readFile()).casos.find((c) => c.slug === slug) || null;
+}
+
+// Cria ou atualiza. oldSlug permite trocar o endereço do case.
+export async function saveCase(c, oldSlug) {
+  const slugs = await ensureSeed();
+  const isNew = !oldSlug;
+  if ((isNew || oldSlug !== c.slug) && slugs.includes(c.slug)) {
+    throw Object.assign(new Error("Já existe um case com esse endereço."), { status: 409 });
+  }
+  if (!isNew && !slugs.includes(oldSlug)) throw Object.assign(new Error("Case não encontrado."), { status: 404 });
+  if (backend() === "redis") {
+    const order = isNew ? [...slugs, c.slug] : slugs.map((s) => (s === oldSlug ? c.slug : s));
+    await redis(["SET", CKEY(c.slug), JSON.stringify(c)]);
+    if (!isNew && oldSlug !== c.slug) await redis(["DEL", CKEY(oldSlug)]);
+    await redis(["SET", ORDER, JSON.stringify(order)]);
+    return c;
+  }
+  const d = await readFile();
+  if (isNew) d.casos.push(c); else d.casos = d.casos.map((x) => (x.slug === oldSlug ? c : x));
+  await writeFile(d); return c;
+}
+
+export async function deleteCase(slug) {
+  const slugs = await ensureSeed();
+  if (backend() === "redis") {
+    await redis(["DEL", CKEY(slug)]);
+    await redis(["SET", ORDER, JSON.stringify(slugs.filter((s) => s !== slug))]);
+    return;
+  }
+  const d = await readFile(); d.casos = d.casos.filter((c) => c.slug !== slug); await writeFile(d);
+}
+
+export async function setCaseOrder(newOrder) {
+  const slugs = await ensureSeed();
+  const valid = newOrder.filter((s) => slugs.includes(s));
+  const final = [...new Set([...valid, ...slugs])];
+  if (backend() === "redis") { await redis(["SET", ORDER, JSON.stringify(final)]); return final; }
+  const d = await readFile(); d.casos = final.map((s) => d.casos.find((c) => c.slug === s)); await writeFile(d); return final;
+}

@@ -673,7 +673,7 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
 </section>
 
 <!-- ======================= PROJETOS ======================= -->
-<!-- 8 projetos (4 por linha). Para cada projeto sem capa: troque o .ph por <img> (3:2, 1200×800, .webp) com alt descritivo. -->
+<!-- Projetos: a grade abaixo é a versão de reserva. Com o site publicado, ela é atualizada pelo painel (/admin → Cases). -->
 <section class="work" id="projetos" aria-labelledby="projetos-title">
   <div class="wrap grid">
     <div class="section-head">
@@ -682,35 +682,35 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
     </div>
   </div>
   <div class="work-grid" id="work-grid">
-      <a class="project" href="projetos/festival-iguassu-inova.html">
+      <a class="project" href="/projetos/festival-iguassu-inova">
         <img src="assets/img/festival-iguassu-inova-800.webp" srcset="assets/img/festival-iguassu-inova-600.webp 600w, assets/img/festival-iguassu-inova-800.webp 800w, assets/img/festival-iguassu-inova-1200.webp 1200w" sizes="(max-width: 900px) 50vw, 25vw" width="1200" height="800" loading="lazy" decoding="async" alt="Identidade visual do Festival Iguassu Inova aplicada no painel do palco, com degradê de azul a vermelho e o lema Vários mundos, um só festival">
         <div class="project__info"><h3>Festival Iguassu Inova</h3></div>
       </a>
-      <a class="project" href="#">
+      <a class="project" href="/projetos/lucas-martins">
         <img src="assets/img/lucas-martins-800.webp" srcset="assets/img/lucas-martins-600.webp 600w, assets/img/lucas-martins-800.webp 800w, assets/img/lucas-martins-1200.webp 1200w" sizes="(max-width: 900px) 50vw, 25vw" width="1200" height="800" loading="lazy" decoding="async" alt="Caderno com a identidade visual do psicólogo Lucas Martins: padrão de balões de fala em rosa e branco sobre azul-marinho">
         <div class="project__info"><h3>Lucas Martins</h3></div>
       </a>
-      <a class="project" href="#">
+      <a class="project" href="/projetos/itaca">
         <img src="assets/img/itaca-800.webp" srcset="assets/img/itaca-600.webp 600w, assets/img/itaca-800.webp 800w, assets/img/itaca-1200.webp 1200w" sizes="(max-width: 900px) 50vw, 25vw" width="1200" height="800" loading="lazy" decoding="async" alt="Notebook exibindo a identidade visual de Itaca, com colagem de gravuras náuticas em verde-azulado e linhas em laranja">
         <div class="project__info"><h3>Itaca</h3></div>
       </a>
-      <a class="project" href="#">
+      <a class="project" href="/projetos/casa-eurico">
         <img src="assets/img/casa-eurico-800.webp" srcset="assets/img/casa-eurico-600.webp 600w, assets/img/casa-eurico-800.webp 800w, assets/img/casa-eurico-1200.webp 1200w" sizes="(max-width: 900px) 50vw, 25vw" width="1200" height="800" loading="lazy" decoding="async" alt="Painel de cartazes da Casa Eurico em vermelho, rosa e branco, com o lema Todo passo é um grande passo e fotos históricas da loja">
         <div class="project__info"><h3>Casa Eurico</h3></div>
       </a>
-      <a class="project" href="#">
+      <a class="project" href="/projetos/equilibre">
         <img src="assets/img/equilibre-800.webp" srcset="assets/img/equilibre-600.webp 600w, assets/img/equilibre-800.webp 800w, assets/img/equilibre-1200.webp 1200w" sizes="(max-width: 900px) 50vw, 25vw" width="1200" height="800" loading="lazy" decoding="async" alt="Tablet com a identidade visual da Equilibre: degradê do azul ao laranja e a frase A mediação que impulsiona evolução">
         <div class="project__info"><h3>Equilibre</h3></div>
       </a>
-      <a class="project" href="#">
+      <a class="project" href="/projetos/ds-contabil">
         <img src="assets/img/ds-contabil-800.webp" srcset="assets/img/ds-contabil-600.webp 600w, assets/img/ds-contabil-800.webp 800w, assets/img/ds-contabil-1200.webp 1200w" sizes="(max-width: 900px) 50vw, 25vw" width="1200" height="800" loading="lazy" decoding="async" alt="Ecobag azul da DS Contábil com a frase A contabilidade que descomplica sua rotina e o logo em amarelo-limão">
         <div class="project__info"><h3>DS Contábil</h3></div>
       </a>
-      <a class="project" href="#">
+      <a class="project" href="/projetos/smiles">
         <img src="assets/img/smiles-800.webp" srcset="assets/img/smiles-600.webp 600w, assets/img/smiles-800.webp 800w, assets/img/smiles-1200.webp 1200w" sizes="(max-width: 900px) 50vw, 25vw" width="1200" height="800" loading="lazy" decoding="async" alt="Tablet com peça para Gol e Smiles: avião de papel sobre tipografia em rosa e laranja e o selo Embarque na transformação">
         <div class="project__info"><h3>Smiles</h3></div>
       </a>
-      <a class="project" href="#">
+      <a class="project" href="/projetos/deboo">
         <img src="assets/img/deboo-800.webp" srcset="assets/img/deboo-600.webp 600w, assets/img/deboo-800.webp 800w, assets/img/deboo-1200.webp 1200w" sizes="(max-width: 900px) 50vw, 25vw" width="1200" height="800" loading="lazy" decoding="async" alt="Monitor exibindo a apresentação da Deboo em preto e verde neon, com tipografia pixelada e colagem digital">
         <div class="project__info"><h3>Deboo</h3></div>
       </a>
@@ -1009,6 +1009,21 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
     vbtn.addEventListener('click',function(){ if(video.paused) video.play().catch(function(){}); else video.pause() });
     if(reduce){ video.removeAttribute('autoplay'); video.pause() }
     syncBtn();
+  }
+
+  /* projetos: atualiza a grade com os cases publicados no painel */
+  var grid=document.getElementById('work-grid');
+  if(grid&&location.protocol!=='file:'&&window.fetch){
+    fetch('/api/cases').then(function(r){return r.ok?r.json():null}).then(function(j){
+      if(!j||!j.cases||!j.cases.length) return;
+      grid.textContent='';
+      j.cases.forEach(function(c){
+        var a=document.createElement('a'); a.className='project'; a.href='/projetos/'+encodeURIComponent(c.slug);
+        var im=document.createElement('img'); im.src=c.capa.url; im.alt=c.capa.alt||''; im.width=1200; im.height=800; im.loading='lazy'; im.decoding='async';
+        var info=document.createElement('div'); info.className='project__info'; var h=document.createElement('h3'); h.textContent=c.titulo; info.appendChild(h);
+        a.appendChild(im); a.appendChild(info); grid.appendChild(a);
+      });
+    }).catch(function(){});
   }
 
   /* processo: cada etapa entra na sua vez; a do meio da tela fica em destaque */

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Painel de mensagens | Estúdio F/Ale</title>
+<title>Painel | Estúdio F/Ale</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#7A1531">
 <link rel="icon" href="assets/logo/simbolo-fale.svg" type="image/svg+xml">
@@ -50,7 +50,7 @@
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;min-height:100svh;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:var(--fs-base);line-height:1.55;-webkit-font-smoothing:antialiased}
 h1,h2,h3,p,ul,dl,dd{margin:0;padding:0}
-button,input{font:inherit;color:inherit}
+button,input,textarea,select{font:inherit;color:inherit}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--wine);outline-offset:3px;border-radius:2px}
 [hidden]{display:none!important}
@@ -116,6 +116,73 @@ a{color:inherit}
 .msg__actions{display:flex;flex-wrap:wrap;gap:.6rem}
 .empty,.notice{padding:2.5rem 1.5rem;text-align:center;color:var(--graphite);background:#fff;border:1px dashed var(--line);border-radius:6px}
 .notice{color:var(--error);border-style:solid}
+
+/* ---------- abas ---------- */
+.tabs{display:flex;gap:.25rem;margin-left:auto;margin-right:1rem}
+.tabs button{min-height:2.75rem;padding:.4rem 1rem;border:0;border-radius:var(--radius-pill);background:none;color:var(--paper);cursor:pointer;font-size:var(--fs-sm)}
+.tabs button[aria-pressed="true"]{background:rgba(245,244,241,.16)}
+.tabs button:hover{background:rgba(245,244,241,.1)}
+
+/* ---------- cases: lista ---------- */
+.clist{display:grid;gap:.6rem;padding-bottom:4rem}
+.citem{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;background:#fff;border:1px solid var(--line);border-radius:6px;padding:.75rem}
+.citem__thumb{width:7rem;aspect-ratio:3/2;border-radius:var(--radius-s);overflow:hidden;background:var(--paper-2)}
+.citem__thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.citem__title{font-weight:800;font-size:var(--fs-md);letter-spacing:-.01em}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.35rem}
+.chip{font-size:.75rem;line-height:1;padding:.35rem .6rem;border-radius:var(--radius-pill);border:1px solid var(--line);color:var(--graphite)}
+.chip--on{background:var(--green);border-color:var(--green);color:var(--paper)}
+.chip--draft{background:var(--paper-2)}
+.citem__actions{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:flex-end}
+.icon-btn{min-width:2.75rem;min-height:2.75rem;border:1.5px solid var(--line);border-radius:50%;background:none;cursor:pointer;display:grid;place-items:center}
+.icon-btn:hover{border-color:var(--ink)}
+.icon-btn[disabled]{opacity:.3;cursor:not-allowed}
+.icon-btn svg{width:14px;height:14px}
+
+/* ---------- cases: editor ---------- */
+.back{display:inline-flex;align-items:center;gap:.5rem;min-height:2.75rem;border:0;background:none;cursor:pointer;font-size:var(--fs-sm);color:var(--graphite);padding:0}
+.back:hover{color:var(--ink)}
+.editor{display:grid;gap:2rem;padding-bottom:6rem}
+.card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:clamp(1.25rem,3vw,1.75rem);display:grid;gap:1.25rem}
+.card h2{font-weight:800;font-size:var(--fs-md);letter-spacing:-.01em}
+.help{font-size:var(--fs-sm);color:var(--graphite)}
+.txt{width:100%;min-height:2.875rem;padding:.65rem .85rem;border:1.5px solid var(--line);border-radius:var(--radius-s);background:#fff}
+.txt:focus{outline:none;border-color:var(--wine)}
+textarea.txt{min-height:12rem;line-height:1.55;resize:vertical}
+.slug{display:flex;align-items:stretch;border:1.5px solid var(--line);border-radius:var(--radius-s);overflow:hidden;background:#fff}
+.slug span{display:grid;place-items:center;padding:0 .75rem;background:var(--paper);color:var(--graphite);font-size:var(--fs-sm);border-right:1px solid var(--line)}
+.slug input{flex:1;min-height:2.75rem;border:0;padding:.6rem .8rem;background:none}
+.slug input:focus{outline:none}
+.slug:focus-within{border-color:var(--wine)}
+.cover{display:grid;grid-template-columns:minmax(0,18rem) 1fr;gap:1.25rem;align-items:start}
+.preview{aspect-ratio:3/2;border-radius:var(--radius-s);background:var(--paper-2);overflow:hidden;display:grid;place-items:center;color:var(--graphite);font-size:var(--fs-sm);text-align:center;padding:.5rem}
+.preview img{width:100%;height:100%;object-fit:cover;display:block}
+.file-btn{position:relative;overflow:hidden}
+.file-btn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.imgs{display:grid;gap:.75rem}
+.imgitem{display:grid;grid-template-columns:8rem 1fr auto;gap:1rem;align-items:center;border:1px solid var(--line);border-radius:var(--radius-s);padding:.6rem}
+.imgitem__thumb{aspect-ratio:3/2;border-radius:3px;overflow:hidden;background:var(--paper-2)}
+.imgitem__thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.imgitem__fields{display:grid;gap:.5rem}
+.imgitem__fields select{min-height:2.5rem;border:1.5px solid var(--line);border-radius:var(--radius-s);padding:.3rem .5rem;background:#fff;width:max-content}
+.imgitem__btns{display:flex;gap:.35rem}
+.imgitem.is-uploading{opacity:.6}
+.checks{display:grid;gap:.75rem}
+.check{display:flex;align-items:center;gap:.65rem;min-height:2.75rem;cursor:pointer}
+.check input{width:1.25rem;height:1.25rem;accent-color:var(--wine)}
+.savebar{position:sticky;bottom:0;background:var(--paper);border-top:1px solid var(--line);padding:1rem 0;display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;z-index:5}
+.savebar .status{font-size:var(--fs-sm);color:var(--graphite);margin-right:auto}
+.savebar .status.is-error{color:var(--error)}
+@media (max-width:760px){
+  .tabs{margin-left:0}
+  .bar .wrap{flex-wrap:wrap;padding-block:.5rem}
+  .citem{grid-template-columns:5rem 1fr}
+  .citem__thumb{width:5rem}
+  .citem__actions{grid-column:1/-1;justify-content:flex-start}
+  .cover{grid-template-columns:1fr}
+  .imgitem{grid-template-columns:5.5rem 1fr}
+  .imgitem__btns{grid-column:1/-1}
+}
 @media (max-width:640px){
   .bar__brand span{display:none}
   .msg__grid{grid-template-columns:1fr}
@@ -133,7 +200,7 @@ a{color:inherit}
       <svg viewBox="0 0 366.03 369.8" aria-hidden="true"><use href="#simbolo-fale"/></svg>
       <span>Estúdio F/Ale</span>
     </div>
-    <h1>Painel de mensagens</h1>
+    <h1>Painel do site</h1>
     <div class="field">
       <label for="senha">Senha</label>
       <div class="pass">
@@ -154,10 +221,14 @@ a{color:inherit}
         <svg viewBox="0 0 511.75 78.96" role="img" aria-label="Estúdio F/Ale"><use href="#logo-fale"/></svg>
         <span>Painel</span>
       </div>
+      <nav class="tabs" aria-label="Seções do painel">
+        <button type="button" data-tab="mensagens" aria-pressed="true">Mensagens</button>
+        <button type="button" data-tab="cases" aria-pressed="false">Cases</button>
+      </nav>
       <button class="btn" type="button" id="logout">Sair</button>
     </div>
   </header>
-  <main class="wrap">
+  <main class="wrap" id="tab-mensagens">
     <div class="head">
       <h1>Mensagens do site</h1>
       <p class="summary" id="summary" aria-live="polite">Carregando…</p>
@@ -173,6 +244,83 @@ a{color:inherit}
       </div>
     </div>
     <div class="list" id="list"></div>
+  </main>
+
+  <!-- ============ CASES ============ -->
+  <main class="wrap" id="tab-cases" hidden>
+    <div id="cases-list-view">
+      <div class="head">
+        <h1>Cases</h1>
+        <p class="summary" id="cases-summary" aria-live="polite"></p>
+        <div class="toolbar">
+          <button class="btn btn--solid" type="button" id="case-new">Novo case</button>
+          <p class="help">A ordem aqui é a ordem da home. Os 8 primeiros marcados "Na home" aparecem na grade de projetos.</p>
+        </div>
+      </div>
+      <div class="clist" id="clist"></div>
+    </div>
+
+    <div id="case-editor" hidden>
+      <div class="head">
+        <button class="back" type="button" id="case-back">← Voltar para os cases</button>
+        <h1 id="editor-title">Novo case</h1>
+      </div>
+      <form class="editor" id="case-form" novalidate>
+        <section class="card" aria-labelledby="sec-texto">
+          <h2 id="sec-texto">Título e descrição</h2>
+          <div class="field">
+            <label for="c-titulo">Título do projeto</label>
+            <input class="txt" id="c-titulo" type="text" maxlength="120" required>
+          </div>
+          <div class="field">
+            <label for="c-slug">Endereço da página</label>
+            <div class="slug"><span>/projetos/</span><input id="c-slug" type="text" maxlength="80" spellcheck="false" autocapitalize="off"></div>
+            <p class="help">Só letras minúsculas, números e hífens. É preenchido a partir do título.</p>
+          </div>
+          <div class="field">
+            <label for="c-desc">Descrição</label>
+            <textarea class="txt" id="c-desc" maxlength="6000"></textarea>
+            <p class="help">Separe os parágrafos com uma linha em branco. O primeiro parágrafo também vira a descrição no Google.</p>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="sec-capa">
+          <h2 id="sec-capa">Capa</h2>
+          <p class="help">Aparece na grade de projetos da home e no "Veja mais projetos". Formato horizontal funciona melhor.</p>
+          <div class="cover">
+            <div class="preview" id="cover-preview">Sem capa</div>
+            <div class="imgitem__fields">
+              <label class="btn btn--ghost file-btn">Escolher imagem<input type="file" id="cover-file" accept="image/jpeg,image/png,image/webp"></label>
+              <label for="cover-alt">Descrição da imagem</label>
+              <input class="txt" id="cover-alt" type="text" maxlength="300" placeholder="Ex.: Caderno com a identidade visual aplicada">
+              <p class="help">Usada por leitores de tela e pelo Google.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="sec-imgs">
+          <h2 id="sec-imgs">Imagens do projeto</h2>
+          <p class="help">Aparecem em sequência na página. Duas imagens seguidas marcadas como "Metade" ficam lado a lado.</p>
+          <div class="imgs" id="imgs"></div>
+          <label class="btn btn--ghost file-btn" style="justify-self:start">Adicionar imagens<input type="file" id="imgs-file" accept="image/jpeg,image/png,image/webp" multiple></label>
+        </section>
+
+        <section class="card" aria-labelledby="sec-pub">
+          <h2 id="sec-pub">Publicação</h2>
+          <div class="checks">
+            <label class="check"><input type="checkbox" id="c-pub"> Publicado (visível no site)</label>
+            <label class="check"><input type="checkbox" id="c-home"> Mostrar na grade de projetos da home</label>
+          </div>
+        </section>
+
+        <div class="savebar">
+          <p class="status" id="case-status" role="status"></p>
+          <a class="btn btn--ghost" id="case-view" href="#" target="_blank" rel="noopener" hidden>Ver página</a>
+          <button class="btn btn--danger" type="button" id="case-del" hidden>Excluir case</button>
+          <button class="btn btn--solid" type="submit" id="case-save">Salvar</button>
+        </div>
+      </form>
+    </div>
   </main>
 </div>
 
@@ -195,7 +343,7 @@ a{color:inherit}
     });
   }
   function showLogin(msg){ panelView.hidden=true; loginView.hidden=false; document.getElementById('login-err').textContent=msg||''; document.getElementById('senha').focus() }
-  function showPanel(){ loginView.hidden=true; panelView.hidden=false; load() }
+  function showPanel(){ loginView.hidden=true; panelView.hidden=false; load(); if(location.hash==='#cases') showTab('cases') }
 
   /* ---------- login ---------- */
   document.getElementById('toggle-pass').addEventListener('click',function(){
@@ -297,6 +445,179 @@ a{color:inherit}
     var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='mensagens-estudio-fale-'+new Date().toISOString().slice(0,10)+'.csv';
     document.body.appendChild(a); a.click(); setTimeout(function(){URL.revokeObjectURL(a.href); a.remove()},500);
   });
+
+
+  /* ======================= ABAS ======================= */
+  var tabBtns=[].slice.call(document.querySelectorAll('[data-tab]'));
+  function showTab(name){
+    tabBtns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.tab===name))});
+    document.getElementById('tab-mensagens').hidden=name!=='mensagens';
+    document.getElementById('tab-cases').hidden=name!=='cases';
+    if(name==='cases'){ showCaseList(); loadCases() }
+    try{ history.replaceState(null,'','#'+name) }catch(e){}
+  }
+  tabBtns.forEach(function(b){ b.addEventListener('click',function(){ if(editorDirty&&!confirm('Sair sem salvar as alterações do case?')) return; editorDirty=false; showTab(b.dataset.tab) }) });
+
+  /* ======================= CASES ======================= */
+  var cases=[], editing=null, editorDirty=false, slugTouched=false, uploads=0;
+  var clist=document.getElementById('clist'), listView=document.getElementById('cases-list-view'), editor=document.getElementById('case-editor');
+  var UP='<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 12V2M3 6l4-4 4 4"/></svg>', DOWN='<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 2v10M3 8l4 4 4-4"/></svg>';
+
+  function loadCases(){
+    document.getElementById('cases-summary').textContent='Carregando…';
+    api('/admin-cases').then(function(j){ cases=j.cases||[]; renderCases() }).catch(function(x){
+      if(x.message==='sessao') return; clist.textContent=''; clist.appendChild(el('p','notice',x.message)); document.getElementById('cases-summary').textContent='';
+    });
+  }
+  function renderCases(){
+    var pub=cases.filter(function(c){return c.publicado}).length;
+    document.getElementById('cases-summary').textContent=cases.length+(cases.length===1?' case, ':' cases, ')+pub+(pub===1?' publicado.':' publicados.');
+    clist.textContent='';
+    if(!cases.length){ clist.appendChild(el('p','empty','Nenhum case ainda. Clique em "Novo case" para criar o primeiro.')); return }
+    cases.forEach(function(c,i){
+      var row=el('div','citem');
+      var th=el('div','citem__thumb'); if(c.capa&&c.capa.url){ var im=el('img'); im.src=c.capa.url; im.alt=''; th.appendChild(im) } row.appendChild(th);
+      var info=el('div'); info.appendChild(el('p','citem__title',c.titulo));
+      var chips=el('div','chips');
+      chips.appendChild(el('span','chip '+(c.publicado?'chip--on':'chip--draft'),c.publicado?'Publicado':'Rascunho'));
+      if(c.home) chips.appendChild(el('span','chip','Na home'));
+      chips.appendChild(el('span','chip','/projetos/'+c.slug));
+      info.appendChild(chips); row.appendChild(info);
+      var act=el('div','citem__actions');
+      var up=el('button','icon-btn'); up.type='button'; up.innerHTML=UP; up.setAttribute('aria-label','Mover '+c.titulo+' para cima'); up.disabled=i===0; up.addEventListener('click',function(){ move(i,-1) });
+      var dn=el('button','icon-btn'); dn.type='button'; dn.innerHTML=DOWN; dn.setAttribute('aria-label','Mover '+c.titulo+' para baixo'); dn.disabled=i===cases.length-1; dn.addEventListener('click',function(){ move(i,1) });
+      var view=el('a','btn btn--ghost','Ver página'); view.href='/projetos/'+encodeURIComponent(c.slug); view.target='_blank'; view.rel='noopener';
+      var ed=el('button','btn btn--solid','Editar'); ed.type='button'; ed.addEventListener('click',function(){ openEditor(c) });
+      act.appendChild(up); act.appendChild(dn); act.appendChild(view); act.appendChild(ed); row.appendChild(act);
+      clist.appendChild(row);
+    });
+  }
+  function move(i,d){
+    var j=i+d; if(j<0||j>=cases.length) return;
+    var t=cases[i]; cases[i]=cases[j]; cases[j]=t; renderCases();
+    api('/admin-cases?ordem=1',{method:'PUT',body:JSON.stringify({ordem:cases.map(function(c){return c.slug})})}).catch(function(x){ if(x.message!=='sessao'){ alert(x.message); loadCases() } });
+  }
+  function showCaseList(){ editor.hidden=true; listView.hidden=false; editing=null }
+
+  /* ---------- editor ---------- */
+  var f={titulo:document.getElementById('c-titulo'),slug:document.getElementById('c-slug'),desc:document.getElementById('c-desc'),
+    coverAlt:document.getElementById('cover-alt'),pub:document.getElementById('c-pub'),home:document.getElementById('c-home')};
+  var draft=null;
+  function slugify(s){ return String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80) }
+  function openEditor(c){
+    editing=c?c.slug:null;
+    draft=c?JSON.parse(JSON.stringify(c)):{titulo:'',slug:'',descricao:'',capa:{url:'',alt:''},imagens:[],publicado:false,home:true};
+    document.getElementById('editor-title').textContent=c?'Editar case':'Novo case';
+    f.titulo.value=draft.titulo; f.slug.value=draft.slug; f.desc.value=draft.descricao||''; f.coverAlt.value=draft.capa.alt||'';
+    f.pub.checked=!!draft.publicado; f.home.checked=!!draft.home; slugTouched=!!c;
+    renderCover(); renderImgs(); setStatus('');
+    var view=document.getElementById('case-view'); view.hidden=!c; if(c) view.href='/projetos/'+encodeURIComponent(c.slug);
+    document.getElementById('case-del').hidden=!c;
+    listView.hidden=true; editor.hidden=false; editorDirty=false; window.scrollTo(0,0); f.titulo.focus();
+  }
+  function setStatus(t,err){ var s=document.getElementById('case-status'); s.textContent=t; s.classList.toggle('is-error',!!err) }
+  function markDirty(){ editorDirty=true; setStatus('Alterações não salvas.') }
+  f.titulo.addEventListener('input',function(){ draft.titulo=f.titulo.value; if(!slugTouched){ f.slug.value=slugify(f.titulo.value) } markDirty() });
+  f.slug.addEventListener('input',function(){ slugTouched=true; markDirty() });
+  f.slug.addEventListener('blur',function(){ f.slug.value=slugify(f.slug.value) });
+  [f.desc,f.coverAlt].forEach(function(i){ i.addEventListener('input',markDirty) });
+  [f.pub,f.home].forEach(function(i){ i.addEventListener('change',markDirty) });
+
+  function renderCover(){
+    var p=document.getElementById('cover-preview'); p.textContent='';
+    if(draft.capa.url){ var im=el('img'); im.src=draft.capa.url; im.alt=''; p.appendChild(im) } else p.textContent='Sem capa';
+  }
+  function renderImgs(){
+    var box=document.getElementById('imgs'); box.textContent='';
+    if(!draft.imagens.length){ box.appendChild(el('p','help','Nenhuma imagem ainda.')); return }
+    draft.imagens.forEach(function(it,i){
+      var row=el('div','imgitem'+(it.uploading?' is-uploading':''));
+      var th=el('div','imgitem__thumb'); if(it.url){ var im=el('img'); im.src=it.url; im.alt=''; th.appendChild(im) } else th.appendChild(el('span','help','Enviando…'));
+      row.appendChild(th);
+      var fields=el('div','imgitem__fields');
+      var altL=el('label',null,'Descrição da imagem'); var alt=el('input','txt'); alt.type='text'; alt.maxLength=300; alt.value=it.alt||''; alt.id='img-alt-'+i; altL.htmlFor=alt.id;
+      alt.addEventListener('input',function(){ it.alt=alt.value; markDirty() });
+      var sel=el('select'); sel.setAttribute('aria-label','Largura da imagem');
+      [['inteira','Largura inteira'],['metade','Metade (lado a lado)']].forEach(function(o){ var op=el('option',null,o[1]); op.value=o[0]; if((it.largura||'inteira')===o[0]) op.selected=true; sel.appendChild(op) });
+      sel.addEventListener('change',function(){ it.largura=sel.value; markDirty() });
+      fields.appendChild(altL); fields.appendChild(alt); fields.appendChild(sel); row.appendChild(fields);
+      var btns=el('div','imgitem__btns');
+      var up=el('button','icon-btn'); up.type='button'; up.innerHTML=UP; up.setAttribute('aria-label','Mover imagem para cima'); up.disabled=i===0;
+      up.addEventListener('click',function(){ var t=draft.imagens[i-1]; draft.imagens[i-1]=it; draft.imagens[i]=t; renderImgs(); markDirty() });
+      var dn=el('button','icon-btn'); dn.type='button'; dn.innerHTML=DOWN; dn.setAttribute('aria-label','Mover imagem para baixo'); dn.disabled=i===draft.imagens.length-1;
+      dn.addEventListener('click',function(){ var t=draft.imagens[i+1]; draft.imagens[i+1]=it; draft.imagens[i]=t; renderImgs(); markDirty() });
+      var rm=el('button','btn btn--danger','Remover'); rm.type='button';
+      rm.addEventListener('click',function(){ draft.imagens.splice(i,1); renderImgs(); markDirty() });
+      btns.appendChild(up); btns.appendChild(dn); btns.appendChild(rm); row.appendChild(btns);
+      box.appendChild(row);
+    });
+  }
+
+  /* reduz a imagem no navegador (WebP, ou JPEG se o navegador não gerar WebP) antes de enviar */
+  function prepare(file,max){
+    if(!/^image\/(jpeg|png|webp)$/.test(file.type)) return Promise.reject(new Error('Formato não aceito: '+file.name+'. Use JPG, PNG ou WebP.'));
+    return createImageBitmap(file).then(function(bmp){
+      var sc=Math.min(1,max/Math.max(bmp.width,bmp.height)), w=Math.round(bmp.width*sc), h=Math.round(bmp.height*sc);
+      var cv=document.createElement('canvas'); cv.width=w; cv.height=h; cv.getContext('2d').drawImage(bmp,0,0,w,h);
+      return new Promise(function(res){ cv.toBlob(function(b){
+        if(b&&b.type==='image/webp') return res(b);
+        cv.toBlob(function(j){ res(j) },'image/jpeg',0.88);
+      },'image/webp',0.86) });
+    }).catch(function(e){ throw e instanceof Error&&e.message.indexOf('Formato')===0?e:new Error('Não foi possível ler a imagem '+file.name+'.') });
+  }
+  function upload(file,max){
+    uploads++; updateSaveBtn();
+    return prepare(file,max).then(function(blob){
+      return fetch(API+'/upload?nome='+encodeURIComponent(file.name),{method:'POST',credentials:'same-origin',headers:{'X-Fale-Painel':'1','Content-Type':blob.type},body:blob})
+        .then(function(r){ return r.json().catch(function(){return {}}).then(function(j){ if(r.status===401){ showLogin('Sua sessão expirou. Entre de novo.'); throw new Error('sessao') } if(!r.ok) throw new Error(j.erro||'Erro ao enviar '+file.name); return j.url }) });
+    }).finally(function(){ uploads--; updateSaveBtn() });
+  }
+  function updateSaveBtn(){ var b=document.getElementById('case-save'); b.disabled=uploads>0; b.textContent=uploads>0?'Enviando imagens…':'Salvar' }
+  document.getElementById('cover-file').addEventListener('change',function(e){
+    var file=e.target.files[0]; e.target.value=''; if(!file) return;
+    setStatus('Enviando capa…');
+    upload(file,1800).then(function(url){ draft.capa.url=url; if(!f.coverAlt.value) f.coverAlt.value=f.titulo.value; renderCover(); markDirty() })
+      .catch(function(x){ if(x.message!=='sessao') setStatus(x.message,true) });
+  });
+  document.getElementById('imgs-file').addEventListener('change',function(e){
+    var files=[].slice.call(e.target.files); e.target.value=''; if(!files.length) return;
+    setStatus('Enviando '+files.length+(files.length===1?' imagem…':' imagens…'));
+    files.forEach(function(file){
+      var it={url:'',alt:'',largura:'inteira',uploading:true}; draft.imagens.push(it); renderImgs();
+      upload(file,2400).then(function(url){ it.url=url; delete it.uploading; renderImgs(); markDirty() })
+        .catch(function(x){ draft.imagens.splice(draft.imagens.indexOf(it),1); renderImgs(); if(x.message!=='sessao') setStatus(x.message,true) });
+    });
+  });
+
+  document.getElementById('case-form').addEventListener('submit',function(e){
+    e.preventDefault(); if(uploads>0) return;
+    var body={titulo:f.titulo.value.trim(),slug:slugify(f.slug.value||f.titulo.value),descricao:f.desc.value,
+      capa:{url:draft.capa.url,alt:f.coverAlt.value.trim()},
+      imagens:draft.imagens.filter(function(i){return i.url}).map(function(i){return {url:i.url,alt:i.alt||'',largura:i.largura||'inteira'}}),
+      publicado:f.pub.checked,home:f.home.checked};
+    if(body.titulo.length<2){ setStatus('Informe o título do case.',true); f.titulo.focus(); return }
+    var btn=document.getElementById('case-save'); btn.disabled=true; btn.textContent='Salvando…';
+    var req=editing?api('/admin-cases?slug='+encodeURIComponent(editing),{method:'PUT',body:JSON.stringify(body)}):api('/admin-cases',{method:'POST',body:JSON.stringify(body)});
+    req.then(function(j){
+      var c=j.case, idx=cases.findIndex(function(x){return x.slug===editing});
+      if(idx>-1) cases[idx]=c; else cases.push(c);
+      editing=c.slug; draft=JSON.parse(JSON.stringify(c)); f.slug.value=c.slug; slugTouched=true; editorDirty=false;
+      document.getElementById('editor-title').textContent='Editar case';
+      var view=document.getElementById('case-view'); view.hidden=false; view.href='/projetos/'+encodeURIComponent(c.slug);
+      document.getElementById('case-del').hidden=false;
+      setStatus(c.publicado?'Salvo e publicado. A página pode levar até 1 minuto para atualizar no site.':'Salvo como rascunho. Só aparece no site depois de publicado.');
+    }).catch(function(x){ if(x.message!=='sessao') setStatus(x.message,true) })
+      .finally(function(){ btn.disabled=false; btn.textContent='Salvar' });
+  });
+  document.getElementById('case-del').addEventListener('click',function(){
+    if(!editing||!confirm('Excluir o case "'+f.titulo.value+'"? A página sai do site e essa ação não pode ser desfeita.')) return;
+    api('/admin-cases?slug='+encodeURIComponent(editing),{method:'DELETE'}).then(function(){
+      cases=cases.filter(function(c){return c.slug!==editing}); editorDirty=false; showCaseList(); renderCases();
+    }).catch(function(x){ if(x.message!=='sessao') setStatus(x.message,true) });
+  });
+  document.getElementById('case-new').addEventListener('click',function(){ openEditor(null) });
+  document.getElementById('case-back').addEventListener('click',function(){ if(editorDirty&&!confirm('Sair sem salvar as alterações?')) return; editorDirty=false; showCaseList(); renderCases() });
+  window.addEventListener('beforeunload',function(e){ if(editorDirty||uploads>0){ e.preventDefault(); e.returnValue='' } });
 
   /* início: já está logado? */
   fetch(API+'/login',{credentials:'same-origin'}).then(function(r){return r.json()}).then(function(j){ j.autenticado?showPanel():showLogin() })

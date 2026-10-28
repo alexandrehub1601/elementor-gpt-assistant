@@ -8,6 +8,14 @@
     {
       "source": "/contato",
       "destination": "/contato.html"
+    },
+    {
+      "source": "/projetos/:slug",
+      "destination": "/api/case?slug=:slug"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
     }
   ],
   "headers": [

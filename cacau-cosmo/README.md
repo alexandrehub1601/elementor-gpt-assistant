@@ -167,3 +167,9 @@ Para baixar de novo (por exemplo, se entrarem posts novos lá), rode `python3 ca
 - O link **Sair** já vem assinado pelo WordPress (sai direto, sem tela de confirmação). Isso vem do `circulo.php` (`window.CC_USER`), então cole a versão nova no WPCode.
 - E-mail de contato: **hello@cacaucosmo.com**. O remetente técnico continua `CC_EMAIL_DE`, porque o envio sai do servidor do `.com.br`.
 - Também há `pagina-quem-somos.json` e `pagina-contato.json` para importar como página.
+
+## Página do Journal (`elementor/pagina-journal.json`)
+
+- Topo novo (Minha conta / Sair), céu com a manchete, **3 matérias em destaque** em carrossel e a lista de todas as matérias com "Carregar mais". Sem Atlas e sem formulário do Círculo.
+- Destaques: os posts marcados como **Fixar no topo do blog** (no editor do post → Status). Se não houver nenhum, entram os 3 mais recentes.
+- Importar em Modelos → Importar, inserir na página Journal com o layout Elementor Canvas.

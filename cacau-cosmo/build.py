@@ -836,6 +836,146 @@ def build_post():
     return export("post-journal", "Cacau Cosmo — Post do Journal (Single Post)", "single-post", content)
 
 
+# ---- JOURNAL (página) -------------------------------------------------
+JOURNAL_HTML = """<div class="cc-jr">
+  <header class="jr-ceu">
+    <canvas class="stars" data-density="7000" aria-hidden="true"></canvas>
+    <div class="jr-arco" aria-hidden="true"></div>
+    <span class="jr-tag">Journal</span>
+    <h1 data-i18n="t-jr-h1">Notas do mundo entre o cacau e o <em>cosmo.</em></h1>
+    <svg class="jr-fagulha" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 0c.4 4.7 4.3 8.6 9 9-4.7.4-8.6 4.3-9 9-.4-4.7-4.3-8.6-9-9 4.7-.4 8.6-4.3 9-9z" fill="#DDB05A"/></svg>
+    <p data-i18n="t-jr-p">Histórias, ciência, cadernos de campo e ideias para um planeta mais doce.</p>
+  </header>
+
+  <!-- 3 matérias em destaque: as marcadas como "Fixar no topo do blog"; se não houver, as 3 mais recentes -->
+  <section class="jr-dest" id="jrDest" aria-label="Matérias em destaque" aria-roledescription="carrossel">
+    <div class="jr-palco" id="jrPalco"><div class="jr-slide on"><div class="jr-slide__bg"></div></div></div>
+    <aside class="jr-lado">
+      <div class="jr-lado__topo">
+        <span class="jr-tag" data-i18n="t-jr-dest">Em destaque</span>
+        <span class="jr-cont" aria-hidden="true"><b id="jrN">01</b><i>/</i><b id="jrT">03</b></span>
+      </div>
+      <ol class="jr-lista" id="jrLista"></ol>
+      <div class="jr-setas">
+        <button type="button" id="jrAnt" aria-label="Matéria anterior"><svg viewBox="0 0 16 16" fill="none"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.3"/></svg></button>
+        <button type="button" id="jrProx" aria-label="Próxima matéria"><svg viewBox="0 0 16 16" fill="none"><path d="m6 3 5 5-5 5" stroke="currentColor" stroke-width="1.3"/></svg></button>
+      </div>
+      <blockquote data-i18n="t-jr-quote">&ldquo;A transformação vive no que não podemos ver.&rdquo;</blockquote>
+      <div class="jr-risco" aria-hidden="true"></div>
+    </aside>
+  </section>
+
+  <section class="jr-todas" aria-labelledby="jrTodasH">
+    <div class="jr-todas__in">
+      <div class="jr-todas__topo">
+        <div><span class="jr-tag" data-i18n="t-jr-todas">Todas as matérias</span><h2 id="jrTodasH" data-i18n="t-jr-todas-h">Do caderno do Cosmo.</h2></div>
+        <small id="jrTotal"></small>
+      </div>
+      <div class="jr-grade" id="jrGrade"><div class="jr-skel"></div><div class="jr-skel"></div><div class="jr-skel"></div></div>
+      <div class="jr-mais"><button type="button" id="jrMais" hidden data-i18n="t-jr-mais">Carregar mais</button></div>
+    </div>
+  </section>
+</div>"""
+
+JOURNAL_DICT = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
+  't-jr-h1': 'Notes from the world between cacao and the <em>cosmos.</em>',
+  't-jr-p': 'Stories, science, field notes and ideas for a sweeter planet.',
+  't-jr-dest': 'Featured', 't-jr-quote': '&ldquo;Transformation lives in what we cannot see.&rdquo;',
+  't-jr-todas': 'All stories', 't-jr-todas-h': 'From the Cosmos notebook.', 't-jr-mais': 'Load more'
+});
+"""
+
+JOURNAL_JS = r"""/* ===== JOURNAL: destaques + lista (REST do WordPress) ===== */
+(function(){
+  var en=document.documentElement.lang==='en', API='/wp-json/wp/v2/posts', POR=9;
+  var CAMPOS='&_embed=wp:featuredmedia,wp:term&_fields=id,link,title,excerpt,date,sticky,_links,_embedded';
+  function txt(h){var d=document.createElement('div');d.innerHTML=h||'';return (d.textContent||'').replace(/\s+/g,' ').trim()}
+  function curto(s,n){return s.length>n?s.slice(0,n).replace(/\s+\S*$/,'')+'…':s}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function img(p,tam){var m=p._embedded&&p._embedded['wp:featuredmedia']&&p._embedded['wp:featuredmedia'][0];if(!m||!m.source_url)return '';
+    var s=m.media_details&&m.media_details.sizes;return (s&&s[tam]&&s[tam].source_url)||m.source_url}
+  function cat(p){var t=p._embedded&&p._embedded['wp:term'];var c=t&&t[0]&&t[0][0];return c?txt(c.name):'Journal'}
+  function data(p){try{return new Date(p.date).toLocaleDateString(en?'en-US':'pt-BR',{day:'2-digit',month:'short',year:'numeric'})}catch(e){return ''}}
+  function get(q){return fetch(API+'?'+q+CAMPOS,{credentials:'same-origin'}).then(function(r){
+    if(!r.ok)throw r; return r.json().then(function(j){return {itens:j,total:+r.headers.get('X-WP-Total')||j.length}})})}
+  var seta='<svg viewBox="0 0 26 8" fill="none" aria-hidden="true"><path d="M0 4h24m0 0-4-3.2M24 4l-4 3.2" stroke="currentColor" stroke-width="1"/></svg>';
+
+  /* ---- destaques ---- */
+  var palco=document.getElementById('jrPalco'), lista=document.getElementById('jrLista'), dest=document.getElementById('jrDest');
+  var vistos=[];
+  function montarDestaques(ps){
+    if(!ps.length){dest.hidden=true;return}
+    vistos=ps.map(function(p){return p.id});
+    document.getElementById('jrT').textContent=('0'+ps.length).slice(-2);
+    palco.innerHTML=ps.map(function(p,i){
+      var t=txt(p.title.rendered), u=t.lastIndexOf(' '), h=u>0?esc(t.slice(0,u))+' <span>'+esc(t.slice(u+1))+'</span>':esc(t), bg=img(p,'full');
+      return '<article class="jr-slide'+(i?'':' on')+'" aria-roledescription="slide" aria-label="'+(i+1)+' / '+ps.length+'"'+(i?' aria-hidden="true"':'')+'>'+
+        '<div class="jr-slide__bg"'+(bg?' style="background-image:url(\''+bg.replace(/'/g,'%27')+'\')"':'')+'></div>'+
+        '<div class="jr-slide__txt"><span class="jr-tag">'+('0'+(i+1)).slice(-2)+' &mdash; '+esc(cat(p))+'</span>'+
+        '<h2>'+h+'</h2><p>'+esc(curto(txt(p.excerpt.rendered),150))+'</p>'+
+        '<a class="jr-pilula" href="'+esc(p.link)+'"'+(i?' tabindex="-1"':'')+'><span>'+(en?'Read story':'Ler matéria')+'</span>'+seta+'</a></div></article>';
+    }).join('');
+    lista.innerHTML=ps.map(function(p,i){var m=img(p,'thumbnail');
+      return '<li><button type="button" data-i="'+i+'"'+(i?'':' aria-current="true"')+'>'+(m?'<img src="'+esc(m)+'" alt="" loading="lazy">':'<i class="jr-mini"></i>')+
+        '<div><b>'+('0'+(i+1)).slice(-2)+'</b><span>'+esc(txt(p.title.rendered))+'</span></div></button></li>'}).join('');
+    var slides=palco.querySelectorAll('.jr-slide'), bts=lista.querySelectorAll('button'), atual=0, timer=null;
+    function ir(n){
+      atual=(n+slides.length)%slides.length;
+      slides.forEach(function(s,i){var on=i===atual;s.classList.toggle('on',on);s.setAttribute('aria-hidden',on?'false':'true');
+        var a=s.querySelector('a');if(a)a.tabIndex=on?0:-1});
+      bts.forEach(function(b,i){b.setAttribute('aria-current',i===atual?'true':'false')});
+      document.getElementById('jrN').textContent=('0'+(atual+1)).slice(-2);
+    }
+    function play(){stop(); if(slides.length>1&&!matchMedia('(prefers-reduced-motion: reduce)').matches) timer=setInterval(function(){ir(atual+1)},7000)}
+    function stop(){if(timer)clearInterval(timer);timer=null}
+    bts.forEach(function(b){b.addEventListener('click',function(){ir(+b.dataset.i);play()})});
+    document.getElementById('jrAnt').addEventListener('click',function(){ir(atual-1);play()});
+    document.getElementById('jrProx').addEventListener('click',function(){ir(atual+1);play()});
+    dest.addEventListener('mouseenter',stop); dest.addEventListener('mouseleave',play);
+    dest.addEventListener('focusin',stop); dest.addEventListener('focusout',play);
+    var x0=null; palco.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
+    palco.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40){ir(atual+(dx<0?1:-1));play()}x0=null});
+    play();
+  }
+
+  /* ---- lista ---- */
+  var grade=document.getElementById('jrGrade'), mais=document.getElementById('jrMais'), pag=0, total=0;
+  function card(p){var m=img(p,'medium_large'), t=esc(txt(p.title.rendered));
+    return '<article class="jr-card"><a class="jr-card__img" href="'+esc(p.link)+'" tabindex="-1" aria-hidden="true">'+(m?'<img src="'+esc(m)+'" alt="" loading="lazy">':'')+'</a>'+
+      '<span class="jr-tag">'+esc(cat(p))+' &middot; '+esc(data(p))+'</span><h3><a href="'+esc(p.link)+'">'+t+'</a></h3>'+
+      '<p>'+esc(curto(txt(p.excerpt.rendered),180))+'</p><a class="jr-card__ler" href="'+esc(p.link)+'" aria-label="'+(en?'Read: ':'Ler: ')+t+'">'+(en?'Read':'Ler')+' &mdash;</a></article>'}
+  function carregar(){
+    pag++; mais.disabled=true;
+    get('per_page='+POR+'&page='+pag+(vistos.length?'&exclude='+vistos.join(','):'')).then(function(r){
+      if(pag===1){grade.innerHTML='';total=r.total}
+      grade.insertAdjacentHTML('beforeend',r.itens.map(card).join(''));
+      if(pag===1&&!r.itens.length) grade.innerHTML='<p class="jr-vazio">'+(en?'New stories soon.':'Novas matérias em breve.')+'</p>';
+      var n=grade.querySelectorAll('.jr-card').length;
+      mais.hidden=n>=total; mais.disabled=false;
+      document.getElementById('jrTotal').textContent=total?(total+vistos.length)+(en?' stories':' matérias'):'';
+    }).catch(function(){ if(pag===1) grade.innerHTML='<p class="jr-vazio">'+(en?'Could not load the stories.':'Não foi possível carregar as matérias.')+'</p>'; mais.hidden=true; });
+  }
+  mais.addEventListener('click',carregar);
+
+  get('sticky=true&per_page=3').then(function(r){
+    var fixos=r.itens;
+    if(fixos.length>=3) return fixos;
+    return get('per_page='+(3-fixos.length)+(fixos.length?'&exclude='+fixos.map(function(p){return p.id}).join(','):'')).then(function(r2){return fixos.concat(r2.itens)});
+  }).catch(function(){return []}).then(function(ps){montarDestaques(ps); carregar();});
+})();
+"""
+
+
+def build_journal():
+    t = Tpl("journal")
+    content = [t.con("cc cc-root", [
+        t.html(tpl_header(read("elementor/journal.css")), "cc-header"),
+        t.html(JOURNAL_HTML, "cc-journal"),
+        t.html(tpl_footer(JOURNAL_DICT + JOURNAL_JS), "cc-footer"),
+    ])]
+    return export("pagina-journal", "Cacau Cosmo — Journal", "page", content)
+
+
 # ---- PÁGINAS EM JSON (home, quem somos, contato) --------------------
 def build_pagina_json(slug, titulo):
     t = Tpl(f"pg-{slug}")
@@ -846,7 +986,7 @@ def build_pagina_json(slug, titulo):
 if __name__ == "__main__":
     for slug in ("quem-somos", "contato"):
         print("ok", build_page(slug).relative_to(ROOT.parent))
-    for fn in (build_loja, build_produto, build_carrinho, build_checkout, build_conta, build_post):
+    for fn in (build_loja, build_produto, build_carrinho, build_checkout, build_conta, build_post, build_journal):
         print("ok", fn().relative_to(ROOT.parent))
     for slug, titulo in (("home", "Cacau Cosmo — Home"), ("quem-somos", "Cacau Cosmo — Quem Somos"), ("contato", "Cacau Cosmo — Contato")):
         print("ok", build_pagina_json(slug, titulo).relative_to(ROOT.parent))

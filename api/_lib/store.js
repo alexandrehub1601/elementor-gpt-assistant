@@ -4,8 +4,23 @@
 // Desenvolvimento local: arquivo JSON (FALE_DATA_FILE), só fora da Vercel.
 import fs from "node:fs/promises";
 
-const URL_ = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+// Aceita os nomes com ou sem prefixo (ex.: STORAGE_KV_REST_API_URL), que a Vercel pode criar ao conectar.
+function findEnv(names) {
+  for (const n of names) if (process.env[n]) return process.env[n];
+  for (const [k, v] of Object.entries(process.env)) if (v && names.some((n) => k.endsWith("_" + n))) return v;
+  return "";
+}
+let URL_ = findEnv(["KV_REST_API_URL", "UPSTASH_REDIS_REST_URL"]);
+let TOKEN = findEnv(["KV_REST_API_TOKEN", "UPSTASH_REDIS_REST_TOKEN"]);
+// Se só existir o endereço redis:// do Upstash, monta a conexão REST a partir dele.
+if (!URL_ || !TOKEN) {
+  const raw = findEnv(["KV_URL", "REDIS_URL", "UPSTASH_REDIS_URL"]);
+  try {
+    const u = new URL(raw);
+    if (/\.upstash\.io$/.test(u.hostname) && u.password) { URL_ = "https://" + u.hostname; TOKEN = decodeURIComponent(u.password); }
+  } catch { /* sem conexão */ }
+}
+export const storageInfo = () => ({ redis: !!(URL_ && TOKEN) });
 const LIST = "fale:mensagens";
 const KEY = (id) => `fale:mensagem:${id}`;
 
@@ -26,7 +41,7 @@ async function writeFile(d) { await fs.writeFile(FILE, JSON.stringify(d, null, 2
 function backend() {
   if (URL_ && TOKEN) return "redis";
   if (FILE && !process.env.VERCEL) return "file";
-  throw Object.assign(new Error("Armazenamento não configurado: conecte o Upstash Redis ao projeto na Vercel."), { status: 500 });
+  throw Object.assign(new Error("Armazenamento não configurado: conecte o Upstash for Redis ao projeto na Vercel e faça Redeploy."), { status: 500 });
 }
 
 export async function addMessage(msg) {

@@ -35,9 +35,11 @@ export default async function handler(req, res) {
     const base = slugify(new URL(req.url, "http://x").searchParams.get("nome")?.replace(/\.[a-z0-9]+$/i, "")) || "imagem";
     const name = `cases/${base}-${crypto.randomBytes(4).toString("hex")}.${TYPES[type]}`;
 
-    if (process.env.BLOB_READ_WRITE_TOKEN) {
+    const blobToken = process.env.BLOB_READ_WRITE_TOKEN ||
+      Object.entries(process.env).find(([k, v]) => v && k.endsWith("_BLOB_READ_WRITE_TOKEN"))?.[1];
+    if (blobToken) {
       const { put } = await import("@vercel/blob");
-      const blob = await put(name, buf, { access: "public", contentType: type, addRandomSuffix: false });
+      const blob = await put(name, buf, { access: "public", contentType: type, addRandomSuffix: false, token: blobToken });
       return send(res, 201, { url: blob.url });
     }
     if (process.env.FALE_UPLOAD_DIR && !process.env.VERCEL) {
@@ -46,7 +48,7 @@ export default async function handler(req, res) {
       await fs.writeFile(file, buf);
       return send(res, 201, { url: "/uploads/" + name });
     }
-    return send(res, 500, { erro: "Armazenamento de imagens não configurado: conecte o Vercel Blob ao projeto." });
+    return send(res, 500, { erro: "Armazenamento de imagens não configurado: conecte o Vercel Blob ao projeto e faça Redeploy." });
   } catch (e) {
     return send(res, e.status || 500, { erro: e.message || "Erro ao enviar a imagem." });
   }

@@ -312,12 +312,6 @@ fieldset{border:0;min-width:0}
 .manifesto__aside{grid-column:1/span 5;align-self:start;position:sticky;top:7rem;display:grid;gap:2rem}
 .manifesto__intro{font-size:var(--fs-base);color:var(--mist);max-width:34ch;margin-top:-1rem}
 .manifesto__open{font-weight:800;font-size:var(--fs-xl);line-height:1.02;letter-spacing:-.03em;max-width:11ch}
-.team{display:grid;gap:.75rem;max-width:22rem}
-.team__photo{position:relative;aspect-ratio:4/5;border-radius:var(--radius-s);overflow:hidden;background:#2A2A28}
-.team__photo img{width:100%;height:100%;object-fit:cover}
-.team__photo .ph{position:absolute;inset:0;background:#2A2A28;color:var(--gold);align-items:center;justify-content:center;flex-direction:column;gap:.5rem;text-align:center}
-.team__photo .ph svg{width:3rem;opacity:.7}
-.team figcaption{font-size:var(--fs-sm);color:var(--mist)}
 .manifesto__main{grid-column:7/span 6;display:grid;gap:clamp(3rem,6vw,5rem);position:relative}
 .manifesto__body{display:grid;gap:1.25em}
 .manifesto__body p{font-weight:300;font-size:var(--fs-lg);line-height:1.35;letter-spacing:-.01em;max-width:30ch}
@@ -532,8 +526,7 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
   .section-name,.section-title{grid-column:1/-1}
   .manifesto__aside,.manifesto__main{grid-column:1/-1;position:static}
   .manifesto__main{margin-top:3rem}
-  .team{max-width:16rem}
-  .services-list{grid-template-columns:1fr;gap:3rem}
+    .services-list{grid-template-columns:1fr;gap:3rem}
   .step__n{grid-column:1/span 6;grid-row:1;align-self:end}
   .step__icon{grid-column:7/span 6;grid-row:1;align-self:end;width:3rem}
   .step__body{grid-column:1/-1;grid-row:2}
@@ -604,14 +597,6 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
     <div class="manifesto__aside">
       <h2 class="manifesto__open" id="manifesto-title">Todo negócio tem algo a dizer.</h2>
       <p class="manifesto__intro">Somos um estúdio de design especializado em identidade visual estratégica. Unimos estratégia e criação para construir marcas claras, consistentes e proprietárias.</p>
-      <!-- Foto da equipe: troque o .ph por <img src="..." alt="Fernanda Molinaro e Alexandre Santos no estúdio"> -->
-      <figure class="team">
-        <div class="team__photo"><div class="ph">
-          <svg viewBox="0 0 366.03 369.8" aria-hidden="true"><use href="#simbolo-fale"/></svg>
-          <span class="ph__note">Foto da equipe</span>
-        </div></div>
-        <figcaption>Fernanda Molinaro e Alexandre Santos, fundadores do estúdio.</figcaption>
-      </figure>
     </div>
     <div class="manifesto__main">
       <div class="manifesto__body reveal">

@@ -26,7 +26,7 @@
 <meta name="twitter:image" content="https://www.estudiofale.com.br/assets/img/og-estudio-fale.jpg">
 <link rel="icon" href="assets/logo/simbolo-fale.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<link rel="preload" as="image" href="assets/img/hero-poster.webp">
+<link rel="preload" as="image" href="assets/img/hero-poster-v2.webp">
 <link rel="preload" href="assets/fonts/Passeio-ExtraBold.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="preload" href="assets/fonts/Passeio-Regular.ttf" as="font" type="font/ttf" crossorigin>
 <script type="application/ld+json">
@@ -413,9 +413,11 @@ fieldset{border:0;min-width:0}
 .testimonial__more{align-self:flex-start;display:inline-flex;align-items:center;gap:.5rem;min-height:2.75rem;padding:0;border:0;background:none;cursor:pointer;font-size:var(--fs-sm);color:var(--wine);border-bottom:1px solid currentColor;margin-top:-.5rem}
 .testimonial__more svg{width:12px;height:12px;transition:transform .25s var(--ease)}
 .testimonial__more[aria-expanded="true"] svg{transform:rotate(180deg)}
-.testimonial figcaption{display:grid;gap:.15rem;font-size:var(--fs-sm)}
+.testimonial figcaption{display:flex;align-items:center;gap:.9rem;font-size:var(--fs-sm)}
+.testimonial__photo{width:3.5rem;height:3.5rem;border-radius:50%;object-fit:cover;flex:none;background:var(--paper)}
+.testimonial__who{display:grid;gap:.15rem}
 .testimonial figcaption strong{font-weight:800;font-size:var(--fs-base)}
-.testimonial figcaption span{color:var(--graphite)}
+.testimonial__who span{color:var(--graphite)}
 
 /* ---------- perguntas frequentes ---------- */
 .faq-list{grid-column:4/span 9;border-top:1px solid var(--line)}
@@ -575,15 +577,15 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
 <main id="conteudo">
 
 <!-- ======================= HERO ======================= -->
-<!-- Vídeo do motion (sem áudio). Celular recebe a versão 720p; computador, WebM ou MP4 1080p. -->
+<!-- Vídeo do motion (sem áudio). Celular recebe a versão 480p; computador, a 720p (WebM ou MP4). -->
 <section class="hero" aria-labelledby="hero-title">
   <h1 class="visually-hidden" id="hero-title">Estúdio F/Ale: estúdio de identidade visual estratégica</h1>
   <div class="hero__placeholder" aria-hidden="true"><svg viewBox="0 0 366.03 369.8"><use href="#simbolo-fale"/></svg></div>
-  <video class="hero__video" id="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/img/hero-poster.webp" aria-hidden="true">
-    <source src="assets/video/hero-720.webm" type="video/webm" media="(max-width: 900px)">
-    <source src="assets/video/hero-720.mp4" type="video/mp4" media="(max-width: 900px)">
-    <source src="assets/video/hero-1080.webm" type="video/webm">
-    <source src="assets/video/hero-1080.mp4" type="video/mp4">
+  <video class="hero__video" id="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/img/hero-poster-v2.webp" aria-hidden="true">
+    <source src="assets/video/home-v2-480.webm" type="video/webm" media="(max-width: 900px)">
+    <source src="assets/video/home-v2-480.mp4" type="video/mp4" media="(max-width: 900px)">
+    <source src="assets/video/home-v2-720.webm" type="video/webm">
+    <source src="assets/video/home-v2-720.mp4" type="video/mp4">
   </video>
   <button class="hero__pause" type="button" id="hero-pause" aria-label="Pausar vídeo" hidden>
     <svg viewBox="0 0 12 12" aria-hidden="true" fill="currentColor"><rect x="2" y="1" width="3" height="10"/><rect x="7" y="1" width="3" height="10"/></svg>
@@ -775,7 +777,7 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
             <p>O que mais valorizo nesse time é o cuidado em entender o briefing e transformar as ideias em entregas de alta qualidade. Trabalhei com esse time e são competentes, atentos aos detalhes e comprometidos com o resultado, super recomendo!</p>
           </div>
         </blockquote>
-        <figcaption><strong>Thalita Freitas</strong><span>Outback</span></figcaption>
+        <figcaption><img class="testimonial__photo" src="assets/img/depoimentos/thalita-freitas.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><span class="testimonial__who"><strong>Thalita Freitas</strong><span>Outback</span></span></figcaption>
       </figure>
       <figure class="testimonial">
         <svg class="testimonial__mark" viewBox="0 0 36 28" aria-hidden="true" fill="currentColor"><path d="M0 28V17.2C0 7.6 5.1 1.9 14.2 0l1.6 4.1C10.7 5.6 8.3 8.7 8 13.2h6.7V28H0zm20.2 0V17.2C20.2 7.6 25.3 1.9 34.4 0L36 4.1c-5.1 1.5-7.5 4.6-7.8 9.1h6.7V28H20.2z"/></svg>
@@ -784,7 +786,7 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
             <p>Trabalhar com esses designers é sempre uma experiência extremamente positiva e enriquecedora. Recomendo de olhos fechados. É um grupo que entrega muito mais do que um excelente trabalho.</p>
           </div>
         </blockquote>
-        <figcaption><strong>Tatiana Mazzei</strong><span>Hub1601</span></figcaption>
+        <figcaption><img class="testimonial__photo" src="assets/img/depoimentos/tatiana-mazzei.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><span class="testimonial__who"><strong>Tatiana Mazzei</strong><span>Hub1601</span></span></figcaption>
       </figure>
     </div>
   </div>

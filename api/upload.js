@@ -5,6 +5,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { send, isAuthed, isPanelRequest } from "./_lib/http.js";
 import { slugify } from "./_lib/cases.js";
+import { blobCredentials } from "./_lib/blob.js";
 
 const TYPES = { "image/webp": "webp", "image/jpeg": "jpg", "image/png": "png", "image/avif": "avif" };
 const MAX = 4 * 1024 * 1024; // limite das funções da Vercel é 4,5 MB
@@ -35,12 +36,18 @@ export default async function handler(req, res) {
     const base = slugify(new URL(req.url, "http://x").searchParams.get("nome")?.replace(/\.[a-z0-9]+$/i, "")) || "imagem";
     const name = `cases/${base}-${crypto.randomBytes(4).toString("hex")}.${TYPES[type]}`;
 
-    const blobToken = process.env.BLOB_READ_WRITE_TOKEN ||
-      Object.entries(process.env).find(([k, v]) => v && k.endsWith("_BLOB_READ_WRITE_TOKEN"))?.[1];
-    if (blobToken) {
+    // Vercel Blob: aceita o token antigo (BLOB_READ_WRITE_TOKEN) e a conexão nova (BLOB_STORE_ID + OIDC),
+    // com ou sem prefixo no nome da variável.
+    const blob = blobCredentials(req);
+    if (blob) {
       const { put } = await import("@vercel/blob");
-      const blob = await put(name, buf, { access: "public", contentType: type, addRandomSuffix: false, token: blobToken });
-      return send(res, 201, { url: blob.url });
+      try {
+        const r = await put(name, buf, { access: "public", contentType: type, addRandomSuffix: false, abortSignal: AbortSignal.timeout(25000), ...blob });
+        return send(res, 201, { url: r.url });
+      } catch (e) {
+        const msg = e.name === "AbortError" || e.name === "TimeoutError" || /abort/i.test(e.message) ? "O armazenamento de imagens demorou para responder. Tente de novo." : /private/i.test(e.message) ? "O armazenamento de imagens está como privado. Crie um Blob com acesso Public e conecte ao projeto." : "Erro no armazenamento de imagens: " + e.message;
+        return send(res, 502, { erro: msg });
+      }
     }
     if (process.env.FALE_UPLOAD_DIR && !process.env.VERCEL) {
       const file = path.join(process.env.FALE_UPLOAD_DIR, name);

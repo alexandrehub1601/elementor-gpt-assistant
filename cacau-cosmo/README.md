@@ -173,3 +173,10 @@ Para baixar de novo (por exemplo, se entrarem posts novos lá), rode `python3 ca
 - Topo novo (Minha conta / Sair), céu com a manchete, **3 matérias em destaque** em carrossel e a lista de todas as matérias com "Carregar mais". Sem Atlas e sem formulário do Círculo.
 - Destaques: os posts marcados como **Fixar no topo do blog** (no editor do post → Status). Se não houver nenhum, entram os 3 mais recentes.
 - Importar em Modelos → Importar, inserir na página Journal com o layout Elementor Canvas.
+
+## Loja com as caixas sem fundo
+
+- Na loja (arquivo de produtos), os cartões mostram a caixa **sem fundo** sobre o creme; na página do produto continua a foto de fundo azul e a caixa 3D.
+- Suba as 6 imagens de `woocommerce/fotos-transparentes.zip` (`cc-card-<astro>-<peso>.png`) em **Mídia → Adicionar nova**, sem renomear, e reimporte `elementor/loja-woocommerce.json`.
+- Sem as imagens na mídia, os cartões continuam com a foto atual.
+- Para gerar de novo: `python3 woocommerce/fotos_reais.py`.

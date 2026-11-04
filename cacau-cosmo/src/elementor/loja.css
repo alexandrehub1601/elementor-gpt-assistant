@@ -13,3 +13,11 @@
 .cc-feature__body h2{font-family:var(--font-display)!important;font-weight:700;font-size:clamp(26px,3vw,46px);line-height:1.1;color:var(--cc-text-dark);margin:12px 0 14px;max-width:15ch}
 .cc-feature__body p{max-width:42ch;opacity:.84;margin:0 0 10px}
 @media (max-width:900px){.cc-feature{grid-template-columns:1fr}}
+
+/* caixas sem fundo nos cartões da loja (a foto azul fica só na página do produto) */
+.cc-root .cc-shop-main ul.products li.product .cc-imgbox img{opacity:0;transition:opacity .5s var(--ease),transform 1.2s var(--ease)}
+.cc-root .cc-shop-main ul.products.cc-fotos-ok li.product .cc-imgbox img{opacity:1}
+.cc-root .cc-shop-main ul.products li.product.cc-transp .cc-imgbox{background:var(--cc-paper)}
+.cc-root .cc-shop-main ul.products li.product.cc-transp a img{object-fit:contain;background:transparent;padding:6% 4% 2%;box-sizing:border-box}
+.cc-root .cc-shop-main ul.products li.product.cc-transp:hover .cc-imgbox img{transform:scale(1.04) translateY(-6px)}
+.cc-root .cc-shop-main ul.products li.product.outofstock.cc-transp .cc-imgbox img{filter:saturate(.7)}

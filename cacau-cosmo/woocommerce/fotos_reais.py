@@ -8,7 +8,9 @@ um pouco mais funda, como na página 3D da coleção.
 
 Uso:  python3 cacau-cosmo/woocommerce/fotos_reais.py [lua sol saturno]
 Saída: imagens/<produto>-33g.jpg, <produto>-100g.jpg (principais),
-       <produto>-frente.jpg e <produto>-tampa.jpg (galeria)
+       <produto>-frente.jpg e <produto>-tampa.jpg (galeria) e
+       transparentes/cc-card-<produto>-<peso>.png (caixa sem fundo, só para
+       os cartões da loja) + fotos-transparentes.zip
 """
 import random
 import sys
@@ -59,7 +61,7 @@ def escurecer(img, f):
     return Image.eval(img.convert("RGB"), lambda v: int(v * f))
 
 
-def caixa(slug, tamanho):
+def caixa(slug, tamanho, transparente=False):
     pasta = OUT / "fotos-reais" / slug
     frente = Image.open(pasta / "frente.jpg")
     lado = Image.open(pasta / ("lateral-2.jpg" if (pasta / "lateral-2.jpg").exists() else "lateral-1.jpg"))
@@ -72,13 +74,18 @@ def caixa(slug, tamanho):
     x0 = (W - fw - dx) // 2
     y0 = (H - fh + dy) // 2 + 30
 
-    bg = fundo(slug + tamanho)
-    # brilho atrás da caixa e sombra no chão
-    halo = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    ImageDraw.Draw(halo).ellipse([x0 - 90, y0 - 60, x0 + fw + dx + 90, y0 + fh + 40], fill=(120, 130, 210, 48))
-    bg.alpha_composite(halo.filter(ImageFilter.GaussianBlur(70)))
+    if transparente:
+        bg = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    else:
+        bg = fundo(slug + tamanho)
+        # brilho atrás da caixa
+        halo = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        ImageDraw.Draw(halo).ellipse([x0 - 90, y0 - 60, x0 + fw + dx + 90, y0 + fh + 40], fill=(120, 130, 210, 48))
+        bg.alpha_composite(halo.filter(ImageFilter.GaussianBlur(70)))
+    # sombra no chão (mais leve sem fundo, para assentar sobre o creme)
     sh = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    ImageDraw.Draw(sh).ellipse([x0 - 20, y0 + fh - 30, x0 + fw + dx + 60, y0 + fh + 46], fill=(0, 0, 12, 200))
+    ImageDraw.Draw(sh).ellipse([x0 - 20, y0 + fh - 30, x0 + fw + dx + 60, y0 + fh + 46],
+                               fill=(20, 12, 6, 110) if transparente else (0, 0, 12, 200))
     bg.alpha_composite(sh.filter(ImageFilter.GaussianBlur(26)))
 
     bg.alpha_composite(warp(escurecer(lado, .72), [(x0 + fw, y0), (x0 + fw + dx, y0 - dy),
@@ -95,7 +102,7 @@ def caixa(slug, tamanho):
     bg.alpha_composite(luz, (x0, y0))
     # aresta clara entre frente e lateral
     ImageDraw.Draw(bg).line([(x0 + fw, y0), (x0 + fw, y0 + fh)], fill=(255, 255, 255, 40), width=2)
-    return bg.convert("RGB")
+    return bg if transparente else bg.convert("RGB")
 
 
 def plana(slug, face, alvo_w):
@@ -128,3 +135,13 @@ if __name__ == "__main__":
             salvar(caixa(slug, tam), f"{slug}-{tam}.jpg")
         salvar(plana(slug, "frente", 720), f"{slug}-frente.jpg")
         salvar(plana(slug, "tampa", 960), f"{slug}-tampa.jpg")
+    # caixas sem fundo para os cartões da loja (a página do produto continua com o fundo azul)
+    import zipfile
+    (OUT / "transparentes").mkdir(exist_ok=True)
+    with zipfile.ZipFile(OUT / "fotos-transparentes.zip", "w", zipfile.ZIP_DEFLATED) as z:
+        for slug in ["saturno", "lua", "sol"]:
+            for tam in TAMANHOS:
+                nome = f"cc-card-{slug}-{tam[:-1]}.png"
+                caixa(slug, tam, transparente=True).save(OUT / "transparentes" / nome, optimize=True)
+                z.write(OUT / "transparentes" / nome, nome)
+                print("ok", f"transparentes/{nome}")

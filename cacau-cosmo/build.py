@@ -252,12 +252,45 @@ def build_loja():
         t.html(TRUST_HTML),
         t.html(FEATURE_HTML),
         t.html(CIRCLE_HTML),
-        t.html(tpl_footer(SHOP_DICT + WOO_CARDS_JS), "cc-footer"),
+        t.html(tpl_footer(SHOP_DICT + WOO_CARDS_JS + SHOP_TRANSP_JS), "cc-footer"),
     ])]
     # versão "página": entra por qualquer importador e depois é inserida no
     # template de Arquivo de produtos pela biblioteca (Meus modelos → Inserir)
     export("loja-woocommerce-alternativo", "Cacau Cosmo — Loja (inserir no Arquivo de produtos)", "page", content)
     return export("loja-woocommerce", "Cacau Cosmo — Loja (Arquivo de produtos)", "product-archive", content)
+
+
+# Só na loja: os cartões trocam a foto pela caixa sem fundo (cc-card-<astro>-<peso>.png
+# na Biblioteca de Mídia). A página do produto continua com a foto de fundo azul.
+SHOP_TRANSP_JS = r"""/* ===== LOJA: CAIXAS SEM FUNDO NOS CARTÕES ================ */
+(function(){
+  var cards=[].slice.call(document.querySelectorAll('.cc-shop-main ul.products li.product'));
+  if(!cards.length)return;
+  var grade=cards[0].parentNode, feito=false;
+  function pronto(){if(feito)return;feito=true;grade.classList.add('cc-fotos-ok')}
+  setTimeout(pronto,2500);
+  if(!window.fetch){pronto();return}
+  fetch('/wp-json/wp/v2/media?search=cc-card-&per_page=30&_fields=source_url',{credentials:'same-origin'})
+    .then(function(r){return r.ok?r.json():[]})
+    .then(function(lista){
+      var mapa={};
+      (lista||[]).forEach(function(m){
+        var u=m.source_url||'', k=u.match(/cc-card-(lua|sol|saturno)-(33|100)(?:-\d+)?\.png$/i);
+        if(k){var c=(k[1]+k[2]).toLowerCase(); if(!mapa[c]) mapa[c]=u;}
+      });
+      cards.forEach(function(li){
+        var a=li.querySelector('a.woocommerce-LoopProduct-link')||li.querySelector('a');
+        var h=(a&&a.getAttribute('href')||'').toLowerCase();
+        var k=h.match(/\/(lua|sol|saturno)-\d+-(33|100)g\/?(?:[?#].*)?$/);
+        if(!k){var t=(li.textContent||'').toLowerCase(), as=t.match(/\b(lua|sol|saturno)\b/), ps=t.match(/\b(33|100)\s?g\b/); if(as&&ps)k=[0,as[1],ps[1]];}
+        var u=k&&mapa[k[1]+k[2]], img=li.querySelector('.cc-imgbox img, a img');
+        if(!u||!img)return;
+        img.removeAttribute('srcset'); img.removeAttribute('sizes'); img.removeAttribute('data-src');
+        img.src=u; li.classList.add('cc-transp');
+      });
+    }).catch(function(){}).then(pronto);
+})();
+"""
 
 
 # ---- PRODUTO ---------------------------------------------------------

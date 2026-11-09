@@ -104,6 +104,7 @@ a{color:inherit}
 .msg summary::-webkit-details-marker{display:none}
 .msg summary:hover{background:rgba(29,29,29,.03)}
 .msg__name{font-weight:800;font-size:var(--fs-md);letter-spacing:-.01em;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.badge.badge--origem{background:var(--green);color:var(--paper)}
 .badge{font-weight:400;font-size:.75rem;line-height:1;padding:.35rem .6rem;border-radius:var(--radius-pill);background:var(--gold);color:var(--ink)}
 .msg__date{font-size:var(--fs-sm);color:var(--graphite);white-space:nowrap}
 .msg__biz{grid-column:1/-1;font-size:var(--fs-sm);color:var(--graphite)}
@@ -403,7 +404,7 @@ textarea.txt{min-height:12rem;line-height:1.55;resize:vertical}
     if(!items.length){ listEl.appendChild(el('p','empty','Nenhuma mensagem encontrada com esse filtro.')); return }
     items.forEach(function(m){
       var d=el('details','msg'+(m.lida?'':' is-new')); d.dataset.id=m.id;
-      var s=el('summary'); var name=el('span','msg__name',m.nome); if(!m.lida) name.appendChild(el('span','badge','Nova'));
+      var s=el('summary'); var name=el('span','msg__name',m.nome); if(!m.lida) name.appendChild(el('span','badge','Nova')); if(m.origem&&m.origem!=='site') name.appendChild(el('span','badge badge--origem',m.origem==='advocacia'?'Advocacia':m.origem));
       s.appendChild(name); s.appendChild(el('span','msg__date',fmtDate(m.criadaEm))); s.appendChild(el('span','msg__biz',m.negocio));
       d.appendChild(s);
       var body=el('div','msg__body'); var dl=el('dl','msg__grid');
@@ -438,7 +439,7 @@ textarea.txt{min-height:12rem;line-height:1.55;resize:vertical}
   document.getElementById('refresh').addEventListener('click',load);
   document.getElementById('export').addEventListener('click',function(){
     if(!all.length){ alert('Ainda não há mensagens para exportar.'); return }
-    var cols=[['criadaEm','Data'],['nome','Nome'],['contato','Contato'],['negocio','Negócio'],['momento','Momento'],['projeto','Projeto'],['link','Site ou Instagram'],['lida','Lida']];
+    var cols=[['criadaEm','Data'],['nome','Nome'],['contato','Contato'],['negocio','Negócio'],['momento','Momento'],['projeto','Projeto'],['link','Site ou Instagram'],['origem','Origem'],['lida','Lida']];
     var esc=function(v){ v=v==null?'':String(v); if(/^[=+\-@]/.test(v)) v="'"+v; return '"'+v.replace(/"/g,'""')+'"' };
     var lines=[cols.map(function(c){return esc(c[1])}).join(';')].concat(all.map(function(m){ return cols.map(function(c){ var v=m[c[0]]; if(c[0]==='criadaEm') v=fmtDate(v); if(c[0]==='lida') v=v?'Sim':'Não'; return esc(v) }).join(';') }));
     var blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'});

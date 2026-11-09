@@ -28,6 +28,7 @@ export default async function handler(req, res) {
       momento: clean(b.momento, 120),
       projeto: clean(b.projeto, 5000),
       link: clean(b.link, 300),
+      origem: /^[a-z0-9-]{1,40}$/.test(String(b.origem || "")) ? String(b.origem) : "site",
     };
     const erros = [];
     if (m.nome.length < 2) erros.push("nome");

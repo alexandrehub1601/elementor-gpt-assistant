@@ -10,6 +10,10 @@
       "destination": "/contato.html"
     },
     {
+      "source": "/advocacia",
+      "destination": "/advocacia.html"
+    },
+    {
       "source": "/projetos/:slug",
       "destination": "/api/case?slug=:slug"
     },

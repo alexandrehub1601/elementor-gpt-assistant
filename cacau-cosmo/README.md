@@ -186,3 +186,11 @@ Para baixar de novo (por exemplo, se entrarem posts novos lá), rode `python3 ca
 Depois do bloco Cacau × Cosmo: frase "Cacau como origem…", **Do fruto** (texto + foto dos frutos), **Manifesto**, faixa de foto dos bombons, **Founder** (frase, foto da Nicole, assinatura) e o **Círculo** com os campos em coluna e botão "Entrar".
 
 - Fotos em `home-fotos.zip` (`cc-home-cacau.jpg`, `cc-home-bombons.jpg`, `cc-home-nicole.jpg`): subir em Mídia sem renomear. Se a URL do mês não bater, a página acha o arquivo pela Biblioteca de Mídia.
+
+## Avisos no WhatsApp (novo cadastro no Círculo e pedido pago)
+
+No `circulo.php`, bloco WHATSAPP da configuração:
+- `CC_WHATSAPP_NUMEROS`: quem recebe (`'Nicole' => '5521999999999'`). `CC_WHATSAPP_PEDIDOS` vazio = todos recebem os pedidos.
+- Envio pela **Z-API** (`CC_ZAPI_INSTANCIA`, `CC_ZAPI_TOKEN`, `CC_ZAPI_CLIENT_TOKEN`): o número que envia é conectado na Z-API por QR Code.
+- Sem Z-API, usa o **CallMeBot** (`CC_WHATSAPP_AVISOS`, grátis, quando houver vaga para novos números).
+- Botão **Testar WhatsApp** no menu Círculo manda uma mensagem e mostra o resultado de cada número.

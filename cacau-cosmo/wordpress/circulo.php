@@ -66,18 +66,37 @@ if ( ! defined( 'CC_MC_LIST_ID' ) ) {
 	define( 'CC_MC_LIST_ID', '4c0d53a240' );
 }
 
-/* WhatsApp via CallMeBot (grátis). Cada pessoa ativa uma vez: salva o número
-   +34 694 25 79 57 nos contatos e manda "I allow callmebot to send me messages".
-   O bot responde com a apikey. Formato: array( 'nome' => array( 'telefone', 'apikey' ) ). */
+/* ===== WHATSAPP: avisos de novo cadastro no Círculo e de pedido pago =====
+   1) Quem RECEBE os avisos (com DDI 55 + DDD + número, só dígitos): */
+if ( ! defined( 'CC_WHATSAPP_NUMEROS' ) ) {
+	define( 'CC_WHATSAPP_NUMEROS', array(
+		// 'Nicole' => '5521999999999',
+		// 'Isa'    => '5521988888888',
+	) );
+}
+/* Quem recebe o aviso de PEDIDO pago (nomes da lista acima). Vazio = todos. */
+if ( ! defined( 'CC_WHATSAPP_PEDIDOS' ) ) {
+	define( 'CC_WHATSAPP_PEDIDOS', array() );
+}
+/* 2) Quem ENVIA: Z-API (z-api.io, pago, brasileiro). O número que vai mandar as
+   mensagens é conectado lá por QR Code, como no WhatsApp Web. No painel da Z-API
+   copie o ID e o Token da instância e, em Segurança, o "Client-Token". */
+if ( ! defined( 'CC_ZAPI_INSTANCIA' ) ) {
+	define( 'CC_ZAPI_INSTANCIA', '' );
+}
+if ( ! defined( 'CC_ZAPI_TOKEN' ) ) {
+	define( 'CC_ZAPI_TOKEN', '' );
+}
+if ( ! defined( 'CC_ZAPI_CLIENT_TOKEN' ) ) {
+	define( 'CC_ZAPI_CLIENT_TOKEN', '' );
+}
+/* Alternativa grátis, sem Z-API: CallMeBot (callmebot.com). Cada pessoa ativa uma
+   vez pelo próprio WhatsApp e recebe uma apikey. Formato: 'Nome' => array( 'número', 'apikey' ).
+   Só é usado quando a Z-API acima está vazia. */
 if ( ! defined( 'CC_WHATSAPP_AVISOS' ) ) {
 	define( 'CC_WHATSAPP_AVISOS', array(
 		// 'Nicole' => array( '5521999999999', '123456' ),
-		// 'Isa'    => array( '5521988888888', '654321' ),
 	) );
-}
-/* Quem recebe o aviso de pedido pago (nomes da lista acima). */
-if ( ! defined( 'CC_WHATSAPP_PEDIDOS' ) ) {
-	define( 'CC_WHATSAPP_PEDIDOS', array( 'Nicole' ) );
 }
 /* Opcional: URL de webhook (Z-API, Make, Zapier…) que também recebe os avisos em JSON. */
 if ( ! defined( 'CC_WHATSAPP_WEBHOOK' ) ) {
@@ -371,20 +390,46 @@ function cc_circulo_mailchimp( $id, $tags = array() ) {
    AVISOS (WhatsApp + e-mail)
    ===================================================================== */
 
-function cc_whatsapp( $texto, $para = null ) {
-	$lista = CC_WHATSAPP_AVISOS;
-	if ( is_array( $para ) ) {
-		$lista = array_intersect_key( $lista, array_flip( $para ) );
-	}
-	foreach ( $lista as $quem ) {
-		if ( empty( $quem[0] ) || empty( $quem[1] ) ) {
-			continue;
+function cc_zapi_ativa() {
+	return CC_ZAPI_INSTANCIA && CC_ZAPI_TOKEN;
+}
+
+/* Manda $texto para todos (ou só para os nomes em $para). Devolve o resultado por pessoa. */
+function cc_whatsapp( $texto, $para = null, $esperar = false ) {
+	$filtro    = is_array( $para ) && $para ? array_flip( $para ) : null;
+	$resultado = array();
+	if ( cc_zapi_ativa() ) {
+		$lista = $filtro ? array_intersect_key( CC_WHATSAPP_NUMEROS, $filtro ) : CC_WHATSAPP_NUMEROS;
+		foreach ( $lista as $quem => $numero ) {
+			$numero = preg_replace( '/\D/', '', (string) $numero );
+			if ( ! $numero ) {
+				continue;
+			}
+			$h = array( 'Content-Type' => 'application/json' );
+			if ( CC_ZAPI_CLIENT_TOKEN ) {
+				$h['Client-Token'] = CC_ZAPI_CLIENT_TOKEN;
+			}
+			$r = wp_remote_post( 'https://api.z-api.io/instances/' . rawurlencode( CC_ZAPI_INSTANCIA ) . '/token/' . rawurlencode( CC_ZAPI_TOKEN ) . '/send-text', array(
+				'timeout'  => 12,
+				'blocking' => $esperar,
+				'headers'  => $h,
+				'body'     => wp_json_encode( array( 'phone' => $numero, 'message' => $texto ) ),
+			) );
+			$resultado[ $quem ] = cc_whatsapp_status( $r, $esperar );
 		}
-		wp_remote_get( add_query_arg( array(
-			'phone'  => '+' . preg_replace( '/\D/', '', $quem[0] ),
-			'text'   => rawurlencode( $texto ),
-			'apikey' => rawurlencode( $quem[1] ),
-		), 'https://api.callmebot.com/whatsapp.php' ), array( 'timeout' => 8, 'blocking' => false ) );
+	} else {
+		$lista = $filtro ? array_intersect_key( CC_WHATSAPP_AVISOS, $filtro ) : CC_WHATSAPP_AVISOS;
+		foreach ( $lista as $quem => $dados ) {
+			if ( empty( $dados[0] ) || empty( $dados[1] ) ) {
+				continue;
+			}
+			$r = wp_remote_get( add_query_arg( array(
+				'phone'  => '+' . preg_replace( '/\D/', '', $dados[0] ),
+				'text'   => rawurlencode( $texto ),
+				'apikey' => rawurlencode( $dados[1] ),
+			), 'https://api.callmebot.com/whatsapp.php' ), array( 'timeout' => 12, 'blocking' => $esperar ) );
+			$resultado[ $quem ] = cc_whatsapp_status( $r, $esperar );
+		}
 	}
 	if ( CC_WHATSAPP_WEBHOOK ) {
 		wp_remote_post( CC_WHATSAPP_WEBHOOK, array(
@@ -394,19 +439,29 @@ function cc_whatsapp( $texto, $para = null ) {
 			'body'     => wp_json_encode( array( 'texto' => $texto, 'para' => $para ) ),
 		) );
 	}
+	return $resultado;
+}
+
+function cc_whatsapp_status( $r, $esperar ) {
+	if ( is_wp_error( $r ) ) {
+		return 'erro: ' . $r->get_error_message();
+	}
+	if ( ! $esperar ) {
+		return 'enviado';
+	}
+	$code = (int) wp_remote_retrieve_response_code( $r );
+	return $code >= 200 && $code < 300 ? 'ok' : 'erro ' . $code . ': ' . wp_strip_all_tags( substr( wp_remote_retrieve_body( $r ), 0, 160 ) );
 }
 
 function cc_circulo_avisar_nova( $id ) {
 	$uf    = cc_circulo_get( $id, 'estado' );
-	$insta = cc_circulo_get( $id, 'instagram' );
 	$link  = admin_url( 'post.php?post=' . $id . '&action=edit' );
 	$texto = "✦ Nova solicitação no Círculo\n\n" .
 		'Nome: ' . cc_circulo_get( $id, 'nome' ) . "\n" .
 		'Idade: ' . cc_circulo_get( $id, 'idade' ) . "\n" .
 		'Cidade: ' . cc_circulo_get( $id, 'cidade' ) . ' / ' . $uf . "\n" .
 		'WhatsApp: ' . cc_circulo_get( $id, 'whatsapp' ) . "\n" .
-		'E-mail: ' . cc_circulo_get( $id, 'email' ) . "\n" .
-		'Instagram: ' . ( $insta ? 'instagram.com/' . $insta : '—' ) . "\n\n" .
+		'E-mail: ' . cc_circulo_get( $id, 'email' ) . "\n\n" .
 		'Aprovar ou não: ' . $link;
 	cc_whatsapp( $texto );
 	if ( CC_CIRCULO_EMAIL_AVISO ) {
@@ -614,6 +669,9 @@ add_action( 'admin_notices', function () {
 		'sync'      => 'Sincronização com o Mailchimp concluída. Veja o resultado na coluna "Envios".',
 	);
 	$k = sanitize_key( $_GET['cc_msg'] );
+	if ( 'wa' === $k ) {
+		$m['wa'] = 'Teste do WhatsApp — ' . get_transient( 'cc_whatsapp_teste' ) . ( cc_zapi_ativa() ? ' (via Z-API)' : ' (via CallMeBot)' );
+	}
 	if ( isset( $m[ $k ] ) ) {
 		echo '<div class="notice notice-' . ( 'erro' === $k ? 'error' : 'success' ) . ' is-dismissible"><p>' . esc_html( $m[ $k ] ) . '</p></div>';
 	}
@@ -851,7 +909,8 @@ add_action( 'manage_posts_extra_tablenav', function ( $which ) {
 		return;
 	}
 	echo '<div class="alignleft actions"><a class="button" href="' . esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=cc_circulo_csv' ), 'cc_circulo_csv' ) ) . '">Exportar CSV</a> ' .
-		'<a class="button" href="' . esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=cc_circulo_sync' ), 'cc_circulo_sync' ) ) . '">Sincronizar todas com o Mailchimp</a></div>';
+		'<a class="button" href="' . esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=cc_circulo_sync' ), 'cc_circulo_sync' ) ) . '">Sincronizar todas com o Mailchimp</a> ' .
+		'<a class="button" href="' . esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=cc_whatsapp_teste' ), 'cc_whatsapp_teste' ) ) . '">Testar WhatsApp</a></div>';
 } );
 
 /* Leva ao Mailchimp todas as solicitações, com a tag do status atual */
@@ -867,6 +926,21 @@ add_action( 'admin_post_cc_circulo_sync', function () {
 		cc_circulo_mailchimp( $id, cc_circulo_tags_do_status( $id ) );
 	}
 	wp_safe_redirect( add_query_arg( array( 'cc_msg' => 'sync', 'cc_n' => count( $ids ) ), admin_url( 'edit.php?post_type=' . CC_CIRCULO_CPT ) ) );
+	exit;
+} );
+
+/* Manda uma mensagem de teste para todos os números e mostra o resultado */
+add_action( 'admin_post_cc_whatsapp_teste', function () {
+	if ( ! current_user_can( 'edit_posts' ) || ! check_admin_referer( 'cc_whatsapp_teste' ) ) {
+		wp_die( 'Sem permissão.' );
+	}
+	$res = cc_whatsapp( "✦ Teste da Cacau Cosmo\n\nSe chegou, os avisos de novo cadastro no Círculo e de pedido pago vão chegar aqui.", null, true );
+	$txt = array();
+	foreach ( $res as $quem => $st ) {
+		$txt[] = $quem . ': ' . $st;
+	}
+	set_transient( 'cc_whatsapp_teste', $txt ? implode( ' · ', $txt ) : 'nenhum número configurado', 120 );
+	wp_safe_redirect( add_query_arg( 'cc_msg', 'wa', admin_url( 'edit.php?post_type=' . CC_CIRCULO_CPT ) ) );
 	exit;
 } );
 

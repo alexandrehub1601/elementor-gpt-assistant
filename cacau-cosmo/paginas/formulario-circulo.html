@@ -63,6 +63,7 @@
     <input class="cc-circ__full" type="text" name="nome" placeholder="Nome" autocomplete="name" required data-ph-en="Name">
     <input type="email" name="email" placeholder="E-mail" autocomplete="email" required data-ph-en="Email">
     <input type="tel" name="whatsapp" placeholder="WhatsApp" autocomplete="tel" inputmode="tel" required data-ph-en="WhatsApp">
+    <input class="cc-circ__full" type="text" name="instagram" placeholder="Instagram (@seuusuario)" autocomplete="off" autocapitalize="off" spellcheck="false" required data-ph-en="Instagram (@yourusername)">
     <input type="number" name="idade" placeholder="Idade" min="1" max="120" inputmode="numeric" required data-ph-en="Age">
     <select name="estado" required aria-label="Estado">
       <option value="" disabled selected data-en="State">Estado</option>
@@ -92,12 +93,12 @@
 
   var T={
     pt:{ok:'Solicitação enviada!',okSub:'Respondemos em até 48h, fique de olho no seu e-mail.',env:'Enviando…',
-        campos:'Preencha nome, e-mail, WhatsApp, idade, estado e cidade.',termos:'É preciso aceitar a Política de Privacidade.',
+        campos:'Preencha nome, e-mail, WhatsApp, Instagram, idade, estado e cidade.',termos:'É preciso aceitar a Política de Privacidade.',
         erro:'Não foi possível enviar agora. Tente novamente em instantes.',
         membros:'A loja, o Journal e as demais páginas são exclusivos para quem faz parte do Círculo. Solicite seu acesso abaixo &mdash; ou <a href="/minha-conta/">entre na sua conta</a>.',
         analise:'Sua solicitação está em análise. Assim que for aprovada, você recebe um e-mail com o acesso.'},
     en:{ok:'Request sent!',okSub:'We reply within 48h, keep an eye on your inbox.',env:'Sending…',
-        campos:'Please fill in name, email, WhatsApp, age, state and city.',termos:'Please accept the Privacy Policy.',
+        campos:'Please fill in name, email, WhatsApp, Instagram, age, state and city.',termos:'Please accept the Privacy Policy.',
         erro:'Could not send right now. Please try again shortly.',
         membros:'The shop, the Journal and the other pages are for Circle members only. Request your access below &mdash; or <a href="/minha-conta/">sign in</a>.',
         analise:'Your request is under review. Once approved, you will receive an email with your access.'}
@@ -130,9 +131,9 @@
       if(form._gotcha.value) return;
       msg.className='cc-circ__msg';
       if(!form.nome.value.trim()||!form.email.checkValidity()||!form.email.value||form.whatsapp.value.replace(/\D/g,'').length<10||
-         !form.idade.value||!form.estado.value||!form.cidade.value.trim()){
+         !form.instagram.value.replace(/[@\s]/g,'')||!form.idade.value||!form.estado.value||!form.cidade.value.trim()){
         msg.textContent=t.campos; msg.className='cc-circ__msg err';
-        var bad=[form.nome,form.email,form.whatsapp,form.idade,form.estado,form.cidade].filter(function(i){return !i.value.trim()||!i.checkValidity()})[0];
+        var bad=[form.nome,form.email,form.whatsapp,form.instagram,form.idade,form.estado,form.cidade].filter(function(i){return !i.value.trim()||!i.checkValidity()})[0];
         if(bad) bad.focus(); return;
       }
       if(!form.consentimento.checked){ msg.textContent=t.termos; msg.className='cc-circ__msg err'; return; }

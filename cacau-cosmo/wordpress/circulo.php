@@ -243,6 +243,9 @@ function cc_circulo_receber( WP_REST_Request $req ) {
 	if ( strlen( preg_replace( '/\D/', '', $d['whatsapp'] ) ) < 10 ) {
 		return cc_circulo_resposta( false, 'Informe o WhatsApp com DDD.', 400 );
 	}
+	if ( ! preg_match( '/^[A-Za-z0-9._]{1,30}$/', $d['instagram'] ) ) {
+		return cc_circulo_resposta( false, 'Informe seu usuário do Instagram (ex.: @seuusuario).', 400 );
+	}
 	if ( ! isset( CC_UFS[ $d['estado'] ] ) || '' === $d['cidade'] ) {
 		return cc_circulo_resposta( false, 'Informe estado e cidade.', 400 );
 	}
@@ -486,7 +489,8 @@ function cc_circulo_avisar_nova( $id ) {
 		'Idade: ' . cc_circulo_get( $id, 'idade' ) . "\n" .
 		'Cidade: ' . cc_circulo_get( $id, 'cidade' ) . ' / ' . $uf . "\n" .
 		'WhatsApp: ' . cc_circulo_get( $id, 'whatsapp' ) . "\n" .
-		'E-mail: ' . cc_circulo_get( $id, 'email' ) . "\n\n" .
+		'E-mail: ' . cc_circulo_get( $id, 'email' ) . "\n" .
+		'Instagram: instagram.com/' . cc_circulo_get( $id, 'instagram' ) . "\n\n" .
 		'Aprovar ou não: ' . $link;
 	cc_whatsapp( $texto );
 	if ( CC_CIRCULO_EMAIL_AVISO ) {

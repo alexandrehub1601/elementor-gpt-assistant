@@ -721,8 +721,8 @@ a.is-soon{cursor:default}
       os territórios e o tempo da natureza.</p>
   </div>
   <figure class="fruto__foto">
-    <!-- foto: Mídia → cc-home-cacau.jpg -->
-    <img src="https://cacaucosmo.com.br/wp-content/uploads/2026/11/cc-home-cacau.jpg" data-cc-midia="cc-home-cacau" onerror="ccMidia(this)"
+    <!-- foto: Midia - cc-home-cacau.jpg -->
+    <img src="https://cacaucosmo.com.br/wp-content/uploads/2026/11/cc-home-cacau.jpg" data-cc-midia="cc-home-cacau"
          alt="Frutos de cacau vermelhos, de perto" loading="lazy" decoding="async">
   </figure>
 </section>
@@ -743,8 +743,8 @@ a.is-soon{cursor:default}
 
 <!-- ===== 7 - BOMBONS (faixa de foto) ======================== -->
 <figure class="faixa-foto">
-  <!-- foto: Mídia → cc-home-bombons.jpg -->
-  <img src="https://cacaucosmo.com.br/wp-content/uploads/2026/11/cc-home-bombons.jpg" data-cc-midia="cc-home-bombons" onerror="ccMidia(this)"
+  <!-- foto: Midia - cc-home-bombons.jpg -->
+  <img src="https://cacaucosmo.com.br/wp-content/uploads/2026/11/cc-home-bombons.jpg" data-cc-midia="cc-home-bombons"
        alt="Bombons da Cacau Cosmo em caixinhas, lado a lado" loading="lazy" decoding="async">
 </figure>
 
@@ -753,8 +753,8 @@ a.is-soon{cursor:default}
 <section class="founder" id="founder">
   <h2 class="display rv founder__frase" data-i18n="t-founderp4">Porque, para mim, fazer chocolate sempre foi uma forma de cuidar.</h2>
   <figure class="founder__foto rv d1">
-    <!-- foto: Mídia → cc-home-nicole.jpg -->
-    <img src="https://cacaucosmo.com.br/wp-content/uploads/2026/11/cc-home-nicole.jpg" data-cc-midia="cc-home-nicole" onerror="ccMidia(this)"
+    <!-- foto: Midia - cc-home-nicole.jpg -->
+    <img src="https://cacaucosmo.com.br/wp-content/uploads/2026/11/cc-home-nicole.jpg" data-cc-midia="cc-home-nicole"
          alt="Nicole Buffara, fundadora da Cacau Cosmo, rindo com um sagui na cabeça" loading="lazy" decoding="async">
   </figure>
   <div class="sig rv d2">
@@ -989,6 +989,12 @@ function ccMidia(img){
       if(u) img.src=u;
     }).catch(function(){});
 }
+
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('img[data-cc-midia]').forEach(function(i){
+    if(i.complete&&!i.naturalWidth) ccMidia(i); else i.addEventListener('error',function(){ccMidia(i)});
+  });
+});
 
 /* ===== FALLBACK DO LOGO ==================================== */
 function ccFallback(img){

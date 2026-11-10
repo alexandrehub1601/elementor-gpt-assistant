@@ -191,6 +191,6 @@ Depois do bloco Cacau × Cosmo: frase "Cacau como origem…", **Do fruto** (text
 
 No `circulo.php`, bloco WHATSAPP da configuração:
 - `CC_WHATSAPP_NUMEROS`: quem recebe (`'Nicole' => '5521999999999'`). `CC_WHATSAPP_PEDIDOS` vazio = todos recebem os pedidos.
-- Envio pela **Z-API** (`CC_ZAPI_INSTANCIA`, `CC_ZAPI_TOKEN`, `CC_ZAPI_CLIENT_TOKEN`): o número que envia é conectado na Z-API por QR Code.
+- Envio grátis pela **Whapi.Cloud** (plano Sandbox, `CC_WHAPI_TOKEN`), ou pago pela **Z-API** (`CC_ZAPI_INSTANCIA`, `CC_ZAPI_TOKEN`, `CC_ZAPI_CLIENT_TOKEN`): o número que envia é conectado na Z-API por QR Code.
 - Sem Z-API, usa o **CallMeBot** (`CC_WHATSAPP_AVISOS`, grátis, quando houver vaga para novos números).
 - Botão **Testar WhatsApp** no menu Círculo manda uma mensagem e mostra o resultado de cada número.

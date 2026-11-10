@@ -78,7 +78,13 @@ if ( ! defined( 'CC_WHATSAPP_NUMEROS' ) ) {
 if ( ! defined( 'CC_WHATSAPP_PEDIDOS' ) ) {
 	define( 'CC_WHATSAPP_PEDIDOS', array() );
 }
-/* 2) Quem ENVIA: Z-API (z-api.io, pago, brasileiro). O número que vai mandar as
+/* 2) Quem ENVIA, opção GRÁTIS: Whapi.Cloud, plano Sandbox (até 5 conversas por mês e
+   150 mensagens por dia). Crie a conta em whapi.cloud, conecte por QR Code o WhatsApp
+   que vai mandar os avisos e copie o "API Token" do canal. */
+if ( ! defined( 'CC_WHAPI_TOKEN' ) ) {
+	define( 'CC_WHAPI_TOKEN', '' );
+}
+/* Opção paga: Z-API (z-api.io, brasileiro). O número que vai mandar as
    mensagens é conectado lá por QR Code, como no WhatsApp Web. No painel da Z-API
    copie o ID e o Token da instância e, em Segurança, o "Client-Token". */
 if ( ! defined( 'CC_ZAPI_INSTANCIA' ) ) {
@@ -90,9 +96,9 @@ if ( ! defined( 'CC_ZAPI_TOKEN' ) ) {
 if ( ! defined( 'CC_ZAPI_CLIENT_TOKEN' ) ) {
 	define( 'CC_ZAPI_CLIENT_TOKEN', '' );
 }
-/* Alternativa grátis, sem Z-API: CallMeBot (callmebot.com). Cada pessoa ativa uma
+/* Outra alternativa grátis: CallMeBot (callmebot.com). Cada pessoa ativa uma
    vez pelo próprio WhatsApp e recebe uma apikey. Formato: 'Nome' => array( 'número', 'apikey' ).
-   Só é usado quando a Z-API acima está vazia. */
+   Só é usado quando Whapi e Z-API acima estão vazios. */
 if ( ! defined( 'CC_WHATSAPP_AVISOS' ) ) {
 	define( 'CC_WHATSAPP_AVISOS', array(
 		// 'Nicole' => array( '5521999999999', '123456' ),
@@ -398,7 +404,26 @@ function cc_zapi_ativa() {
 function cc_whatsapp( $texto, $para = null, $esperar = false ) {
 	$filtro    = is_array( $para ) && $para ? array_flip( $para ) : null;
 	$resultado = array();
-	if ( cc_zapi_ativa() ) {
+	if ( CC_WHAPI_TOKEN && ! cc_zapi_ativa() ) {
+		$lista = $filtro ? array_intersect_key( CC_WHATSAPP_NUMEROS, $filtro ) : CC_WHATSAPP_NUMEROS;
+		foreach ( $lista as $quem => $numero ) {
+			$numero = preg_replace( '/\D/', '', (string) $numero );
+			if ( ! $numero ) {
+				continue;
+			}
+			$r = wp_remote_post( 'https://gate.whapi.cloud/messages/text', array(
+				'timeout'  => 12,
+				'blocking' => $esperar,
+				'headers'  => array(
+					'Authorization' => 'Bearer ' . CC_WHAPI_TOKEN,
+					'Content-Type'  => 'application/json',
+					'Accept'        => 'application/json',
+				),
+				'body'     => wp_json_encode( array( 'to' => $numero, 'body' => $texto ) ),
+			) );
+			$resultado[ $quem ] = cc_whatsapp_status( $r, $esperar );
+		}
+	} elseif ( cc_zapi_ativa() ) {
 		$lista = $filtro ? array_intersect_key( CC_WHATSAPP_NUMEROS, $filtro ) : CC_WHATSAPP_NUMEROS;
 		foreach ( $lista as $quem => $numero ) {
 			$numero = preg_replace( '/\D/', '', (string) $numero );
@@ -670,7 +695,7 @@ add_action( 'admin_notices', function () {
 	);
 	$k = sanitize_key( $_GET['cc_msg'] );
 	if ( 'wa' === $k ) {
-		$m['wa'] = 'Teste do WhatsApp — ' . get_transient( 'cc_whatsapp_teste' ) . ( cc_zapi_ativa() ? ' (via Z-API)' : ' (via CallMeBot)' );
+		$m['wa'] = 'Teste do WhatsApp — ' . get_transient( 'cc_whatsapp_teste' ) . ( cc_zapi_ativa() ? ' (via Z-API)' : ( CC_WHAPI_TOKEN ? ' (via Whapi)' : ' (via CallMeBot)' ) );
 	}
 	if ( isset( $m[ $k ] ) ) {
 		echo '<div class="notice notice-' . ( 'erro' === $k ? 'error' : 'success' ) . ' is-dismissible"><p>' . esc_html( $m[ $k ] ) . '</p></div>';

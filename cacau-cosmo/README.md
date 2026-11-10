@@ -180,3 +180,9 @@ Para baixar de novo (por exemplo, se entrarem posts novos lá), rode `python3 ca
 - Suba as 6 imagens de `woocommerce/fotos-transparentes.zip` (`cc-card-<astro>-<peso>.png`) em **Mídia → Adicionar nova**, sem renomear, e reimporte `elementor/loja-woocommerce.json`.
 - Sem as imagens na mídia, os cartões continuam com a foto atual.
 - Para gerar de novo: `python3 woocommerce/fotos_reais.py`.
+
+## Home nova (novembro)
+
+Depois do bloco Cacau × Cosmo: frase "Cacau como origem…", **Do fruto** (texto + foto dos frutos), **Manifesto**, faixa de foto dos bombons, **Founder** (frase, foto da Nicole, assinatura) e o **Círculo** com os campos em coluna e botão "Entrar".
+
+- Fotos em `home-fotos.zip` (`cc-home-cacau.jpg`, `cc-home-bombons.jpg`, `cc-home-nicole.jpg`): subir em Mídia sem renomear. Se a URL do mês não bater, a página acha o arquivo pela Biblioteca de Mídia.

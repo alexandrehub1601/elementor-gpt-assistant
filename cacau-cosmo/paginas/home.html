@@ -394,6 +394,66 @@ a.is-soon{cursor:default}
   padding-top:16px;margin-top:6px;border-top:1px solid rgba(0,6,46,.1)}
 .footer__legal a,.footer__legal small{font-size:9px;letter-spacing:.2em;text-transform:uppercase;opacity:.5}
 
+
+/* ===== 4 a 8 - FRASE, DO FRUTO, MANIFESTO, FOTOS, FOUNDER == */
+.frase{position:relative;overflow:hidden;background:#110D22;color:var(--cc-cream);text-align:center;
+  padding:clamp(56px,7vw,110px) var(--pad)}
+.frase p{position:relative;font-size:clamp(22px,2.6vw,40px);line-height:1.25;max-width:26ch;margin:0 auto;color:var(--cc-cream)}
+.fruto{display:grid;grid-template-columns:1fr 1fr;background:#3A2418;color:var(--cc-cream)}
+.fruto__txt{display:flex;flex-direction:column;justify-content:center;padding:clamp(44px,5.5vw,100px) var(--pad)}
+.fruto__txt .label{color:var(--cc-gold)}
+.fruto__txt h2{font-size:clamp(30px,3.6vw,58px);margin:14px 0 18px;max-width:13ch;color:var(--cc-cream)}
+.fruto__txt p:not(.label){font-family:var(--font-mono);font-size:clamp(14px,1.1vw,17px);line-height:1.7;opacity:.86;max-width:40ch}
+.fruto__foto,.faixa-foto,.founder__foto{margin:0;overflow:hidden;background:var(--cc-brown)}
+.fruto__foto{min-height:clamp(420px,52vw,760px);position:relative}
+.fruto__foto img,.faixa-foto img,.founder__foto img{display:block;width:100%;height:100%;object-fit:cover}
+.fruto__foto img{position:absolute;inset:0}
+.manifesto{display:block;min-height:0;background:#E8D7C3;color:var(--cc-text-dark);padding:clamp(56px,7vw,120px) var(--pad);text-align:left}
+.manifesto>*{width:100%;max-width:640px!important;margin-left:auto;margin-right:auto;text-align:left}
+.manifesto .label{color:var(--cc-gold)}
+.manifesto h2{font-size:clamp(32px,3.6vw,58px);margin:14px auto clamp(16px,1.8vw,26px);color:var(--cc-text-dark)}
+.manifesto p:not(.label){font-family:var(--font-mono);font-size:clamp(14px,1.1vw,17px);line-height:1.75;opacity:.86;margin-bottom:14px;max-width:640px}
+.manifesto .pillar{max-width:640px}
+.manifesto .pillar span{color:var(--cc-brown)}
+.faixa-foto{height:clamp(260px,46vw,620px)}
+.founder{background:#E5CDB3;color:var(--cc-text-dark);padding:clamp(56px,7vw,120px) var(--pad);
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);grid-template-areas:"frase foto" "sig foto";
+  column-gap:clamp(40px,6vw,110px);align-items:end;max-width:none}
+.founder__frase{grid-area:frase;font-size:clamp(26px,3.2vw,52px);line-height:1.15;max-width:16ch;margin:0;align-self:end}
+.founder__foto{grid-area:foto;aspect-ratio:4/5;border-radius:2px;max-width:520px;width:100%;justify-self:end}
+.founder .sig{grid-area:sig;align-self:start;margin-top:clamp(18px,2vw,30px);font-family:var(--font-display)}
+.founder .sig b{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,2vw,32px)}
+.founder .sig i{display:block;margin-top:8px;font-family:var(--font-body);color:var(--cc-gold);opacity:1;letter-spacing:.28em}
+
+/* Círculo novo: alinhado à esquerda, campos em coluna */
+.circle--novo{text-align:left;padding:clamp(56px,7vw,120px) var(--pad)}
+.circle--novo .circle__moon{display:none}
+.circle--novo>*{width:100%;max-width:620px!important;margin-left:auto!important;margin-right:auto!important;text-align:left}
+.circle--novo .label{color:var(--cc-gold)}
+.circle--novo h2{margin-top:12px;margin-bottom:10px}
+.circle--novo h2 .em{color:#8E3B5A}
+.circle--novo>p{margin-top:0;margin-bottom:0;opacity:.82;font-family:var(--font-mono);font-size:clamp(14px,1.1vw,17px)}
+.circle__form{margin-top:clamp(24px,2.6vw,36px)}
+.circle--novo .cc-circ{max-width:none}
+.circle--novo .cc-circ form{grid-template-columns:1fr;gap:12px}
+.circle--novo .cc-circ input:not([type=checkbox]),.circle--novo .cc-circ select{height:56px;border-radius:0;border:0;background:#5E6080;
+  font-family:var(--font-body);font-size:13px;letter-spacing:.08em;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.circle--novo .cc-circ input::placeholder,.circle--novo .cc-circ select:invalid{color:rgba(241,232,208,.88)}
+.circle--novo .cc-circ input:focus,.circle--novo .cc-circ select:focus{box-shadow:0 0 0 2px var(--cc-navy)}
+.circle--novo .cc-circ button{width:auto;min-width:150px;padding:0 30px;margin:16px 0 0;height:50px;border-radius:0;background:transparent;
+  border:1px solid var(--cc-text-dark);color:var(--cc-text-dark);font-family:var(--font-body);font-size:12px;letter-spacing:.3em;text-transform:uppercase}
+.circle--novo .cc-circ button:hover{background:var(--cc-navy);color:var(--cc-cream);box-shadow:none}
+.circle--novo .cc-circ .cc-circ__msg,.circle--novo .cc-circ .cc-circ__login{text-align:left}
+
+@media (max-width:900px){
+  .fruto{grid-template-columns:1fr}
+  .fruto__foto{min-height:0;aspect-ratio:3/4}
+  .founder{grid-template-columns:1fr;grid-template-areas:"frase" "foto" "sig";text-align:center;row-gap:clamp(26px,5vw,40px)}
+  .founder__frase{max-width:20ch;margin:0 auto}
+  .founder__foto{justify-self:center;max-width:420px}
+  .founder .sig{margin-top:0}
+}
+
 /* ===== RESPONSIVO ========================================== */
 @media (max-width:1100px){
   .band{grid-template-columns:1fr 1fr}
@@ -644,63 +704,75 @@ a.is-soon{cursor:default}
 </section>
 
 
-<!-- ===== 5 - MANIFESTO + FOUNDER =========================== -->
-<section class="band">
+<!-- ===== 4 - FRASE ========================================= -->
+<section class="frase">
+  <canvas class="stars" id="stars3" aria-hidden="true"></canvas>
+  <p class="display rv" data-i18n="t-manifp3">Cacau como origem. Chocolate como ritual.<br>
+    Um pequeno universo entre o cacau e o cosmo.</p>
+</section>
 
-  <div class="manifesto" id="manifesto">
-    <canvas class="stars" id="stars3" aria-hidden="true"></canvas>
-    <h2 class="display rv" data-i18n="t-manifh2">O Manifesto</h2>
-    <p class="rv d1" data-i18n="t-manifp1">Vivemos rápido. Comemos rápido. Pensamos rápido.<br>
-      Cacau Cosmo nasce como um convite a sentir mais.</p>
-    <p class="rv d2" data-i18n="t-manifp2">Tudo o que é vivo tem seu tempo.<br>
-      O fruto amadurece. O cacau fermenta.<br>
-      A matéria se transforma. E nós também.</p>
 
-    <div class="pillar rv"><span data-i18n="t-pillar">O tempo é ingrediente.</span></div>
-
-    <p class="rv" data-i18n="t-manifp3">Cacau como origem. Chocolate como ritual.<br>
-      Um pequeno universo entre o cacau e o cosmo.</p>
+<!-- ===== 5 - DO FRUTO ======================================= -->
+<section class="fruto" id="fruto">
+  <div class="fruto__txt">
+    <p class="label rv" data-i18n="t-frutolabel">Do fruto</p>
+    <h2 class="display rv d1" data-i18n="t-frutoh2">Cada lote começa na árvore.</h2>
+    <p class="rv d2" data-i18n="t-origemp">Trabalhamos com cacau de origem, respeitando as pessoas,
+      os territórios e o tempo da natureza.</p>
   </div>
+  <figure class="fruto__foto">
+    <!-- foto: Mídia → cc-home-cacau.jpg -->
+    <img src="https://cacaucosmo.com.br/wp-content/uploads/2026/11/cc-home-cacau.jpg" data-cc-midia="cc-home-cacau" onerror="ccMidia(this)"
+         alt="Frutos de cacau vermelhos, de perto" loading="lazy" decoding="async">
+  </figure>
+</section>
 
-  <div class="founder__media" id="founder">
-    <!-- [ TROCAR FOTO ] mãos segurando fruto aberto, luz natural, documental
-         <img src="https://cacaucosmo.com.br/wp-content/uploads/2026/08/founder.jpg"
-              alt="Mãos segurando um fruto de cacau aberto" loading="lazy"> -->
-    <div class="artframe" style="color:var(--cc-cream);
-      background:linear-gradient(150deg,#2B1B12 0%,#4A2C1D 55%,#1E120B 100%)">
-      <svg style="width:min(50%,260px)"><use href="#art-pod"></use></svg>
-    </div>
+
+<!-- ===== 6 - MANIFESTO ====================================== -->
+<section class="manifesto" id="manifesto">
+  <p class="label rv" data-i18n="t-maniflabel">Manifesto</p>
+  <h2 class="display rv d1" data-i18n="t-manifh2">O Manifesto</h2>
+  <p class="rv d1" data-i18n="t-manifp1">Vivemos rápido. Comemos rápido. Pensamos rápido.<br>
+    Cacau Cosmo nasce como um convite a sentir mais.</p>
+  <p class="rv d2" data-i18n="t-manifp2">Tudo o que é vivo tem seu tempo.<br>
+    O fruto amadurece. O cacau fermenta.<br>
+    A matéria se transforma. E nós também.</p>
+  <div class="pillar rv"><span data-i18n="t-pillar">O tempo é ingrediente.</span></div>
+</section>
+
+
+<!-- ===== 7 - BOMBONS (faixa de foto) ======================== -->
+<figure class="faixa-foto">
+  <!-- foto: Mídia → cc-home-bombons.jpg -->
+  <img src="https://cacaucosmo.com.br/wp-content/uploads/2026/11/cc-home-bombons.jpg" data-cc-midia="cc-home-bombons" onerror="ccMidia(this)"
+       alt="Bombons da Cacau Cosmo em caixinhas, lado a lado" loading="lazy" decoding="async">
+</figure>
+
+
+<!-- ===== 8 - FOUNDER ======================================== -->
+<section class="founder" id="founder">
+  <h2 class="display rv founder__frase" data-i18n="t-founderp4">Porque, para mim, fazer chocolate sempre foi uma forma de cuidar.</h2>
+  <figure class="founder__foto rv d1">
+    <!-- foto: Mídia → cc-home-nicole.jpg -->
+    <img src="https://cacaucosmo.com.br/wp-content/uploads/2026/11/cc-home-nicole.jpg" data-cc-midia="cc-home-nicole" onerror="ccMidia(this)"
+         alt="Nicole Buffara, fundadora da Cacau Cosmo, rindo com um sagui na cabeça" loading="lazy" decoding="async">
+  </figure>
+  <div class="sig rv d2">
+    <b>Nicole Buffara</b>
+    <i data-i18n="t-foundersig">Founder, Cacau Cosmo</i>
   </div>
-
-  <div class="founder__body">
-    <p class="label rv" style="color:var(--cc-brown)">Founder</p>
-    <h2 class="display rv d1">Founder</h2>
-    <p class="rv d1" data-i18n="t-founderp1">Cacau Cosmo começou antes de existir como marca. Começou na cozinha,
-      quando passei a fazer chocolate para a minha avó, que vive com Alzheimer.</p>
-    <p class="rv d2" data-i18n="t-founderp2">No alimento, encontrei uma forma de cuidado &mdash; e no cacau, um encontro
-      entre gastronomia, natureza, ciência e ritual.</p>
-    <p class="rv d2" data-i18n="t-founderp3">Minha formação em gastronomia me ensinou a transformar ingredientes.
-      O yoga, a estar presente durante o processo.</p>
-    <p class="rv d3" data-i18n="t-founderp4">Porque, para mim, fazer chocolate sempre foi uma forma de cuidar.</p>
-
-    <div class="sig rv d3">
-      <b>Nicole Buffara</b>
-      <i>Founder, Cacau Cosmo</i>
-    </div>
-  </div>
-
 </section>
 
 
 <!-- ===== 6 - CÍRCULO ======================================= -->
-<section class="circle" id="circulo">
+<section class="circle circle--novo" id="circulo">
   <div class="circle__moon" aria-hidden="true"></div>
 
-  <p class="label rv" style="color:var(--cc-brown)" data-i18n="t-circlelabel">O Círculo</p>
-  <h2 class="display rv d1" data-i18n="t-circleh2">O próximo ritual começa aqui.</h2>
-  <p class="rv d2" data-i18n="t-circlep">Pequenos lotes, cartas do Cosmo e convites para o que estamos criando.</p>
+  <p class="label rv" data-i18n="t-circlelabel">Círculo</p>
+  <h2 class="display rv d1" data-i18n="t-circleh2">Entre no <span class="em">círculo.</span></h2>
+  <p class="rv d2" data-i18n="t-circlep">Receba novidades e lançamentos do Cacau Cosmo.</p>
 
-  <div class="rv d2" style="max-width:520px;margin:clamp(20px,2.3vw,32px) auto 0">
+  <div class="rv d2 circle__form">
   <div id="newsletter-circulo">
 <!-- =====================================================================
      CACAU COSMO — FORMULÁRIO "ENTRAR NO CÍRCULO"
@@ -784,7 +856,7 @@ a.is-soon{cursor:default}
       <input type="checkbox" name="consentimento" value="1" required>
       <span data-en='I agree to the <a href="/politica-de-privacidade/" target="_blank">Privacy Policy</a> and to receive messages from Cacau Cosmo.'>Concordo com a <a href="/politica-de-privacidade/" target="_blank">Política de Privacidade</a> e em receber mensagens da Cacau Cosmo.</span>
     </label>
-    <button type="submit" data-en="Join the circle">Entrar no círculo</button>
+    <button type="submit" data-en="Join">Entrar</button>
     <p class="cc-circ__msg" role="status" aria-live="polite"></p>
     <p class="cc-circ__login"><span data-en="Already a member?">Já faz parte?</span> <a href="/minha-conta/" data-en="Sign in">Entrar</a></p>
   </form>
@@ -905,6 +977,19 @@ a.is-soon{cursor:default}
 
 
 <script>
+/* ===== FOTOS DA HOME: acha o arquivo na Biblioteca de Mídia == */
+function ccMidia(img){
+  if(img._cc) return; img._cc=1;
+  var nome=img.getAttribute('data-cc-midia'); if(!nome||!window.fetch) return;
+  fetch('/wp-json/wp/v2/media?search='+encodeURIComponent(nome)+'&per_page=20&_fields=source_url')
+    .then(function(r){return r.ok?r.json():[]})
+    .then(function(l){
+      var re=new RegExp('/'+nome+'(-\\d+)?\\.(jpe?g|png|webp)$','i');
+      var u=(l||[]).map(function(m){return m.source_url}).filter(function(u){return re.test(u)})[0];
+      if(u) img.src=u;
+    }).catch(function(){});
+}
+
 /* ===== FALLBACK DO LOGO ==================================== */
 function ccFallback(img){
   var w = img.getBoundingClientRect().width || 40;
@@ -1070,9 +1155,13 @@ function ccFallback(img){
     't-founderp4':      'Because, for me, making chocolate has always been a way of caring.',
     't-foundercta':     'Discover the story',
 
-    't-circlelabel':    'The Circle',
-    't-circleh2':       'The next ritual begins here.',
-    't-circlep':        'Small batches, letters from the Cosmos and invitations to what we\u2019re creating.',
+    't-circlelabel':    'Circle',
+    't-circleh2':       'Join the <span class="em">circle.</span>',
+    't-circlep':        'Get news and launches from Cacau Cosmo.',
+    't-frutolabel':     'From the fruit',
+    't-frutoh2':        'Every batch begins on the tree.',
+    't-maniflabel':     'Manifesto',
+    't-foundersig':     'Founder, Cacau Cosmo',
     't-ph-nome':        'Name',
     't-ph-email':       'Email',
     't-submit':         'Join the circle',

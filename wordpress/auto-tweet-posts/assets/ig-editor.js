@@ -28,14 +28,18 @@
 
 	/* ------------------------------------------------------------ util */
 
-	function loadImage(id) {
+	function loadUrl(src) {
 		return new Promise(function (resolve) {
-			if (!id) { return resolve(null); }
+			if (!src) { return resolve(null); }
 			var img = new Image();
 			img.onload = function () { resolve(img); };
 			img.onerror = function () { resolve(null); };
-			img.src = D.imgUrl + '&id=' + id;
+			img.src = src;
 		});
+	}
+
+	function loadImage(id, fallback) {
+		return id ? loadUrl(D.imgUrl + '&id=' + id) : loadUrl(fallback);
 	}
 
 	function H() { return HEIGHTS[st.format] || 1350; }
@@ -90,7 +94,7 @@
 			if (!measureOnly) { ctx.drawImage(tinted(logo, color), x, y, w, height); }
 			return w;
 		}
-		ctx.font = '800 ' + height + 'px Nunito, sans-serif';
+		ctx.font = '800 ' + height + 'px "Bricolage Grotesque", sans-serif';
 		ctx.textBaseline = 'top';
 		var tw = ctx.measureText(D.brandText).width;
 		if (!measureOnly) { ctx.fillStyle = color; ctx.fillText(D.brandText, x, y - height * 0.1); }
@@ -111,7 +115,7 @@
 		ctx.fillRect(0, 0, W, h);
 		if (!photo) {
 			ctx.fillStyle = '#666';
-			ctx.font = '400 40px Inter, sans-serif';
+			ctx.font = '400 40px Archivo, sans-serif';
 			ctx.textBaseline = 'top';
 			ctx.fillText('Escolha uma imagem', 60, 60);
 			return;
@@ -132,12 +136,12 @@
 	var TEMPLATES = {
 		/* Faixa rosa: selo com a marca + caixa rosa com o título em branco. */
 		faixa: function (h) {
-			var margin = 60, pad = 30, fs = Math.round(52 * st.fontScale), lh = Math.round(fs * 1.2);
-			var font = '700 ' + fs + 'px Poppins, sans-serif';
-			var lines = wrap(st.text, font, W * 0.8 - pad * 2);
+			var margin = 60, pad = 32, fs = Math.round(60 * st.fontScale), lh = Math.round(fs * 1.16);
+			var font = '700 ' + fs + 'px "Bricolage Grotesque", sans-serif';
+			var lines = wrap(st.text, font, W * 0.74 - pad * 2);
 			var boxW = widest(lines, font) + pad * 2;
 			var boxH = lines.length * lh - (lh - fs) + pad * 2;
-			var tagH = 54, tagPadX = 18, brandH = 28;
+			var tagH = 62, tagPadX = 20, brandH = 30;
 			var tagW = brand(0, 0, brandH, '#fff', true) + tagPadX * 2;
 			var boxY = Math.max(margin + tagH, h * pos() - boxH);
 
@@ -153,9 +157,9 @@
 		/* Gradiente escuro: marca na cor da marca + título branco condensado. */
 		escuro: function (h) {
 			var margin = 64, fs = Math.round(64 * st.fontScale), lh = Math.round(fs * 1.1);
-			var font = '700 ' + fs + 'px "Roboto Condensed", sans-serif';
+			var font = '700 condensed ' + fs + 'px "Bricolage Grotesque", sans-serif';
 			var lines = wrap(st.text, font, W - margin * 2);
-			var brandH = 34, gap = 18;
+			var brandH = 38, gap = 20;
 			var blockH = brandH + gap + lines.length * lh;
 			var top = Math.max(margin, h * pos() - blockH);
 
@@ -167,8 +171,8 @@
 		/* Card de post: cartão branco com avatar, nome, @ e o texto. */
 		tweet: function (h) {
 			var cw = Math.round(W * 0.76), pad = 34, av = 76;
-			var fs = Math.round(32 * st.fontScale), lh = Math.round(fs * 1.32);
-			var font = '400 ' + fs + 'px Inter, sans-serif';
+			var fs = Math.round(35 * st.fontScale), lh = Math.round(fs * 1.3);
+			var font = '400 ' + fs + 'px Archivo, sans-serif';
 			var lines = wrap(st.text, font, cw - pad * 2);
 			var ch = pad + av + 22 + lines.length * lh - (lh - fs) + pad;
 			var x = Math.round((W - cw) / 2);
@@ -196,7 +200,7 @@
 			} else {
 				ctx.fillStyle = D.color;
 				ctx.fillRect(ax, ay, av, av);
-				ctx.font = '800 15px Nunito, sans-serif';
+				ctx.font = '800 15px "Bricolage Grotesque", sans-serif';
 				ctx.fillStyle = '#fff';
 				ctx.textBaseline = 'middle';
 				ctx.textAlign = 'center';
@@ -207,10 +211,10 @@
 
 			ctx.textBaseline = 'top';
 			ctx.fillStyle = '#0f1419';
-			ctx.font = '700 30px Inter, sans-serif';
+			ctx.font = '700 30px Archivo, sans-serif';
 			ctx.fillText(D.accountName, ax + av + 18, ay + 6);
 			ctx.fillStyle = '#536471';
-			ctx.font = '400 25px Inter, sans-serif';
+			ctx.font = '400 25px Archivo, sans-serif';
 			ctx.fillText(D.handle, ax + av + 18, ay + 44);
 
 			drawLines(lines, x + pad, ay + av + 22, lh, font, '#0f1419');
@@ -350,11 +354,11 @@
 
 	/* ------------------------------------------------------------ início */
 
-	var fonts = ['700 50px Poppins', '700 50px "Roboto Condensed"', '400 30px Inter', '700 30px Inter', '800 30px Nunito'];
+	var fonts = ['700 50px "Bricolage Grotesque"', '700 condensed 50px "Bricolage Grotesque"', '800 50px "Bricolage Grotesque"', '400 30px Archivo', '700 30px Archivo'];
 	var fontsReady = document.fonts ? Promise.all(fonts.map(function (f) { return document.fonts.load(f).catch(function () {}); })) : Promise.resolve();
 
 	syncUI();
-	Promise.all([loadImage(st.imageId), loadImage(D.logoId), loadImage(D.avatarId), fontsReady]).then(function (r) {
+	Promise.all([loadImage(st.imageId), loadImage(D.logoId, D.defaultLogo), loadImage(D.avatarId, D.defaultAvatar), fontsReady]).then(function (r) {
 		photo = r[0]; logo = r[1]; avatar = r[2];
 		render();
 	});

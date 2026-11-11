@@ -51,7 +51,7 @@ final class ATP_Instagram {
 		return array(
 			'token'            => '',
 			'ig_user_id'       => '',
-			'color'            => '#ff4fa3',
+			'color'            => '#ff59a5',
 			'brand_text'       => 'conexãopop',
 			'logo_id'          => 0,
 			'avatar_id'        => 0,
@@ -124,7 +124,7 @@ final class ATP_Instagram {
 			return;
 		}
 		wp_enqueue_media();
-		wp_enqueue_style( 'atp-ig-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Nunito:wght@800&family=Poppins:wght@700&family=Roboto+Condensed:wght@700&display=swap', array(), null );
+		wp_enqueue_style( 'atp-ig-fonts', 'https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,700..800&display=swap', array(), null );
 		wp_enqueue_style( 'atp-ig-editor', $url . 'assets/ig-editor.css', array(), $ver );
 		wp_enqueue_script( 'atp-ig-editor', $url . 'assets/ig-editor.js', array( 'jquery' ), $ver, true );
 
@@ -149,6 +149,8 @@ final class ATP_Instagram {
 			'color'           => $s['color'],
 			'brandText'       => $s['brand_text'],
 			'logoId'          => (int) $s['logo_id'],
+			'defaultLogo'     => $url . 'assets/logo.png',
+			'defaultAvatar'   => $url . 'assets/avatar.jpg',
 			'avatarId'        => (int) $s['avatar_id'],
 			'accountName'     => $s['account_name'],
 			'handle'          => $s['handle'],
@@ -204,12 +206,12 @@ final class ATP_Instagram {
 						<th scope="row"><label for="atp_ig_brand">Marca (texto)</label></th>
 						<td>
 							<input type="text" class="regular-text" id="atp_ig_brand" name="<?php echo esc_attr( $opt ); ?>[brand_text]" value="<?php echo esc_attr( $s['brand_text'] ); ?>">
-							<p class="description">Usado nos modelos "Faixa rosa" e "Gradiente escuro" quando não houver logo.</p>
+							<p class="description">Só é usado se o logo for removido; por padrão as artes usam o logo da Conexão POP que vem no plugin.</p>
 						</td>
 					</tr>
 					<?php
-					self::media_field( 'logo_id', 'Logo (opcional)', $s['logo_id'], 'PNG com fundo transparente. Ele é pintado de branco na faixa rosa e na cor da marca no gradiente escuro.' );
-					self::media_field( 'avatar_id', 'Foto de perfil (card de post)', $s['avatar_id'], 'A bolinha do modelo "Card de post". Sem imagem, usa um círculo na cor da marca.' );
+					self::media_field( 'logo_id', 'Outro logo (opcional)', $s['logo_id'], 'Em branco usa o logo da Conexão POP. PNG com fundo transparente; ele é pintado de branco na faixa rosa e na cor da marca no gradiente escuro.' );
+					self::media_field( 'avatar_id', 'Outra foto de perfil (opcional)', $s['avatar_id'], 'A bolinha do modelo "Card de post". Em branco usa a foto de perfil da Conexão POP.' );
 					?>
 					<tr>
 						<th scope="row"><label for="atp_ig_name">Nome no card</label></th>

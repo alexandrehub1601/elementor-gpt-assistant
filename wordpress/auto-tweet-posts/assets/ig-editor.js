@@ -45,10 +45,16 @@
 	function H() { return HEIGHTS[st.format] || 1350; }
 	function pos() { return st.pos === null || st.pos === undefined ? DEFAULT_POS[st.template] : st.pos; }
 
+	/** A arte não usa emojis (cada sistema desenha de um jeito); a legenda pode ter. */
+	var EMOJI = /(?:(?![\u00A9\u00AE\u2122])\p{Extended_Pictographic}|\p{Regional_Indicator})(?:\uFE0F|\u20E3|\p{Emoji_Modifier}|\u200D(?:\p{Extended_Pictographic})\uFE0F?)*|\uFE0F|\u200D/gu;
+	function noEmoji(text) {
+		return String(text || '').replace(EMOJI, '').replace(/[ \t]{2,}/g, ' ').replace(/^[ \t]+|[ \t]+$/gm, '');
+	}
+
 	function wrap(text, font, maxW) {
 		ctx.font = font;
 		var lines = [];
-		String(text || '').split('\n').forEach(function (par) {
+		noEmoji(text).split('\n').forEach(function (par) {
 			var words = par.split(/\s+/).filter(Boolean);
 			if (!words.length) { lines.push(''); return; }
 			var line = words[0];

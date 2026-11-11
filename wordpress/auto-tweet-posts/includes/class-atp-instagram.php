@@ -364,6 +364,7 @@ final class ATP_Instagram {
 
 					<h3>Texto da arte</h3>
 					<textarea id="atp-ig-text" rows="4"></textarea>
+					<p class="description">Emojis não aparecem na arte (só na legenda).</p>
 					<label class="atp-ig-range">Tamanho <input type="range" id="atp-ig-size" min="0.6" max="1.6" step="0.02"></label>
 					<label class="atp-ig-range">Altura <input type="range" id="atp-ig-pos" min="0.3" max="0.98" step="0.005"></label>
 

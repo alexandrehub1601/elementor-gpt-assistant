@@ -111,7 +111,7 @@ final class ATP_Instagram {
 
 	public static function enqueue( $hook ) {
 		$url = plugin_dir_url( self::$file );
-		$ver = '1.2.0';
+		$ver = '1.3.0';
 		if ( $hook === self::$settings_hook ) {
 			wp_enqueue_media();
 			wp_enqueue_script( 'atp-ig-settings', $url . 'assets/ig-settings.js', array( 'jquery' ), $ver, true );
@@ -144,6 +144,7 @@ final class ATP_Instagram {
 			'slug'            => $post->post_name ? $post->post_name : 'arte-' . $post->ID,
 			'title'           => ATP_Auto_Tweet::plain( get_the_title( $post ) ),
 			'thumbId'         => (int) get_post_thumbnail_id( $post ),
+			'postImages'      => self::post_images( $post ),
 			'defaultCaption'  => self::build_caption( $post ),
 			'state'           => is_array( $state ) ? $state : null,
 			'color'           => $s['color'],
@@ -358,9 +359,26 @@ final class ATP_Instagram {
 					<label><input type="radio" name="atp-ig-format" value="feed"> Feed (4:5)</label>
 					<label style="margin-left:12px"><input type="radio" name="atp-ig-format" value="story"> Stories (9:16)</label>
 
-					<h3>Imagem</h3>
-					<button type="button" class="button" id="atp-ig-change">Trocar imagem</button>
+					<h3>Fotos</h3>
+					<div class="atp-ig-templates" id="atp-ig-layout">
+						<button type="button" class="button" data-layout="1">1 foto</button>
+						<button type="button" class="button" data-layout="2">2 fotos</button>
+						<button type="button" class="button" data-layout="3">3 fotos</button>
+					</div>
+					<div class="atp-ig-templates" id="atp-ig-slots" style="margin-top:8px">
+						<span class="description" style="align-self:center">Editando:</span>
+						<button type="button" class="button" data-slot="0">Foto 1</button>
+						<button type="button" class="button" data-slot="1">Foto 2</button>
+						<button type="button" class="button" data-slot="2">Foto 3</button>
+					</div>
+					<p style="margin:8px 0 0"><button type="button" class="button" id="atp-ig-change">Trocar imagem</button></p>
 					<label class="atp-ig-range">Zoom <input type="range" id="atp-ig-zoom" min="1" max="3" step="0.01"></label>
+
+					<div id="atp-ig-tag-row">
+						<h3>Logo no selo preto</h3>
+						<label><input type="radio" name="atp-ig-taglogo" value="pink"> Rosa</label>
+						<label style="margin-left:12px"><input type="radio" name="atp-ig-taglogo" value="white"> Branco</label>
+					</div>
 
 					<h3>Texto da arte</h3>
 					<textarea id="atp-ig-text" rows="4"></textarea>
@@ -399,6 +417,17 @@ final class ATP_Instagram {
 			}
 		}
 		echo '</ul></div>';
+	}
+
+	/** Outras imagens do post (para preencher as fotos 2 e 3). */
+	private static function post_images( $post ) {
+		$thumb = (int) get_post_thumbnail_id( $post );
+		$ids   = array_map( 'intval', array_keys( get_attached_media( 'image', $post->ID ) ) );
+		if ( preg_match_all( '/wp-image-(\d+)/', $post->post_content, $m ) ) {
+			$ids = array_merge( array_map( 'intval', $m[1] ), $ids );
+		}
+		$ids = array_values( array_unique( array_diff( $ids, array( $thumb, 0 ) ) ) );
+		return array_slice( $ids, 0, 2 );
 	}
 
 	public static function build_caption( $post ) {
@@ -461,13 +490,34 @@ final class ATP_Instagram {
 		$num = function ( $k, $min, $max, $def ) use ( $in ) {
 			return isset( $in[ $k ] ) && is_numeric( $in[ $k ] ) ? max( $min, min( $max, (float) $in[ $k ] ) ) : $def;
 		};
+		// Rascunhos da versão anterior (uma foto só).
+		if ( ! isset( $in['photos'] ) && isset( $in['imageId'] ) ) {
+			$in['photos'] = array(
+				array(
+					'id'   => $in['imageId'],
+					'zoom' => $num( 'zoom', 1, 3, 1 ),
+					'ox'   => $num( 'ox', 0, 1, 0.5 ),
+					'oy'   => $num( 'oy', 0, 1, 0.5 ),
+				),
+			);
+		}
+		$photos = array();
+		$raw    = isset( $in['photos'] ) && is_array( $in['photos'] ) ? array_slice( $in['photos'], 0, 3 ) : array();
+		foreach ( $raw as $p ) {
+			$p        = is_array( $p ) ? $p : array();
+			$photos[] = array(
+				'id'   => isset( $p['id'] ) ? absint( $p['id'] ) : 0,
+				'zoom' => isset( $p['zoom'] ) && is_numeric( $p['zoom'] ) ? max( 1, min( 3, (float) $p['zoom'] ) ) : 1,
+				'ox'   => isset( $p['ox'] ) && is_numeric( $p['ox'] ) ? max( 0, min( 1, (float) $p['ox'] ) ) : 0.5,
+				'oy'   => isset( $p['oy'] ) && is_numeric( $p['oy'] ) ? max( 0, min( 1, (float) $p['oy'] ) ) : 0.5,
+			);
+		}
 		return array(
 			'template'  => isset( $in['template'] ) && isset( self::TEMPLATES[ $in['template'] ] ) ? $in['template'] : 'faixa',
 			'format'    => isset( $in['format'] ) && 'story' === $in['format'] ? 'story' : 'feed',
-			'imageId'   => isset( $in['imageId'] ) ? absint( $in['imageId'] ) : 0,
-			'zoom'      => $num( 'zoom', 1, 3, 1 ),
-			'ox'        => $num( 'ox', 0, 1, 0.5 ),
-			'oy'        => $num( 'oy', 0, 1, 0.5 ),
+			'layout'    => isset( $in['layout'] ) ? max( 1, min( 3, absint( $in['layout'] ) ) ) : 1,
+			'photos'    => $photos ? $photos : null,
+			'tagLogo'   => isset( $in['tagLogo'] ) && 'white' === $in['tagLogo'] ? 'white' : 'pink',
 			'fontScale' => $num( 'fontScale', 0.6, 1.6, 1 ),
 			'pos'       => isset( $in['pos'] ) && is_numeric( $in['pos'] ) ? max( 0.3, min( 0.98, (float) $in['pos'] ) ) : null,
 			'text'      => isset( $in['text'] ) ? sanitize_textarea_field( $in['text'] ) : '',

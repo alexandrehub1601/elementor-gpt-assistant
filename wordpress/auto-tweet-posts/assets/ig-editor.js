@@ -15,8 +15,9 @@
 	var st = $.extend({
 		template: D.defaultTemplate || 'faixa',
 		format: 'feed',
-		imageId: D.thumbId || 0,
-		zoom: 1, ox: 0.5, oy: 0.5,
+		layout: 1,
+		photos: null,
+		tagLogo: 'pink',
 		fontScale: 1, pos: null,
 		text: D.title,
 		caption: D.defaultCaption
@@ -24,7 +25,19 @@
 	if (!st.text) { st.text = D.title; }
 	if (!st.caption) { st.caption = D.defaultCaption; }
 
-	var photo = null, logo = null, avatar = null;
+	// Até 3 fotos lado a lado, cada uma com seu enquadramento.
+	if (!Array.isArray(st.photos)) {
+		var extra = D.postImages || [];
+		st.photos = [
+			{ id: st.imageId || D.thumbId || 0, zoom: st.zoom || 1, ox: st.ox === undefined ? 0.5 : st.ox, oy: st.oy === undefined ? 0.5 : st.oy },
+			{ id: extra[0] || 0, zoom: 1, ox: 0.5, oy: 0.5 },
+			{ id: extra[1] || 0, zoom: 1, ox: 0.5, oy: 0.5 }
+		];
+	}
+	while (st.photos.length < 3) { st.photos.push({ id: 0, zoom: 1, ox: 0.5, oy: 0.5 }); }
+	delete st.imageId; delete st.zoom; delete st.ox; delete st.oy;
+
+	var imgs = [null, null, null], logo = null, avatar = null, active = 0;
 
 	/* ------------------------------------------------------------ util */
 
@@ -116,19 +129,46 @@
 
 	/* ------------------------------------------------------------ desenho */
 
+	/** Colunas das fotos: [{x, w}] */
+	function slots() {
+		var n = st.layout, out = [];
+		for (var i = 0; i < n; i++) {
+			var x = Math.round(i * W / n);
+			out.push({ x: x, w: Math.round((i + 1) * W / n) - x });
+		}
+		return out;
+	}
+
+	function fit(img, p, slot, h) {
+		var s = Math.max(slot.w / img.width, h / img.height) * p.zoom;
+		var dw = img.width * s, dh = img.height * s;
+		return { s: s, dw: dw, dh: dh, spanX: slot.w - dw, spanY: h - dh };
+	}
+
 	function drawPhoto(h) {
 		ctx.fillStyle = '#111';
 		ctx.fillRect(0, 0, W, h);
-		if (!photo) {
-			ctx.fillStyle = '#666';
-			ctx.font = '400 40px Archivo, sans-serif';
-			ctx.textBaseline = 'top';
-			ctx.fillText('Escolha uma imagem', 60, 60);
-			return;
-		}
-		var s = Math.max(W / photo.width, h / photo.height) * st.zoom;
-		var dw = photo.width * s, dh = photo.height * s;
-		ctx.drawImage(photo, (W - dw) * st.ox, (h - dh) * st.oy, dw, dh);
+		slots().forEach(function (slot, i) {
+			var img = imgs[i], p = st.photos[i];
+			ctx.save();
+			ctx.beginPath();
+			ctx.rect(slot.x, 0, slot.w, h);
+			ctx.clip();
+			if (img) {
+				var f = fit(img, p, slot, h);
+				ctx.drawImage(img, slot.x + f.spanX * p.ox, f.spanY * p.oy, f.dw, f.dh);
+			} else {
+				ctx.fillStyle = i % 2 ? '#1c1c1c' : '#262626';
+				ctx.fillRect(slot.x, 0, slot.w, h);
+				ctx.fillStyle = '#777';
+				ctx.font = '400 36px Archivo, sans-serif';
+				ctx.textBaseline = 'middle';
+				ctx.textAlign = 'center';
+				ctx.fillText('Escolha a foto ' + (i + 1), slot.x + slot.w / 2, h * 0.3);
+				ctx.textAlign = 'left';
+			}
+			ctx.restore();
+		});
 	}
 
 	function bottomGradient(h, from, alpha) {
@@ -151,9 +191,9 @@
 			var tagW = brand(0, 0, brandH, '#fff', true) + tagPadX * 2;
 			var boxY = Math.max(margin + tagH, h * pos() - boxH);
 
-			ctx.fillStyle = D.color;
+			ctx.fillStyle = '#0d0d0d';
 			ctx.fillRect(margin, boxY - tagH, tagW, tagH);
-			brand(margin + tagPadX, boxY - tagH + (tagH - brandH) / 2, brandH, '#fff');
+			brand(margin + tagPadX, boxY - tagH + (tagH - brandH) / 2, brandH, st.tagLogo === 'white' ? '#fff' : D.color);
 
 			ctx.fillStyle = D.color;
 			ctx.fillRect(margin, boxY, boxW, boxH);
@@ -257,7 +297,19 @@
 			$(this).toggleClass('is-active', $(this).data('template') === st.template);
 		});
 		$('input[name="atp-ig-format"][value="' + st.format + '"]').prop('checked', true);
-		$('#atp-ig-zoom').val(st.zoom);
+		$('#atp-ig-layout .button').each(function () {
+			$(this).toggleClass('is-active', +$(this).data('layout') === st.layout);
+		});
+		if (active >= st.layout) { active = 0; }
+		$('#atp-ig-slots').toggle(st.layout > 1);
+		$('#atp-ig-slots .button').each(function () {
+			var i = +$(this).data('slot');
+			$(this).toggle(i < st.layout).toggleClass('is-active', i === active);
+		});
+		$('#atp-ig-change').text(st.layout > 1 ? 'Trocar foto ' + (active + 1) : 'Trocar imagem');
+		$('#atp-ig-zoom').val(st.photos[active].zoom);
+		$('input[name="atp-ig-taglogo"][value="' + st.tagLogo + '"]').prop('checked', true);
+		$('#atp-ig-tag-row').toggle(st.template === 'faixa');
 		$('#atp-ig-size').val(st.fontScale);
 		$('#atp-ig-pos').val(pos());
 		$('#atp-ig-count').text(st.caption.length);
@@ -275,7 +327,10 @@
 		update({ template: $(this).data('template'), pos: null });
 	});
 	$('input[name="atp-ig-format"]').on('change', function () { update({ format: this.value }); });
-	$('#atp-ig-zoom').on('input', function () { update({ zoom: parseFloat(this.value) }); });
+	$('#atp-ig-zoom').on('input', function () { st.photos[active].zoom = parseFloat(this.value); update(); });
+	$('#atp-ig-layout').on('click', '.button', function () { update({ layout: +$(this).data('layout') }); });
+	$('#atp-ig-slots').on('click', '.button', function () { active = +$(this).data('slot'); syncUI(); });
+	$('input[name="atp-ig-taglogo"]').on('change', function () { update({ tagLogo: this.value }); });
 	$('#atp-ig-size').on('input', function () { update({ fontScale: parseFloat(this.value) }); });
 	$('#atp-ig-pos').on('input', function () { update({ pos: parseFloat(this.value) }); });
 	$('#atp-ig-text').val(st.text).on('input', function () { update({ text: this.value }); });
@@ -287,9 +342,11 @@
 			frame = wp.media({ title: 'Escolher imagem da arte', library: { type: 'image' }, multiple: false });
 			frame.on('select', function () {
 				var a = frame.state().get('selection').first().toJSON();
+				var slot = active;
 				loadImage(a.id).then(function (img) {
-					photo = img;
-					update({ imageId: a.id, zoom: 1, ox: 0.5, oy: 0.5 });
+					imgs[slot] = img;
+					st.photos[slot] = { id: a.id, zoom: 1, ox: 0.5, oy: 0.5 };
+					update();
 				});
 			});
 		}
@@ -299,22 +356,23 @@
 	// Arrastar para reenquadrar.
 	var drag = null;
 	canvas.addEventListener('pointerdown', function (e) {
-		if (!photo) { return; }
+		var rect = canvas.getBoundingClientRect();
+		var cx = (e.clientX - rect.left) * canvas.width / rect.width;
+		slots().forEach(function (slot, i) { if (cx >= slot.x && cx < slot.x + slot.w) { active = i; } });
+		syncUI();
+		if (!imgs[active]) { return; }
 		drag = { x: e.clientX, y: e.clientY };
 		canvas.setPointerCapture(e.pointerId);
 	});
 	canvas.addEventListener('pointermove', function (e) {
 		if (!drag) { return; }
 		var k = canvas.width / canvas.getBoundingClientRect().width;
-		var h = H();
-		var s = Math.max(W / photo.width, h / photo.height) * st.zoom;
-		var spanX = W - photo.width * s, spanY = h - photo.height * s;
+		var p = st.photos[active];
+		var f = fit(imgs[active], p, slots()[active], H());
 		var dx = (e.clientX - drag.x) * k, dy = (e.clientY - drag.y) * k;
 		drag = { x: e.clientX, y: e.clientY };
-		var ch = {};
-		if (spanX < -0.5) { ch.ox = Math.min(1, Math.max(0, st.ox + dx / spanX)); }
-		if (spanY < -0.5) { ch.oy = Math.min(1, Math.max(0, st.oy + dy / spanY)); }
-		$.extend(st, ch);
+		if (f.spanX < -0.5) { p.ox = Math.min(1, Math.max(0, p.ox + dx / f.spanX)); }
+		if (f.spanY < -0.5) { p.oy = Math.min(1, Math.max(0, p.oy + dy / f.spanY)); }
 		render();
 	});
 	function endDrag() { if (drag) { drag = null; save(); } }
@@ -364,8 +422,11 @@
 	var fontsReady = document.fonts ? Promise.all(fonts.map(function (f) { return document.fonts.load(f).catch(function () {}); })) : Promise.resolve();
 
 	syncUI();
-	Promise.all([loadImage(st.imageId), loadImage(D.logoId, D.defaultLogo), loadImage(D.avatarId, D.defaultAvatar), fontsReady]).then(function (r) {
-		photo = r[0]; logo = r[1]; avatar = r[2];
+	Promise.all([
+		loadImage(st.photos[0].id), loadImage(st.photos[1].id), loadImage(st.photos[2].id),
+		loadImage(D.logoId, D.defaultLogo), loadImage(D.avatarId, D.defaultAvatar), fontsReady
+	]).then(function (r) {
+		imgs = [r[0], r[1], r[2]]; logo = r[3]; avatar = r[4];
 		render();
 	});
 })(jQuery);

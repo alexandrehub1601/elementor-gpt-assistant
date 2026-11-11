@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Auto Post Social (X + Instagram)
  * Description:       Compartilha os posts no X (título, link e thumb) e cria artes para o feed e Stories do Instagram a partir de templates editáveis, publicando direto pelo WordPress.
- * Version:           1.2.0
+ * Version:           1.3.0
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            HUB1601

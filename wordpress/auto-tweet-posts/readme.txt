@@ -1,7 +1,7 @@
 === Auto Post Social (X + Instagram) ===
 Requires at least: 5.8
 Requires PHP: 7.4
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPLv2 or later
 
 Compartilha os posts no X (Twitter) com o título, "🔗 Saiba tudo em: [link]" e a thumb.
@@ -56,7 +56,9 @@ do post ou o link "Arte Instagram" na lista de posts.
 * 1, 2 ou 3 fotos lado a lado; cada uma com troca de imagem, zoom e arrastar para reenquadrar.
 * Selo preto da marca com logo rosa ou branco (modelo Faixa rosa).
 * Editar o texto da arte, o tamanho e a altura do texto, e a legenda.
-* Baixar a arte em JPG ou publicar direto no feed / Stories.
+* Feed: baixar a arte em JPG ou publicar direto no feed.
+* Stories: modelo próprio (marca, título e descrição, com espaço livre embaixo para o adesivo de link),
+  botão "Baixar imagem" e "Copiar link da matéria" para postar pelo app com o adesivo de link.
 * O rascunho de cada arte fica salvo no post.
 
 Configuração (Configurações › Instagram (artes)):

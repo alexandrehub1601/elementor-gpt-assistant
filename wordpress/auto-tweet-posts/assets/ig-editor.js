@@ -7,7 +7,7 @@
 
 	var W = 1080;
 	var HEIGHTS = { feed: 1350, story: 1920 };
-	var DEFAULT_POS = { faixa: 0.8, escuro: 0.93, tweet: 0.92 };
+	var DEFAULT_POS = { faixa: 0.8, escuro: 0.93, tweet: 0.92, stories: 0.75 };
 
 	var canvas = document.getElementById('atp-ig-canvas');
 	var ctx = canvas.getContext('2d');
@@ -20,8 +20,10 @@
 		tagLogo: 'pink',
 		fontScale: 1, pos: null,
 		text: D.title,
-		caption: D.defaultCaption
+		caption: D.defaultCaption,
+		desc: null
 	}, D.state || {});
+	if (st.desc === null || st.desc === undefined) { st.desc = D.excerpt || ''; }
 	if (!st.text) { st.text = D.title; }
 	if (!st.caption) { st.caption = D.defaultCaption; }
 
@@ -56,7 +58,12 @@
 	}
 
 	function H() { return HEIGHTS[st.format] || 1350; }
-	function pos() { return st.pos === null || st.pos === undefined ? DEFAULT_POS[st.template] : st.pos; }
+	function isStory() { return st.format === 'story'; }
+	function tpl() { return isStory() ? 'stories' : st.template; }
+	function pos() {
+		var key = isStory() ? 'posStory' : 'pos';
+		return st[key] === null || st[key] === undefined ? DEFAULT_POS[tpl()] : st[key];
+	}
 
 	/** A arte não usa emojis (cada sistema desenha de um jeito); a legenda pode ter. */
 	var EMOJI = /(?:(?![\u00A9\u00AE\u2122])\p{Extended_Pictographic}|\p{Regional_Indicator})(?:\uFE0F|\u20E3|\p{Emoji_Modifier}|\u200D(?:\p{Extended_Pictographic})\uFE0F?)*|\uFE0F|\u200D/gu;
@@ -131,7 +138,7 @@
 
 	/** Colunas das fotos: [{x, w}] */
 	function slots() {
-		var n = st.layout, out = [];
+		var n = isStory() ? 1 : st.layout, out = [];
 		for (var i = 0; i < n; i++) {
 			var x = Math.round(i * W / n);
 			out.push({ x: x, w: Math.round((i + 1) * W / n) - x });
@@ -214,6 +221,35 @@
 			drawLines(lines, margin, top + brandH + gap, lh, font, '#fff');
 		},
 
+		/* Stories: gradiente escuro, marca, título condensado e descrição.
+		   Embaixo fica livre para o adesivo de link. */
+		stories: function (h) {
+			var margin = 108, maxW = W - margin * 2;
+			var fs = Math.round(64 * st.fontScale), lh = Math.round(fs * 1.04);
+			var font = '700 condensed ' + fs + 'px "Bricolage Grotesque", sans-serif';
+			var ds = Math.round(41 * st.fontScale), dlh = Math.round(ds * 1.18);
+			var dfont = '400 condensed ' + ds + 'px "Bricolage Grotesque", sans-serif';
+			var lines = wrap(st.text, font, maxW * 0.79);
+			var dlines = String(st.desc || '').trim() ? wrap(st.desc, dfont, maxW * 0.88) : [];
+			var brandH = 40, gap = 40, dgap = 26;
+			var blockH = brandH + gap + lines.length * lh + (dlines.length ? dgap + dlines.length * dlh : 0);
+			var top = Math.max(margin, h * pos() - blockH);
+
+			var g = ctx.createLinearGradient(0, h * 0.3, 0, h);
+			g.addColorStop(0, 'rgba(0,0,0,0)');
+			g.addColorStop(0.45, 'rgba(0,0,0,.55)');
+			g.addColorStop(1, 'rgba(0,0,0,.92)');
+			ctx.fillStyle = g;
+			ctx.fillRect(0, h * 0.3, W, h * 0.7);
+
+			brand(margin, top, brandH, D.color);
+			var y = top + brandH + gap;
+			drawLines(lines, margin, y, lh, font, '#fff');
+			if (dlines.length) {
+				drawLines(dlines, margin, y + lines.length * lh + dgap, dlh, dfont, '#fff');
+			}
+		},
+
 		/* Card de post: cartão branco com avatar, nome, @ e o texto. */
 		tweet: function (h) {
 			var cw = Math.round(W * 0.76), pad = 34, av = 76;
@@ -272,7 +308,7 @@
 		if (canvas.height !== h) { canvas.height = h; }
 		ctx.textAlign = 'left';
 		drawPhoto(h);
-		(TEMPLATES[st.template] || TEMPLATES.faixa)(h);
+		(TEMPLATES[tpl()] || TEMPLATES.faixa)(h);
 	}
 
 	/* ------------------------------------------------------------ controles */
@@ -300,23 +336,22 @@
 		$('#atp-ig-layout .button').each(function () {
 			$(this).toggleClass('is-active', +$(this).data('layout') === st.layout);
 		});
-		if (active >= st.layout) { active = 0; }
-		$('#atp-ig-slots').toggle(st.layout > 1);
+		if (active >= st.layout || isStory()) { active = 0; }
+		$('.atp-ig-feed-only').toggle(!isStory());
+		$('.atp-ig-story-only').toggle(isStory());
+		$('#atp-ig-slots').toggle(st.layout > 1 && !isStory());
 		$('#atp-ig-slots .button').each(function () {
 			var i = +$(this).data('slot');
 			$(this).toggle(i < st.layout).toggleClass('is-active', i === active);
 		});
-		$('#atp-ig-change').text(st.layout > 1 ? 'Trocar foto ' + (active + 1) : 'Trocar imagem');
+		$('#atp-ig-change').text(st.layout > 1 && !isStory() ? 'Trocar foto ' + (active + 1) : 'Trocar imagem');
 		$('#atp-ig-zoom').val(st.photos[active].zoom);
 		$('input[name="atp-ig-taglogo"][value="' + st.tagLogo + '"]').prop('checked', true);
-		$('#atp-ig-tag-row').toggle(st.template === 'faixa');
+		$('#atp-ig-tag-row').toggle(tpl() === 'faixa');
 		$('#atp-ig-size').val(st.fontScale);
 		$('#atp-ig-pos').val(pos());
 		$('#atp-ig-count').text(st.caption.length);
-		$('#atp-ig-story-note').toggle(st.format === 'story');
-		$('#atp-ig-caption').prop('disabled', st.format === 'story');
-		$('#atp-ig-publish').prop('disabled', !D.canPublish)
-			.text(st.format === 'story' ? 'Publicar no Stories' : 'Publicar no feed');
+		$('#atp-ig-publish').prop('disabled', !D.canPublish);
 	}
 
 	function status(msg, type) {
@@ -332,7 +367,20 @@
 	$('#atp-ig-slots').on('click', '.button', function () { active = +$(this).data('slot'); syncUI(); });
 	$('input[name="atp-ig-taglogo"]').on('change', function () { update({ tagLogo: this.value }); });
 	$('#atp-ig-size').on('input', function () { update({ fontScale: parseFloat(this.value) }); });
-	$('#atp-ig-pos').on('input', function () { update({ pos: parseFloat(this.value) }); });
+	$('#atp-ig-pos').on('input', function () {
+		var ch = {};
+		ch[isStory() ? 'posStory' : 'pos'] = parseFloat(this.value);
+		update(ch);
+	});
+	$('#atp-ig-desc').val(st.desc).on('input', function () { update({ desc: this.value }); });
+	$('#atp-ig-copy').on('click', function () {
+		var done = function () { status('Link copiado! Cole no adesivo de link do Stories.', 'ok'); };
+		if (navigator.clipboard && window.isSecureContext) {
+			navigator.clipboard.writeText(D.permalink).then(done, function () { window.prompt('Copie o link:', D.permalink); });
+		} else {
+			window.prompt('Copie o link:', D.permalink);
+		}
+	});
 	$('#atp-ig-text').val(st.text).on('input', function () { update({ text: this.value }); });
 	$('#atp-ig-caption').val(st.caption).on('input', function () { update({ caption: this.value }); });
 
@@ -389,8 +437,8 @@
 	});
 
 	$('#atp-ig-publish').on('click', function () {
-		var where = st.format === 'story' ? 'no Stories' : 'no feed';
-		if (!window.confirm('Publicar esta arte ' + where + ' do Instagram agora?')) { return; }
+		if (isStory()) { return; }
+		if (!window.confirm('Publicar esta arte no feed do Instagram agora?')) { return; }
 		var $btn = $(this).prop('disabled', true);
 		status('Publicando… (pode levar até 30 segundos)');
 		canvas.toBlob(function (blob) {
@@ -418,7 +466,7 @@
 
 	/* ------------------------------------------------------------ início */
 
-	var fonts = ['700 50px "Bricolage Grotesque"', '700 condensed 50px "Bricolage Grotesque"', '800 50px "Bricolage Grotesque"', '400 30px Archivo', '700 30px Archivo'];
+	var fonts = ['400 condensed 50px "Bricolage Grotesque"', '700 50px "Bricolage Grotesque"', '700 condensed 50px "Bricolage Grotesque"', '800 50px "Bricolage Grotesque"', '400 30px Archivo', '700 30px Archivo'];
 	var fontsReady = document.fonts ? Promise.all(fonts.map(function (f) { return document.fonts.load(f).catch(function () {}); })) : Promise.resolve();
 
 	syncUI();

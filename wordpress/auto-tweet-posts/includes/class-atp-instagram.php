@@ -111,7 +111,7 @@ final class ATP_Instagram {
 
 	public static function enqueue( $hook ) {
 		$url = plugin_dir_url( self::$file );
-		$ver = '1.3.0';
+		$ver = '1.4.0';
 		if ( $hook === self::$settings_hook ) {
 			wp_enqueue_media();
 			wp_enqueue_script( 'atp-ig-settings', $url . 'assets/ig-settings.js', array( 'jquery' ), $ver, true );
@@ -124,7 +124,7 @@ final class ATP_Instagram {
 			return;
 		}
 		wp_enqueue_media();
-		wp_enqueue_style( 'atp-ig-fonts', 'https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,700..800&display=swap', array(), null );
+		wp_enqueue_style( 'atp-ig-fonts', 'https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap', array(), null );
 		wp_enqueue_style( 'atp-ig-editor', $url . 'assets/ig-editor.css', array(), $ver );
 		wp_enqueue_script( 'atp-ig-editor', $url . 'assets/ig-editor.js', array( 'jquery' ), $ver, true );
 
@@ -143,6 +143,8 @@ final class ATP_Instagram {
 			'postId'          => $post->ID,
 			'slug'            => $post->post_name ? $post->post_name : 'arte-' . $post->ID,
 			'title'           => ATP_Auto_Tweet::plain( get_the_title( $post ) ),
+			'excerpt'         => has_excerpt( $post ) ? ATP_Auto_Tweet::plain( $post->post_excerpt ) : '',
+			'permalink'       => get_permalink( $post ),
 			'thumbId'         => (int) get_post_thumbnail_id( $post ),
 			'postImages'      => self::post_images( $post ),
 			'defaultCaption'  => self::build_caption( $post ),
@@ -348,18 +350,26 @@ final class ATP_Instagram {
 				</div>
 
 				<div class="atp-ig-controls">
-					<h3>Modelo</h3>
-					<div class="atp-ig-templates">
-						<?php foreach ( self::TEMPLATES as $k => $label ) : ?>
-							<button type="button" class="button" data-template="<?php echo esc_attr( $k ); ?>"><?php echo esc_html( $label ); ?></button>
-						<?php endforeach; ?>
-					</div>
-
 					<h3>Formato</h3>
 					<label><input type="radio" name="atp-ig-format" value="feed"> Feed (4:5)</label>
 					<label style="margin-left:12px"><input type="radio" name="atp-ig-format" value="story"> Stories (9:16)</label>
 
+					<div class="atp-ig-story-only notice notice-info inline">
+						<p>Stories é postado pelo app do Instagram, para colocar o <strong>adesivo de link</strong> no espaço vazio embaixo da arte:
+						baixe a imagem (dá para abrir esta página no celular), suba no Stories, adicione o adesivo "Link" e cole o link da matéria.</p>
+					</div>
+
+					<div class="atp-ig-feed-only">
+						<h3>Modelo</h3>
+						<div class="atp-ig-templates">
+							<?php foreach ( self::TEMPLATES as $k => $label ) : ?>
+								<button type="button" class="button" data-template="<?php echo esc_attr( $k ); ?>"><?php echo esc_html( $label ); ?></button>
+							<?php endforeach; ?>
+						</div>
+					</div>
+
 					<h3>Fotos</h3>
+					<div class="atp-ig-feed-only">
 					<div class="atp-ig-templates" id="atp-ig-layout">
 						<button type="button" class="button" data-layout="1">1 foto</button>
 						<button type="button" class="button" data-layout="2">2 fotos</button>
@@ -370,6 +380,7 @@ final class ATP_Instagram {
 						<button type="button" class="button" data-slot="0">Foto 1</button>
 						<button type="button" class="button" data-slot="1">Foto 2</button>
 						<button type="button" class="button" data-slot="2">Foto 3</button>
+					</div>
 					</div>
 					<p style="margin:8px 0 0"><button type="button" class="button" id="atp-ig-change">Trocar imagem</button></p>
 					<label class="atp-ig-range">Zoom <input type="range" id="atp-ig-zoom" min="1" max="3" step="0.01"></label>
@@ -386,13 +397,22 @@ final class ATP_Instagram {
 					<label class="atp-ig-range">Tamanho <input type="range" id="atp-ig-size" min="0.6" max="1.6" step="0.02"></label>
 					<label class="atp-ig-range">Altura <input type="range" id="atp-ig-pos" min="0.3" max="0.98" step="0.005"></label>
 
-					<h3>Legenda</h3>
-					<textarea id="atp-ig-caption" rows="8"></textarea>
-					<p class="description"><span id="atp-ig-count">0</span>/2200 · <span id="atp-ig-story-note">No Stories a legenda não é usada.</span></p>
+					<div class="atp-ig-story-only">
+						<h3>Descrição</h3>
+						<textarea id="atp-ig-desc" rows="3"></textarea>
+						<p class="description">Linha fina embaixo do título. Deixe em branco para não usar.</p>
+					</div>
+
+					<div class="atp-ig-feed-only">
+						<h3>Legenda</h3>
+						<textarea id="atp-ig-caption" rows="8"></textarea>
+						<p class="description"><span id="atp-ig-count">0</span>/2200</p>
+					</div>
 
 					<p class="atp-ig-actions">
 						<button type="button" class="button" id="atp-ig-download">Baixar imagem</button>
-						<button type="button" class="button button-primary" id="atp-ig-publish">Publicar no Instagram</button>
+						<button type="button" class="button atp-ig-story-only" id="atp-ig-copy">Copiar link da matéria</button>
+						<button type="button" class="button button-primary atp-ig-feed-only" id="atp-ig-publish">Publicar no feed</button>
 					</p>
 					<div id="atp-ig-status" aria-live="polite"></div>
 					<div id="atp-ig-published"><?php self::render_published( $post->ID ); ?></div>
@@ -520,7 +540,9 @@ final class ATP_Instagram {
 			'tagLogo'   => isset( $in['tagLogo'] ) && 'white' === $in['tagLogo'] ? 'white' : 'pink',
 			'fontScale' => $num( 'fontScale', 0.6, 1.6, 1 ),
 			'pos'       => isset( $in['pos'] ) && is_numeric( $in['pos'] ) ? max( 0.3, min( 0.98, (float) $in['pos'] ) ) : null,
+			'posStory'  => isset( $in['posStory'] ) && is_numeric( $in['posStory'] ) ? max( 0.3, min( 0.98, (float) $in['posStory'] ) ) : null,
 			'text'      => isset( $in['text'] ) ? sanitize_textarea_field( $in['text'] ) : '',
+			'desc'      => isset( $in['desc'] ) ? sanitize_textarea_field( $in['desc'] ) : null,
 			'caption'   => isset( $in['caption'] ) ? sanitize_textarea_field( $in['caption'] ) : '',
 		);
 	}

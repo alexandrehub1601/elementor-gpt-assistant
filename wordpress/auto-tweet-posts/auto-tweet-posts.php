@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name:       Auto Tweet de Posts
- * Description:       Publica automaticamente no X (Twitter) cada post publicado no WordPress, com a imagem destacada, o título e o link. O texto do tweet pode ser personalizado por post.
- * Version:           1.0.0
+ * Description:       Compartilha os posts do WordPress no X (Twitter) com o título, o link e a thumb. Modo grátis (botão de 1 clique) ou automático pela API paga do X.
+ * Version:           1.1.0
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            HUB1601
@@ -37,6 +37,9 @@ final class ATP_Auto_Tweet {
 		add_action( self::CRON_HOOK, array( __CLASS__, 'cron_send' ) );
 		add_action( 'admin_post_atp_send_now', array( __CLASS__, 'handle_send_now' ) );
 		add_action( 'admin_post_atp_test', array( __CLASS__, 'handle_test' ) );
+		add_action( 'admin_post_atp_share', array( __CLASS__, 'handle_share' ) );
+		add_filter( 'post_row_actions', array( __CLASS__, 'row_actions' ), 10, 2 );
+		add_filter( 'page_row_actions', array( __CLASS__, 'row_actions' ), 10, 2 );
 		add_action( 'admin_notices', array( __CLASS__, 'admin_notices' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( __CLASS__, 'action_links' ) );
 	}
@@ -47,11 +50,12 @@ final class ATP_Auto_Tweet {
 
 	public static function defaults() {
 		return array(
+			'mode'          => 'manual',
 			'api_key'       => '',
 			'api_secret'    => '',
 			'access_token'  => '',
 			'access_secret' => '',
-			'template'      => "{title}\n\n{url}",
+			'template'      => "{title}\n\n🔗 Saiba tudo em: {url}",
 			'post_types'    => array( 'post' ),
 			'default_share' => 1,
 			'with_image'    => 1,
@@ -62,6 +66,10 @@ final class ATP_Auto_Tweet {
 	public static function settings() {
 		$saved = get_option( self::OPTION, array() );
 		return wp_parse_args( is_array( $saved ) ? $saved : array(), self::defaults() );
+	}
+
+	public static function is_api_mode() {
+		return 'api' === self::settings()['mode'];
 	}
 
 	public static function has_credentials() {
@@ -93,6 +101,8 @@ final class ATP_Auto_Tweet {
 		$input = is_array( $input ) ? $input : array();
 		$out   = self::defaults();
 
+		$out['mode'] = isset( $input['mode'] ) && 'api' === $input['mode'] ? 'api' : 'manual';
+
 		foreach ( array( 'api_key', 'api_secret', 'access_token', 'access_secret' ) as $key ) {
 			$out[ $key ] = isset( $input[ $key ] ) ? trim( sanitize_text_field( wp_unslash( $input[ $key ] ) ) ) : '';
 		}
@@ -121,12 +131,28 @@ final class ATP_Auto_Tweet {
 		?>
 		<div class="wrap">
 			<h1>Auto Tweet de Posts (X / Twitter)</h1>
-			<p>Quando um post é publicado, ele é enviado ao X com a imagem destacada e o texto definido abaixo (ou o texto personalizado no próprio post).</p>
-
 			<form method="post" action="options.php">
 				<?php settings_fields( 'atp_settings_group' ); ?>
 
-				<h2>Credenciais da API do X</h2>
+				<h2>Modo</h2>
+				<table class="form-table" role="presentation">
+					<tr>
+						<th scope="row">Como enviar</th>
+						<td>
+							<label style="display:block;margin-bottom:8px">
+								<input type="radio" name="<?php echo esc_attr( self::OPTION ); ?>[mode]" value="manual" <?php checked( 'manual', $s['mode'] ); ?>>
+								<strong>Grátis – 1 clique.</strong> O post ganha o botão "Compartilhar no X", que abre o X com o texto e o link prontos; é só clicar em Postar.
+								A thumb aparece como prévia grande do link (o site precisa ter as tags og:image / twitter:card, que o Yoast ou o Rank Math já colocam).
+							</label>
+							<label style="display:block">
+								<input type="radio" name="<?php echo esc_attr( self::OPTION ); ?>[mode]" value="api" <?php checked( 'api', $s['mode'] ); ?>>
+								<strong>Automático – API do X (paga por uso).</strong> Publica sozinho ao publicar o post, com a thumb anexada como foto. Precisa das credenciais abaixo.
+							</label>
+						</td>
+					</tr>
+				</table>
+
+				<h2>Credenciais da API do X <small style="font-weight:normal">(só para o modo automático)</small></h2>
 				<p class="description">
 					Crie um app em <a href="https://developer.x.com/en/portal/dashboard" target="_blank" rel="noopener">developer.x.com</a>,
 					em <em>User authentication settings</em> defina a permissão como <strong>Read and write</strong> e depois gere
@@ -247,6 +273,20 @@ final class ATP_Auto_Tweet {
 
 		wp_nonce_field( 'atp_save_' . $post->ID, 'atp_nonce' );
 
+		if ( ! self::is_api_mode() ) {
+			$share_url = wp_nonce_url( admin_url( 'admin-post.php?action=atp_share&post=' . $post->ID ), 'atp_share_' . $post->ID );
+			?>
+			<p>
+				<label for="atp_text"><strong>Texto do tweet</strong> (opcional)</label>
+				<textarea id="atp_text" name="atp_text" rows="5" style="width:100%" placeholder="<?php echo esc_attr( $s['template'] ); ?>"><?php echo esc_textarea( $text ); ?></textarea>
+				<span class="description">Em branco usa o modelo padrão. Aceita <code>{title}</code>, <code>{url}</code>, <code>{excerpt}</code>, <code>{tags}</code>…</span>
+			</p>
+			<p><a class="button button-primary" href="<?php echo esc_url( $share_url ); ?>" target="_blank" rel="noopener">Compartilhar no X</a></p>
+			<p class="description">Depois de publicar (e salvar, se mudou o texto), clique no botão e depois em "Postar" no X.</p>
+			<?php
+			return;
+		}
+
 		if ( ! self::has_credentials() ) {
 			echo '<p style="color:#b32d2e">Configure as credenciais em <a href="' . esc_url( admin_url( 'options-general.php?page=auto-tweet-posts' ) ) . '">Configurações › Auto Tweet</a>.</p>';
 		}
@@ -296,7 +336,7 @@ final class ATP_Auto_Tweet {
 	 * ------------------------------------------------------------------ */
 
 	public static function on_status_change( $new_status, $old_status, $post ) {
-		if ( 'publish' !== $new_status || 'publish' === $old_status ) {
+		if ( ! self::is_api_mode() || 'publish' !== $new_status || 'publish' === $old_status ) {
 			return;
 		}
 		if ( wp_is_post_revision( $post ) || ! in_array( $post->post_type, self::settings()['post_types'], true ) ) {
@@ -310,6 +350,33 @@ final class ATP_Auto_Tweet {
 		if ( ! wp_next_scheduled( self::CRON_HOOK, array( $post->ID ) ) ) {
 			wp_schedule_single_event( time() + (int) self::settings()['delay'], self::CRON_HOOK, array( $post->ID ) );
 		}
+	}
+
+	/**
+	 * Modo grátis: monta o texto com o post já salvo e abre a tela de postar do X.
+	 */
+	public static function handle_share() {
+		$post_id = isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0;
+		check_admin_referer( 'atp_share_' . $post_id );
+		if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
+			wp_die( 'Sem permissão.' );
+		}
+		$post = get_post( $post_id );
+		if ( ! $post || 'publish' !== $post->post_status ) {
+			wp_die( 'Publique o post primeiro e depois clique em "Compartilhar no X" de novo.', 'Post ainda não publicado', array( 'back_link' => true ) );
+		}
+		$intent = 'https://x.com/intent/post?text=' . rawurlencode( self::build_text( $post ) );
+		wp_redirect( $intent ); // phpcs:ignore WordPress.Security.SafeRedirect -- destino externo fixo.
+		exit;
+	}
+
+	public static function row_actions( $actions, $post ) {
+		if ( self::is_api_mode() || 'publish' !== $post->post_status || ! in_array( $post->post_type, self::settings()['post_types'], true ) || ! current_user_can( 'edit_post', $post->ID ) ) {
+			return $actions;
+		}
+		$url = wp_nonce_url( admin_url( 'admin-post.php?action=atp_share&post=' . $post->ID ), 'atp_share_' . $post->ID );
+		$actions['atp_share'] = '<a href="' . esc_url( $url ) . '" target="_blank" rel="noopener">Compartilhar no X</a>';
+		return $actions;
 	}
 
 	public static function cron_send( $post_id ) {

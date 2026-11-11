@@ -1,10 +1,17 @@
 === Auto Tweet de Posts ===
 Requires at least: 5.8
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 
-Publica automaticamente no X (Twitter) cada post publicado no WordPress, com a imagem destacada, o título e o link.
+Compartilha os posts no X (Twitter) com o título, "🔗 Saiba tudo em: [link]" e a thumb.
+
+Dois modos (Configurações › Auto Tweet (X)):
+* Grátis – 1 clique (padrão): botão "Compartilhar no X" na caixa do post e na lista de posts.
+  Abre o X com o texto pronto; é só clicar em Postar. A thumb aparece como prévia grande do link
+  (vem das tags og:image/twitter:card do Yoast/Rank Math). Não precisa de chave nem de API.
+* Automático – API do X (paga por uso, ~US$ 0,20 por post com link): publica sozinho com a thumb
+  anexada como foto. Siga a instalação abaixo a partir do passo 2.
 
 == Instalação ==
 

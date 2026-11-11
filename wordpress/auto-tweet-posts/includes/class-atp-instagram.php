@@ -111,7 +111,7 @@ final class ATP_Instagram {
 
 	public static function enqueue( $hook ) {
 		$url = plugin_dir_url( self::$file );
-		$ver = '1.4.0';
+		$ver = '1.4.1';
 		if ( $hook === self::$settings_hook ) {
 			wp_enqueue_media();
 			wp_enqueue_script( 'atp-ig-settings', $url . 'assets/ig-settings.js', array( 'jquery' ), $ver, true );
@@ -394,7 +394,6 @@ final class ATP_Instagram {
 					<h3>Texto da arte</h3>
 					<textarea id="atp-ig-text" rows="4"></textarea>
 					<p class="description">Emojis não aparecem na arte (só na legenda).</p>
-					<label class="atp-ig-range">Tamanho <input type="range" id="atp-ig-size" min="0.6" max="1.6" step="0.02"></label>
 					<label class="atp-ig-range">Altura <input type="range" id="atp-ig-pos" min="0.3" max="0.98" step="0.005"></label>
 
 					<div class="atp-ig-story-only">

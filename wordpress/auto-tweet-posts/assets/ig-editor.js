@@ -7,7 +7,7 @@
 
 	var W = 1080;
 	var HEIGHTS = { feed: 1350, story: 1920 };
-	var DEFAULT_POS = { faixa: 0.8, escuro: 0.93, tweet: 0.92, stories: 0.75 };
+	var DEFAULT_POS = { faixa: 0.8, escuro: 0.9, tweet: 0.92, stories: 0.75 };
 
 	var canvas = document.getElementById('atp-ig-canvas');
 	var ctx = canvas.getContext('2d');
@@ -25,6 +25,7 @@
 	}, D.state || {});
 	if (st.desc === null || st.desc === undefined) { st.desc = D.excerpt || ''; }
 	if (!st.text) { st.text = D.title; }
+	st.fontScale = 1; // tamanho do texto é fixo (padrão da marca)
 	if (!st.caption) { st.caption = D.defaultCaption; }
 
 	// Até 3 fotos lado a lado, cada uma com seu enquadramento.
@@ -209,10 +210,11 @@
 
 		/* Gradiente escuro: marca na cor da marca + título branco condensado. */
 		escuro: function (h) {
-			var margin = 64, fs = Math.round(64 * st.fontScale), lh = Math.round(fs * 1.1);
+			// Margens largas: o grid do perfil corta as laterais do 4:5.
+			var margin = 130, fs = 54, lh = Math.round(fs * 1.08);
 			var font = '700 condensed ' + fs + 'px "Bricolage Grotesque", sans-serif';
-			var lines = wrap(st.text, font, W - margin * 2);
-			var brandH = 38, gap = 20;
+			var lines = wrap(st.text, font, 740);
+			var brandH = 30, gap = 16;
 			var blockH = brandH + gap + lines.length * lh;
 			var top = Math.max(margin, h * pos() - blockH);
 
@@ -348,7 +350,6 @@
 		$('#atp-ig-zoom').val(st.photos[active].zoom);
 		$('input[name="atp-ig-taglogo"][value="' + st.tagLogo + '"]').prop('checked', true);
 		$('#atp-ig-tag-row').toggle(tpl() === 'faixa');
-		$('#atp-ig-size').val(st.fontScale);
 		$('#atp-ig-pos').val(pos());
 		$('#atp-ig-count').text(st.caption.length);
 		$('#atp-ig-publish').prop('disabled', !D.canPublish);
@@ -366,7 +367,6 @@
 	$('#atp-ig-layout').on('click', '.button', function () { update({ layout: +$(this).data('layout') }); });
 	$('#atp-ig-slots').on('click', '.button', function () { active = +$(this).data('slot'); syncUI(); });
 	$('input[name="atp-ig-taglogo"]').on('change', function () { update({ tagLogo: this.value }); });
-	$('#atp-ig-size').on('input', function () { update({ fontScale: parseFloat(this.value) }); });
 	$('#atp-ig-pos').on('input', function () {
 		var ch = {};
 		ch[isStory() ? 'posStory' : 'pos'] = parseFloat(this.value);

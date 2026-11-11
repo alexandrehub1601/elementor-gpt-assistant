@@ -1,0 +1,16 @@
+.atp-ig-sub { margin-top: 0; }
+.atp-ig-grid { display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap; margin-top: 16px; }
+.atp-ig-preview { flex: 0 0 auto; }
+.atp-ig-preview canvas { width: 432px; max-width: calc(100vw - 60px); height: auto; display: block; border-radius: 6px; box-shadow: 0 2px 12px rgba(0,0,0,.18); cursor: grab; touch-action: none; background: #111; }
+.atp-ig-preview canvas:active { cursor: grabbing; }
+.atp-ig-controls { flex: 1 1 320px; max-width: 520px; }
+.atp-ig-controls h3 { margin: 18px 0 8px; }
+.atp-ig-controls textarea { width: 100%; }
+.atp-ig-templates { display: flex; gap: 6px; flex-wrap: wrap; }
+.atp-ig-templates .button.is-active { background: #2271b1; border-color: #2271b1; color: #fff; }
+.atp-ig-range { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.atp-ig-range input { flex: 1; }
+.atp-ig-actions { margin-top: 18px; display: flex; gap: 8px; }
+#atp-ig-status { margin-top: 8px; font-weight: 600; }
+#atp-ig-status.is-error { color: #b32d2e; }
+#atp-ig-status.is-ok { color: #007017; }

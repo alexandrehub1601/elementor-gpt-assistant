@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:       Auto Tweet de Posts
- * Description:       Compartilha os posts do WordPress no X (Twitter) com o título, o link e a thumb. Modo grátis (botão de 1 clique) ou automático pela API paga do X.
- * Version:           1.1.0
+ * Plugin Name:       Auto Post Social (X + Instagram)
+ * Description:       Compartilha os posts no X (título, link e thumb) e cria artes para o feed e Stories do Instagram a partir de templates editáveis, publicando direto pelo WordPress.
+ * Version:           1.2.0
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            HUB1601
@@ -541,16 +541,16 @@ final class ATP_Auto_Tweet {
 		return $links * self::URL_LENGTH + mb_strlen( $rest, 'UTF-8' );
 	}
 
-	private static function plain( $text ) {
+	public static function plain( $text ) {
 		return trim( html_entity_decode( wp_strip_all_tags( (string) $text ), ENT_QUOTES, 'UTF-8' ) );
 	}
 
-	private static function excerpt( $post ) {
+	public static function excerpt( $post ) {
 		$raw = has_excerpt( $post ) ? $post->post_excerpt : wp_trim_words( strip_shortcodes( $post->post_content ), 30, '…' );
 		return self::plain( preg_replace( '/\s+/', ' ', $raw ) );
 	}
 
-	private static function hashtags( $terms ) {
+	public static function hashtags( $terms ) {
 		if ( empty( $terms ) || is_wp_error( $terms ) ) {
 			return '';
 		}
@@ -781,6 +781,9 @@ final class ATP_Auto_Tweet {
 }
 
 ATP_Auto_Tweet::init();
+
+require_once __DIR__ . "/includes/class-atp-instagram.php";
+ATP_Instagram::init(__FILE__);
 
 register_deactivation_hook(
 	__FILE__,

@@ -1,7 +1,7 @@
-=== Auto Tweet de Posts ===
+=== Auto Post Social (X + Instagram) ===
 Requires at least: 5.8
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 
 Compartilha os posts no X (Twitter) com o título, "🔗 Saiba tudo em: [link]" e a thumb.
@@ -45,3 +45,25 @@ Dois modos (Configurações › Auto Tweet (X)):
   chamando wp-cron.php (a maioria das hospedagens já faz isso).
 * A API do X é paga por uso/plano; confira se sua conta de desenvolvedor permite publicar posts
   e enviar mídia. Erros da API aparecem na caixa do post e no histórico.
+
+== Instagram (grátis, pela API oficial) ==
+
+Editor de artes: Posts › Arte p/ Instagram, o botão "Criar arte para o Instagram" na lateral
+do post ou o link "Arte Instagram" na lista de posts.
+
+* 3 modelos: Faixa rosa, Gradiente escuro e Card de post.
+* Feed (1080x1350) ou Stories (1080x1920).
+* Trocar a imagem (biblioteca de mídia), zoom e arrastar para reenquadrar.
+* Editar o texto da arte, o tamanho e a altura do texto, e a legenda.
+* Baixar a arte em JPG ou publicar direto no feed / Stories.
+* O rascunho de cada arte fica salvo no post.
+
+Configuração (Configurações › Instagram (artes)):
+1. A conta do Instagram precisa ser Profissional (Comercial ou Criador de conteúdo).
+2. Em developers.facebook.com/apps crie um app (tipo Empresa) e adicione o produto
+   Instagram › "API setup with Instagram login".
+3. Em "Generate access tokens", adicione a conta e clique em "Generate token".
+4. Cole o token, ajuste a cor, o logo, a foto de perfil e a legenda padrão, salve e teste a conexão.
+   O token dura 60 dias e o plugin renova sozinho toda semana.
+
+Limitações do Instagram: links na legenda não são clicáveis e a API não coloca adesivo de link no Stories.

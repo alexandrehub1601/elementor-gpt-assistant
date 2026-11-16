@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Auto Post Social (X + Instagram)
  * Description:       Compartilha os posts no X (título, link e thumb) e cria artes para o feed e Stories do Instagram a partir de templates editáveis, publicando direto pelo WordPress.
- * Version:           1.4.1
+ * Version:           1.4.2
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            HUB1601
@@ -365,8 +365,11 @@ final class ATP_Auto_Tweet {
 		if ( ! $post || 'publish' !== $post->post_status ) {
 			wp_die( 'Publique o post primeiro e depois clique em "Compartilhar no X" de novo.', 'Post ainda não publicado', array( 'back_link' => true ) );
 		}
+		// header() direto: wp_redirect() apaga %0A e o tweet perderia as quebras de linha.
+		// O texto vai codificado (rawurlencode), então não há quebra de linha crua no cabeçalho.
 		$intent = 'https://x.com/intent/post?text=' . rawurlencode( self::build_text( $post ) );
-		wp_redirect( $intent ); // phpcs:ignore WordPress.Security.SafeRedirect -- destino externo fixo.
+		nocache_headers();
+		header( 'Location: ' . $intent, true, 302 );
 		exit;
 	}
 

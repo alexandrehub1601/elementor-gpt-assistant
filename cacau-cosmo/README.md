@@ -205,3 +205,7 @@ No `circulo.php`, bloco WHATSAPP da configuração:
 ## Pedido recebido (obrigado) com Pix do Mercado Pago
 
 A tela de pedido recebido é o mesmo modelo de checkout (`checkout-woocommerce.json`). Com Pix pendente, o topo diz "Pedido recebido" com a etapa "Pagamento" em aberto, o bloco do Pix sobe para logo abaixo do topo e ganha o visual da marca (QR code, valor, copiar código com aviso, "30 minutos" em português). O título repetido do WooCommerce sai e o resumo do pedido não deixa o e-mail passar por cima do total.
+
+## Como conheceu a Cacau Cosmo (formulário do Círculo)
+
+Campo obrigatório com Instagram, Outras redes sociais, Google, Recomendação e Outros (`CC_CIRCULO_ORIGENS` no `circulo.php`). Em Recomendação abre "Quem recomendou?", também obrigatório. Aparece na lista do Círculo (coluna e filtro "Como conheceu", busca pelo nome de quem indicou), na ficha, no CSV, no aviso de WhatsApp/e-mail e no Mailchimp (campos ORIGEM e INDICACAO).

@@ -4,7 +4,8 @@
  *
  * Fluxo (reunião de 23/10/2026):
  *  1. Home aberta; Loja, Journal, Quem somos, Contato e Minha conta só para membros.
- *  2. Formulário "Entrar no Círculo": nome, e-mail, WhatsApp, Instagram, estado, cidade, idade.
+ *  2. Formulário "Entrar no Círculo": nome, e-mail, WhatsApp, Instagram, estado, cidade, idade,
+ *     como conheceu a Cacau Cosmo (e quem indicou, se foi recomendação).
  *  3. Confirmação na tela.
  *  4. Aviso no WhatsApp (Nicole e Isa) + e-mail; contato salvo aqui e no Mailchimp.
  *  5. Não aprovada  -> e-mail "Sua solicitação não foi aprovada".
@@ -123,6 +124,16 @@ if ( ! defined( 'CC_CIRCULO_CPT' ) ) {
 		'estado'    => 'Estado',
 		'cidade'    => 'Cidade',
 		'idade'     => 'Idade',
+		'origem'    => 'Como conheceu',
+		'indicacao' => 'Indicado por',
+	) );
+	/* opções de "Como conheceu a Cacau Cosmo?" (valor do formulário => texto salvo) */
+	define( 'CC_CIRCULO_ORIGENS', array(
+		'instagram'    => 'Instagram',
+		'redes'        => 'Outras redes sociais',
+		'google'       => 'Google',
+		'recomendacao' => 'Recomendação',
+		'outros'       => 'Outros',
 	) );
 	define( 'CC_CIRCULO_STATUS', array(
 		'pendente'  => 'Aguardando',
@@ -166,6 +177,13 @@ add_action( 'init', function () {
 
 function cc_circulo_get( $id, $campo ) {
 	return (string) get_post_meta( $id, '_cc_' . $campo, true );
+}
+
+/* "Recomendação (por Fulana)" / "Instagram" / "—" */
+function cc_circulo_origem_txt( $id ) {
+	$o = cc_circulo_get( $id, 'origem' );
+	$i = cc_circulo_get( $id, 'indicacao' );
+	return $o ? $o . ( $i ? ' (por ' . $i . ')' : '' ) : '—';
 }
 
 function cc_circulo_status( $id ) {
@@ -233,6 +251,8 @@ function cc_circulo_receber( WP_REST_Request $req ) {
 		'estado'    => strtoupper( sanitize_text_field( (string) $req->get_param( 'estado' ) ) ),
 		'cidade'    => mb_substr( sanitize_text_field( (string) $req->get_param( 'cidade' ) ), 0, 120 ),
 		'idade'     => (string) absint( $req->get_param( 'idade' ) ),
+		'origem'    => sanitize_key( (string) $req->get_param( 'origem' ) ),
+		'indicacao' => mb_substr( sanitize_text_field( (string) $req->get_param( 'indicacao' ) ), 0, 120 ),
 	);
 	$d['instagram'] = preg_replace( '#^(https?://)?(www\.)?instagram\.com/#i', '', $d['instagram'] );
 	$d['instagram'] = trim( $d['instagram'], '/ ' );
@@ -256,6 +276,16 @@ function cc_circulo_receber( WP_REST_Request $req ) {
 	if ( CC_CIRCULO_IDADE_MIN && $idade < CC_CIRCULO_IDADE_MIN ) {
 		return cc_circulo_resposta( false, 'O Círculo é para maiores de ' . (int) CC_CIRCULO_IDADE_MIN . ' anos.', 400 );
 	}
+	if ( ! isset( CC_CIRCULO_ORIGENS[ $d['origem'] ] ) ) {
+		return cc_circulo_resposta( false, 'Conte como você conheceu a Cacau Cosmo.', 400 );
+	}
+	if ( 'recomendacao' === $d['origem'] && '' === $d['indicacao'] ) {
+		return cc_circulo_resposta( false, 'Conte quem recomendou a Cacau Cosmo para você.', 400 );
+	}
+	if ( 'recomendacao' !== $d['origem'] ) {
+		$d['indicacao'] = '';
+	}
+	$d['origem'] = CC_CIRCULO_ORIGENS[ $d['origem'] ];   // salva o texto ("Recomendação"), mais fácil de ler e exportar
 	if ( ! $req->get_param( 'consentimento' ) ) {
 		return cc_circulo_resposta( false, 'É preciso aceitar a Política de Privacidade.', 400 );
 	}
@@ -332,7 +362,7 @@ function cc_mc_req( $metodo, $caminho, $corpo = null ) {
 
 /* Cria na audiência os campos que o formulário usa (uma vez só). */
 function cc_mc_campos() {
-	if ( get_option( 'cc_mc_campos_v3' ) === CC_MC_LIST_ID ) {
+	if ( get_option( 'cc_mc_campos_v4' ) === CC_MC_LIST_ID ) {
 		return;
 	}
 	$atuais = cc_mc_req( 'GET', '/lists/' . CC_MC_LIST_ID . '/merge-fields?count=100&fields=merge_fields.tag' );
@@ -342,13 +372,14 @@ function cc_mc_campos() {
 	$tem = wp_list_pluck( isset( $atuais['merge_fields'] ) ? $atuais['merge_fields'] : array(), 'tag' );
 	$quer = array( 'FNAME' => 'Nome', 'WHATSAPP' => 'WhatsApp', 'INSTAGRAM' => 'Instagram',
 		'ESTADO' => 'Estado', 'CIDADE' => 'Cidade', 'IDADE' => 'Idade', 'LINKSENHA' => 'Link para criar senha',
-		'SITUACAO' => 'Situação no Círculo', 'DATACIRC' => 'Data da solicitação' );
+		'SITUACAO' => 'Situação no Círculo', 'DATACIRC' => 'Data da solicitação',
+		'ORIGEM' => 'Como conheceu', 'INDICACAO' => 'Indicado por' );
 	foreach ( $quer as $tag => $nome ) {
 		if ( ! in_array( $tag, $tem, true ) ) {
 			cc_mc_req( 'POST', '/lists/' . CC_MC_LIST_ID . '/merge-fields', array( 'tag' => $tag, 'name' => $nome, 'type' => 'text' ) );
 		}
 	}
-	update_option( 'cc_mc_campos_v3', CC_MC_LIST_ID, false );
+	update_option( 'cc_mc_campos_v4', CC_MC_LIST_ID, false );
 }
 
 function cc_circulo_tags_do_status( $id ) {
@@ -380,6 +411,8 @@ function cc_circulo_mailchimp( $id, $tags = array() ) {
 			'ESTADO'    => cc_circulo_get( $id, 'estado' ),
 			'CIDADE'    => cc_circulo_get( $id, 'cidade' ),
 			'IDADE'     => cc_circulo_get( $id, 'idade' ),
+			'ORIGEM'    => cc_circulo_get( $id, 'origem' ),
+			'INDICACAO' => cc_circulo_get( $id, 'indicacao' ),
 			'LINKSENHA' => cc_circulo_get( $id, 'link' ),
 			'SITUACAO'  => CC_CIRCULO_STATUS[ cc_circulo_status( $id ) ],
 			'DATACIRC'  => get_the_date( 'd/m/Y', $id ),
@@ -490,7 +523,8 @@ function cc_circulo_avisar_nova( $id ) {
 		'Cidade: ' . cc_circulo_get( $id, 'cidade' ) . ' / ' . $uf . "\n" .
 		'WhatsApp: ' . cc_circulo_get( $id, 'whatsapp' ) . "\n" .
 		'E-mail: ' . cc_circulo_get( $id, 'email' ) . "\n" .
-		'Instagram: instagram.com/' . cc_circulo_get( $id, 'instagram' ) . "\n\n" .
+		'Instagram: instagram.com/' . cc_circulo_get( $id, 'instagram' ) . "\n" .
+		'Como conheceu: ' . cc_circulo_origem_txt( $id ) . "\n\n" .
 		'Aprovar ou não: ' . $link;
 	cc_whatsapp( $texto );
 	if ( CC_CIRCULO_EMAIL_AVISO ) {
@@ -719,6 +753,7 @@ add_filter( 'manage_' . CC_CIRCULO_CPT . '_posts_columns', function () {
 		'cc_insta'    => 'Instagram',
 		'cc_local'    => 'Cidade',
 		'cc_idade'    => 'Idade',
+		'cc_origem'   => 'Como conheceu',
 		'cc_data'     => 'Recebida em',
 		'cc_envios'   => 'Envios',
 	);
@@ -751,6 +786,11 @@ add_action( 'manage_' . CC_CIRCULO_CPT . '_posts_custom_column', function ( $col
 			break;
 		case 'cc_idade':
 			echo esc_html( cc_circulo_get( $id, 'idade' ) );
+			break;
+		case 'cc_origem':
+			$o = cc_circulo_get( $id, 'origem' );
+			$i = cc_circulo_get( $id, 'indicacao' );
+			echo $o ? esc_html( $o ) . ( $i ? '<br><small style="color:#646970">por ' . esc_html( $i ) . '</small>' : '' ) : '—';
 			break;
 		case 'cc_data':
 			echo esc_html( get_the_date( 'd/m/Y H:i', $id ) );
@@ -826,7 +866,30 @@ add_action( 'pre_get_posts', function ( $q ) {
 			array( 'key' => '_cc_email', 'value' => $s, 'compare' => 'LIKE' ),
 			array( 'key' => '_cc_cidade', 'value' => $s, 'compare' => 'LIKE' ),
 			array( 'key' => '_cc_instagram', 'value' => $s, 'compare' => 'LIKE' ),
+			array( 'key' => '_cc_indicacao', 'value' => $s, 'compare' => 'LIKE' ),
 		) );
+	}
+	/* filtro "Como conheceu" */
+	$origem = isset( $_GET['cc_origem'] ) ? sanitize_key( $_GET['cc_origem'] ) : '';
+	if ( isset( CC_CIRCULO_ORIGENS[ $origem ] ) ) {
+		$filtro = array( 'key' => '_cc_origem', 'value' => CC_CIRCULO_ORIGENS[ $origem ] );
+		$mq     = $q->get( 'meta_query' );
+		$q->set( 'meta_query', $mq ? array( 'relation' => 'AND', $mq, $filtro ) : array( $filtro ) );
+	}
+} );
+
+add_action( 'restrict_manage_posts', function ( $tipo ) {
+	if ( CC_CIRCULO_CPT !== $tipo ) {
+		return;
+	}
+	$atual = isset( $_GET['cc_origem'] ) ? sanitize_key( $_GET['cc_origem'] ) : '';
+	echo '<select name="cc_origem"><option value="">Como conheceu: todos</option>';
+	foreach ( CC_CIRCULO_ORIGENS as $k => $rotulo ) {
+		echo '<option value="' . esc_attr( $k ) . '"' . selected( $atual, $k, false ) . '>' . esc_html( $rotulo ) . '</option>';
+	}
+	echo '</select>';
+	if ( ! empty( $_GET['cc_status'] ) ) {
+		echo '<input type="hidden" name="cc_status" value="' . esc_attr( sanitize_key( $_GET['cc_status'] ) ) . '">';
 	}
 } );
 

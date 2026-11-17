@@ -30,6 +30,7 @@
 .cc-circ select option{color:#08052e;background:#fff}
 .cc-circ input:focus,.cc-circ select:focus{border-color:rgba(240,229,189,.75);box-shadow:0 0 0 3px rgba(240,229,189,.18)}
 .cc-circ input:user-invalid{border-color:#e7a0ad}
+.cc-circ [hidden]{display:none!important}
 .cc-circ .cc-circ__hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .cc-circ .cc-circ__consent{grid-column:1/-1;display:flex;gap:10px;align-items:flex-start;font-family:"Pinopolis",monospace;font-size:13px;
   line-height:1.5;opacity:.85;cursor:pointer;margin:2px 0 0}
@@ -76,6 +77,15 @@
       <option value="SP">São Paulo</option><option value="SE">Sergipe</option><option value="TO">Tocantins</option>
     </select>
     <input class="cc-circ__full" type="text" name="cidade" placeholder="Cidade" autocomplete="address-level2" required data-ph-en="City">
+    <select class="cc-circ__full" name="origem" required aria-label="Como conheceu a Cacau Cosmo?">
+      <option value="" disabled selected data-en="How did you find Cacau Cosmo?">Como conheceu a Cacau Cosmo?</option>
+      <option value="instagram">Instagram</option>
+      <option value="redes" data-en="Other social media">Outras redes sociais</option>
+      <option value="google">Google</option>
+      <option value="recomendacao" data-en="Recommendation">Recomendação</option>
+      <option value="outros" data-en="Other">Outros</option>
+    </select>
+    <input class="cc-circ__full" type="text" name="indicacao" placeholder="Quem recomendou?" autocomplete="off" maxlength="120" data-ph-en="Who recommended us?" hidden>
     <input class="cc-circ__hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
     <label class="cc-circ__consent">
       <input type="checkbox" name="consentimento" value="1" required>
@@ -93,12 +103,12 @@
 
   var T={
     pt:{ok:'Solicitação enviada!',okSub:'Respondemos em até 48h, fique de olho no seu e-mail.',env:'Enviando…',
-        campos:'Preencha nome, e-mail, WhatsApp, Instagram, idade, estado e cidade.',termos:'É preciso aceitar a Política de Privacidade.',
+        campos:'Preencha nome, e-mail, WhatsApp, Instagram, idade, estado, cidade e como conheceu a Cacau Cosmo.',indica:'Conte quem recomendou a Cacau Cosmo para você.',termos:'É preciso aceitar a Política de Privacidade.',
         erro:'Não foi possível enviar agora. Tente novamente em instantes.',
         membros:'A loja, o Journal e as demais páginas são exclusivos para quem faz parte do Círculo. Solicite seu acesso abaixo &mdash; ou <a href="/minha-conta/">entre na sua conta</a>.',
         analise:'Sua solicitação está em análise. Assim que for aprovada, você recebe um e-mail com o acesso.'},
     en:{ok:'Request sent!',okSub:'We reply within 48h, keep an eye on your inbox.',env:'Sending…',
-        campos:'Please fill in name, email, WhatsApp, Instagram, age, state and city.',termos:'Please accept the Privacy Policy.',
+        campos:'Please fill in name, email, WhatsApp, Instagram, age, state, city and how you found Cacau Cosmo.',indica:'Tell us who recommended Cacau Cosmo to you.',termos:'Please accept the Privacy Policy.',
         erro:'Could not send right now. Please try again shortly.',
         membros:'The shop, the Journal and the other pages are for Circle members only. Request your access below &mdash; or <a href="/minha-conta/">sign in</a>.',
         analise:'Your request is under review. Once approved, you will receive an email with your access.'}
@@ -125,17 +135,22 @@
     if(box._cc) return; box._cc=1;
     var form=box.querySelector('form'), msg=box.querySelector('.cc-circ__msg'), btn=form.querySelector('button');
     form.whatsapp.addEventListener('input',mascara);
+    form.origem.addEventListener('change',function(){   /* recomendação: abre o campo "Quem recomendou?" */
+      var rec=form.origem.value==='recomendacao'; form.indicacao.hidden=!rec; form.indicacao.required=rec;
+      if(rec) form.indicacao.focus(); else form.indicacao.value='';
+    });
     form.addEventListener('submit',function(ev){
       ev.preventDefault();
       var t=T[lang()];
       if(form._gotcha.value) return;
       msg.className='cc-circ__msg';
       if(!form.nome.value.trim()||!form.email.checkValidity()||!form.email.value||form.whatsapp.value.replace(/\D/g,'').length<10||
-         !form.instagram.value.replace(/[@\s]/g,'')||!form.idade.value||!form.estado.value||!form.cidade.value.trim()){
+         !form.instagram.value.replace(/[@\s]/g,'')||!form.idade.value||!form.estado.value||!form.cidade.value.trim()||!form.origem.value){
         msg.textContent=t.campos; msg.className='cc-circ__msg err';
-        var bad=[form.nome,form.email,form.whatsapp,form.instagram,form.idade,form.estado,form.cidade].filter(function(i){return !i.value.trim()||!i.checkValidity()})[0];
+        var bad=[form.nome,form.email,form.whatsapp,form.instagram,form.idade,form.estado,form.cidade,form.origem].filter(function(i){return !i.value.trim()||!i.checkValidity()})[0];
         if(bad) bad.focus(); return;
       }
+      if(form.origem.value==='recomendacao'&&!form.indicacao.value.trim()){ msg.textContent=t.indica; msg.className='cc-circ__msg err'; form.indicacao.focus(); return; }
       if(!form.consentimento.checked){ msg.textContent=t.termos; msg.className='cc-circ__msg err'; return; }
       btn.disabled=true; msg.textContent=t.env;
       fetch(box.getAttribute('data-endpoint'),{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'},credentials:'same-origin'})

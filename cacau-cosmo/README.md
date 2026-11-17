@@ -185,7 +185,7 @@ Para baixar de novo (por exemplo, se entrarem posts novos lá), rode `python3 ca
 
 Depois do bloco Cacau × Cosmo: frase "Cacau como origem…", **Do fruto** (texto + foto dos frutos), **Manifesto**, faixa de foto dos bombons, **Founder** (frase, foto da Nicole, assinatura) e o **Círculo** com os campos em coluna e botão "Entrar".
 
-- Fotos em `home-fotos.zip` (`cc-home-cacau.jpg`, `cc-home-bombons.jpg`, `cc-home-nicole.jpg`): subir em Mídia sem renomear. Se a URL do mês não bater, a página acha o arquivo pela Biblioteca de Mídia.
+- Fotos em `home-fotos.zip` (`cc-home-cacau.jpg`, `cc-home-barra.jpg`, `cc-home-nicole.jpg`; a barra roxa substituiu os bombons na coluna do meio): subir em Mídia sem renomear. Se a URL do mês não bater, a página acha o arquivo pela Biblioteca de Mídia.
 
 ## Avisos no WhatsApp (novo cadastro no Círculo e pedido pago)
 

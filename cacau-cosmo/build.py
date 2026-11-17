@@ -606,10 +606,39 @@ CHECKOUT_JS = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
 
   /* pedido recebido: muda o topo */
   if(root.querySelector('.woocommerce-order')||document.body.classList.contains('woocommerce-order-received')){
-    if(h1) h1.innerHTML=t('Pedido <span class="em">confirmado.</span>','Order <span class="em">confirmed.</span>');
-    if(sub) sub.textContent=t('Obrigada! Enviamos os detalhes para o seu e-mail.','Thank you! We sent the details to your email.');
-    var st=document.querySelectorAll('.js-co-steps span');
-    st.forEach(function(s,i){ s.className='ok'; s.querySelector('i').textContent='✓'; });
+    var pix=root.querySelector('.mp-details-pix'), st=document.querySelectorAll('.js-co-steps span');
+    if(pix){
+      /* Pix ainda não pago: o foco é pagar */
+      if(h1) h1.innerHTML=t('Pedido <span class="em">recebido.</span>','Order <span class="em">received.</span>');
+      if(sub) sub.textContent=t('Falta só o Pix. Assim que o pagamento cair, você recebe a confirmação por e-mail.','Just the Pix payment left. Once it goes through, we email you the confirmation.');
+      st.forEach(function(s,i){
+        if(i<2){ s.className='ok'; s.querySelector('i').textContent='✓'; }
+        else { s.className='on'; var em=s.querySelector('em'); if(em){ em.textContent=t('Pagamento','Payment'); em.removeAttribute('data-i18n'); } }
+      });
+      /* o bloco do Pix sobe para logo abaixo do topo */
+      var ov=root.querySelector('ul.woocommerce-order-overview'), tit=root.querySelector('.mp-details-title');
+      if(ov){ if(tit) ov.parentNode.insertBefore(tit,ov); ov.parentNode.insertBefore(pix,ov); }
+      if(tit) tit.textContent=t('Pague com Pix para finalizar','Pay with Pix to finish');
+      /* textos do plugin que vêm em inglês */
+      root.querySelectorAll('.mp-details-pix-qr-subtitle').forEach(function(p){
+        p.textContent=p.textContent.replace('minutes','minutos').replace('minute','minuto').replace('hours','horas').replace('hour','hora');
+      });
+      /* copiar o código com aviso */
+      var bt=root.querySelector('.mp-details-pix-button'), inp=root.querySelector('#mp-qr-code');
+      if(bt&&inp){
+        var orig=bt.textContent;
+        inp.readOnly=true;
+        bt.addEventListener('click',function(){
+          if(navigator.clipboard) navigator.clipboard.writeText(inp.value).catch(function(){});
+          bt.classList.add('ok'); bt.textContent=t('Código copiado ✓','Code copied ✓');
+          setTimeout(function(){ bt.classList.remove('ok'); bt.textContent=orig; },2500);
+        });
+      }
+    } else {
+      if(h1) h1.innerHTML=t('Pedido <span class="em">confirmado.</span>','Order <span class="em">confirmed.</span>');
+      if(sub) sub.textContent=t('Obrigada! Enviamos os detalhes para o seu e-mail.','Thank you! We sent the details to your email.');
+      st.forEach(function(s,i){ s.className='ok'; s.querySelector('i').textContent='✓'; });
+    }
   } else if(sub){
     sub.textContent=t('Preencha seus dados e escolha a entrega. Seu chocolate já está separado.','Fill in your details and choose shipping. Your chocolate is already set aside.');
     if(h1&&en) h1.innerHTML='Almost <span class="em">there.</span>';

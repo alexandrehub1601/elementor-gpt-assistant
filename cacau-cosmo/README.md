@@ -201,3 +201,7 @@ No `circulo.php`, bloco WHATSAPP da configuração:
 - No menu e no rodapé de todas as páginas internas; na home aparece no menu só para quem está logado.
 - O Journal não mostra os posts do Universo. No post, "Continue lendo" sugere o mesmo tipo (Universo ou Journal).
 - `universo/universo-inicial.xml`: categoria, subcategorias e os rascunhos Outubro Rosa e Cosmo Café. `pacote-cacau-cosmo.zip` traz tudo com o passo a passo.
+
+## Pedido recebido (obrigado) com Pix do Mercado Pago
+
+A tela de pedido recebido é o mesmo modelo de checkout (`checkout-woocommerce.json`). Com Pix pendente, o topo diz "Pedido recebido" com a etapa "Pagamento" em aberto, o bloco do Pix sobe para logo abaixo do topo e ganha o visual da marca (QR code, valor, copiar código com aviso, "30 minutos" em português). O título repetido do WooCommerce sai e o resumo do pedido não deixa o e-mail passar por cima do total.

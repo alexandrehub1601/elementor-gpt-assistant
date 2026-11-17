@@ -110,3 +110,22 @@
 @media (max-width:1024px){.cc-root .elementor-posts-container{grid-template-columns:1fr 1fr}
   .cc-root .cc-post-body .alignwide{margin-left:0;margin-right:0;width:100%}}
 @media (max-width:620px){.cc-root .elementor-posts-container{grid-template-columns:1fr}}
+
+/* "Continue lendo" montado pelo site (Journal sugere Journal, Universo sugere Universo) */
+.cc-post-related .cc-mais{max-width:var(--wrap);margin:0 auto!important;width:100%}
+.cc-root .cc-mais__h{font-family:var(--font-display)!important;font-weight:700;font-size:clamp(26px,3vw,46px);color:var(--cc-text-dark);
+  text-align:center;margin:0 0 clamp(30px,3.4vw,54px)}
+.cc-root .cc-mais__grade{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,2.4vw,40px)}
+.cc-root .cc-mais__card{display:flex;flex-direction:column}
+.cc-root .cc-mais__img{display:block;aspect-ratio:4/3;overflow:hidden;border-radius:3px;background:var(--cc-brown);margin-bottom:18px}
+.cc-root .cc-mais__img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s var(--ease)}
+.cc-root .cc-mais__card:hover .cc-mais__img img{transform:scale(1.04)}
+.cc-root .cc-mais__data{font-family:var(--font-body);font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--cc-brown)}
+.cc-root .cc-mais__card h3{font-family:var(--font-display)!important;font-weight:700;font-size:clamp(18px,1.5vw,23px);line-height:1.2;margin:8px 0}
+.cc-root .cc-mais__card h3 a{color:var(--cc-text-dark);text-decoration:none}
+.cc-root .cc-mais__card p{font-family:var(--font-mono)!important;font-size:14px;opacity:.78;margin:0 0 12px}
+.cc-root .cc-mais__ler{margin-top:auto;font-family:var(--font-body);font-size:9px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;
+  color:var(--cc-text-dark);border-bottom:1px solid currentColor;padding-bottom:5px;width:fit-content;text-decoration:none}
+.cc-post-un .cc-post-nav{display:none!important}
+@media (max-width:1024px){.cc-root .cc-mais__grade{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.cc-root .cc-mais__grade{grid-template-columns:1fr}}

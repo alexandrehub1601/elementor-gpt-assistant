@@ -1,0 +1,28 @@
+CACAU COSMO — PACOTE COMPLETO (com a página Universo)
+
+1. WordPress → Ferramentas → Importar → WordPress → universo-inicial.xml
+   Cria a categoria Universo, as subcategorias (Processos, Encontros, Viagens,
+   Colaborações, Pessoas, Ingredientes, Território, Receitas) e 2 rascunhos:
+   "Outubro Rosa — Cuidado que se partilha" e "Cosmo Café — onde o universo começa a ganhar sabor".
+
+2. Páginas → Adicionar nova → título "Universo" (endereço /universo/) → Publicar.
+
+3. Modelos → Modelos salvos → Importar modelos (fora do editor), um por vez:
+   pagina-universo.json, pagina-journal.json, pagina-home.json, pagina-quem-somos.json,
+   pagina-contato.json, loja-woocommerce.json, produto-woocommerce.json,
+   carrinho-woocommerce.json, checkout-woocommerce.json, minha-conta-woocommerce.json,
+   post-journal.json
+
+4. Páginas (Universo, Journal, Home, Quem Somos, Contato, Carrinho, Finalizar compra,
+   Minha conta): Editar com Elementor → apagar o conteúdo antigo → pasta → Meus modelos
+   → Inserir o modelo de mesmo nome → Atualizar. Layout: Elementor Canvas.
+
+5. Theme Builder: troque os modelos antigos de Loja (Arquivo de produtos),
+   Produto (Single Product) e Post (Single Post) pelos novos.
+
+6. WPCode: troque o código do Círculo por circulo.php (sem a primeira linha "<?php")
+   e cole de novo as chaves do Mailchimp e do WhatsApp.
+
+Para publicar uma ação no Universo: Posts → Adicionar novo → marque a categoria
+"Universo" (e, se quiser, uma subcategoria) → título no formato "Nome — subtítulo"
+→ Imagem destacada → Publicar. Ela aparece só no Universo, não no Journal.

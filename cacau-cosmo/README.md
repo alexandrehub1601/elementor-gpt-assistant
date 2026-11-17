@@ -194,3 +194,10 @@ No `circulo.php`, bloco WHATSAPP da configuração:
 - Envio grátis pela **Whapi.Cloud** (plano Sandbox, `CC_WHAPI_TOKEN`), ou pago pela **Z-API** (`CC_ZAPI_INSTANCIA`, `CC_ZAPI_TOKEN`, `CC_ZAPI_CLIENT_TOKEN`): o número que envia é conectado na Z-API por QR Code.
 - Sem Z-API, usa o **CallMeBot** (`CC_WHATSAPP_AVISOS`, grátis, quando houver vaga para novos números).
 - Botão **Testar WhatsApp** no menu Círculo manda uma mensagem e mostra o resultado de cada número.
+
+## Universo (ações, encontros, histórias)
+
+- Página `/universo/` (`elementor/pagina-universo.json`): mostra os posts da categoria **Universo**; as subcategorias com posts viram filtros. Título "Nome — subtítulo" vira título + subtítulo.
+- No menu e no rodapé de todas as páginas internas; na home aparece no menu só para quem está logado.
+- O Journal não mostra os posts do Universo. No post, "Continue lendo" sugere o mesmo tipo (Universo ou Journal).
+- `universo/universo-inicial.xml`: categoria, subcategorias e os rascunhos Outubro Rosa e Cosmo Café. `pacote-cacau-cosmo.zip` traz tudo com o passo a passo.

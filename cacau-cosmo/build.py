@@ -799,11 +799,54 @@ SHARE_HTML = """<div class="cc-share">
   </div>
 </div>"""
 
+RELATED_HTML = """<h2 class="cc-mais__h" id="ccMaisH" data-i18n="t-related">Continue lendo</h2>
+<div class="cc-mais__grade" id="ccMais" aria-live="polite"></div>"""
+
 POST_JS = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
-  't-share': 'Share', 't-related': 'Keep reading',
+  't-share': 'Share', 't-related': 'Keep reading', 't-related-un': 'More from the Universe',
   't-circ-label': 'Journal', 't-circ-h2': 'Letters from the Cosmos.',
   't-circ-p': 'Rituals, origin and the time of cacao, written for those already in the Circle.', 't-circ-cta': 'Read the Journal'
 });
+/* ===== CONTINUE LENDO: Journal sugere Journal, Universo sugere Universo ===== */
+(function(){
+  var box=document.getElementById('ccMais'), h=document.getElementById('ccMaisH'); if(!box||!window.fetch)return;
+  var m=document.body.className.match(/postid-(\\d+)/), id=m?+m[1]:0, en=document.documentElement.lang==='en';
+  var API='/wp-json/wp/v2/';
+  function j(u){return fetch(API+u,{credentials:'same-origin'}).then(function(r){return r.ok?r.json():[]})}
+  function txt(x){var d=document.createElement('div');d.innerHTML=x||'';return (d.textContent||'').replace(/\\s+/g,' ').trim()}
+  function esc(x){return String(x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function troca(el,pt,ing,chave){if(!el)return;el.setAttribute('data-i18n',chave);el.dataset.pt=pt;el.innerHTML=en?ing:pt}
+  Promise.all([j('categories?slug=universo&_fields=id'), id?j('posts/'+id+'?_fields=categories'):Promise.resolve({})]).then(function(r){
+    var un=r[0]&&r[0][0]?r[0][0].id:0, cats=(r[1]&&r[1].categories)||[], ehUn=un&&cats.indexOf(un)>=0;
+    if(ehUn){
+      document.body.classList.add('cc-post-un');
+      window.CC_DICT=Object.assign(window.CC_DICT||{},{'t-un-band-l':'Universe','t-un-band-h':'More stories from the Universe.',
+        't-un-band-p':'Actions, gatherings and the people around cacao.','t-un-band-c':'See the Universe'});
+      troca(h,'Mais do Universo','More from the Universe','t-related-un');
+      var band=document.querySelector('.cc-circle');
+      if(band){
+        troca(band.querySelector('[data-i18n="t-circ-label"]'),'Universo','Universe','t-un-band-l');
+        troca(band.querySelector('[data-i18n="t-circ-h2"]'),'Mais histórias do Universo.','More stories from the Universe.','t-un-band-h');
+        troca(band.querySelector('[data-i18n="t-circ-p"]'),'Ações, encontros e as pessoas ao redor do cacau.','Actions, gatherings and the people around cacao.','t-un-band-p');
+        var a=band.querySelector('a.btn'); if(a){a.href='/universo/'; troca(a,'Ver o Universo','See the Universe','t-un-band-c');}
+      }
+    }
+    var q='posts?per_page=3&_embed=wp:featuredmedia&_fields=id,link,title,excerpt,date,_links,_embedded'+(id?'&exclude='+id:'')+
+      (ehUn?'&categories='+un:(un?'&categories_exclude='+un:''));
+    return j(q).then(function(ps){
+      if(!ps.length){var sec=box.closest('.cc-post-related');if(sec)sec.style.display='none';return}
+      box.innerHTML=ps.map(function(p){
+        var md=p._embedded&&p._embedded['wp:featuredmedia']&&p._embedded['wp:featuredmedia'][0], sz=md&&md.media_details&&md.media_details.sizes,
+            im=md?((sz&&sz.medium_large||{}).source_url||md.source_url):'', t=txt(p.title.rendered), d='';
+        try{d=new Date(p.date).toLocaleDateString(en?'en-US':'pt-BR',{day:'2-digit',month:'short',year:'numeric'})}catch(e){}
+        return '<article class="cc-mais__card"><a class="cc-mais__img" href="'+esc(p.link)+'" tabindex="-1" aria-hidden="true">'+(im?'<img src="'+esc(im)+'" alt="" loading="lazy">':'')+'</a>'+
+          '<span class="cc-mais__data">'+esc(d)+'</span><h3><a href="'+esc(p.link)+'">'+esc(t)+'</a></h3>'+
+          '<p>'+esc(txt(p.excerpt.rendered).slice(0,140))+'</p><a class="cc-mais__ler" href="'+esc(p.link)+'" aria-label="'+(en?'Read: ':'Ler: ')+esc(t)+'">'+(en?'Read':'Ler')+' &rarr;</a></article>';
+      }).join('');
+    });
+  }).catch(function(){});
+})();
+
 /* ===== COMPARTILHAR ======================================= */
 (function(){
   var u=encodeURIComponent(location.href.split('#')[0]), ti=encodeURIComponent(document.title);
@@ -848,21 +891,7 @@ def build_post():
             "show_arrow": "yes", "arrow": "fa fa-angle-left", "show_title": "yes", "show_borders": "",
         })]),
         t.con("cc-post-comments", [t.w("post-comments", {"_skin": "theme_comments", "source_type": "current_post"})]),
-        t.con("cc-post-related", [
-            t.w("heading", {"title": "Continue lendo", "header_size": "h2"}, "cc-related-title"),
-            t.w("posts", {
-                "_skin": "classic",
-                "classic_columns": "3", "classic_columns_tablet": "2", "classic_columns_mobile": "1",
-                "classic_posts_per_page": 3,
-                "classic_thumbnail": "top", "classic_item_ratio": {"unit": "px", "size": 0.75},
-                "classic_title_tag": "h3",
-                "classic_show_excerpt": "yes", "classic_excerpt_length": 18,
-                "classic_meta_data": ["date"],
-                "classic_show_read_more": "yes", "classic_read_more_text": "Ler →",
-                "posts_post_type": "post", "posts_exclude": ["current_post"],
-                "orderby": "date", "order": "desc",
-            }),
-        ]),
+        t.con("cc-post-related", [t.html(RELATED_HTML, "cc-mais")]),
         t.html(CIRCLE_HTML),
         t.html(tpl_footer(POST_JS), "cc-footer"),
     ])]
@@ -929,7 +958,8 @@ JOURNAL_JS = r"""/* ===== JOURNAL: destaques + lista (REST do WordPress) ===== *
     var s=m.media_details&&m.media_details.sizes;return (s&&s[tam]&&s[tam].source_url)||m.source_url}
   function cat(p){var t=p._embedded&&p._embedded['wp:term'];var c=t&&t[0]&&t[0][0];return c?txt(c.name):'Journal'}
   function data(p){try{return new Date(p.date).toLocaleDateString(en?'en-US':'pt-BR',{day:'2-digit',month:'short',year:'numeric'})}catch(e){return ''}}
-  function get(q){return fetch(API+'?'+q+CAMPOS,{credentials:'same-origin'}).then(function(r){
+  var FORA='';   /* categoria Universo fica fora do Journal */
+  function get(q){return fetch(API+'?'+q+FORA+CAMPOS,{credentials:'same-origin'}).then(function(r){
     if(!r.ok)throw r; return r.json().then(function(j){return {itens:j,total:+r.headers.get('X-WP-Total')||j.length}})})}
   var seta='<svg viewBox="0 0 26 8" fill="none" aria-hidden="true"><path d="M0 4h24m0 0-4-3.2M24 4l-4 3.2" stroke="currentColor" stroke-width="1"/></svg>';
 
@@ -990,7 +1020,9 @@ JOURNAL_JS = r"""/* ===== JOURNAL: destaques + lista (REST do WordPress) ===== *
   }
   mais.addEventListener('click',carregar);
 
-  get('sticky=true&per_page=3').then(function(r){
+  fetch('/wp-json/wp/v2/categories?slug=universo&_fields=id',{credentials:'same-origin'})
+    .then(function(r){return r.ok?r.json():[]}).then(function(c){if(c&&c[0])FORA='&categories_exclude='+c[0].id}).catch(function(){})
+    .then(function(){return get('sticky=true&per_page=3')}).then(function(r){
     var fixos=r.itens;
     if(fixos.length>=3) return fixos;
     return get('per_page='+(3-fixos.length)+(fixos.length?'&exclude='+fixos.map(function(p){return p.id}).join(','):'')).then(function(r2){return fixos.concat(r2.itens)});
@@ -1009,6 +1041,104 @@ def build_journal():
     return export("pagina-journal", "Cacau Cosmo — Journal", "page", content)
 
 
+# ---- UNIVERSO (página) ------------------------------------------------
+# Ações, encontros e histórias: posts da categoria "Universo" (slug universo).
+# As subcategorias de Universo viram os filtros do topo.
+UNIVERSO_HTML = """<div class="cc-un">
+  <header class="un-ceu">
+    <canvas class="stars" data-density="5200" aria-hidden="true"></canvas>
+    <div class="un-orbita" aria-hidden="true"></div>
+    <span class="un-tag" data-i18n="t-un-tag">Para quem é do Círculo</span>
+    <h1 data-i18n="t-un-h1">Universo<em>.</em></h1>
+    <p data-i18n="t-un-p">Ações, encontros e histórias que acontecem ao redor do cacau e das pessoas que fazem parte dele.</p>
+    <div class="un-filtros" id="unFiltros" role="group" aria-label="Filtrar" hidden></div>
+  </header>
+
+  <section class="un-lista" aria-label="Ações do Universo">
+    <div class="un-lista__in" id="unLista"><div class="un-skel"></div><div class="un-skel"></div></div>
+    <div class="un-mais"><button type="button" id="unMais" hidden data-i18n="t-un-mais">Carregar mais</button></div>
+  </section>
+</div>"""
+
+UNIVERSO_DICT = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
+  't-un-tag': 'For Circle members', 't-un-h1': 'Universe<em>.</em>',
+  't-un-p': 'Actions, gatherings and stories that happen around cacao and the people who are part of it.',
+  't-un-mais': 'Load more'
+});
+"""
+
+UNIVERSO_JS = r"""/* ===== UNIVERSO: ações da categoria Universo (REST do WordPress) ===== */
+(function(){
+  var en=document.documentElement.lang==='en', POR=6, API='/wp-json/wp/v2/';
+  var lista=document.getElementById('unLista'), mais=document.getElementById('unMais'), filtros=document.getElementById('unFiltros');
+  var raiz=0, cat=0, pag=0, total=0;
+  function txt(h){var d=document.createElement('div');d.innerHTML=h||'';return (d.textContent||'').replace(/\s+/g,' ').trim()}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function curto(s,n){return s.length>n?s.slice(0,n).replace(/\s+\S*$/,'')+'…':s}
+  function j(u){return fetch(API+u,{credentials:'same-origin'}).then(function(r){if(!r.ok)throw r;return r.json().then(function(d){return {d:d,total:+r.headers.get('X-WP-Total')||d.length}})})}
+  function img(p){var m=p._embedded&&p._embedded['wp:featuredmedia']&&p._embedded['wp:featuredmedia'][0];if(!m||!m.source_url)return '';
+    var s=m.media_details&&m.media_details.sizes;return (s&&(s.large||s.medium_large)||{}).source_url||m.source_url}
+  function sub(p){var t=p._embedded&&p._embedded['wp:term']&&p._embedded['wp:term'][0]||[];
+    var c=t.filter(function(x){return x.id!==raiz})[0];return c?txt(c.name):''}
+  function quando(p){try{return new Date(p.date).toLocaleDateString(en?'en-US':'pt-BR',{month:'long',year:'numeric'})}catch(e){return ''}}
+  var seta='<svg viewBox="0 0 24 8" fill="none" aria-hidden="true"><path d="M0 4h22m0 0-4-3.2M22 4l-4 3.2" stroke="currentColor" stroke-width="1"/></svg>';
+  var vagem='<svg viewBox="0 0 200 320" aria-hidden="true"><use href="#art-pod"></use></svg>';
+
+  function acao(p){
+    /* "Outubro Rosa — Cuidado que se partilha" vira título + subtítulo */
+    var t=txt(p.title.rendered), partes=t.split(/\s+[—–-]\s+/), titulo=partes.shift(), subt=partes.join(' — ');
+    var m=img(p), c=sub(p), r=curto(txt(p.excerpt.rendered),200);
+    function base(x){return x.toLowerCase().replace(/[.!…\s]+$/,'')}
+    if(subt&&base(r)===base(subt)) r='';
+    return '<article class="un-acao">'+
+      '<a class="un-acao__foto" href="'+esc(p.link)+'" tabindex="-1" aria-hidden="true">'+(m?'<img src="'+esc(m)+'" alt="" loading="lazy">':'<span class="un-sem">'+vagem+'</span>')+'</a>'+
+      '<div><div class="un-acao__meta"><span class="un-tag">'+esc(quando(p))+'</span>'+(c?'<span class="un-chip">'+esc(c)+'</span>':'')+'</div>'+
+      '<h2><a href="'+esc(p.link)+'">'+esc(titulo)+'</a></h2>'+(subt?'<p class="un-acao__sub">'+esc(subt)+'</p>':'')+
+      (r?'<p class="un-resumo">'+esc(r)+'</p>':'')+
+      '<a class="un-ver" href="'+esc(p.link)+'" aria-label="'+(en?'See: ':'Ver: ')+esc(titulo)+'">'+(en?'See the story':'Ver a ação')+seta+'</a></div></article>';
+  }
+  function vazio(){lista.innerHTML='<div class="un-vazio"><b>'+(en?'The first stories are on the way.':'As primeiras histórias estão chegando.')+'</b><span>'+
+    (en?'Come back soon.':'Volte em breve.')+'</span></div>'}
+  function carregar(novo){
+    if(novo){pag=0;lista.innerHTML='<div class="un-skel"></div>'}
+    pag++; mais.disabled=true;
+    j('posts?categories='+(cat||raiz)+'&per_page='+POR+'&page='+pag+'&_embed=wp:featuredmedia,wp:term&_fields=id,link,title,excerpt,date,_links,_embedded')
+      .then(function(r){
+        if(pag===1){lista.innerHTML='';total=r.total}
+        lista.insertAdjacentHTML('beforeend',r.d.map(acao).join(''));
+        if(pag===1&&!r.d.length) vazio();
+        mais.hidden=lista.querySelectorAll('.un-acao').length>=total; mais.disabled=false;
+      }).catch(function(){ if(pag===1) vazio(); mais.hidden=true; });
+  }
+  function montarFiltros(cats){
+    if(!cats.length)return;
+    var bts=[{id:0,name:en?'All':'Todos'}].concat(cats);
+    filtros.innerHTML=bts.map(function(c,i){return '<button type="button" data-id="'+c.id+'" aria-pressed="'+(i?'false':'true')+'">'+esc(txt(c.name))+'</button>'}).join('');
+    filtros.hidden=false;
+    filtros.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+      filtros.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
+      cat=+b.dataset.id; carregar(true);});
+  }
+  mais.addEventListener('click',function(){carregar(false)});
+  j('categories?slug=universo&_fields=id').then(function(r){
+    if(!r.d.length){vazio();return}
+    raiz=r.d[0].id; carregar(true);
+    j('categories?parent='+raiz+'&hide_empty=true&per_page=50&orderby=name&_fields=id,name').then(function(c){montarFiltros(c.d)}).catch(function(){});
+  }).catch(vazio);
+})();
+"""
+
+
+def build_universo():
+    t = Tpl("universo")
+    content = [t.con("cc cc-root", [
+        t.html(tpl_header(read("elementor/universo.css")), "cc-header"),
+        t.html(UNIVERSO_HTML, "cc-universo"),
+        t.html(tpl_footer(UNIVERSO_DICT + UNIVERSO_JS), "cc-footer"),
+    ])]
+    return export("pagina-universo", "Cacau Cosmo — Universo", "page", content)
+
+
 # ---- PÁGINAS EM JSON (home, quem somos, contato) --------------------
 def build_pagina_json(slug, titulo):
     t = Tpl(f"pg-{slug}")
@@ -1019,7 +1149,7 @@ def build_pagina_json(slug, titulo):
 if __name__ == "__main__":
     for slug in ("quem-somos", "contato"):
         print("ok", build_page(slug).relative_to(ROOT.parent))
-    for fn in (build_loja, build_produto, build_carrinho, build_checkout, build_conta, build_post, build_journal):
+    for fn in (build_loja, build_produto, build_carrinho, build_checkout, build_conta, build_post, build_journal, build_universo):
         print("ok", fn().relative_to(ROOT.parent))
     for slug, titulo in (("home", "Cacau Cosmo — Home"), ("quem-somos", "Cacau Cosmo — Quem Somos"), ("contato", "Cacau Cosmo — Contato")):
         print("ok", build_pagina_json(slug, titulo).relative_to(ROOT.parent))

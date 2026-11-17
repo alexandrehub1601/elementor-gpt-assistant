@@ -365,6 +365,7 @@ a.is-soon{cursor:default}
 .drawer__login{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px;position:relative;
   font-size:10px;letter-spacing:.24em;text-transform:uppercase;opacity:.7;transition:opacity .4s}
 .drawer__login:hover{opacity:1}
+.nav a[hidden]{display:none!important}
 .drawer__login svg{width:16px;height:16px}
 @media (max-width:620px){
   .topbar{grid-template-columns:auto 1fr auto}
@@ -623,6 +624,12 @@ a.is-soon{cursor:default}
 
   <nav class="nav">
     <a href="#hero" data-i18n="t-nav-home">Home</a>
+    <!-- só para quem é do Círculo (logado) -->
+    <a href="/loja/" class="js-membro" hidden data-i18n="t-nav-shop">Shop</a>
+    <a href="/quem-somos/" class="js-membro" hidden data-i18n="t-nav-about">Quem Somos</a>
+    <a href="/journal/" class="js-membro" hidden data-i18n="t-nav-journal">Journal</a>
+    <a href="/universo/" class="js-membro" hidden data-i18n="t-nav-universe">Universo</a>
+    <a href="/contato/" class="js-membro" hidden data-i18n="t-contact">Contato</a>
   </nav>
 
   <div class="drawer__rule"></div>
@@ -1106,6 +1113,7 @@ function ccFallback(img){
 (function(){
   var U=window.CC_USER||{logado:document.body.classList.contains('logged-in')};
   if(!U.logado) return;
+  document.querySelectorAll('.js-membro').forEach(function(a){a.hidden=false});
   var l=document.querySelector('.drawer__login span');
   if(l){ l.setAttribute('data-i18n','t-account'); l.textContent='Minha conta'; }
 })();
@@ -1126,6 +1134,8 @@ function ccFallback(img){
     't-login':          'Already a member · Log in',
     't-account':        'My account',
     't-nav-shop':       'Shop',
+    't-nav-about':      'About us',
+    't-nav-universe':   'Universe',
     't-nav-brand':      'Cacau Cosmo',
     't-nav-journal':    'Journal',
     't-btncircle':      'Join the Circle',

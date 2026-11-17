@@ -110,6 +110,7 @@
     't-nav-shop':    'Shop',
     't-nav-about':   'About us',
     't-nav-journal': 'Journal',
+    't-nav-universe': 'Universe',
     't-contact':     'Contact',
     't-account':     'My account',
     't-logout':      'Log out',

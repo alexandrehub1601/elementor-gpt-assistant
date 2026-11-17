@@ -395,7 +395,7 @@ textarea.txt{min-height:12rem;line-height:1.55;resize:vertical}
     var items=all.filter(function(m){
       if(filter==='novas'&&m.lida) return false;
       if(!term) return true;
-      return [m.nome,m.contato,m.negocio,m.momento,m.projeto,m.link].join(' ').toLowerCase().indexOf(term)>-1;
+      return [m.nome,m.contato,m.negocio,m.momento,m.projeto,m.link,m.marca,m.tamanho,m.investimento].join(' ').toLowerCase().indexOf(term)>-1;
     });
     var novas=all.filter(function(m){return !m.lida}).length;
     summary.textContent=all.length?(all.length+(all.length===1?' mensagem':' mensagens')+', '+novas+(novas===1?' nova':' novas')+'.'):'';
@@ -404,14 +404,15 @@ textarea.txt{min-height:12rem;line-height:1.55;resize:vertical}
     if(!items.length){ listEl.appendChild(el('p','empty','Nenhuma mensagem encontrada com esse filtro.')); return }
     items.forEach(function(m){
       var d=el('details','msg'+(m.lida?'':' is-new')); d.dataset.id=m.id;
-      var s=el('summary'); var name=el('span','msg__name',m.nome); if(!m.lida) name.appendChild(el('span','badge','Nova')); if(m.origem&&m.origem!=='site') name.appendChild(el('span','badge badge--origem',m.origem==='advocacia'?'Advocacia':m.origem));
-      s.appendChild(name); s.appendChild(el('span','msg__date',fmtDate(m.criadaEm))); s.appendChild(el('span','msg__biz',m.negocio));
+      var s=el('summary'); var name=el('span','msg__name',m.nome); if(!m.lida) name.appendChild(el('span','badge','Nova')); if(m.origem&&m.origem!=='site') name.appendChild(el('span','badge badge--origem',({advocacia:'Advocacia','black-friday':'Black Friday'})[m.origem]||m.origem));
+      s.appendChild(name); s.appendChild(el('span','msg__date',fmtDate(m.criadaEm))); s.appendChild(el('span','msg__biz',m.negocio||[m.tamanho,m.investimento].filter(Boolean).join(' · ')));
       d.appendChild(s);
       var body=el('div','msg__body'); var dl=el('dl','msg__grid');
-      row(dl,'Contato',m.contato,contactHref(m.contato)); row(dl,'Momento do negócio',m.momento);
-      row(dl,'Negócio',m.negocio); row(dl,'Site ou Instagram',m.link,linkHref(m.link));
+      row(dl,'Contato',m.contato,contactHref(m.contato));
+      if(m.origem==='black-friday'){ row(dl,'Instagram do escritório',m.link,linkHref(m.link)); row(dl,'Marca hoje',m.marca); row(dl,'Tamanho do escritório',m.tamanho); row(dl,'Pretende investir',m.investimento); }
+      else { row(dl,'Momento do negócio',m.momento); row(dl,'Negócio',m.negocio); row(dl,'Site ou Instagram',m.link,linkHref(m.link)); }
       body.appendChild(dl);
-      var pj=el('div'); pj.appendChild(el('p',null,'Sobre o projeto')).style.cssText='font-size:.8125rem;color:var(--graphite);margin-bottom:.35rem'; pj.appendChild(el('p','msg__project',m.projeto)); body.appendChild(pj);
+      if(m.projeto){ var pj=el('div'); pj.appendChild(el('p',null,'Sobre o projeto')).style.cssText='font-size:.8125rem;color:var(--graphite);margin-bottom:.35rem'; pj.appendChild(el('p','msg__project',m.projeto)); body.appendChild(pj); }
       var act=el('div','msg__actions');
       var toggle=el('button','btn btn--ghost',m.lida?'Marcar como nova':'Marcar como lida'); toggle.type='button';
       toggle.addEventListener('click',function(){ setRead(m,!m.lida) });
@@ -439,7 +440,7 @@ textarea.txt{min-height:12rem;line-height:1.55;resize:vertical}
   document.getElementById('refresh').addEventListener('click',load);
   document.getElementById('export').addEventListener('click',function(){
     if(!all.length){ alert('Ainda não há mensagens para exportar.'); return }
-    var cols=[['criadaEm','Data'],['nome','Nome'],['contato','Contato'],['negocio','Negócio'],['momento','Momento'],['projeto','Projeto'],['link','Site ou Instagram'],['origem','Origem'],['lida','Lida']];
+    var cols=[['criadaEm','Data'],['nome','Nome'],['contato','Contato'],['negocio','Negócio'],['momento','Momento'],['projeto','Projeto'],['link','Site ou Instagram'],['marca','Marca hoje'],['tamanho','Tamanho'],['investimento','Investimento'],['origem','Origem'],['lida','Lida']];
     var esc=function(v){ v=v==null?'':String(v); if(/^[=+\-@]/.test(v)) v="'"+v; return '"'+v.replace(/"/g,'""')+'"' };
     var lines=[cols.map(function(c){return esc(c[1])}).join(';')].concat(all.map(function(m){ return cols.map(function(c){ var v=m[c[0]]; if(c[0]==='criadaEm') v=fmtDate(v); if(c[0]==='lida') v=v?'Sim':'Não'; return esc(v) }).join(';') }));
     var blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'});

@@ -12,6 +12,7 @@ export default async function handler(req, res) {
     `<url><loc>${SITE}/</loc><lastmod>${day()}</lastmod></url>`,
     `<url><loc>${SITE}/contato</loc></url>`,
     `<url><loc>${SITE}/advocacia</loc></url>`,
+    `<url><loc>${SITE}/black-friday</loc></url>`,
     ...cases.map((c) => `<url><loc>${x(`${SITE}/projetos/${c.slug}`)}</loc><lastmod>${day(c.atualizadoEm)}</lastmod>${c.capa?.url ? `<image:image><image:loc>${x(abs(c.capa.url))}</image:loc></image:image>` : ""}</url>`),
   ];
   res.statusCode = 200;

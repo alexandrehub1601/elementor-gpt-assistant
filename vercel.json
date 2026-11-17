@@ -14,6 +14,10 @@
       "destination": "/advocacia.html"
     },
     {
+      "source": "/black-friday",
+      "destination": "/black-friday.html"
+    },
+    {
       "source": "/projetos/:slug",
       "destination": "/api/case?slug=:slug"
     },

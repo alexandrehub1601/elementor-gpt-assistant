@@ -22,6 +22,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/* Se este código estiver colado duas vezes no WPCode, só a primeira cópia roda
+   (sem isso o WPCode dá erro de "função já declarada" e desativa o snippet). */
+if ( ! defined( 'CC_CIRCULO_ATIVO' ) ) :
+define( 'CC_CIRCULO_ATIVO', '2026-11-18' );
+
 /* =====================================================================
    CONFIGURAÇÃO
    (cada item também pode ir no wp-config.php com define(), que vale mais)
@@ -332,7 +337,7 @@ function cc_circulo_receber( WP_REST_Request $req ) {
    MAILCHIMP
    ===================================================================== */
 
-function cc_mc_req( $metodo, $caminho, $corpo = null ) {
+function cc_circulo_mc_req( $metodo, $caminho, $corpo = null ) {
 	if ( ! CC_MC_API_KEY || false === strpos( CC_MC_API_KEY, '-' ) ) {
 		return new WP_Error( 'cc_mc', 'Chave do Mailchimp não configurada.' );
 	}
@@ -361,11 +366,11 @@ function cc_mc_req( $metodo, $caminho, $corpo = null ) {
 }
 
 /* Cria na audiência os campos que o formulário usa (uma vez só). */
-function cc_mc_campos() {
+function cc_circulo_mc_campos() {
 	if ( get_option( 'cc_mc_campos_v4' ) === CC_MC_LIST_ID ) {
 		return;
 	}
-	$atuais = cc_mc_req( 'GET', '/lists/' . CC_MC_LIST_ID . '/merge-fields?count=100&fields=merge_fields.tag' );
+	$atuais = cc_circulo_mc_req( 'GET', '/lists/' . CC_MC_LIST_ID . '/merge-fields?count=100&fields=merge_fields.tag' );
 	if ( is_wp_error( $atuais ) ) {
 		return;
 	}
@@ -376,7 +381,7 @@ function cc_mc_campos() {
 		'ORIGEM' => 'Como conheceu', 'INDICACAO' => 'Indicado por' );
 	foreach ( $quer as $tag => $nome ) {
 		if ( ! in_array( $tag, $tem, true ) ) {
-			cc_mc_req( 'POST', '/lists/' . CC_MC_LIST_ID . '/merge-fields', array( 'tag' => $tag, 'name' => $nome, 'type' => 'text' ) );
+			cc_circulo_mc_req( 'POST', '/lists/' . CC_MC_LIST_ID . '/merge-fields', array( 'tag' => $tag, 'name' => $nome, 'type' => 'text' ) );
 		}
 	}
 	update_option( 'cc_mc_campos_v4', CC_MC_LIST_ID, false );
@@ -398,10 +403,10 @@ function cc_circulo_mailchimp( $id, $tags = array() ) {
 		update_post_meta( $id, '_cc_mc', 'não configurado' );
 		return;
 	}
-	cc_mc_campos();
+	cc_circulo_mc_campos();
 	$email = cc_circulo_get( $id, 'email' );
 	$hash  = md5( strtolower( $email ) );
-	$r = cc_mc_req( 'PUT', '/lists/' . CC_MC_LIST_ID . '/members/' . $hash, array(
+	$r = cc_circulo_mc_req( 'PUT', '/lists/' . CC_MC_LIST_ID . '/members/' . $hash, array(
 		'email_address' => $email,
 		'status_if_new' => 'subscribed',
 		'merge_fields'  => array(
@@ -423,7 +428,7 @@ function cc_circulo_mailchimp( $id, $tags = array() ) {
 		foreach ( $tags as $nome => $estado ) {
 			$lista[] = array( 'name' => $nome, 'status' => $estado );
 		}
-		$r = cc_mc_req( 'POST', '/lists/' . CC_MC_LIST_ID . '/members/' . $hash . '/tags', array( 'tags' => $lista ) );
+		$r = cc_circulo_mc_req( 'POST', '/lists/' . CC_MC_LIST_ID . '/members/' . $hash . '/tags', array( 'tags' => $lista ) );
 	}
 	update_post_meta( $id, '_cc_mc', is_wp_error( $r ) ? 'erro: ' . $r->get_error_message() : 'ok' );
 }
@@ -432,15 +437,15 @@ function cc_circulo_mailchimp( $id, $tags = array() ) {
    AVISOS (WhatsApp + e-mail)
    ===================================================================== */
 
-function cc_zapi_ativa() {
+function cc_circulo_zapi_ativa() {
 	return CC_ZAPI_INSTANCIA && CC_ZAPI_TOKEN;
 }
 
 /* Manda $texto para todos (ou só para os nomes em $para). Devolve o resultado por pessoa. */
-function cc_whatsapp( $texto, $para = null, $esperar = false ) {
+function cc_circulo_whatsapp( $texto, $para = null, $esperar = false ) {
 	$filtro    = is_array( $para ) && $para ? array_flip( $para ) : null;
 	$resultado = array();
-	if ( CC_WHAPI_TOKEN && ! cc_zapi_ativa() ) {
+	if ( CC_WHAPI_TOKEN && ! cc_circulo_zapi_ativa() ) {
 		$lista = $filtro ? array_intersect_key( CC_WHATSAPP_NUMEROS, $filtro ) : CC_WHATSAPP_NUMEROS;
 		foreach ( $lista as $quem => $numero ) {
 			$numero = preg_replace( '/\D/', '', (string) $numero );
@@ -457,9 +462,9 @@ function cc_whatsapp( $texto, $para = null, $esperar = false ) {
 				),
 				'body'     => wp_json_encode( array( 'to' => $numero, 'body' => $texto ) ),
 			) );
-			$resultado[ $quem ] = cc_whatsapp_status( $r, $esperar );
+			$resultado[ $quem ] = cc_circulo_whatsapp_status( $r, $esperar );
 		}
-	} elseif ( cc_zapi_ativa() ) {
+	} elseif ( cc_circulo_zapi_ativa() ) {
 		$lista = $filtro ? array_intersect_key( CC_WHATSAPP_NUMEROS, $filtro ) : CC_WHATSAPP_NUMEROS;
 		foreach ( $lista as $quem => $numero ) {
 			$numero = preg_replace( '/\D/', '', (string) $numero );
@@ -476,7 +481,7 @@ function cc_whatsapp( $texto, $para = null, $esperar = false ) {
 				'headers'  => $h,
 				'body'     => wp_json_encode( array( 'phone' => $numero, 'message' => $texto ) ),
 			) );
-			$resultado[ $quem ] = cc_whatsapp_status( $r, $esperar );
+			$resultado[ $quem ] = cc_circulo_whatsapp_status( $r, $esperar );
 		}
 	} else {
 		$lista = $filtro ? array_intersect_key( CC_WHATSAPP_AVISOS, $filtro ) : CC_WHATSAPP_AVISOS;
@@ -489,7 +494,7 @@ function cc_whatsapp( $texto, $para = null, $esperar = false ) {
 				'text'   => rawurlencode( $texto ),
 				'apikey' => rawurlencode( $dados[1] ),
 			), 'https://api.callmebot.com/whatsapp.php' ), array( 'timeout' => 12, 'blocking' => $esperar ) );
-			$resultado[ $quem ] = cc_whatsapp_status( $r, $esperar );
+			$resultado[ $quem ] = cc_circulo_whatsapp_status( $r, $esperar );
 		}
 	}
 	if ( CC_WHATSAPP_WEBHOOK ) {
@@ -503,7 +508,7 @@ function cc_whatsapp( $texto, $para = null, $esperar = false ) {
 	return $resultado;
 }
 
-function cc_whatsapp_status( $r, $esperar ) {
+function cc_circulo_whatsapp_status( $r, $esperar ) {
 	if ( is_wp_error( $r ) ) {
 		return 'erro: ' . $r->get_error_message();
 	}
@@ -526,7 +531,7 @@ function cc_circulo_avisar_nova( $id ) {
 		'Instagram: instagram.com/' . cc_circulo_get( $id, 'instagram' ) . "\n" .
 		'Como conheceu: ' . cc_circulo_origem_txt( $id ) . "\n\n" .
 		'Aprovar ou não: ' . $link;
-	cc_whatsapp( $texto );
+	cc_circulo_whatsapp( $texto );
 	if ( CC_CIRCULO_EMAIL_AVISO ) {
 		wp_mail( CC_CIRCULO_EMAIL_AVISO, '[Círculo] Nova solicitação — ' . cc_circulo_get( $id, 'nome' ), $texto,
 			array( cc_circulo_remetente(), 'Reply-To: ' . cc_circulo_get( $id, 'nome' ) . ' <' . cc_circulo_get( $id, 'email' ) . '>' ) );
@@ -733,7 +738,7 @@ add_action( 'admin_notices', function () {
 	);
 	$k = sanitize_key( $_GET['cc_msg'] );
 	if ( 'wa' === $k ) {
-		$m['wa'] = 'Teste do WhatsApp — ' . get_transient( 'cc_whatsapp_teste' ) . ( cc_zapi_ativa() ? ' (via Z-API)' : ( CC_WHAPI_TOKEN ? ' (via Whapi)' : ' (via CallMeBot)' ) );
+		$m['wa'] = 'Teste do WhatsApp — ' . get_transient( 'cc_whatsapp_teste' ) . ( cc_circulo_zapi_ativa() ? ' (via Z-API)' : ( CC_WHAPI_TOKEN ? ' (via Whapi)' : ' (via CallMeBot)' ) );
 	}
 	if ( isset( $m[ $k ] ) ) {
 		echo '<div class="notice notice-' . ( 'erro' === $k ? 'error' : 'success' ) . ' is-dismissible"><p>' . esc_html( $m[ $k ] ) . '</p></div>';
@@ -1026,7 +1031,7 @@ add_action( 'admin_post_cc_whatsapp_teste', function () {
 	if ( ! current_user_can( 'edit_posts' ) || ! check_admin_referer( 'cc_whatsapp_teste' ) ) {
 		wp_die( 'Sem permissão.' );
 	}
-	$res = cc_whatsapp( "✦ Teste da Cacau Cosmo\n\nSe chegou, os avisos de novo cadastro no Círculo e de pedido pago vão chegar aqui.", null, true );
+	$res = cc_circulo_whatsapp( "✦ Teste da Cacau Cosmo\n\nSe chegou, os avisos de novo cadastro no Círculo e de pedido pago vão chegar aqui.", null, true );
 	$txt = array();
 	foreach ( $res as $quem => $st ) {
 		$txt[] = $quem . ': ' . $st;
@@ -1049,7 +1054,7 @@ add_action( 'admin_notices', function () {
 	}
 	$ok = get_transient( 'cc_mc_ping' );
 	if ( false === $ok ) {
-		$r  = cc_mc_req( 'GET', '/lists/' . CC_MC_LIST_ID . '?fields=name' );
+		$r  = cc_circulo_mc_req( 'GET', '/lists/' . CC_MC_LIST_ID . '?fields=name' );
 		$ok = is_wp_error( $r ) ? 'erro: ' . $r->get_error_message() : 'ok:' . ( isset( $r['name'] ) ? $r['name'] : '' );
 		set_transient( 'cc_mc_ping', $ok, 10 * MINUTE_IN_SECONDS );
 	}
@@ -1197,7 +1202,9 @@ function cc_circulo_aviso_pedido( $order_id ) {
 		'Endereço: ' . $endereco . "\n" .
 		'Total: ' . wp_strip_all_tags( wc_price( $o->get_total(), array( 'currency' => $o->get_currency() ) ) ) . "\n\n" .
 		$o->get_edit_order_url();
-	cc_whatsapp( html_entity_decode( $texto, ENT_QUOTES, 'UTF-8' ), (array) CC_WHATSAPP_PEDIDOS );
+	cc_circulo_whatsapp( html_entity_decode( $texto, ENT_QUOTES, 'UTF-8' ), (array) CC_WHATSAPP_PEDIDOS );
 	$o->update_meta_data( '_cc_wa_avisado', current_time( 'mysql' ) );
 	$o->save();
 }
+
+endif; // CC_CIRCULO_ATIVO

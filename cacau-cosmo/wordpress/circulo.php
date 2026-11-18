@@ -1,22 +1,20 @@
 <?php
-/**
- * Cacau Cosmo — O Círculo (cadastro, curadoria e acesso à loja)
- *
- * Fluxo (reunião de 23/10/2026):
- *  1. Home aberta; Loja, Journal, Quem somos, Contato e Minha conta só para membros.
- *  2. Formulário "Entrar no Círculo": nome, e-mail, WhatsApp, Instagram, estado, cidade, idade,
- *     como conheceu a Cacau Cosmo (e quem indicou, se foi recomendação).
- *  3. Confirmação na tela.
- *  4. Aviso no WhatsApp (Nicole e Isa) + e-mail; contato salvo aqui e no Mailchimp.
- *  5. Não aprovada  -> e-mail "Sua solicitação não foi aprovada".
- *  6. Aprovada      -> cria o login e envia "Você foi selecionada" com link para criar a senha.
- *  7. Membro logado acessa tudo.
- *  9. Pedido pago   -> aviso no WhatsApp da Nicole com os dados de envio.
- *
- * Como instalar: plugin WPCode → Code Snippets → Add Snippet → "Add Your Custom Code"
- * → PHP Snippet → cole este arquivo SEM a primeira linha "<?php" → Auto Insert /
- * Run Everywhere → preencha a CONFIGURAÇÃO abaixo → ative e salve.
- */
+// Cacau Cosmo — O Círculo (cadastro, curadoria e acesso à loja)
+//
+// Fluxo (reunião de 23/10/2026):
+//  1. Home aberta; Loja, Journal, Quem somos, Contato e Minha conta só para membros.
+//  2. Formulário "Entrar no Círculo": nome, e-mail, WhatsApp, Instagram, estado, cidade, idade,
+//     como conheceu a Cacau Cosmo (e quem indicou, se foi recomendação).
+//  3. Confirmação na tela.
+//  4. Aviso no WhatsApp (Nicole e Isa) + e-mail; contato salvo aqui e no Mailchimp.
+//  5. Não aprovada  -> e-mail "Sua solicitação não foi aprovada".
+//  6. Aprovada      -> cria o login e envia "Você foi selecionada" com link para criar a senha.
+//  7. Membro logado acessa tudo.
+//  9. Pedido pago   -> aviso no WhatsApp da Nicole com os dados de envio.
+//
+// Como instalar: plugin WPCode → Code Snippets → Add Snippet → "Add Your Custom Code"
+// → PHP Snippet → cole este arquivo SEM a primeira linha de abertura do PHP → Auto Insert /
+// Run Everywhere → preencha a CONFIGURAÇÃO abaixo → ative e salve.
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

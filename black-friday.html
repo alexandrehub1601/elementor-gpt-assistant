@@ -224,8 +224,11 @@ body{background:var(--night);color:var(--paper)}
 .h2{font-weight:800;font-size:clamp(2rem,1.1rem + 3vw,3.75rem);line-height:1.02;letter-spacing:-.04em}
 .h2 .dim{color:rgba(245,244,241,.42)}
 .center{text-align:center;margin-inline:auto}
-.sec{padding-block:clamp(5rem,10vw,9rem);position:relative}
+.sec{padding-block:clamp(3.5rem,6.5vw,6rem);position:relative}
 .sec--raise{background:radial-gradient(55% 60% at 15% 0%,rgba(15,60,55,.55),rgba(15,60,55,0) 70%),radial-gradient(45% 50% at 90% 100%,rgba(122,21,49,.16),rgba(122,21,49,0) 70%),var(--night)}
+.sec--green{background:var(--green)}
+.sec--green .h2 .dim{color:rgba(245,244,241,.6)}
+.sec--green .journey__node{background:rgba(245,244,241,.08)}
 .sec--wine{background:linear-gradient(180deg,#5E0F25,var(--wine))}
 .sec--raise .h2 .dim,.sec--wine .h2 .dim{color:rgba(245,244,241,.6)}
 
@@ -592,7 +595,7 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
   </div>
 </section>
 
-<section class="sec sec--raise" aria-labelledby="sol-title">
+<section class="sec sec--green" aria-labelledby="sol-title">
   <div class="wrap">
     <h2 class="h2 center" id="sol-title" style="max-width:22ch">Do diagnóstico à identidade pronta <span class="dim">para entrar em uso.</span></h2>
     <ol class="journey" id="journey">

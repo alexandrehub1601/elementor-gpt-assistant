@@ -11,9 +11,9 @@ const MOMENTOS = [
 ];
 // Formulário da landing de Black Friday para advogados (2 etapas, campos próprios).
 const BF = {
-  marca: ["Ainda não tenho", "Fiz sozinho, com IA ou com um conhecido", "Tenho, mas não representa mais o escritório", "Tenho e quero cuidar também do Instagram"],
+  marca: ["Ainda não tenho uma identidade visual", "Tenho apenas um logo e preciso organizar o restante", "Tenho uma identidade, mas ela não representa mais o escritório", "Quero avaliar se preciso atualizar minha identidade"],
   tamanho: ["Atuo sozinho", "2 a 5 pessoas", "6 a 15 pessoas", "Mais de 15 pessoas"],
-  investimento: ["Até R$ 3 mil", "De R$ 3 mil a R$ 8 mil", "De R$ 8 mil a R$ 15 mil", "Acima de R$ 15 mil"],
+  interesse: ["Site", "Social media"],
 };
 const clean = (v, max) => String(v ?? "").replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "").trim().slice(0, max);
 const isContact = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) || v.replace(/\D/g, "").length >= 10;
@@ -65,7 +65,8 @@ function blackFriday(req, res, b) {
     link: clean(b.instagram, 120),
     marca: clean(b.marca, 120),
     tamanho: clean(b.tamanho, 60),
-    investimento: clean(b.investimento, 60),
+    interesse: (Array.isArray(b.interesse) ? b.interesse : b.interesse ? [b.interesse] : [])
+      .map((v) => clean(v, 30)).filter((v, i, a) => BF.interesse.includes(v) && a.indexOf(v) === i).join(", "),
     negocio: "",
     momento: "",
     projeto: "",
@@ -76,7 +77,6 @@ function blackFriday(req, res, b) {
   if (m.contato.replace(/\D/g, "").length < 10) erros.push("whatsapp");
   if (!BF.marca.includes(m.marca)) erros.push("marca");
   if (!BF.tamanho.includes(m.tamanho)) erros.push("tamanho");
-  if (!BF.investimento.includes(m.investimento)) erros.push("investimento");
   if (erros.length) return send(res, 422, { erro: "Confira os campos.", campos: erros });
   return save(req, res, m);
 }

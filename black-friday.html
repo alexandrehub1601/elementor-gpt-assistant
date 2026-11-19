@@ -404,7 +404,8 @@ p,li,blockquote,summary,.pain p,.ticket p{text-wrap:pretty}
 .people{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(1rem,3vw,2.5rem);margin-top:clamp(2.5rem,5vw,4rem)}
 .person{display:grid;grid-template-rows:auto auto;border-radius:var(--radius-l);overflow:hidden;background:var(--card);box-shadow:inset 0 0 0 1px rgba(245,244,241,.06);outline:none}
 .person__ph{grid-area:1/1;position:relative;aspect-ratio:1/1;background:radial-gradient(120% 90% at 30% 20%,rgba(122,21,49,.55),rgba(20,20,20,1));overflow:hidden}
-.person__ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.person__ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;filter:grayscale(1) contrast(1.05);transition:filter .6s var(--ease),transform .8s var(--ease)}
+.person:hover .person__ph img,.person:focus-visible .person__ph img{filter:none;transform:scale(1.03)}
 .person__ph>svg{position:absolute;right:-12%;bottom:-18%;width:60%;color:var(--gold);opacity:.08}
 .person__photo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);padding:.6rem 1rem;border:1px dashed rgba(245,244,241,.35);border-radius:var(--radius-m);font-size:var(--fs-sm);letter-spacing:.1em;text-transform:uppercase;color:rgba(245,244,241,.6)}
 .person__bio{grid-area:1/1;z-index:2;display:flex;align-items:flex-end;padding:1.75rem;background:linear-gradient(0deg,rgba(10,10,10,.96) 0%,rgba(10,10,10,.85) 60%,rgba(10,10,10,.55) 100%);opacity:0;transition:opacity .45s var(--ease)}
@@ -785,12 +786,12 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
     <p class="lede-c">Juntos, transformamos estratégia em personalidade, consistência e presença.</p>
     <div class="people">
       <article class="person" tabindex="0">
-        <div class="person__ph"><svg viewBox="0 0 366.03 369.8" aria-hidden="true"><use href="#simbolo-fale"/></svg><span class="person__photo">Foto</span></div>
+        <div class="person__ph"><svg viewBox="0 0 366.03 369.8" aria-hidden="true"><use href="#simbolo-fale"/></svg><img src="assets/img/socia-fernanda-800.webp" width="800" height="800" loading="lazy" decoding="async" alt="Fernanda Molinaro"></div>
         <div class="person__bio"><p>Com mais de uma década de experiência em design e branding, acredito que marcas fortes nascem de estratégia, sensibilidade e propósito. Desenvolvo identidades visuais e projetos digitais que traduzem a essência de cada negócio em marcas autênticas, consistentes e capazes de criar conexões verdadeiras com as pessoas.</p></div>
         <div class="person__meta"><h3>Fernanda Molinaro</h3><span>Especialista em Estratégia de Marca</span></div>
       </article>
       <article class="person" tabindex="0">
-        <div class="person__ph"><svg viewBox="0 0 366.03 369.8" aria-hidden="true"><use href="#simbolo-fale"/></svg><span class="person__photo">Foto</span></div>
+        <div class="person__ph"><svg viewBox="0 0 366.03 369.8" aria-hidden="true"><use href="#simbolo-fale"/></svg><img src="assets/img/socio-alexandre-800.webp" width="800" height="1071" loading="lazy" decoding="async" alt="Alexandre Santos"></div>
         <div class="person__bio"><p>Comecei a criar aos 11 anos, e desde então o design se tornou parte da minha forma de enxergar e transformar ideias. Sou formado em Publicidade e Propaganda e, ao longo de mais de duas décadas de experiência, desenvolvi projetos de identidade visual, comunicação e digital para empresas de diferentes segmentos e portes. Já colaborei com marcas como Unilever, Danone, Sicredi e Instituto Ânima, unindo estratégia, criatividade e funcionalidade em cada projeto.</p></div>
         <div class="person__meta"><h3>Alexandre Santos</h3><span>Especialista em Marcas e Design</span></div>
       </article>

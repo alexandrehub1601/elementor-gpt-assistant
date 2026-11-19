@@ -283,7 +283,7 @@ body{background:var(--night);color:var(--paper)}
 .tape ul{display:inline-flex;align-items:center;gap:1.1rem;padding-right:1.1rem}
 .tape li{font-weight:800;font-size:clamp(1rem,.85rem + .6vw,1.5rem);letter-spacing:-.01em}
 .tape__sep{opacity:.6}
-.tape li{text-transform:uppercase;letter-spacing:.02em}
+.tape li{text-transform:uppercase;letter-spacing:.02em;white-space:nowrap;text-wrap:nowrap}
 .hero__note{margin-top:1.5rem;display:flex;flex-wrap:wrap;align-items:center;gap:.35rem .75rem;font-size:var(--fs-sm);color:rgba(245,244,241,.78);max-width:46ch}
 .hero__note i{font-style:normal;color:var(--gold)}
 .hero__note b{color:var(--gold);font-weight:800}
@@ -318,7 +318,9 @@ body{background:var(--night);color:var(--paper)}
 .journey__node{position:relative;z-index:1;display:grid;place-items:center;width:3.5rem;height:3.5rem;border-radius:1rem;background:var(--card);color:var(--mist);box-shadow:inset 0 0 0 1px rgba(245,244,241,.14);transition:background-color .4s var(--ease),color .4s var(--ease),box-shadow .4s var(--ease),transform .4s var(--ease)}
 .journey__node svg{width:1.5rem;height:1.5rem}
 .journey__step.is-on .journey__node{background:var(--gold);color:var(--ink);box-shadow:0 12px 30px -10px rgba(197,154,69,.8);transform:translateY(-2px) rotate(-4deg)}
-.journey__label{font-size:var(--fs-sm);font-weight:800;color:var(--gold);margin-top:.75rem}
+.journey__label{font-size:var(--fs-sm);font-weight:800;color:var(--gold);margin-top:.75rem;text-transform:uppercase;letter-spacing:.08em}
+h1,h2,h3,.h2{text-wrap:balance}
+p,li,blockquote,summary,.pain p,.ticket p{text-wrap:pretty}
 .journey__step h3{font-weight:800;font-size:var(--fs-md);line-height:1.2;letter-spacing:-.015em}
 .journey__step p{color:rgba(245,244,241,.7);max-width:36ch}
 .cta-row{margin-top:clamp(2.5rem,5vw,3.5rem);display:flex;justify-content:center}
@@ -613,7 +615,7 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
           <p>Do perfil do Instagram à proposta comercial, uma identidade consistente ajuda a transmitir organização, cuidado e confiança antes mesmo da primeira conversa.</p>
         </li>
     </ol>
-    <div class="cta-row"><a class="btn btn--gold" href="#formulario">Quero conhecer a condição especial <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3l5 5-5 5"/></svg></a></div>
+    <div class="cta-row"><a class="btn btn--gold" href="#formulario">Quero uma marca à altura do meu negócio <span aria-hidden="true">→</span></a></div>
   </div>
 </section>
 
@@ -680,27 +682,6 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
   </div>
 </section>
 
-<!-- OFERTA -->
-<section class="sec offer-sec" aria-labelledby="offer-title">
-  <div class="wrap">
-    <div class="deal">
-      <div class="deal__l">
-        <span class="badge"><i aria-hidden="true">BF</i>Condição de Black Friday</span>
-        <h2 id="offer-title" class="h2">Projeto completo de identidade visual estratégica.</h2>
-        <p>Diagnóstico, direcionamento de marca, logotipo, cores, tipografia, aplicações e guia de uso. Válido até 30 de novembro ou até as vagas acabarem.</p>
-      </div>
-      <div class="deal__r">
-        <span class="price__from">De <s>R$ 10.000</s> por</span>
-        <span class="price__now price__now--xl">R$ 8.000</span>
-        <span class="price__inst">em até 12x no cartão</span>
-        <span class="price__tag">20% de desconto</span>
-        <div class="seats" aria-label="Apenas 4 vagas"><span>Apenas 4 vagas</span><i></i><i></i><i></i><i></i></div>
-        <a class="btn btn--gold" href="#formulario">Quero conhecer<span class="hide-s"> a condição</span> <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3l5 5-5 5"/></svg></a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="sec sec--raise" style="padding-bottom:clamp(3rem,6vw,5rem)" aria-labelledby="wall-title">
   <div class="wrap"><h2 class="h2 center" id="wall-title" style="max-width:20ch">Marcas que saíram do nosso estúdio</h2></div>
   <div class="wall" aria-hidden="true">
@@ -724,6 +705,27 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
         <blockquote>Trabalhar com esses designers é sempre uma experiência extremamente positiva e enriquecedora. <mark>Recomendo de olhos fechados.</mark> É um grupo que entrega muito mais do que um excelente trabalho.</blockquote>
         <figcaption><img src="assets/img/depoimentos/tatiana-mazzei.webp" alt="" width="240" height="240" loading="lazy"><span><b>Tatiana Mazzei</b><span>Hub1601</span></span></figcaption>
       </figure>
+    </div>
+  </div>
+</section>
+
+<!-- OFERTA -->
+<section class="sec offer-sec" aria-labelledby="offer-title">
+  <div class="wrap">
+    <div class="deal">
+      <div class="deal__l">
+        <span class="badge"><i aria-hidden="true">BF</i>Condição de Black Friday</span>
+        <h2 id="offer-title" class="h2">Projeto completo de identidade visual estratégica.</h2>
+        <p>Diagnóstico, direcionamento de marca, logotipo, cores, tipografia, aplicações e guia de uso. Válido até 30 de novembro ou até as vagas acabarem.</p>
+      </div>
+      <div class="deal__r">
+        <span class="price__from">De <s>R$ 10.000</s> por</span>
+        <span class="price__now price__now--xl">R$ 8.000</span>
+        <span class="price__inst">em até 12x no cartão</span>
+        <span class="price__tag">20% de desconto</span>
+        <div class="seats" aria-label="Apenas 4 vagas"><span>Apenas 4 vagas</span><i></i><i></i><i></i><i></i></div>
+        <a class="btn btn--gold" href="#formulario">Quero conhecer<span class="hide-s"> a condição</span> <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3l5 5-5 5"/></svg></a>
+      </div>
     </div>
   </div>
 </section>

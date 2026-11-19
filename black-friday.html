@@ -227,6 +227,16 @@ body{background:var(--night);color:var(--paper)}
 .hero{position:relative;overflow:hidden;isolation:isolate;padding-block:clamp(3rem,7vw,6rem) clamp(5rem,9vw,8rem)}
 .hero::before{content:"";position:absolute;inset:-20% -10% auto auto;width:70vw;height:70vw;max-width:62rem;max-height:62rem;background:radial-gradient(closest-side,rgba(122,21,49,.55),rgba(122,21,49,0));z-index:-1}
 .hero::after{content:"";position:absolute;right:8%;top:22%;width:30vw;height:30vw;max-width:26rem;max-height:26rem;background:radial-gradient(closest-side,rgba(197,154,69,.28),rgba(197,154,69,0));z-index:-1}
+.hero__bg{position:absolute;inset:0;z-index:-2;background:repeating-linear-gradient(135deg,rgba(245,244,241,.035) 0 2px,transparent 2px 22px),linear-gradient(120deg,#1a1a19,#2b2a28 60%,#3a2a2e)}
+.hero__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,20,20,.94) 0%,rgba(20,20,20,.75) 45%,rgba(20,20,20,.15) 100%)}
+.hero__bg .hero__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero__ph{position:absolute;right:clamp(1rem,6vw,6rem);bottom:clamp(1rem,4vw,3rem);z-index:1;display:grid;gap:.2rem;padding:.75rem 1rem;border:1px dashed rgba(245,244,241,.4);border-radius:var(--radius-m);color:rgba(245,244,241,.7);font-size:var(--fs-sm);text-transform:uppercase;letter-spacing:.08em;text-align:center}
+.hero__ph small{font-size:.75em;opacity:.7}
+.hero .stack{aspect-ratio:auto;min-height:24rem}
+.hero h1{margin-top:1.5rem}
+.js .hero .stack__seal{opacity:1!important}
+.hero .stack__seal{top:10%;right:10%;width:9rem}
+@media (max-width:1000px){.hero{padding-bottom:9rem}.hero .stack{min-height:0;position:absolute;inset:auto 1rem 1rem auto;width:auto}.hero .stack__seal{position:relative;top:auto;right:auto;width:5.5rem}.hero__ph{right:auto;left:1rem;bottom:1rem}.hero__bg::after{background:linear-gradient(180deg,rgba(20,20,20,.9) 0%,rgba(20,20,20,.7) 70%,rgba(20,20,20,.4) 100%)}}
 .hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(2rem,5vw,5rem);align-items:center}
 .badge{display:inline-flex;align-items:center;gap:.55rem;padding:.45rem .9rem .45rem .5rem;border-radius:var(--radius-pill);background:rgba(197,154,69,.12);box-shadow:inset 0 0 0 1px rgba(197,154,69,.4);color:var(--gold);font-size:var(--fs-sm);font-weight:800}
 .badge i{display:grid;place-items:center;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--gold);color:var(--ink);font-style:normal;font-size:.7rem}
@@ -533,7 +543,6 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
   <div class="wrap">
     <div class="hero__txt">
       <span class="badge"><i aria-hidden="true">BF</i>Black Friday para advocacia</span>
-      <span class="hero__by">Estúdio F/Ale, identidade visual estratégica</span>
       <h1 id="hero-title">Uma marca à altura do <span class="dim">seu escritório.</span></h1>
       <p class="hero__sub">Identidade visual estratégica para traduzir sua experiência, destacar seus diferenciais e apresentar seu escritório com mais profissionalismo. Neste mês de Black Friday, condições especiais para desenvolver a sua.</p>
       <div class="hero__cta">
@@ -545,12 +554,11 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
       </ul>
     </div>
     <div class="stack" aria-hidden="true">
-      <figure><img class="" src="assets/img/ds-contabil-800.webp" srcset="assets/img/ds-contabil-800.webp 800w, assets/img/ds-contabil-1200.webp 1200w" sizes="(max-width: 900px) 70vw, 30vw" width="1200" height="800" decoding="async" alt=""></figure>
-      <figure><img class="" src="assets/img/equilibre-800.webp" srcset="assets/img/equilibre-800.webp 800w, assets/img/equilibre-1200.webp 1200w" sizes="(max-width: 900px) 70vw, 30vw" width="1200" height="800" decoding="async" alt=""></figure>
-      <figure><img class="" src="assets/img/casa-eurico-800.webp" srcset="assets/img/casa-eurico-800.webp 800w, assets/img/casa-eurico-1200.webp 1200w" sizes="(max-width: 900px) 70vw, 30vw" width="1200" height="800" decoding="async" alt=""></figure>
       <span class="stack__seal"><span>20%<small>off na Black Friday</small></span></span>
     </div>
   </div>
+  <!-- FOTO DE FUNDO: troque o span .hero__ph por uma imagem com a classe hero__photo -->
+  <div class="hero__bg" aria-hidden="true"><span class="hero__ph">Foto de fundo<small>placeholder</small></span></div>
 </section>
 
 <div class="tape tape--gold" aria-hidden="true"><div class="tape__track"><ul><li>Black Friday</li><li class="tape__sep" aria-hidden="true">›</li><li>20% de desconto</li><li class="tape__sep" aria-hidden="true">›</li><li>Apenas 4 vagas</li><li class="tape__sep" aria-hidden="true">›</li><li>Em até 12x no cartão</li><li class="tape__sep" aria-hidden="true">›</li><li>Até 31 de dezembro</li><li class="tape__sep" aria-hidden="true">›</li><li>Black Friday</li><li class="tape__sep" aria-hidden="true">›</li><li>20% de desconto</li><li class="tape__sep" aria-hidden="true">›</li><li>Apenas 4 vagas</li><li class="tape__sep" aria-hidden="true">›</li><li>Em até 12x no cartão</li><li class="tape__sep" aria-hidden="true">›</li><li>Até 31 de dezembro</li><li class="tape__sep" aria-hidden="true">›</li><li>Black Friday</li><li class="tape__sep" aria-hidden="true">›</li><li>20% de desconto</li><li class="tape__sep" aria-hidden="true">›</li><li>Apenas 4 vagas</li><li class="tape__sep" aria-hidden="true">›</li><li>Em até 12x no cartão</li><li class="tape__sep" aria-hidden="true">›</li><li>Até 31 de dezembro</li><li class="tape__sep" aria-hidden="true">›</li><li>Black Friday</li><li class="tape__sep" aria-hidden="true">›</li><li>20% de desconto</li><li class="tape__sep" aria-hidden="true">›</li><li>Apenas 4 vagas</li><li class="tape__sep" aria-hidden="true">›</li><li>Em até 12x no cartão</li><li class="tape__sep" aria-hidden="true">›</li><li>Até 31 de dezembro</li><li class="tape__sep" aria-hidden="true">›</li></ul><ul><li>Black Friday</li><li class="tape__sep" aria-hidden="true">›</li><li>20% de desconto</li><li class="tape__sep" aria-hidden="true">›</li><li>Apenas 4 vagas</li><li class="tape__sep" aria-hidden="true">›</li><li>Em até 12x no cartão</li><li class="tape__sep" aria-hidden="true">›</li><li>Até 31 de dezembro</li><li class="tape__sep" aria-hidden="true">›</li><li>Black Friday</li><li class="tape__sep" aria-hidden="true">›</li><li>20% de desconto</li><li class="tape__sep" aria-hidden="true">›</li><li>Apenas 4 vagas</li><li class="tape__sep" aria-hidden="true">›</li><li>Em até 12x no cartão</li><li class="tape__sep" aria-hidden="true">›</li><li>Até 31 de dezembro</li><li class="tape__sep" aria-hidden="true">›</li><li>Black Friday</li><li class="tape__sep" aria-hidden="true">›</li><li>20% de desconto</li><li class="tape__sep" aria-hidden="true">›</li><li>Apenas 4 vagas</li><li class="tape__sep" aria-hidden="true">›</li><li>Em até 12x no cartão</li><li class="tape__sep" aria-hidden="true">›</li><li>Até 31 de dezembro</li><li class="tape__sep" aria-hidden="true">›</li><li>Black Friday</li><li class="tape__sep" aria-hidden="true">›</li><li>20% de desconto</li><li class="tape__sep" aria-hidden="true">›</li><li>Apenas 4 vagas</li><li class="tape__sep" aria-hidden="true">›</li><li>Em até 12x no cartão</li><li class="tape__sep" aria-hidden="true">›</li><li>Até 31 de dezembro</li><li class="tape__sep" aria-hidden="true">›</li></ul></div></div>

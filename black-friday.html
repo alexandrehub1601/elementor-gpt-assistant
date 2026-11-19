@@ -366,12 +366,19 @@ p,li,blockquote,summary,.pain p,.ticket p{text-wrap:pretty}
 .person{border-radius:var(--radius-l);overflow:hidden;background:var(--card);box-shadow:inset 0 0 0 1px rgba(245,244,241,.06)}
 .person__ph{position:relative;aspect-ratio:5/4;background:radial-gradient(120% 90% at 30% 20%,rgba(122,21,49,.55),rgba(20,20,20,1));display:grid;place-items:center;overflow:hidden}
 .person__ph img{width:100%;height:100%;object-fit:cover}
-.person__ph b{font-weight:800;font-size:clamp(5rem,4rem + 6vw,10rem);letter-spacing:-.06em;color:var(--gold);opacity:.9;line-height:1}
+.person__ph b{font-weight:800;font-size:clamp(3rem,1.8rem + 4vw,6rem);letter-spacing:-.05em;color:var(--gold);opacity:.9;line-height:1;transition:transform .5s var(--ease),opacity .5s var(--ease)}
+.person__ph{outline:none}
+.person__hover{position:absolute;inset:auto 0 0 0;z-index:2;display:grid;gap:.25rem;padding:3.5rem 1.5rem 1.4rem;background:linear-gradient(0deg,rgba(10,10,10,.92) 0%,rgba(10,10,10,.6) 55%,rgba(10,10,10,0) 100%);opacity:0;transform:translateY(.75rem);transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.person__hover h3{font-weight:800;font-size:var(--fs-md);color:var(--paper);text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.person__hover span{font-size:var(--fs-sm);color:var(--gold);text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.person__ph:hover .person__hover,.person__ph:focus-visible .person__hover{opacity:1;transform:none}
+.person__ph:hover b,.person__ph:focus-visible b{transform:translateY(-1.25rem);opacity:.55}
+@media (hover:none){.person__hover{opacity:1;transform:none}.person__ph b{transform:translateY(-1.25rem)}}
 .person__ph svg{position:absolute;right:-12%;bottom:-18%;width:60%;color:var(--gold);opacity:.08}
 .person__name{display:flex;justify-content:space-between;align-items:center;background:var(--wine);padding:.9rem 1.5rem}
 .person__name h3{font-weight:800;font-size:var(--fs-md);letter-spacing:-.01em}
 .person__name span{font-size:var(--fs-sm);color:rgba(245,244,241,.75)}
-.person__bio{padding:1.5rem;color:rgba(245,244,241,.75)}
+.person__bio{padding:1.5rem;color:rgba(245,244,241,.75);line-height:1.6}
 .person__bio b{display:block;color:var(--paper);font-weight:800;font-size:var(--fs-md);margin-bottom:.5rem}
 
 
@@ -739,14 +746,12 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
     <p class="lede-c">Juntos, transformamos estratégia em personalidade, consistência e presença.</p>
     <div class="people">
       <article class="person">
-        <div class="person__ph"><b aria-hidden="true">FM</b><svg viewBox="0 0 366.03 369.8" aria-hidden="true"><use href="#simbolo-fale"/></svg></div>
-        <div class="person__name"><h3>Fernanda Molinaro</h3><span>Sócia-fundadora</span></div>
-        <div class="person__bio"><b>Estratégia e diagnóstico de marca.</b>Conduz as entrevistas e o diagnóstico que orientam cada projeto, traduzindo o posicionamento do negócio em direção de marca.</div>
+        <div class="person__ph" tabindex="0"><b aria-hidden="true">Fernanda</b><svg viewBox="0 0 366.03 369.8" aria-hidden="true"><use href="#simbolo-fale"/></svg><div class="person__hover"><h3>Fernanda Molinaro</h3><span>Especialista em Estratégia de Marca</span></div></div>
+        <div class="person__bio">Conduz as entrevistas e o diagnóstico que orientam cada projeto, traduzindo o posicionamento do negócio em direção de marca.</div>
       </article>
       <article class="person">
-        <div class="person__ph"><b aria-hidden="true">AS</b><svg viewBox="0 0 366.03 369.8" aria-hidden="true"><use href="#simbolo-fale"/></svg></div>
-        <div class="person__name"><h3>Alexandre Santos</h3><span>Sócio-fundador</span></div>
-        <div class="person__bio"><b>Direção de arte e identidade visual.</b>Traz a força da identidade visual e um olhar contemporâneo, conectado a novas linguagens.</div>
+        <div class="person__ph" tabindex="0"><b aria-hidden="true">Alexandre</b><svg viewBox="0 0 366.03 369.8" aria-hidden="true"><use href="#simbolo-fale"/></svg><div class="person__hover"><h3>Alexandre Santos</h3><span>Especialista em Marcas e Design</span></div></div>
+        <div class="person__bio">Comecei a criar aos 11 anos, e desde então o design se tornou parte da minha forma de enxergar e transformar ideias. Sou formado em Publicidade e Propaganda e, ao longo de mais de duas décadas de experiência, desenvolvi projetos de identidade visual, comunicação e digital para empresas de diferentes segmentos e portes. Já colaborei com marcas como Unilever, Danone, Sicredi e Instituto Ânima, unindo estratégia, criatividade e funcionalidade em cada projeto.</div>
       </article>
     </div>
   </div>

@@ -98,7 +98,7 @@
      "name": "O que está incluído no projeto?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Diagnóstico do escritório, direcionamento de marca, logotipo e variações, cores e tipografia, aplicações para cartão, proposta, papel timbrado e perfil do Instagram, e um guia de uso. Site e social media podem ser contratados à parte, conforme a necessidade do escritório."
+      "text": "Diagnóstico da marca, estratégia e posicionamento, identidade visual completa (logotipo, variações, cores, tipografia e elementos visuais), templates editáveis no Canva, aplicações para a rotina do negócio e um guia simples de uso. Site e social media podem ser contratados à parte, conforme a necessidade do escritório."
      }
     },
     {
@@ -347,6 +347,36 @@ p,li,blockquote,summary,.pain p,.ticket p{text-wrap:pretty}
 .ticket__foot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:.6rem;padding-top:.85rem;border-top:1.5px dashed rgba(29,29,29,.25)}
 .ticket__foot span{display:grid;font-weight:800;color:var(--wine)}
 .ticket__foot small{font-weight:400;font-size:.7rem;letter-spacing:.06em;color:var(--graphite)}
+.ticket__top em{font-style:normal;font-weight:800;color:var(--ink);background:var(--gold);padding:.15rem .55rem;border-radius:var(--radius-pill);font-size:.7rem;letter-spacing:.04em}
+.ticket__top>span{text-transform:uppercase;font-weight:800;letter-spacing:.08em}
+.ticket--hl{background:var(--ink);color:var(--paper);box-shadow:0 0 0 2px var(--gold),0 30px 60px -30px rgba(197,154,69,.5);transform:translateY(-6px)}
+.ticket--hl .ticket__top{background:var(--gold);color:var(--ink)}
+.ticket--hl .ticket__top em{background:var(--ink);color:var(--gold)}
+.ticket--hl .ticket__top svg{color:var(--ink)}
+.ticket--hl .ticket__icon{box-shadow:inset 0 0 0 1.5px var(--gold);color:var(--gold)}
+.ticket--hl p{color:rgba(245,244,241,.75)}
+.ticket--hl .ticket__foot{border-top-color:rgba(245,244,241,.2)}
+.ticket--hl .ticket__foot span{color:var(--gold)}
+.ticket--hl .ticket__foot small{color:var(--mist)}
+.ticket--hl .ticket__code{background:repeating-linear-gradient(90deg,var(--gold) 0 2px,transparent 2px 4px,var(--gold) 4px 5px,transparent 5px 8px,var(--gold) 8px 11px,transparent 11px 12px)}
+.kit{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:center;margin-top:clamp(2rem,4vw,3rem);padding:clamp(1.75rem,4vw,3rem);border-radius:var(--radius-l);background:radial-gradient(120% 140% at 100% 0%,rgba(122,21,49,.7),rgba(35,35,34,1) 65%);box-shadow:inset 0 0 0 1px rgba(197,154,69,.35)}
+.kit__tag{display:inline-block;padding:.35rem .8rem;border-radius:var(--radius-pill);background:var(--gold);color:var(--ink);font-weight:800;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase}
+.kit h3{margin-top:1.1rem;font-weight:800;font-size:clamp(1.5rem,1rem + 1.6vw,2.375rem);line-height:1.08;letter-spacing:-.03em}
+.kit h3 span{color:var(--gold)}
+.kit p{margin-top:1rem;color:rgba(245,244,241,.78);max-width:48ch}
+.kit__mock{position:relative;height:clamp(14rem,22vw,17rem)}
+.kit__card{position:absolute;display:grid;align-content:end;gap:.4rem;padding:.9rem;border-radius:12px;background:var(--paper);box-shadow:0 24px 50px -20px rgba(0,0,0,.8)}
+.kit__card i{position:absolute;inset:.6rem .6rem auto .6rem;height:45%;border-radius:8px;background:linear-gradient(135deg,var(--wine),#4a0c1d)}
+.kit__card b{display:block;height:.45rem;border-radius:4px;background:var(--ink);width:80%}
+.kit__card b.s{width:55%;opacity:.35}
+.kit__card small{font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--wine)}
+.kit__card--post{left:4%;top:12%;width:38%;aspect-ratio:1;transform:rotate(-6deg)}
+.kit__card--story{left:36%;top:0;width:28%;aspect-ratio:9/16;transform:rotate(3deg);z-index:2}
+.kit__card--story i{background:linear-gradient(160deg,var(--gold),#8a6a2c)}
+.kit__card--deck{right:0;bottom:4%;width:48%;aspect-ratio:16/10;transform:rotate(5deg)}
+.kit__card--deck i{background:linear-gradient(135deg,var(--green),#08231f)}
+.kit__card--deck b,.kit__card--deck small{justify-self:end}
+@media (max-width:1000px){.kit{grid-template-columns:1fr}.ticket--hl{transform:none}}
 .ticket__code{width:3.6rem;height:1.6rem;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px,var(--ink) 8px 11px,transparent 11px 12px)}
 
 /* parede de projetos */
@@ -628,60 +658,72 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
     <h2 class="h2 center" id="gets-title" style="max-width:22ch">Sua identidade pronta <span class="dim">para entrar em uso.</span></h2>
     <ul class="tickets">
       <li class="ticket">
-        <div class="ticket__top"><span>Entrega 01</span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
+        <div class="ticket__top"><span>01 — Entenda</span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
         <div class="ticket__body">
           <span class="ticket__icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span>
-          <h3>Diagnóstico do escritório</h3>
-          <p>Áreas de atuação, concorrentes, referências e o que você já tem hoje.</p>
+          <h3>Diagnóstico da sua marca</h3>
+          <p>Entendemos seu negócio, seu momento, seus diferenciais e como ele é percebido para identificar o que sua marca precisa.</p>
           <div class="ticket__foot"><span><small>Condição</small>Incluído</span><i class="ticket__code" aria-hidden="true"></i></div>
         </div>
       </li>
       <li class="ticket">
-        <div class="ticket__top"><span>Entrega 02</span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
+        <div class="ticket__top"><span>02 — Direcione</span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
         <div class="ticket__body">
           <span class="ticket__icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg></span>
-          <h3>Direcionamento de marca</h3>
-          <p>O que o escritório precisa transmitir e como se diferencia.</p>
+          <h3>Estratégia e posicionamento</h3>
+          <p>Definimos os caminhos que sua marca deve seguir, sua personalidade, seus atributos e o que precisa comunicar para se destacar.</p>
           <div class="ticket__foot"><span><small>Condição</small>Incluído</span><i class="ticket__code" aria-hidden="true"></i></div>
         </div>
       </li>
       <li class="ticket">
-        <div class="ticket__top"><span>Entrega 03</span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
+        <div class="ticket__top"><span>03 — Identifique</span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
         <div class="ticket__body">
           <span class="ticket__icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20L12 4l8 16H4z"/></svg></span>
-          <h3>Logotipo e variações</h3>
-          <p>Versões para cada uso, do cartão ao perfil das redes.</p>
+          <h3>Identidade visual completa</h3>
+          <p>Logotipo, variações, cores, tipografia e elementos visuais desenvolvidos sob medida para representar seu negócio.</p>
           <div class="ticket__foot"><span><small>Condição</small>Incluído</span><i class="ticket__code" aria-hidden="true"></i></div>
         </div>
       </li>
-      <li class="ticket">
-        <div class="ticket__top"><span>Entrega 04</span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
+      <li class="ticket ticket--hl">
+        <div class="ticket__top"><span>04 — Aplique</span><em>Diferencial F/Ale</em><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
         <div class="ticket__body">
-          <span class="ticket__icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="4"/><circle cx="16" cy="9" r="4"/><circle cx="12" cy="16" r="4"/></svg></span>
-          <h3>Cores e tipografia</h3>
-          <p>Uma paleta e fontes sóbrias, com a personalidade do escritório.</p>
+          <span class="ticket__icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="5" rx="1.5"/><rect x="13" y="10" width="8" height="11" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/></svg></span>
+          <h3>Templates editáveis no Canva</h3>
+          <p>Modelos prontos e personalizáveis para você criar posts, apresentações e materiais de comunicação sem precisar começar do zero ou contratar um designer para tudo.</p>
           <div class="ticket__foot"><span><small>Condição</small>Incluído</span><i class="ticket__code" aria-hidden="true"></i></div>
         </div>
       </li>
       <li class="ticket">
-        <div class="ticket__top"><span>Entrega 05</span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
+        <div class="ticket__top"><span>05 — Use no dia a dia</span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
         <div class="ticket__body">
           <span class="ticket__icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg></span>
-          <h3>Aplicações do dia a dia</h3>
-          <p>Cartão de visita, proposta, papel timbrado e perfil do Instagram.</p>
+          <h3>Aplicações da sua marca</h3>
+          <p>Sua identidade aplicada em materiais importantes para a rotina do negócio, com exemplos que ajudam você a visualizar e utilizar sua marca de verdade.</p>
           <div class="ticket__foot"><span><small>Condição</small>Incluído</span><i class="ticket__code" aria-hidden="true"></i></div>
         </div>
       </li>
       <li class="ticket">
-        <div class="ticket__top"><span>Entrega 06</span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
+        <div class="ticket__top"><span>06 — Tenha autonomia</span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12v8H4v-8M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
         <div class="ticket__body">
           <span class="ticket__icon"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3V4z"/><path d="M5 17a3 3 0 013-3h11"/></svg></span>
-          <h3>Guia de uso da marca</h3>
-          <p>Versões do logo, cores, fontes e exemplos de aplicação para orientar quem produzir seus materiais.</p>
+          <h3>Um guia simples, sem complicação</h3>
+          <p>Reunimos as principais orientações da sua identidade para você saber como usar suas cores, fontes, logos e elementos sem perder a consistência.</p>
           <div class="ticket__foot"><span><small>Condição</small>Incluído</span><i class="ticket__code" aria-hidden="true"></i></div>
         </div>
       </li>
     </ul>
+    <div class="kit">
+      <div class="kit__txt">
+        <span class="kit__tag">Templates editáveis no Canva</span>
+        <h3>Sua marca não termina na entrega do projeto. <span>Ela começa a funcionar a partir dela.</span></h3>
+        <p>Por isso, você também recebe materiais editáveis e modelos prontos para adaptar à sua rotina. Menos dependência, menos improviso e mais autonomia para manter sua marca consistente.</p>
+      </div>
+      <div class="kit__mock" aria-hidden="true">
+        <div class="kit__card kit__card--post"><i></i><b></b><b class="s"></b><small>Post</small></div>
+        <div class="kit__card kit__card--story"><i></i><b></b><b class="s"></b><small>Stories</small></div>
+        <div class="kit__card kit__card--deck"><i></i><b></b><b class="s"></b><small>Apresentação</small></div>
+      </div>
+    </div>
     <p class="addon">Site e social media podem ser contratados à parte, conforme a necessidade do escritório.</p>
   </div>
 </section>
@@ -719,7 +761,7 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
       <div class="deal__l">
         <span class="badge"><i aria-hidden="true">BF</i>Condição de Black Friday</span>
         <h2 id="offer-title" class="h2">Projeto completo de identidade visual estratégica.</h2>
-        <p>Diagnóstico, direcionamento de marca, logotipo, cores, tipografia, aplicações e guia de uso. Válido até 30 de novembro ou até as vagas acabarem.</p>
+        <p>Diagnóstico, estratégia e posicionamento, identidade visual completa, templates editáveis no Canva, aplicações e guia de uso. Válido até 30 de novembro ou até as vagas acabarem.</p>
       </div>
       <div class="deal__r">
         <span class="price__from">De <s>R$ 10.000</s> por</span>
@@ -781,7 +823,7 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
       </details>
       <details class="faq-item">
         <summary>O que está incluído no projeto?</summary>
-        <p>Diagnóstico do escritório, direcionamento de marca, logotipo e variações, cores e tipografia, aplicações para cartão, proposta, papel timbrado e perfil do Instagram, e um guia de uso. Site e social media podem ser contratados à parte, conforme a necessidade do escritório.</p>
+        <p>Diagnóstico da marca, estratégia e posicionamento, identidade visual completa (logotipo, variações, cores, tipografia e elementos visuais), templates editáveis no Canva, aplicações para a rotina do negócio e um guia simples de uso. Site e social media podem ser contratados à parte, conforme a necessidade do escritório.</p>
       </details>
       <details class="faq-item">
         <summary>A identidade considera as regras de publicidade da OAB?</summary>
@@ -804,10 +846,10 @@ textarea.input{min-height:7rem;resize:vertical;line-height:1.5}
         <div class="offer__top"><span>Condição de Black Friday</span><span>Apenas 4 vagas</span></div>
         <div class="offer__price"><span class="price__from">De <s>R$ 10.000</s></span><span class="price__now">R$ 8.000</span><span class="price__tag">20% off</span><span class="price__inst">em até 12x no cartão</span></div>
         <ul>
-          <li>Diagnóstico do escritório e direcionamento de marca</li>
-          <li>Logotipo, cores e tipografia</li>
-          <li>Cartão, proposta, papel timbrado e perfil do Instagram</li>
-          <li>Guia de uso da marca</li>
+          <li>Diagnóstico, estratégia e posicionamento</li>
+          <li>Identidade visual completa</li>
+          <li>Templates editáveis no Canva</li>
+          <li>Aplicações e guia de uso da marca</li>
         </ul>
       </div>
     </div>

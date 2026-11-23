@@ -443,9 +443,9 @@ final class Agenda_Conexao_Pop {
 			</form>
 			<form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="display:inline-block">
 				<?php wp_nonce_field('cpa_importar_inicial'); ?><input type="hidden" name="action" value="cpa_importar_inicial">
-				<?php submit_button('Importar agenda inicial (53 shows)', 'secondary', 'submit', false); ?>
+				<?php submit_button('Importar agenda inicial (119 shows e festivais)', 'secondary', 'submit', false); ?>
 			</form>
-			<p class="description">A agenda inicial traz os shows de nov/2026 a set/2027 levantados no protótipo. Eles entram como "Pendente", sem capa, para a redação conferir as datas antes de publicar.</p>
+			<p class="description">A agenda inicial traz os shows e festivais de nov/2026 a nov/2027 levantados no protótipo (Escutai, Espaço Unimed, Tokio Marine Hall, Vibra São Paulo, Nubank Parque e Mapa dos Festivais). Eles entram como "Pendente", com a capa de divulgação quando a fonte tinha, para a redação conferir antes de publicar. A importação baixa as capas e pode levar alguns minutos.</p>
 			<h2>Como usar</h2>
 			<ol>
 				<li>Crie uma página "Agenda" e cole <code>[agenda_conexao]</code> num widget de shortcode do Elementor (ou no editor).</li>
@@ -480,6 +480,9 @@ final class Agenda_Conexao_Pop {
 		if (!current_user_can('manage_options')) {
 			wp_die('Sem permissão.');
 		}
+		if (function_exists('set_time_limit')) {
+			@set_time_limit(600); // phpcs:ignore -- a importação baixa dezenas de capas.
+		}
 		$json = json_decode((string) file_get_contents(CPA_DIR . 'data/agenda-inicial.json'), true);
 		$mapa_tk = array('tm' => 'ticketmaster', 'ing' => 'ingresse');
 		$n = 0;
@@ -506,6 +509,17 @@ final class Agenda_Conexao_Pop {
 				$datas[] = array('data' => $d[0], 'cidade' => $d[1], 'uf' => $d[2], 'local' => $d[3], 'hora' => $d[4] ?? '', 'status' => $d[5] ?? '', 'portoes' => $d[6] ?? '');
 			}
 			self::gravar_datas($id, $datas);
+			// Capa de divulgação da fonte, quando houver.
+			if (!empty($s['img'])) {
+				require_once ABSPATH . 'wp-admin/includes/media.php';
+				require_once ABSPATH . 'wp-admin/includes/file.php';
+				require_once ABSPATH . 'wp-admin/includes/image.php';
+				$anexo = media_sideload_image(esc_url_raw($s['img']), $id, $s['n'], 'id');
+				if (!is_wp_error($anexo)) {
+					set_post_thumbnail($id, $anexo);
+					update_post_meta($id, '_cpa_credito', sanitize_text_field($s['cred'] ?? 'Foto: Divulgação'));
+				}
+			}
 			$n++;
 		}
 		wp_safe_redirect(admin_url('edit.php?post_type=' . self::CPT . '&post_status=pending&cpa_msg=inicial&cpa_n=' . $n));

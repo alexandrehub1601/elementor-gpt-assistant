@@ -151,7 +151,7 @@
 		return '<article class="cpa-ticket' + (near ? " cpa-near" : "") + '">' + stub(d, multi ? '<span class="cpa-plus">+' + (group.items.length - 1) + "</span>" : "") +
 			'<div class="cpa-tbody">' + cover(e, stamp) + '<div class="cpa-info">' +
 			'<h3 class="cpa-name">' + esc(e.n) + "</h3>" + (e.sub ? '<p class="cpa-tour">' + esc(e.sub) + "</p>" : "") +
-			'<div class="cpa-where">' + ICON.pin + "<span><b>" + esc(first.venue) + "</b>, " + esc(first.city) + " (" + esc(first.uf) + ")" + (!multi && first.time ? ", às " + esc(first.time) : "") + "</span></div>" +
+			'<div class="cpa-where">' + ICON.pin + "<span><b>" + esc(first.venue) + "</b>" + (first.city ? ", " + esc(first.city) + (first.uf ? " (" + esc(first.uf) + ")" : "") : "") + "" + (!multi && first.time ? ", às " + esc(first.time) : "") + "</span></div>" +
 			datesHtml + '<div class="cpa-tags">' + tags(e, near) + "</div>" +
 			'<div class="cpa-actions">' + seller(e) + followBtn(e) + calBtn(e, first) + "</div>" +
 			"</div></div></article>";
@@ -164,7 +164,7 @@
 		return '<article class="cpa-ticket cpa-fest' + (near ? " cpa-near" : "") + '">' + stub(d, span ? '<span class="cpa-plus">' + span + "</span>" : "") +
 			'<div class="cpa-tbody">' + cover(e, "") + '<div class="cpa-info">' +
 			'<h3 class="cpa-name">' + esc(e.n) + "</h3>" + (e.sub ? '<p class="cpa-tour">' + esc(e.sub) + "</p>" : "") +
-			'<div class="cpa-where">' + ICON.pin + "<span><b>" + esc(first.venue) + "</b>, " + esc(first.city) + " (" + esc(first.uf) + ")</span></div>" +
+			'<div class="cpa-where">' + ICON.pin + "<span><b>" + esc(first.venue) + "</b>" + (first.city ? ", " + esc(first.city) + (first.uf ? " (" + esc(first.uf) + ")" : "") : "") + "</span></div>" +
 			'<div class="cpa-days" aria-label="Dias do festival">' + days + "</div>" +
 			'<p class="cpa-lineup">O line-up de cada dia aparece aqui assim que o festival anunciar. Siga para receber o aviso.</p>' +
 			'<div class="cpa-tags">' + tags(e, near) + "</div>" +

@@ -11,7 +11,10 @@
   "pagode": "Pagode",
   "rap": "Rap",
   "metal": "Metal",
-  "eletronica": "Eletrônica"
+  "eletronica": "Eletrônica",
+  "sertanejo": "Sertanejo",
+  "funk": "Funk",
+  "reggae": "Reggae"
  },
  "shows": [
   {
@@ -50,14 +53,24 @@
    "s": "tm",
    "d": [
     [
+     "2026-11-23",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "22h",
+     "extra"
+    ],
+    [
      "2026-11-25",
      "São Paulo",
      "SP",
      "Espaço Unimed",
-     "",
+     "22h",
      "esgotado"
     ]
-   ]
+   ],
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/07/EU_MINI_NewOrder.26.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
   },
   {
    "id": "marr",
@@ -149,9 +162,13 @@
      "2026-11-27",
      "São Paulo",
      "SP",
-     "Tokio Marine Hall"
+     "Tokio Marine Hall",
+     "21h30",
+     ""
     ]
-   ]
+   ],
+   "img": "https://www.tokiomarinehall.com.br/wp-content/uploads/2026/07/destaque_st_Fagner.jpg",
+   "cred": "Foto: Divulgação/Tokio Marine Hall"
   },
   {
    "id": "revela",
@@ -181,9 +198,13 @@
      "2026-11-28",
      "São Paulo",
      "SP",
-     "Espaço Unimed"
+     "Espaço Unimed",
+     "21h",
+     "esgotado"
     ]
-   ]
+   ],
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/04/EU_Miniatura_BabyMetal.26.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
   },
   {
    "id": "lagum",
@@ -275,8 +296,18 @@
      "Balneário Camboriú",
      "SC",
      "Music Park"
+    ],
+    [
+     "2027-03-13",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "22h30",
+     ""
     ]
-   ]
+   ],
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/11/EU_MINI_Pitty_27.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
   },
   {
    "id": "molotov",
@@ -441,7 +472,10 @@
      "Mercado Livre Arena Pacaembu",
      "20h"
     ]
-   ]
+   ],
+   "sub": "Djavanear 50 Anos Só Sucessos",
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/02/Djavan-Djavanear-50-anos-So-Sucessos-Brasil-2026-1024x467.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
   },
   {
    "id": "ferrugem",
@@ -558,7 +592,10 @@
      "",
      "18h"
     ]
-   ]
+   ],
+   "sub": "Turnê Tava Escrito",
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/04/Xande-de-Pilares-Grupo-Revelacao-Turne-Ta-Escrito-2026-1024x467.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
   },
   {
    "id": "slayer",
@@ -636,8 +673,19 @@
      "Ribeirão Preto",
      "SP",
      "Multiplan Hall Ribeirão Shopping"
+    ],
+    [
+     "2027-01-30",
+     "São Paulo",
+     "SP",
+     "Nubank Parque",
+     "",
+     ""
     ]
-   ]
+   ],
+   "sub": "Turnê 85 Anos de Ousadia",
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/ney_matogrosso_turne_2027-1024x467.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
   },
   {
    "id": "teaser",
@@ -671,7 +719,10 @@
      "RJ",
      "Maracanã"
     ]
-   ]
+   ],
+   "sub": "One Night Only",
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/System-of-a-Down-Faith-no-More-One-Night-Only-Brasil-2027-1024x467.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
   },
   {
    "id": "rush",
@@ -690,13 +741,13 @@
      "2027-01-24",
      "São Paulo",
      "SP",
-     "Allianz Parque"
+     "Nubank Parque"
     ],
     [
      "2027-01-26",
      "São Paulo",
      "SP",
-     "Allianz Parque"
+     "Nubank Parque"
     ],
     [
      "2027-01-30",
@@ -716,7 +767,10 @@
      "DF",
      "Arena BRB Mané Garrincha"
     ]
-   ]
+   ],
+   "sub": "Fifty Something",
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/11/rush-fifty-something_2027-1024x467.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
   },
   {
    "id": "verao",
@@ -1005,23 +1059,28 @@
      "São Paulo",
      "SP",
      "Autódromo de Interlagos",
-     "11h"
+     "11h",
+     ""
     ],
     [
      "2027-03-20",
      "São Paulo",
      "SP",
      "Autódromo de Interlagos",
-     "11h"
+     "11h",
+     ""
     ],
     [
      "2027-03-21",
      "São Paulo",
      "SP",
      "Autódromo de Interlagos",
-     "11h"
+     "11h",
+     ""
     ]
-   ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2025/08/lollapallozabr-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
   },
   {
    "id": "louis",
@@ -1094,21 +1153,29 @@
      "2027-04-30",
      "Itu",
      "SP",
-     "Parque Maeda"
+     "Parque Maeda",
+     "",
+     ""
     ],
     [
      "2027-05-01",
      "Itu",
      "SP",
-     "Parque Maeda"
+     "Parque Maeda",
+     "",
+     ""
     ],
     [
      "2027-05-02",
      "Itu",
      "SP",
-     "Parque Maeda"
+     "Parque Maeda",
+     "",
+     ""
     ]
-   ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/tomorrowland_brasil-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
   },
   {
    "id": "simpleplan",
@@ -1169,12 +1236,22 @@
    "s": "tm",
    "d": [
     [
+     "2026-12-05",
+     "São Paulo",
+     "SP",
+     "Vibra São Paulo",
+     "",
+     ""
+    ],
+    [
      "2027-06-05",
      "Rio de Janeiro",
      "RJ",
      "Qualistage"
     ]
-   ]
+   ],
+   "img": "https://sites.opusentretenimento.com/storage/events/IgqUs3fz5W33miex4JyiC88I2h3qjtqQZHJz6AVG.jpg",
+   "cred": "Foto: Divulgação/Vibra São Paulo"
   },
   {
    "id": "hilary",
@@ -1192,7 +1269,7 @@
      "São Paulo",
      "SP",
      "Espaço Unimed",
-     "",
+     "21h",
      "esgotado"
     ],
     [
@@ -1200,7 +1277,7 @@
      "São Paulo",
      "SP",
      "Espaço Unimed",
-     "",
+     "21h",
      "extra"
     ]
    ]
@@ -1219,6 +1296,1649 @@
      "São Paulo",
      "SP",
      "Autódromo de Interlagos"
+    ]
+   ]
+  },
+  {
+   "id": "reggaelive",
+   "n": "Reggae Live Station",
+   "g": [
+    "reggae"
+   ],
+   "d": [
+    [
+     "2026-11-29",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "18h",
+     ""
+    ]
+   ],
+   "sub": "Leões de Israel, Edson Gomes e Groundation",
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/06/460x320.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
+  },
+  {
+   "id": "manieri",
+   "n": "Maurício Manieri Classics",
+   "g": [
+    "popbr"
+   ],
+   "d": [
+    [
+     "2026-12-06",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "20h",
+     ""
+    ]
+   ],
+   "sub": "Tour Inesquecível",
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/06/EU_MINI_MM.26.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
+  },
+  {
+   "id": "biazin",
+   "n": "Carol Biazin",
+   "g": [
+    "popbr"
+   ],
+   "d": [
+    [
+     "2026-12-20",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "20h",
+     "esgotado"
+    ]
+   ],
+   "sub": "Odeio Muito a Despedida",
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/08/Miniatura_CB_2026.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
+  },
+  {
+   "id": "livinho",
+   "n": "Livinho",
+   "g": [
+    "funk"
+   ],
+   "d": [
+    [
+     "2026-12-23",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "21h",
+     ""
+    ]
+   ],
+   "sub": "Fazer Falta",
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/08/Miniatura_livinho_2026.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
+  },
+  {
+   "id": "silva",
+   "n": "Bloco do Silva",
+   "g": [
+    "popbr"
+   ],
+   "d": [
+    [
+     "2027-01-17",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "18h",
+     ""
+    ]
+   ],
+   "sub": "Vendas a partir de 24/11, às 15h",
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/11/EU_MINI_BlocodoSilva_27.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
+  },
+  {
+   "id": "rickrenner",
+   "n": "Rick & Renner",
+   "g": [
+    "sertanejo"
+   ],
+   "d": [
+    [
+     "2027-01-21",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "22h",
+     ""
+    ]
+   ],
+   "sub": "Gravação de DVD Pra Sempre: O Legado",
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/11/SITEEU_RickRenner_.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
+  },
+  {
+   "id": "baco",
+   "n": "Baco Exu do Blues",
+   "g": [
+    "rap"
+   ],
+   "d": [
+    [
+     "2027-01-22",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "23h",
+     ""
+    ]
+   ],
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/10/EU_MINI_Baco_27.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
+  },
+  {
+   "id": "apires",
+   "n": "Alexandre Pires",
+   "g": [
+    "pagode"
+   ],
+   "d": [
+    [
+     "2027-01-27",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "22h",
+     ""
+    ]
+   ],
+   "sub": "Gravação de DVD",
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/11/SITEEU_Miniatura_Alexandre-Pires_27.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
+  },
+  {
+   "id": "simone",
+   "n": "Simone Mendes",
+   "g": [
+    "sertanejo"
+   ],
+   "d": [
+    [
+     "2027-01-29",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "22h",
+     ""
+    ]
+   ],
+   "sub": "Intimidade",
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/08/@DANIIVALVERDEE-SIMONE-INTIMIDADE-12-460x320.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
+  },
+  {
+   "id": "jacksons",
+   "n": "The Jacksons",
+   "g": [
+    "pop",
+    "rnb"
+   ],
+   "d": [
+    [
+     "2027-01-30",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "22h",
+     ""
+    ]
+   ],
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/10/EU_MINI_Jackson_26.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
+  },
+  {
+   "id": "fabiojr",
+   "n": "Fábio Jr.",
+   "g": [
+    "popbr"
+   ],
+   "d": [
+    [
+     "2027-02-27",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "22h",
+     ""
+    ]
+   ],
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/11/EU_MINI_FabioJr_27.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
+  },
+  {
+   "id": "miw",
+   "n": "Motionless in White",
+   "g": [
+    "metal"
+   ],
+   "d": [
+    [
+     "2027-03-05",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "22h",
+     ""
+    ]
+   ],
+   "sub": "The Come to Latin America Tour 2027",
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/10/SITEEU_Miniatura_Motion_.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
+  },
+  {
+   "id": "arnaldo",
+   "n": "Arnaldo Antunes e Adriana Calcanhotto",
+   "g": [
+    "mpb"
+   ],
+   "d": [
+    [
+     "2027-03-06",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "22h",
+     ""
+    ]
+   ],
+   "sub": "Vice-Versa",
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/09/EU_MINI_Arnaldo.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
+  },
+  {
+   "id": "jungle",
+   "n": "Jungle",
+   "g": [
+    "indie"
+   ],
+   "d": [
+    [
+     "2027-03-30",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "21h30",
+     ""
+    ]
+   ],
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/05/EU_MINI_Jungle.26.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
+  },
+  {
+   "id": "pixies",
+   "n": "Pixies",
+   "g": [
+    "indie",
+    "rock"
+   ],
+   "d": [
+    [
+     "2027-04-09",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "21h30",
+     ""
+    ]
+   ],
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/08/Miniatura_Pixxies_2026.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
+  },
+  {
+   "id": "slash",
+   "n": "Slash feat. Myles Kennedy & The Conspirators",
+   "g": [
+    "rock"
+   ],
+   "d": [
+    [
+     "2027-04-14",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "21h",
+     ""
+    ]
+   ],
+   "sub": "Flying Blind World Tour 2027",
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/10/EU_MINI_Slash_26.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
+  },
+  {
+   "id": "leonardo",
+   "n": "Leonardo",
+   "g": [
+    "sertanejo"
+   ],
+   "d": [
+    [
+     "2027-04-17",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "22h",
+     ""
+    ]
+   ],
+   "sub": "Uma História Sem Fim",
+   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/11/EU_MINI_Leonardo_27.webp",
+   "cred": "Foto: Divulgação/Espaço Unimed"
+  },
+  {
+   "id": "oswaldo",
+   "n": "Oswaldo Montenegro",
+   "g": [
+    "mpb"
+   ],
+   "d": [
+    [
+     "2027-03-06",
+     "São Paulo",
+     "SP",
+     "Tokio Marine Hall",
+     "21h",
+     ""
+    ]
+   ],
+   "sub": "O Alívio: uma serenata para o tempo",
+   "img": "https://www.tokiomarinehall.com.br/wp-content/uploads/2026/09/destaque_st_oswaldo.jpg",
+   "cred": "Foto: Divulgação/Tokio Marine Hall"
+  },
+  {
+   "id": "calema",
+   "n": "Calema",
+   "g": [
+    "pop"
+   ],
+   "d": [
+    [
+     "2027-03-13",
+     "São Paulo",
+     "SP",
+     "Tokio Marine Hall",
+     "21h",
+     ""
+    ]
+   ],
+   "sub": "International Origin Tour",
+   "img": "https://www.tokiomarinehall.com.br/wp-content/uploads/2026/10/destaque_st_calema.jpg",
+   "cred": "Foto: Divulgação/Tokio Marine Hall"
+  },
+  {
+   "id": "anagabriel",
+   "n": "Ana Gabriel",
+   "g": [
+    "pop"
+   ],
+   "d": [
+    [
+     "2027-04-10",
+     "São Paulo",
+     "SP",
+     "Tokio Marine Hall",
+     "21h",
+     ""
+    ]
+   ],
+   "sub": "Claro de Luna Tour 2027",
+   "img": "https://www.tokiomarinehall.com.br/wp-content/uploads/2026/10/destaque_st_AnaGabr27.jpg",
+   "cred": "Foto: Divulgação/Tokio Marine Hall"
+  },
+  {
+   "id": "wakeman",
+   "n": "Rick Wakeman and Son",
+   "g": [
+    "rock"
+   ],
+   "d": [
+    [
+     "2027-04-14",
+     "São Paulo",
+     "SP",
+     "Tokio Marine Hall",
+     "21h",
+     ""
+    ],
+    [
+     "2027-04-15",
+     "São Paulo",
+     "SP",
+     "Tokio Marine Hall",
+     "21h",
+     ""
+    ]
+   ],
+   "img": "https://www.tokiomarinehall.com.br/wp-content/uploads/2026/11/destaque_st_RWK.jpg",
+   "cred": "Foto: Divulgação/Tokio Marine Hall"
+  },
+  {
+   "id": "lindemann",
+   "n": "Till Lindemann",
+   "g": [
+    "metal"
+   ],
+   "d": [
+    [
+     "2027-04-16",
+     "São Paulo",
+     "SP",
+     "Tokio Marine Hall",
+     "21h",
+     ""
+    ]
+   ],
+   "sub": "World Tour 2027",
+   "img": "https://www.tokiomarinehall.com.br/wp-content/uploads/2026/11/destaque_st_Lindemann.jpg",
+   "cred": "Foto: Divulgação/Tokio Marine Hall"
+  },
+  {
+   "id": "cordevita",
+   "n": "Corde Vita",
+   "g": [],
+   "d": [
+    [
+     "2027-04-17",
+     "São Paulo",
+     "SP",
+     "Tokio Marine Hall",
+     "21h",
+     ""
+    ]
+   ],
+   "sub": "Espetáculo de violinos",
+   "img": "https://www.tokiomarinehall.com.br/wp-content/uploads/2026/11/destaque_st_cordevita.jpg",
+   "cred": "Foto: Divulgação/Tokio Marine Hall"
+  },
+  {
+   "id": "tarja",
+   "n": "Tarja",
+   "g": [
+    "metal"
+   ],
+   "d": [
+    [
+     "2027-05-29",
+     "São Paulo",
+     "SP",
+     "Tokio Marine Hall",
+     "22h",
+     ""
+    ]
+   ],
+   "sub": "Frisson Live 2027",
+   "img": "https://www.tokiomarinehall.com.br/wp-content/uploads/2026/09/destaque_st_tarja-1.jpg",
+   "cred": "Foto: Divulgação/Tokio Marine Hall"
+  },
+  {
+   "id": "xlov",
+   "n": "XLOV",
+   "g": [
+    "kpop"
+   ],
+   "d": [
+    [
+     "2026-11-29",
+     "São Paulo",
+     "SP",
+     "Vibra São Paulo",
+     "",
+     ""
+    ]
+   ],
+   "sub": "Latam Tour II",
+   "img": "https://sites.opusentretenimento.com/storage/events/oxj96KLvDrP2UliKkKKzDuMiS38ICLQYqlVgEhVN.png",
+   "cred": "Foto: Divulgação/Vibra São Paulo"
+  },
+  {
+   "id": "fresno",
+   "n": "Fresno",
+   "g": [
+    "rock",
+    "popbr"
+   ],
+   "d": [
+    [
+     "2026-12-04",
+     "São Paulo",
+     "SP",
+     "Vibra São Paulo",
+     "",
+     ""
+    ]
+   ],
+   "sub": "Sinfonia'26",
+   "img": "https://eventicket.s3-sa-east-1.amazonaws.com/imgs/52588-fresnosinfonia-510x310.jpg",
+   "cred": "Foto: Divulgação/Vibra São Paulo"
+  },
+  {
+   "id": "take6",
+   "n": "Take 6",
+   "g": [
+    "rnb"
+   ],
+   "d": [
+    [
+     "2026-12-07",
+     "São Paulo",
+     "SP",
+     "Vibra São Paulo",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://sites.opusentretenimento.com/storage/events/i0wzPLbVol9uUarBEVDYT67ZqQcBi49yp9Ril6PF.jpg",
+   "cred": "Foto: Divulgação/Vibra São Paulo"
+  },
+  {
+   "id": "juanduran",
+   "n": "Juan Duran",
+   "g": [
+    "pop"
+   ],
+   "d": [
+    [
+     "2026-12-10",
+     "São Paulo",
+     "SP",
+     "Vibra São Paulo",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://eventicket.s3-sa-east-1.amazonaws.com/imgs/51123-510x310.png",
+   "cred": "Foto: Divulgação/Vibra São Paulo"
+  },
+  {
+   "id": "racanegra",
+   "n": "Raça Negra",
+   "g": [
+    "pagode"
+   ],
+   "d": [
+    [
+     "2026-12-11",
+     "São Paulo",
+     "SP",
+     "Vibra São Paulo",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://eventicket.s3-sa-east-1.amazonaws.com/imgs/52191-img-programacao-3.jpg",
+   "cred": "Foto: Divulgação/Vibra São Paulo"
+  },
+  {
+   "id": "somos90",
+   "n": "Somos 90",
+   "g": [
+    "pagode"
+   ],
+   "d": [
+    [
+     "2026-11-27",
+     "São Paulo",
+     "SP",
+     "Nubank Parque",
+     "",
+     ""
+    ]
+   ],
+   "sub": "Belo, Pixote, Rodriguinho e Marquinhos Sensação"
+  },
+  {
+   "id": "anyma",
+   "n": "Anyma presents: Æden",
+   "g": [
+    "eletronica"
+   ],
+   "d": [
+    [
+     "2026-12-23",
+     "São Paulo",
+     "SP",
+     "Nubank Parque",
+     "",
+     ""
+    ]
+   ]
+  },
+  {
+   "id": "eros",
+   "n": "Eros Ramazzotti",
+   "g": [
+    "pop"
+   ],
+   "d": [
+    [
+     "2027-11-09",
+     "São Paulo",
+     "SP",
+     "Local a definir",
+     "",
+     ""
+    ]
+   ],
+   "sub": "Una Storia Importante"
+  },
+  {
+   "id": "dosol",
+   "n": "Festival DoSol 2026",
+   "g": [
+    "fest",
+    "indie"
+   ],
+   "d": [
+    [
+     "2026-11-05",
+     "Natal",
+     "RN",
+     "Vários locais",
+     "",
+     ""
+    ]
+   ],
+   "sub": "De 05/11 a 12/12",
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/09/festival_dosol_2026-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "classicos",
+   "n": "Clássicos do Brasil 2026",
+   "g": [
+    "fest",
+    "mpb"
+   ],
+   "d": [
+    [
+     "2026-11-27",
+     "Rio de Janeiro",
+     "RJ",
+     "Marina da Glória",
+     "",
+     ""
+    ]
+   ],
+   "sub": "De 27/11 a 06/12",
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2025/01/classicos-do-brasil-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "simsp",
+   "n": "SIM São Paulo 2026",
+   "g": [
+    "fest",
+    "mpb"
+   ],
+   "d": [
+    [
+     "2026-11-30",
+     "São Paulo",
+     "SP",
+     "Conjunto Nacional",
+     "",
+     ""
+    ],
+    [
+     "2026-12-01",
+     "São Paulo",
+     "SP",
+     "Conjunto Nacional",
+     "",
+     ""
+    ],
+    [
+     "2026-12-02",
+     "São Paulo",
+     "SP",
+     "Conjunto Nacional",
+     "",
+     ""
+    ],
+    [
+     "2026-12-03",
+     "São Paulo",
+     "SP",
+     "Conjunto Nacional",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/01/SIM-Sao-Paulo-2026-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "naviocx",
+   "n": "Navio Chitãozinho & Xororó 2026",
+   "g": [
+    "fest",
+    "sertanejo"
+   ],
+   "d": [
+    [
+     "2026-12-03",
+     "Santos",
+     "SP",
+     "Porto de Santos",
+     "",
+     ""
+    ],
+    [
+     "2026-12-04",
+     "Santos",
+     "SP",
+     "Porto de Santos",
+     "",
+     ""
+    ],
+    [
+     "2026-12-05",
+     "Santos",
+     "SP",
+     "Porto de Santos",
+     "",
+     ""
+    ],
+    [
+     "2026-12-06",
+     "Santos",
+     "SP",
+     "Porto de Santos",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/Navio-Chitaozinho-Xororo-2026-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "cajuzera",
+   "n": "Cajuzera Festival Fortaleza 2026",
+   "g": [
+    "fest",
+    "rock"
+   ],
+   "d": [
+    [
+     "2026-12-03",
+     "Fortaleza",
+     "CE",
+     "Havana Iracema",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/11/CajuzeraFestivalFortaleza2026-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "rosasummer",
+   "n": "Weekend Rosa Summer",
+   "g": [
+    "fest"
+   ],
+   "d": [
+    [
+     "2026-12-27",
+     "Imbituba",
+     "SC",
+     "Iate Club Ibiraquera",
+     "",
+     ""
+    ],
+    [
+     "2026-12-28",
+     "Imbituba",
+     "SC",
+     "Iate Club Ibiraquera",
+     "",
+     ""
+    ],
+    [
+     "2026-12-29",
+     "Imbituba",
+     "SC",
+     "Iate Club Ibiraquera",
+     "",
+     ""
+    ],
+    [
+     "2026-12-30",
+     "Imbituba",
+     "SC",
+     "Iate Club Ibiraquera",
+     "",
+     ""
+    ],
+    [
+     "2026-12-31",
+     "Imbituba",
+     "SC",
+     "Iate Club Ibiraquera",
+     "",
+     ""
+    ],
+    [
+     "2027-01-01",
+     "Imbituba",
+     "SC",
+     "Iate Club Ibiraquera",
+     "",
+     ""
+    ],
+    [
+     "2027-01-02",
+     "Imbituba",
+     "SC",
+     "Iate Club Ibiraquera",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/11/Weekend-Rosa-Summer-2026.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "up",
+   "n": "Universo Paralello",
+   "g": [
+    "fest",
+    "eletronica"
+   ],
+   "d": [
+    [
+     "2026-12-27",
+     "Ituberá",
+     "BA",
+     "Praia de Pratigi",
+     "",
+     ""
+    ]
+   ],
+   "sub": "De 27/12 a 04/01",
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/UniversoParalello2026-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "reveillon",
+   "n": "Réveillon Festival",
+   "g": [
+    "fest",
+    "eletronica"
+   ],
+   "d": [
+    [
+     "2026-12-31",
+     "Nazaré Paulista",
+     "SP",
+     "Hotel Estância Nazaré Paulista",
+     "",
+     ""
+    ],
+    [
+     "2027-01-01",
+     "Nazaré Paulista",
+     "SP",
+     "Hotel Estância Nazaré Paulista",
+     "",
+     ""
+    ],
+    [
+     "2027-01-02",
+     "Nazaré Paulista",
+     "SP",
+     "Hotel Estância Nazaré Paulista",
+     "",
+     ""
+    ],
+    [
+     "2027-01-03",
+     "Nazaré Paulista",
+     "SP",
+     "Hotel Estância Nazaré Paulista",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/11/ReveillonFestival2026-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "naviopausini",
+   "n": "Navio Laura Pausini 2027",
+   "g": [
+    "fest",
+    "pop"
+   ],
+   "d": [
+    [
+     "2027-01-05",
+     "Santos",
+     "SP",
+     "Porto de Santos",
+     "",
+     ""
+    ],
+    [
+     "2027-01-06",
+     "Santos",
+     "SP",
+     "Porto de Santos",
+     "",
+     ""
+    ],
+    [
+     "2027-01-07",
+     "Santos",
+     "SP",
+     "Porto de Santos",
+     "",
+     ""
+    ],
+    [
+     "2027-01-08",
+     "Santos",
+     "SP",
+     "Porto de Santos",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/Navio-Laura-Pausini-2027-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "bembom",
+   "n": "Festival Bem.Bom 2027",
+   "g": [
+    "fest"
+   ],
+   "d": [
+    [
+     "2027-01-08",
+     "Conde",
+     "PB",
+     "Fazenda Jacumã",
+     "",
+     ""
+    ],
+    [
+     "2027-01-09",
+     "Conde",
+     "PB",
+     "Fazenda Jacumã",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/CARTAZ_12_TAMANHO_ALT-1024x575.png",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "carvalheira",
+   "n": "Carvalheira na Ladeira 2027",
+   "g": [
+    "fest"
+   ],
+   "d": [
+    [
+     "2027-02-06",
+     "Olinda",
+     "PE",
+     "Memorial Arcoverde",
+     "",
+     ""
+    ],
+    [
+     "2027-02-07",
+     "Olinda",
+     "PE",
+     "Memorial Arcoverde",
+     "",
+     ""
+    ],
+    [
+     "2027-02-08",
+     "Olinda",
+     "PE",
+     "Memorial Arcoverde",
+     "",
+     ""
+    ],
+    [
+     "2027-02-09",
+     "Olinda",
+     "PE",
+     "Memorial Arcoverde",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/09/carvalheira_na_ladeira_olinda_2027-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "oba",
+   "n": "Oba Festival 2027",
+   "g": [
+    "fest"
+   ],
+   "d": [
+    [
+     "2027-02-06",
+     "",
+     "",
+     "Centro de Eventos Helder Henrique Galera",
+     "",
+     ""
+    ],
+    [
+     "2027-02-07",
+     "",
+     "",
+     "Centro de Eventos Helder Henrique Galera",
+     "",
+     ""
+    ],
+    [
+     "2027-02-08",
+     "",
+     "",
+     "Centro de Eventos Helder Henrique Galera",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/oba_festival_2027-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "amelaroc",
+   "n": "Ame Laroc Festival 2027",
+   "g": [
+    "fest",
+    "eletronica"
+   ],
+   "d": [
+    [
+     "2027-02-06",
+     "Valinhos",
+     "SP",
+     "Laroc Club",
+     "",
+     ""
+    ],
+    [
+     "2027-02-07",
+     "Valinhos",
+     "SP",
+     "Laroc Club",
+     "",
+     ""
+    ],
+    [
+     "2027-02-08",
+     "Valinhos",
+     "SP",
+     "Laroc Club",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/11/AmeLarocFestival2027-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "colorado",
+   "n": "Festa do Peão de Colorado 2027",
+   "g": [
+    "fest",
+    "sertanejo"
+   ],
+   "d": [
+    [
+     "2027-03-12",
+     "Colorado",
+     "PR",
+     "Parque de Rodeio Benedito Ignácio Ribeiro",
+     "",
+     ""
+    ]
+   ],
+   "sub": "De 12/03 a 21/03",
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/festa-do-peao-de-colorado-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "maratonafloripa",
+   "n": "Maratona Cultural de Florianópolis 2027",
+   "g": [
+    "fest"
+   ],
+   "d": [
+    [
+     "2027-03-19",
+     "Florianópolis",
+     "SC",
+     "Vários locais",
+     "",
+     ""
+    ],
+    [
+     "2027-03-20",
+     "Florianópolis",
+     "SC",
+     "Vários locais",
+     "",
+     ""
+    ],
+    [
+     "2027-03-21",
+     "Florianópolis",
+     "SC",
+     "Vários locais",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/maratona_cultural_florianopolis_2027-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "goptun",
+   "n": "Gop Tun Festival 2027",
+   "g": [
+    "fest",
+    "eletronica"
+   ],
+   "d": [
+    [
+     "2027-04-09",
+     "São Paulo",
+     "SP",
+     "Mercado Livre Arena Pacaembu",
+     "",
+     ""
+    ],
+    [
+     "2027-04-10",
+     "São Paulo",
+     "SP",
+     "Mercado Livre Arena Pacaembu",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/GopTun2027-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "bangers",
+   "n": "Bangers Open Air 2027",
+   "g": [
+    "fest",
+    "metal"
+   ],
+   "d": [
+    [
+     "2027-04-24",
+     "São Paulo",
+     "SP",
+     "Memorial da América Latina",
+     "",
+     ""
+    ],
+    [
+     "2027-04-25",
+     "São Paulo",
+     "SP",
+     "Memorial da América Latina",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/09/bangers_open_air-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "ribrodeo",
+   "n": "Ribeirão Rodeo Music 2027",
+   "g": [
+    "fest",
+    "sertanejo"
+   ],
+   "d": [
+    [
+     "2027-04-30",
+     "Ribeirão Preto",
+     "SP",
+     "Local a definir",
+     "",
+     ""
+    ]
+   ],
+   "sub": "De 30/04 a 08/05",
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/ribeirao_rodeo_music-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "sambasampa",
+   "n": "Festival Samba Sampa SP 2027",
+   "g": [
+    "fest",
+    "pagode"
+   ],
+   "d": [
+    [
+     "2027-05-08",
+     "São Paulo",
+     "SP",
+     "Sambódromo do Anhembi",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/samba_sp_sampa_2027-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "americana",
+   "n": "Festa do Peão de Americana 2027",
+   "g": [
+    "fest",
+    "sertanejo"
+   ],
+   "d": [
+    [
+     "2027-06-04",
+     "Americana",
+     "SP",
+     "Local a definir",
+     "",
+     ""
+    ]
+   ],
+   "sub": "De 04/06 a 13/06",
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/festa_do_peao_americana_2027-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "pedroleopoldo",
+   "n": "Pedro Leopoldo Rodeio Show 2027",
+   "g": [
+    "fest",
+    "sertanejo"
+   ],
+   "d": [
+    [
+     "2027-06-04",
+     "Pedro Leopoldo",
+     "MG",
+     "Parque da Música",
+     "",
+     ""
+    ]
+   ],
+   "sub": "De 04/06 a 12/06",
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/pedro_leopoldo_rodeio_show_2027-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "arraia",
+   "n": "Arraiá do Brasil 2027",
+   "g": [
+    "fest",
+    "mpb"
+   ],
+   "d": [
+    [
+     "2027-07-03",
+     "São Paulo",
+     "SP",
+     "Parque Villa-Lobos",
+     "",
+     ""
+    ],
+    [
+     "2027-07-04",
+     "São Paulo",
+     "SP",
+     "Parque Villa-Lobos",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/arraia_do_brasil-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "piumhi",
+   "n": "Expo Piumhi 2027",
+   "g": [
+    "fest",
+    "sertanejo"
+   ],
+   "d": [
+    [
+     "2027-07-15",
+     "Piumhi",
+     "MG",
+     "Parque de Exposições Tonico Gabriel",
+     "",
+     ""
+    ],
+    [
+     "2027-07-16",
+     "Piumhi",
+     "MG",
+     "Parque de Exposições Tonico Gabriel",
+     "",
+     ""
+    ],
+    [
+     "2027-07-17",
+     "Piumhi",
+     "MG",
+     "Parque de Exposições Tonico Gabriel",
+     "",
+     ""
+    ],
+    [
+     "2027-07-18",
+     "Piumhi",
+     "MG",
+     "Parque de Exposições Tonico Gabriel",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/expo_piumhi_2027-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "motoweek",
+   "n": "Capital Moto Week 2027",
+   "g": [
+    "fest",
+    "rock"
+   ],
+   "d": [
+    [
+     "2027-07-22",
+     "Brasília",
+     "DF",
+     "Granja do Torto",
+     "",
+     ""
+    ]
+   ],
+   "sub": "De 22/07 a 31/07",
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2024/05/capital_moto_week-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "sensacional",
+   "n": "Festival Sensacional! 2027",
+   "g": [
+    "fest"
+   ],
+   "d": [
+    [
+     "2027-07-31",
+     "Belo Horizonte",
+     "MG",
+     "Parque Ecológico da Pampulha",
+     "",
+     ""
+    ],
+    [
+     "2027-08-01",
+     "Belo Horizonte",
+     "MG",
+     "Parque Ecológico da Pampulha",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/09/festival_senscional-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "bananada",
+   "n": "Festival Bananada 2027",
+   "g": [
+    "fest",
+    "indie"
+   ],
+   "d": [
+    [
+     "2027-08-17",
+     "Goiânia",
+     "GO",
+     "Centro Cultural Oscar Niemeyer",
+     "",
+     ""
+    ],
+    [
+     "2027-08-18",
+     "Goiânia",
+     "GO",
+     "Centro Cultural Oscar Niemeyer",
+     "",
+     ""
+    ],
+    [
+     "2027-08-19",
+     "Goiânia",
+     "GO",
+     "Centro Cultural Oscar Niemeyer",
+     "",
+     ""
+    ],
+    [
+     "2027-08-20",
+     "Goiânia",
+     "GO",
+     "Centro Cultural Oscar Niemeyer",
+     "",
+     ""
+    ],
+    [
+     "2027-08-21",
+     "Goiânia",
+     "GO",
+     "Centro Cultural Oscar Niemeyer",
+     "",
+     ""
+    ],
+    [
+     "2027-08-22",
+     "Goiânia",
+     "GO",
+     "Centro Cultural Oscar Niemeyer",
+     "",
+     ""
+    ]
+   ],
+   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/09/festival_bananada_2027-1024x575.webp",
+   "cred": "Foto: Divulgação/Mapa dos Festivais"
+  },
+  {
+   "id": "barretos",
+   "n": "Festa do Peão de Barretos 2027",
+   "g": [
+    "fest",
+    "sertanejo"
+   ],
+   "d": [
+    [
+     "2027-08-19",
+     "Barretos",
+     "SP",
+     "Parque do Peão",
+     "",
+     ""
+    ]
+   ],
+   "sub": "De 19/08 a 29/08"
+  },
+  {
+   "id": "jaguariuna",
+   "n": "Jaguariúna Rodeo Festival 2027",
+   "g": [
+    "fest",
+    "sertanejo"
+   ],
+   "d": [
+    [
+     "2027-09-17",
+     "Jaguariúna",
+     "SP",
+     "Local a definir",
+     "",
+     ""
+    ]
+   ],
+   "sub": "De 17/09 a 25/09"
+  },
+  {
+   "id": "tropicadelia",
+   "n": "Tropicadelia Festival 2027",
+   "g": [
+    "fest"
+   ],
+   "d": [
+    [
+     "2027-09-25",
+     "Londrina",
+     "PR",
+     "Parque de Exposições Governador Ney Braga",
+     "",
+     ""
+    ]
+   ]
+  },
+  {
+   "id": "suica",
+   "n": "Festival Suíça Bahiana 2027",
+   "g": [
+    "fest"
+   ],
+   "d": [
+    [
+     "2027-10-16",
+     "Vitória da Conquista",
+     "BA",
+     "Centro de Cultura Camillo de Jesus Lima",
+     "",
+     ""
+    ],
+    [
+     "2027-10-17",
+     "Vitória da Conquista",
+     "BA",
+     "Centro de Cultura Camillo de Jesus Lima",
+     "",
+     ""
+    ]
+   ]
+  },
+  {
+   "id": "afropunk",
+   "n": "Afropunk Brasil 2027",
+   "g": [
+    "fest",
+    "rap"
+   ],
+   "d": [
+    [
+     "2027-11-06",
+     "Salvador",
+     "BA",
+     "Parque de Exposições",
+     "",
+     ""
+    ],
+    [
+     "2027-11-07",
+     "Salvador",
+     "BA",
+     "Parque de Exposições",
+     "",
+     ""
+    ]
+   ]
+  },
+  {
+   "id": "primerock",
+   "n": "Prime Rock Brasil 2027",
+   "g": [
+    "fest",
+    "rock"
+   ],
+   "d": [
+    [
+     "2027-07-27",
+     "Belo Horizonte",
+     "MG",
+     "Local a definir",
+     "",
+     ""
+    ]
+   ]
+  },
+  {
+   "id": "sevencross",
+   "n": "Seven Crossroads Festival 2027",
+   "g": [
+    "fest",
+    "rock"
+   ],
+   "d": [
+    [
+     "2027-05-08",
+     "São Paulo",
+     "SP",
+     "VIP Station",
+     "",
+     ""
+    ]
+   ]
+  },
+  {
+   "id": "carnavalbv",
+   "n": "Carnaval Boa Viagem 2027",
+   "g": [
+    "fest",
+    "sertanejo"
+   ],
+   "d": [
+    [
+     "2027-02-07",
+     "Recife",
+     "PE",
+     "Arena Boa Viagem",
+     "",
+     ""
+    ],
+    [
+     "2027-02-08",
+     "Recife",
+     "PE",
+     "Arena Boa Viagem",
+     "",
+     ""
     ]
    ]
   }

@@ -122,7 +122,7 @@
 	var POS = ["20% 70%", "50% 80%", "80% 65%", "35% 55%", "65% 90%", "10% 85%", "90% 80%"];
 	function hash(s) { var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return Math.abs(h); }
 	function cover(e, stamp) {
-		if (e.img) return '<div class="cpa-cover"><img src="' + esc(e.img) + '" alt="' + esc(e.n) + '" loading="lazy">' + stamp + (e.cred ? '<span class="cpa-credit">' + esc(e.cred) + "</span>" : "") + "</div>";
+		if (e.img) return '<div class="cpa-cover"><img src="' + esc(e.img) + '" alt="' + esc(e.n) + '" loading="lazy">' + stamp + "</div>";
 		return '<div class="cpa-cover cpa-duo"><img src="' + esc(C.plateia) + '" alt="" loading="lazy" style="object-position:' + POS[hash(e.id) % POS.length] + '">' + stamp + "</div>";
 	}
 	function seller(e) {

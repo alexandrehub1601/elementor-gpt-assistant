@@ -40,11 +40,10 @@ O cabeçalho e o rodapé são os do próprio tema do site.
 
 ## Importar shows
 
-- **Agenda inicial:** em Configurações, "Importar agenda inicial" cria 119 shows e
-  festivais (nov/2026 a nov/2027) como **Pendentes**, já com a capa de divulgação
-  quando a fonte tinha. Fontes: Escutai, Espaço Unimed, Tokio Marine Hall, Vibra São
-  Paulo, Nubank Parque e Mapa dos Festivais. Confira as datas antes de publicar.
-  Em festivais em que a fonte só dava o local, a cidade foi preenchida à mão.
+- **Agenda inicial:** em Configurações, "Importar agenda inicial" cria 125 shows e
+  festivais (nov/2026 a nov/2027) como **Pendentes**. As capas vêm dentro do plugin e
+  sobem para a biblioteca de mídia do próprio site na importação. Confira as datas
+  antes de publicar.
   Em festivais onde a fonte só dava o local, a cidade foi preenchida à mão.
 - **Ticketmaster:** crie uma chave grátis em developer.ticketmaster.com (My Apps →
   Consumer Key), cole em Configurações e clique em "Importar da Ticketmaster agora".

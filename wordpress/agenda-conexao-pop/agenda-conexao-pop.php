@@ -175,7 +175,6 @@ final class Agenda_Conexao_Pop {
 		$fest  = get_post_meta($post->ID, '_cpa_festival', true);
 		$tk    = get_post_meta($post->ID, '_cpa_ticketeira', true);
 		$link  = get_post_meta($post->ID, '_cpa_link', true);
-		$cred  = get_post_meta($post->ID, '_cpa_credito', true);
 		$datas = self::datas($post->ID);
 		if (!$datas) {
 			$datas = array(array('data' => '', 'hora' => '', 'cidade' => '', 'uf' => '', 'local' => '', 'status' => '', 'portoes' => ''));
@@ -195,8 +194,6 @@ final class Agenda_Conexao_Pop {
 			<tr><th><label for="cpa_link">Link de ingressos</label></th>
 				<td><input type="url" class="large-text" id="cpa_link" name="cpa_link" value="<?php echo esc_attr($link); ?>" placeholder="https://">
 					<p class="description">Opcional. Só preencha quando quiser que o card leve para a compra (por exemplo, o link de parceria com UTM). Sem link, o card mostra só o nome da ticketeira.</p></td></tr>
-			<tr><th><label for="cpa_credito">Crédito da capa</label></th>
-				<td><input type="text" class="regular-text" id="cpa_credito" name="cpa_credito" value="<?php echo esc_attr($cred); ?>" placeholder="Ex.: Foto: Divulgação"></td></tr>
 		</table>
 
 		<h4 style="margin:18px 0 8px">Datas</h4>
@@ -264,7 +261,6 @@ final class Agenda_Conexao_Pop {
 		$tk = sanitize_key(wp_unslash($_POST['cpa_ticketeira'] ?? ''));
 		update_post_meta($post_id, '_cpa_ticketeira', array_key_exists($tk, self::ticketeiras()) ? $tk : '');
 		update_post_meta($post_id, '_cpa_link', esc_url_raw(wp_unslash($_POST['cpa_link'] ?? '')));
-		update_post_meta($post_id, '_cpa_credito', sanitize_text_field(wp_unslash($_POST['cpa_credito'] ?? '')));
 		$brutas = isset($_POST['cpa_datas']) && is_array($_POST['cpa_datas']) ? wp_unslash($_POST['cpa_datas']) : array(); // phpcs:ignore -- limpo abaixo
 		self::gravar_datas($post_id, $brutas);
 	}
@@ -443,9 +439,9 @@ final class Agenda_Conexao_Pop {
 			</form>
 			<form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="display:inline-block">
 				<?php wp_nonce_field('cpa_importar_inicial'); ?><input type="hidden" name="action" value="cpa_importar_inicial">
-				<?php submit_button('Importar agenda inicial (119 shows e festivais)', 'secondary', 'submit', false); ?>
+				<?php submit_button('Importar agenda inicial (125 shows e festivais)', 'secondary', 'submit', false); ?>
 			</form>
-			<p class="description">A agenda inicial traz os shows e festivais de nov/2026 a nov/2027 levantados no protótipo (Escutai, Espaço Unimed, Tokio Marine Hall, Vibra São Paulo, Nubank Parque e Mapa dos Festivais). Eles entram como "Pendente", com a capa de divulgação quando a fonte tinha, para a redação conferir antes de publicar. A importação baixa as capas e pode levar alguns minutos.</p>
+			<p class="description">A agenda inicial traz os shows e festivais de nov/2026 a nov/2027 levantados no protótipo. Eles entram como "Pendente", com a capa, que sobe para a biblioteca de mídia do site, para a redação conferir antes de publicar. A importação baixa as capas e pode levar alguns minutos.</p>
 			<h2>Como usar</h2>
 			<ol>
 				<li>Crie uma página "Agenda" e cole <code>[agenda_conexao]</code> num widget de shortcode do Elementor (ou no editor).</li>
@@ -509,15 +505,21 @@ final class Agenda_Conexao_Pop {
 				$datas[] = array('data' => $d[0], 'cidade' => $d[1], 'uf' => $d[2], 'local' => $d[3], 'hora' => $d[4] ?? '', 'status' => $d[5] ?? '', 'portoes' => $d[6] ?? '');
 			}
 			self::gravar_datas($id, $datas);
-			// Capa de divulgação da fonte, quando houver.
-			if (!empty($s['img'])) {
-				require_once ABSPATH . 'wp-admin/includes/media.php';
-				require_once ABSPATH . 'wp-admin/includes/file.php';
-				require_once ABSPATH . 'wp-admin/includes/image.php';
-				$anexo = media_sideload_image(esc_url_raw($s['img']), $id, $s['n'], 'id');
-				if (!is_wp_error($anexo)) {
-					set_post_thumbnail($id, $anexo);
-					update_post_meta($id, '_cpa_credito', sanitize_text_field($s['cred'] ?? 'Foto: Divulgação'));
+			// Capa que vem dentro do plugin: sobe para a biblioteca de mídia do site.
+			if (!empty($s['capa'])) {
+				$orig = CPA_DIR . 'assets/capas/' . basename($s['capa']);
+				if (file_exists($orig)) {
+					require_once ABSPATH . 'wp-admin/includes/media.php';
+					require_once ABSPATH . 'wp-admin/includes/file.php';
+					require_once ABSPATH . 'wp-admin/includes/image.php';
+					$tmp = wp_tempnam($s['capa']);
+					copy($orig, $tmp);
+					$anexo = media_handle_sideload(array('name' => sanitize_file_name($s['id'] . '.webp'), 'tmp_name' => $tmp), $id, $s['n']);
+					if (is_wp_error($anexo)) {
+						wp_delete_file($tmp);
+					} else {
+						set_post_thumbnail($id, $anexo);
+					}
 				}
 			}
 			$n++;
@@ -584,7 +586,6 @@ final class Agenda_Conexao_Pop {
 				}
 				update_post_meta($id, '_cpa_tm_id', $tm_id);
 				update_post_meta($id, '_cpa_ticketeira', 'ticketmaster');
-				update_post_meta($id, '_cpa_credito', 'Foto: Ticketmaster');
 				self::gravar_datas($id, array(array(
 					'data' => $ev['dates']['start']['localDate'] ?? '', 'hora' => $hora,
 					'cidade' => $venue['city']['name'] ?? '', 'uf' => $venue['state']['stateCode'] ?? '',
@@ -662,7 +663,6 @@ final class Agenda_Conexao_Pop {
 				'tk'   => $tk ? ($tks[$tk] ?? '') : '',
 				'link' => get_post_meta($p->ID, '_cpa_link', true),
 				'img'  => $img ? $img : '',
-				'cred' => get_post_meta($p->ID, '_cpa_credito', true),
 				'd'    => $datas,
 			);
 		}
@@ -780,7 +780,6 @@ final class Agenda_Conexao_Pop {
 				$anexo = media_handle_upload('cpa_arte', $id);
 				if (!is_wp_error($anexo)) {
 					set_post_thumbnail($id, $anexo);
-					update_post_meta($id, '_cpa_credito', 'Foto: Divulgação');
 				}
 			}
 		}

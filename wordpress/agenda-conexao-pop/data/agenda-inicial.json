@@ -69,8 +69,7 @@
      "esgotado"
     ]
    ],
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/07/EU_MINI_NewOrder.26.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "neworder.webp"
   },
   {
    "id": "marr",
@@ -133,7 +132,9 @@
      "SP",
      "Nubank Parque"
     ]
-   ]
+   ],
+   "sub": "Celebrando 30 anos dos álbuns I & II",
+   "capa": "seal.webp"
   },
   {
    "id": "apc",
@@ -167,8 +168,7 @@
      ""
     ]
    ],
-   "img": "https://www.tokiomarinehall.com.br/wp-content/uploads/2026/07/destaque_st_Fagner.jpg",
-   "cred": "Foto: Divulgação/Tokio Marine Hall"
+   "capa": "fagner.webp"
   },
   {
    "id": "revela",
@@ -203,8 +203,7 @@
      "esgotado"
     ]
    ],
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/04/EU_Miniatura_BabyMetal.26.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "babymetal.webp"
   },
   {
    "id": "lagum",
@@ -306,8 +305,7 @@
      ""
     ]
    ],
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/11/EU_MINI_Pitty_27.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "pitty.webp"
   },
   {
    "id": "molotov",
@@ -402,7 +400,8 @@
      "SP",
      "Nubank Parque"
     ]
-   ]
+   ],
+   "capa": "sheeran.webp"
   },
   {
    "id": "primavera",
@@ -440,8 +439,17 @@
      "Rio de Janeiro",
      "RJ",
      "Brava Arena Jockey"
+    ],
+    [
+     "2027-06-05",
+     "São Paulo",
+     "SP",
+     "Nubank Parque",
+     "",
+     ""
     ]
-   ]
+   ],
+   "capa": "capital.webp"
   },
   {
    "id": "djavan",
@@ -474,8 +482,7 @@
     ]
    ],
    "sub": "Djavanear 50 Anos Só Sucessos",
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/02/Djavan-Djavanear-50-anos-So-Sucessos-Brasil-2026-1024x467.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "djavan.webp"
   },
   {
    "id": "ferrugem",
@@ -594,8 +601,7 @@
     ]
    ],
    "sub": "Turnê Tava Escrito",
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/04/Xande-de-Pilares-Grupo-Revelacao-Turne-Ta-Escrito-2026-1024x467.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "revxande.webp"
   },
   {
    "id": "slayer",
@@ -610,7 +616,9 @@
      "SP",
      "Nubank Parque"
     ]
-   ]
+   ],
+   "sub": "Reign in Blood 40 anos",
+   "capa": "slayer.webp"
   },
   {
    "id": "lenine",
@@ -658,7 +666,8 @@
      "SP",
      "Nubank Parque"
     ]
-   ]
+   ],
+   "capa": "richie.webp"
   },
   {
    "id": "ney",
@@ -684,8 +693,7 @@
     ]
    ],
    "sub": "Turnê 85 Anos de Ousadia",
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/ney_matogrosso_turne_2027-1024x467.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "ney.webp"
   },
   {
    "id": "teaser",
@@ -721,8 +729,7 @@
     ]
    ],
    "sub": "One Night Only",
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/System-of-a-Down-Faith-no-More-One-Night-Only-Brasil-2027-1024x467.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "soad.webp"
   },
   {
    "id": "rush",
@@ -769,8 +776,7 @@
     ]
    ],
    "sub": "Fifty Something",
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/11/rush-fifty-something_2027-1024x467.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "rush.webp"
   },
   {
    "id": "verao",
@@ -853,7 +859,9 @@
      "SP",
      "Nubank Parque"
     ]
-   ]
+   ],
+   "sub": "I'm Back",
+   "capa": "pitbull.webp"
   },
   {
    "id": "karolg",
@@ -895,7 +903,9 @@
      "SP",
      "Nubank Parque"
     ]
-   ]
+   ],
+   "sub": "Surfilmusic Tour",
+   "capa": "jack.webp"
   },
   {
    "id": "foo",
@@ -1079,8 +1089,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2025/08/lollapallozabr-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "lolla.webp"
   },
   {
    "id": "louis",
@@ -1174,8 +1183,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/tomorrowland_brasil-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "tomorrowland.webp"
   },
   {
    "id": "simpleplan",
@@ -1203,7 +1211,8 @@
      "SP",
      "Nubank Parque"
     ]
-   ]
+   ],
+   "capa": "simpleplan.webp"
   },
   {
    "id": "coolritiba",
@@ -1250,8 +1259,7 @@
      "Qualistage"
     ]
    ],
-   "img": "https://sites.opusentretenimento.com/storage/events/IgqUs3fz5W33miex4JyiC88I2h3qjtqQZHJz6AVG.jpg",
-   "cred": "Foto: Divulgação/Vibra São Paulo"
+   "capa": "paulaf.webp"
   },
   {
    "id": "hilary",
@@ -1280,7 +1288,8 @@
      "21h",
      "extra"
     ]
-   ]
+   ],
+   "capa": "hilary.webp"
   },
   {
    "id": "thetown",
@@ -1316,8 +1325,7 @@
     ]
    ],
    "sub": "Leões de Israel, Edson Gomes e Groundation",
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/06/460x320.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "reggaelive.webp"
   },
   {
    "id": "manieri",
@@ -1336,8 +1344,7 @@
     ]
    ],
    "sub": "Tour Inesquecível",
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/06/EU_MINI_MM.26.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "manieri.webp"
   },
   {
    "id": "biazin",
@@ -1356,8 +1363,7 @@
     ]
    ],
    "sub": "Odeio Muito a Despedida",
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/08/Miniatura_CB_2026.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "biazin.webp"
   },
   {
    "id": "livinho",
@@ -1376,8 +1382,7 @@
     ]
    ],
    "sub": "Fazer Falta",
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/08/Miniatura_livinho_2026.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "livinho.webp"
   },
   {
    "id": "silva",
@@ -1396,8 +1401,7 @@
     ]
    ],
    "sub": "Vendas a partir de 24/11, às 15h",
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/11/EU_MINI_BlocodoSilva_27.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "silva.webp"
   },
   {
    "id": "rickrenner",
@@ -1416,8 +1420,7 @@
     ]
    ],
    "sub": "Gravação de DVD Pra Sempre: O Legado",
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/11/SITEEU_RickRenner_.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "rickrenner.webp"
   },
   {
    "id": "baco",
@@ -1435,8 +1438,7 @@
      ""
     ]
    ],
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/10/EU_MINI_Baco_27.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "baco.webp"
   },
   {
    "id": "apires",
@@ -1455,8 +1457,7 @@
     ]
    ],
    "sub": "Gravação de DVD",
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/11/SITEEU_Miniatura_Alexandre-Pires_27.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "apires.webp"
   },
   {
    "id": "simone",
@@ -1475,8 +1476,7 @@
     ]
    ],
    "sub": "Intimidade",
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/08/@DANIIVALVERDEE-SIMONE-INTIMIDADE-12-460x320.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "simone.webp"
   },
   {
    "id": "jacksons",
@@ -1495,8 +1495,7 @@
      ""
     ]
    ],
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/10/EU_MINI_Jackson_26.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "jacksons.webp"
   },
   {
    "id": "fabiojr",
@@ -1514,8 +1513,7 @@
      ""
     ]
    ],
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/11/EU_MINI_FabioJr_27.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "fabiojr.webp"
   },
   {
    "id": "miw",
@@ -1534,8 +1532,7 @@
     ]
    ],
    "sub": "The Come to Latin America Tour 2027",
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/10/SITEEU_Miniatura_Motion_.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "miw.webp"
   },
   {
    "id": "arnaldo",
@@ -1554,8 +1551,7 @@
     ]
    ],
    "sub": "Vice-Versa",
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/09/EU_MINI_Arnaldo.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "arnaldo.webp"
   },
   {
    "id": "jungle",
@@ -1573,8 +1569,7 @@
      ""
     ]
    ],
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/05/EU_MINI_Jungle.26.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "jungle.webp"
   },
   {
    "id": "pixies",
@@ -1593,8 +1588,7 @@
      ""
     ]
    ],
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/08/Miniatura_Pixxies_2026.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "pixies.webp"
   },
   {
    "id": "slash",
@@ -1613,8 +1607,7 @@
     ]
    ],
    "sub": "Flying Blind World Tour 2027",
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/10/EU_MINI_Slash_26.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "slash.webp"
   },
   {
    "id": "leonardo",
@@ -1633,8 +1626,7 @@
     ]
    ],
    "sub": "Uma História Sem Fim",
-   "img": "https://www.espacounimed.com.br/wp-content/uploads/2026/11/EU_MINI_Leonardo_27.webp",
-   "cred": "Foto: Divulgação/Espaço Unimed"
+   "capa": "leonardo.webp"
   },
   {
    "id": "oswaldo",
@@ -1653,8 +1645,7 @@
     ]
    ],
    "sub": "O Alívio: uma serenata para o tempo",
-   "img": "https://www.tokiomarinehall.com.br/wp-content/uploads/2026/09/destaque_st_oswaldo.jpg",
-   "cred": "Foto: Divulgação/Tokio Marine Hall"
+   "capa": "oswaldo.webp"
   },
   {
    "id": "calema",
@@ -1673,8 +1664,7 @@
     ]
    ],
    "sub": "International Origin Tour",
-   "img": "https://www.tokiomarinehall.com.br/wp-content/uploads/2026/10/destaque_st_calema.jpg",
-   "cred": "Foto: Divulgação/Tokio Marine Hall"
+   "capa": "calema.webp"
   },
   {
    "id": "anagabriel",
@@ -1693,8 +1683,7 @@
     ]
    ],
    "sub": "Claro de Luna Tour 2027",
-   "img": "https://www.tokiomarinehall.com.br/wp-content/uploads/2026/10/destaque_st_AnaGabr27.jpg",
-   "cred": "Foto: Divulgação/Tokio Marine Hall"
+   "capa": "anagabriel.webp"
   },
   {
    "id": "wakeman",
@@ -1720,8 +1709,7 @@
      ""
     ]
    ],
-   "img": "https://www.tokiomarinehall.com.br/wp-content/uploads/2026/11/destaque_st_RWK.jpg",
-   "cred": "Foto: Divulgação/Tokio Marine Hall"
+   "capa": "wakeman.webp"
   },
   {
    "id": "lindemann",
@@ -1740,8 +1728,7 @@
     ]
    ],
    "sub": "World Tour 2027",
-   "img": "https://www.tokiomarinehall.com.br/wp-content/uploads/2026/11/destaque_st_Lindemann.jpg",
-   "cred": "Foto: Divulgação/Tokio Marine Hall"
+   "capa": "lindemann.webp"
   },
   {
    "id": "cordevita",
@@ -1758,8 +1745,7 @@
     ]
    ],
    "sub": "Espetáculo de violinos",
-   "img": "https://www.tokiomarinehall.com.br/wp-content/uploads/2026/11/destaque_st_cordevita.jpg",
-   "cred": "Foto: Divulgação/Tokio Marine Hall"
+   "capa": "cordevita.webp"
   },
   {
    "id": "tarja",
@@ -1778,8 +1764,7 @@
     ]
    ],
    "sub": "Frisson Live 2027",
-   "img": "https://www.tokiomarinehall.com.br/wp-content/uploads/2026/09/destaque_st_tarja-1.jpg",
-   "cred": "Foto: Divulgação/Tokio Marine Hall"
+   "capa": "tarja.webp"
   },
   {
    "id": "xlov",
@@ -1798,8 +1783,7 @@
     ]
    ],
    "sub": "Latam Tour II",
-   "img": "https://sites.opusentretenimento.com/storage/events/oxj96KLvDrP2UliKkKKzDuMiS38ICLQYqlVgEhVN.png",
-   "cred": "Foto: Divulgação/Vibra São Paulo"
+   "capa": "xlov.webp"
   },
   {
    "id": "fresno",
@@ -1819,8 +1803,7 @@
     ]
    ],
    "sub": "Sinfonia'26",
-   "img": "https://eventicket.s3-sa-east-1.amazonaws.com/imgs/52588-fresnosinfonia-510x310.jpg",
-   "cred": "Foto: Divulgação/Vibra São Paulo"
+   "capa": "fresno.webp"
   },
   {
    "id": "take6",
@@ -1838,8 +1821,7 @@
      ""
     ]
    ],
-   "img": "https://sites.opusentretenimento.com/storage/events/i0wzPLbVol9uUarBEVDYT67ZqQcBi49yp9Ril6PF.jpg",
-   "cred": "Foto: Divulgação/Vibra São Paulo"
+   "capa": "take6.webp"
   },
   {
    "id": "juanduran",
@@ -1857,8 +1839,7 @@
      ""
     ]
    ],
-   "img": "https://eventicket.s3-sa-east-1.amazonaws.com/imgs/51123-510x310.png",
-   "cred": "Foto: Divulgação/Vibra São Paulo"
+   "capa": "juanduran.webp"
   },
   {
    "id": "racanegra",
@@ -1876,8 +1857,7 @@
      ""
     ]
    ],
-   "img": "https://eventicket.s3-sa-east-1.amazonaws.com/imgs/52191-img-programacao-3.jpg",
-   "cred": "Foto: Divulgação/Vibra São Paulo"
+   "capa": "racanegra.webp"
   },
   {
    "id": "somos90",
@@ -1895,7 +1875,8 @@
      ""
     ]
    ],
-   "sub": "Belo, Pixote, Rodriguinho e Marquinhos Sensação"
+   "sub": "Belo, Pixote, Rodriguinho e Marquinhos Sensação",
+   "capa": "somos90.webp"
   },
   {
    "id": "anyma",
@@ -1912,7 +1893,8 @@
      "",
      ""
     ]
-   ]
+   ],
+   "capa": "anyma.webp"
   },
   {
    "id": "eros",
@@ -1950,8 +1932,7 @@
     ]
    ],
    "sub": "De 05/11 a 12/12",
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/09/festival_dosol_2026-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "dosol.webp"
   },
   {
    "id": "classicos",
@@ -1971,8 +1952,7 @@
     ]
    ],
    "sub": "De 27/11 a 06/12",
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2025/01/classicos-do-brasil-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "classicos.webp"
   },
   {
    "id": "simsp",
@@ -2015,8 +1995,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/01/SIM-Sao-Paulo-2026-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "simsp.webp"
   },
   {
    "id": "naviocx",
@@ -2059,8 +2038,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/Navio-Chitaozinho-Xororo-2026-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "naviocx.webp"
   },
   {
    "id": "cajuzera",
@@ -2079,8 +2057,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/11/CajuzeraFestivalFortaleza2026-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "cajuzera.webp"
   },
   {
    "id": "rosasummer",
@@ -2146,8 +2123,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/11/Weekend-Rosa-Summer-2026.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "rosasummer.webp"
   },
   {
    "id": "up",
@@ -2167,8 +2143,7 @@
     ]
    ],
    "sub": "De 27/12 a 04/01",
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/UniversoParalello2026-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "up.webp"
   },
   {
    "id": "reveillon",
@@ -2211,8 +2186,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/11/ReveillonFestival2026-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "reveillon.webp"
   },
   {
    "id": "naviopausini",
@@ -2255,8 +2229,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/Navio-Laura-Pausini-2027-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "naviopausini.webp"
   },
   {
    "id": "bembom",
@@ -2282,8 +2255,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/CARTAZ_12_TAMANHO_ALT-1024x575.png",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "bembom.webp"
   },
   {
    "id": "carvalheira",
@@ -2325,8 +2297,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/09/carvalheira_na_ladeira_olinda_2027-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "carvalheira.webp"
   },
   {
    "id": "oba",
@@ -2360,8 +2331,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/oba_festival_2027-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "oba.webp"
   },
   {
    "id": "amelaroc",
@@ -2396,8 +2366,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/11/AmeLarocFestival2027-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "amelaroc.webp"
   },
   {
    "id": "colorado",
@@ -2417,8 +2386,7 @@
     ]
    ],
    "sub": "De 12/03 a 21/03",
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/festa-do-peao-de-colorado-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "colorado.webp"
   },
   {
    "id": "maratonafloripa",
@@ -2452,8 +2420,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/maratona_cultural_florianopolis_2027-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "maratonafloripa.webp"
   },
   {
    "id": "goptun",
@@ -2480,8 +2447,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/GopTun2027-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "goptun.webp"
   },
   {
    "id": "bangers",
@@ -2508,8 +2474,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/09/bangers_open_air-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "bangers.webp"
   },
   {
    "id": "ribrodeo",
@@ -2529,8 +2494,7 @@
     ]
    ],
    "sub": "De 30/04 a 08/05",
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/ribeirao_rodeo_music-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "ribrodeo.webp"
   },
   {
    "id": "sambasampa",
@@ -2549,8 +2513,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/samba_sp_sampa_2027-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "sambasampa.webp"
   },
   {
    "id": "americana",
@@ -2570,8 +2533,7 @@
     ]
    ],
    "sub": "De 04/06 a 13/06",
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/festa_do_peao_americana_2027-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "americana.webp"
   },
   {
    "id": "pedroleopoldo",
@@ -2591,8 +2553,7 @@
     ]
    ],
    "sub": "De 04/06 a 12/06",
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/pedro_leopoldo_rodeio_show_2027-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "pedroleopoldo.webp"
   },
   {
    "id": "arraia",
@@ -2619,8 +2580,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/arraia_do_brasil-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "arraia.webp"
   },
   {
    "id": "piumhi",
@@ -2663,8 +2623,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/10/expo_piumhi_2027-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "piumhi.webp"
   },
   {
    "id": "motoweek",
@@ -2684,8 +2643,7 @@
     ]
    ],
    "sub": "De 22/07 a 31/07",
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2024/05/capital_moto_week-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "motoweek.webp"
   },
   {
    "id": "sensacional",
@@ -2711,8 +2669,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/09/festival_senscional-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "sensacional.webp"
   },
   {
    "id": "bananada",
@@ -2771,8 +2728,7 @@
      ""
     ]
    ],
-   "img": "https://mapadosfestivais.com.br/wp-content/uploads/2026/09/festival_bananada_2027-1024x575.webp",
-   "cred": "Foto: Divulgação/Mapa dos Festivais"
+   "capa": "bananada.webp"
   },
   {
    "id": "barretos",
@@ -2937,6 +2893,161 @@
      "Recife",
      "PE",
      "Arena Boa Viagem",
+     "",
+     ""
+    ]
+   ]
+  },
+  {
+   "id": "xuxa",
+   "n": "Xuxa",
+   "g": [
+    "popbr"
+   ],
+   "d": [
+    [
+     "2027-02-27",
+     "São Paulo",
+     "SP",
+     "Nubank Parque",
+     "",
+     ""
+    ],
+    [
+     "2027-02-28",
+     "São Paulo",
+     "SP",
+     "Nubank Parque",
+     "",
+     ""
+    ],
+    [
+     "2027-08-07",
+     "Fortaleza",
+     "CE",
+     "Arena Castelão",
+     "",
+     ""
+    ]
+   ],
+   "sub": "O Último Voo da Nave",
+   "capa": "xuxa.webp"
+  },
+  {
+   "id": "jao",
+   "n": "Jão",
+   "g": [
+    "popbr",
+    "pop"
+   ],
+   "d": [
+    [
+     "2026-11-28",
+     "Recife",
+     "PE",
+     "Ginásio Geraldão",
+     "",
+     ""
+    ],
+    [
+     "2027-03-27",
+     "São Paulo",
+     "SP",
+     "Nubank Parque",
+     "",
+     ""
+    ]
+   ],
+   "sub": "Turnê Memórias Póstumas",
+   "capa": "jao.webp"
+  },
+  {
+   "id": "zeneto",
+   "n": "Zé Neto & Cristiano",
+   "g": [
+    "sertanejo"
+   ],
+   "d": [
+    [
+     "2027-04-24",
+     "São Paulo",
+     "SP",
+     "Nubank Parque",
+     "",
+     ""
+    ]
+   ],
+   "sub": "15 Anos",
+   "capa": "zeneto.webp"
+  },
+  {
+   "id": "fnm",
+   "n": "Faith No More, Alice in Chains e Mastodon",
+   "g": [
+    "rock",
+    "metal"
+   ],
+   "d": [
+    [
+     "2027-10-29",
+     "São Paulo",
+     "SP",
+     "Nubank Parque",
+     "",
+     ""
+    ]
+   ],
+   "capa": "fnm.webp"
+  },
+  {
+   "id": "anitta",
+   "n": "Ensaios da Anitta",
+   "g": [
+    "popbr",
+    "funk"
+   ],
+   "d": [
+    [
+     "2027-01-31",
+     "São Paulo",
+     "SP",
+     "Local a definir",
+     "",
+     ""
+    ]
+   ],
+   "sub": "Carnaval 2027",
+   "s": "ing"
+  },
+  {
+   "id": "carnavalcidade",
+   "n": "Carnaval na Cidade CarnaUOL",
+   "g": [
+    "fest",
+    "popbr"
+   ],
+   "d": [
+    [
+     "2027-02-07",
+     "São Paulo",
+     "SP",
+     "Centro Esportivo Tietê",
+     "",
+     ""
+    ],
+    [
+     "2027-02-08",
+     "São Paulo",
+     "SP",
+     "Centro Esportivo Tietê",
+     "",
+     ""
+    ],
+    [
+     "2027-02-13",
+     "São Paulo",
+     "SP",
+     "Centro Esportivo Tietê",
      "",
      ""
     ]

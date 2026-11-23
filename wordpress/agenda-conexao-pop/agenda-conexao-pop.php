@@ -53,6 +53,9 @@ final class Agenda_Conexao_Pop {
 			'rap'        => 'Rap',
 			'metal'      => 'Metal',
 			'eletronica' => 'Eletrônica',
+			'sertanejo'  => 'Sertanejo',
+			'funk'       => 'Funk',
+			'reggae'     => 'Reggae',
 		);
 	}
 
@@ -465,29 +468,54 @@ final class Agenda_Conexao_Pop {
 			$cls = $m === 'tm_erro' ? 'notice-error' : 'notice-success';
 			echo '<div class="notice ' . esc_attr($cls) . ' is-dismissible"><p>' . esc_html($txt[$m]) . '</p></div>';
 		}
+		// Agenda vazia: oferece a importação ali mesmo.
+		$tela = get_current_screen();
+		$contagem = wp_count_posts(self::CPT);
+		$total = 0;
+		foreach ((array) $contagem as $st => $q) {
+			if ($st !== 'trash' && $st !== 'auto-draft') {
+				$total += (int) $q;
+			}
+		}
+		if (!$total && $tela && $tela->post_type === self::CPT && current_user_can('manage_options') && $m !== 'inicial') {
+			echo '<div class="notice notice-info"><p><strong>A agenda ainda está vazia.</strong> Importe os shows e festivais que já estão na página /agenda do site, já publicados e com capa.</p><form method="post" action="' . esc_url(admin_url('admin-post.php')) . '" style="margin:0 0 12px">';
+			wp_nonce_field('cpa_importar_inicial');
+			echo '<input type="hidden" name="action" value="cpa_importar_inicial"><button class="button button-primary">Importar agenda agora</button></form></div>';
+		}
 	}
 
 	/* ------------------------------------------------------------------ */
 	/* Importações                                                         */
 	/* ------------------------------------------------------------------ */
 
+	/**
+	 * Importa a agenda inicial em lotes de 10, com uma tela de progresso entre um lote e outro.
+	 * Assim a hospedagem não corta a importação no meio por demorar demais.
+	 */
 	public function importar_inicial() {
 		check_admin_referer('cpa_importar_inicial');
 		if (!current_user_can('manage_options')) {
 			wp_die('Sem permissão.');
 		}
 		if (function_exists('set_time_limit')) {
-			@set_time_limit(600); // phpcs:ignore -- a importação baixa dezenas de capas.
+			@set_time_limit(120); // phpcs:ignore
 		}
-		$json = json_decode((string) file_get_contents(CPA_DIR . 'data/agenda-inicial.json'), true);
+		$lote   = 10;
+		$inicio = absint($_REQUEST['cpa_off'] ?? 0);
+		$n      = absint($_REQUEST['cpa_n'] ?? 0);
+		$json   = json_decode((string) file_get_contents(CPA_DIR . 'data/agenda-inicial.json'), true);
+		$shows  = $json['shows'] ?? array();
+		$total  = count($shows);
+		if (!$total) {
+			wp_die('Não encontrei o arquivo da agenda inicial dentro do plugin. Reinstale o plugin e tente de novo.');
+		}
 		$mapa_tk = array('tm' => 'ticketmaster', 'ing' => 'ingresse');
-		$n = 0;
-		foreach (($json['shows'] ?? array()) as $s) {
+		foreach (array_slice($shows, $inicio, $lote) as $s) {
 			$existe = get_posts(array('post_type' => self::CPT, 'post_status' => 'any', 'meta_key' => '_cpa_seed', 'meta_value' => $s['id'], 'fields' => 'ids', 'numberposts' => 1));
 			if ($existe) {
 				continue;
 			}
-			$id = wp_insert_post(array('post_type' => self::CPT, 'post_status' => 'publish', 'post_title' => $s['n']));
+			$id = wp_insert_post(array('post_type' => self::CPT, 'post_status' => 'publish', 'post_title' => $s['n']), true);
 			if (is_wp_error($id) || !$id) {
 				continue;
 			}
@@ -497,6 +525,12 @@ final class Agenda_Conexao_Pop {
 			update_post_meta($id, '_cpa_ticketeira', $mapa_tk[$s['s'] ?? ''] ?? '');
 			update_post_meta($id, '_cpa_link', $s['link'] ?? '');
 			$generos = array_values(array_diff($s['g'], array('fest')));
+			foreach ($generos as $g) {
+				if (!term_exists($g, self::TAX)) {
+					$nomes = $json['generos'] ?? array();
+					wp_insert_term($nomes[$g] ?? ucfirst($g), self::TAX, array('slug' => $g));
+				}
+			}
 			if ($generos) {
 				wp_set_object_terms($id, $generos, self::TAX);
 			}
@@ -523,6 +557,21 @@ final class Agenda_Conexao_Pop {
 				}
 			}
 			$n++;
+		}
+		self::limpar_cache();
+		$proximo = $inicio + $lote;
+		if ($proximo < $total) {
+			$url = wp_nonce_url(admin_url('admin-post.php?action=cpa_importar_inicial&cpa_off=' . $proximo . '&cpa_n=' . $n), 'cpa_importar_inicial');
+			$feito = min($proximo, $total);
+			nocache_headers();
+			echo '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=' . esc_url($url) . '"><title>Importando a agenda</title>'
+				. '<style>body{font-family:system-ui,sans-serif;background:#f0f0f1;display:grid;place-items:center;min-height:100vh;margin:0}div{background:#fff;padding:32px 40px;border-radius:8px;border-top:6px solid #FF56AC;max-width:420px}progress{width:100%;height:14px;accent-color:#FF56AC}</style></head><body><div>'
+				. '<h1 style="margin:0 0 8px;font-size:20px">Importando a agenda…</h1>'
+				. '<p>' . intval($feito) . ' de ' . intval($total) . ' shows e festivais. Não feche esta página.</p>'
+				. '<progress max="' . intval($total) . '" value="' . intval($feito) . '"></progress>'
+				. '<p style="font-size:13px;color:#666">Se parar por mais de um minuto, <a href="' . esc_url($url) . '">clique aqui para continuar</a>.</p>'
+				. '</div></body></html>';
+			exit;
 		}
 		wp_safe_redirect(admin_url('edit.php?post_type=' . self::CPT . '&cpa_msg=inicial&cpa_n=' . $n));
 		exit;

@@ -1,0 +1,26 @@
+/* Tela de login com a cara do Conexão Pop */
+body.login{background:#2D2727;font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;color:#2D2727;position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+body.login::before{content:"";position:fixed;inset:0;background-size:cover;background-position:50% 62%;filter:grayscale(1) contrast(1.25) brightness(.9);z-index:0}
+body.login::after{content:"";position:fixed;inset:0;background:linear-gradient(180deg,rgba(255,86,172,.8),rgba(220,79,146,.86) 55%,rgba(45,39,39,.94));mix-blend-mode:multiply;z-index:0}
+#login{position:relative;z-index:1;width:360px;max-width:calc(100% - 32px);padding:40px 0 24px;margin:0 auto}
+.login h1 a{background-size:contain;background-position:center;width:260px;height:44px;margin:0 auto 28px}
+.login form{background:#fff;border:0;border-radius:12px;border-top:8px solid #FF56AC;box-shadow:0 24px 60px -24px rgba(28,23,24,.7);padding:28px 26px 30px;margin-top:0}
+.login form::before{content:"área da redação";display:block;font-family:"Geist Pixel","Courier New",monospace;font-size:30px;line-height:1.1;margin:0 0 20px;color:#2D2727}
+.login label{font-weight:700;font-size:14px;color:#2D2727}
+.login form .input,.login input[type=text],.login input[type=password],.login input[type=email]{border:2px solid #F2D3E2;border-radius:8px;min-height:46px;font-size:17px;padding:6px 12px;box-shadow:none;background:#fff;color:#2D2727}
+.login form .input:focus,.login input[type=text]:focus,.login input[type=password]:focus{border-color:#FF56AC;box-shadow:0 0 0 3px rgba(255,86,172,.25);outline:0}
+.login .button.wp-hide-pw{color:#C2186F}
+.login .button.wp-hide-pw:focus{border-color:#FF56AC;box-shadow:0 0 0 2px #FF56AC}
+.login .forgetmenot label{font-weight:500}
+.login input[type=checkbox]{border-color:#F2D3E2;border-radius:4px}
+.login input[type=checkbox]:checked::before{filter:hue-rotate(120deg)}
+.wp-core-ui .button-primary{background:#FF56AC;border:0;border-radius:999px;color:#2D2727;font-weight:700;font-size:15px;min-height:44px;padding:0 24px;text-shadow:none;box-shadow:none}
+.wp-core-ui .button-primary:hover,.wp-core-ui .button-primary:focus{background:#DC4F92;color:#fff;box-shadow:0 0 0 3px rgba(255,86,172,.3)}
+.login #nav,.login #backtoblog{text-align:center;padding:0;margin:16px 0 0}
+.login #nav a,.login #backtoblog a{color:#fff;font-weight:600;text-decoration:none}
+.login #nav a:hover,.login #backtoblog a:hover{color:#FFD6EA;text-decoration:underline}
+.login .message,.login .notice,.login .success,.login #login_error{border-left:0;border-radius:10px;box-shadow:none;margin-bottom:16px;background:#fff;border-top:4px solid #DC4F92;color:#2D2727}
+.login #login_error{border-top-color:#B3261E}
+.login .privacy-policy-page-link{position:relative;z-index:1}
+.login .privacy-policy-page-link a{color:#fff}
+@media (prefers-reduced-motion:reduce){.login *{transition:none!important}}

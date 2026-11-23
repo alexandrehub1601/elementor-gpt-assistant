@@ -12,8 +12,9 @@ envio de shows por artistas e produtoras (com aprovação da redação), alertas
 
 ## Montar as páginas
 
-1. Crie a página **Agenda** e cole `[agenda_conexao]` num widget de **Shortcode**
-   do Elementor (ou direto no editor). Deixe a página em largura total.
+1. Na página **Agenda** (conexaopop.com.br/agenda), apague o HTML do protótipo e cole
+   `[agenda_conexao]` num widget de **Shortcode** do Elementor. Deixe em largura total.
+   Faça isso depois de importar a agenda inicial, para a página não ficar vazia.
 2. Crie a página **Cadastrar meu show** e cole `[agenda_conexao_cadastro]`.
 3. Em **Agenda de shows → Configurações**, escolha a página de cadastro e o
    e-mail que recebe o aviso de show novo para aprovar.

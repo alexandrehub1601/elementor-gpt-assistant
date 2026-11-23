@@ -2,7 +2,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap">
 <style>
 /* Layout: barra escura com logo e menu; abertura com foto de plateia em rosa; faixa rosa de filtros;
    ingressos em duas colunas (capa do show + canhoto com a data). Aba própria para festivais. */
@@ -103,7 +103,8 @@ main .wrap{padding-block:28px 64px}
 .ticket.near .stub{background:#2D2727;color:#fff}
 .stub::before,.stub::after{display:none;content:"";position:absolute;right:-11px;width:20px;height:20px;border-radius:50%;background:var(--bg);border:1.5px solid var(--line);z-index:1}
 .stub::before{top:-11.5px}.stub::after{bottom:-11.5px}
-.stub .wd{font-weight:700;font-size:13px}
+.stub .wd,.stub .dd,.stub .mm{font-stretch:75%;font-variation-settings:"wdth" 75;text-transform:uppercase}
+.stub .wd{font-weight:700;font-size:13px;letter-spacing:.04em}
 .stub .dd{font-family:var(--f-poster);font-weight:800;font-size:34px;line-height:1;letter-spacing:-.02em}
 .stub .mm{font-weight:700;font-size:14px;line-height:1.2}
 .stub .plus{margin-top:10px;font-size:12px;font-weight:700;background:rgba(45,39,39,.14);padding:2px 7px;border-radius:999px}
@@ -207,6 +208,14 @@ footer .wrap{padding-block:32px 44px;display:grid;gap:10px;font-size:14px}
 footer img{height:24px;width:auto}
 footer small{opacity:.75}
 
+/* Botões blindados contra o estilo do tema */
+#agendaView button.btn,#agendaView a.btn,#agendaView span.btn,#sheet button.btn{font-family:var(--f-ui);text-transform:none;letter-spacing:0;line-height:1.2;box-shadow:none;background:transparent;color:var(--fg);border:1.5px solid var(--line);border-radius:999px;font-weight:700;text-decoration:none}
+#agendaView button.btn:hover,#agendaView a.btn:hover,#sheet button.btn:hover{background:var(--tint);color:var(--fg);border-color:var(--pink)}
+#agendaView button.btn.follow[aria-pressed="true"]{background:var(--pink);border-color:var(--pink);color:var(--on-pink)}
+#sheet button.btn.pink{background:var(--pink);border-color:var(--pink);color:var(--on-pink)}
+#agendaView button.tab{font-family:var(--f-pixel);text-transform:none;letter-spacing:0;box-shadow:none;background:transparent;color:#fff;border:2px solid #fff}
+#agendaView button.tab[aria-selected="true"]{background:#fff;color:#2D2727}
+#agendaView .btn svg,#sheet .btn svg{stroke:currentColor;fill:none}
 /* Painel de alerta */
 .sheet{position:fixed;inset:0;z-index:20;display:grid;place-items:end center;background:rgba(28,23,24,.55);padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
 .sheet[hidden]{display:none}
@@ -344,7 +353,6 @@ footer small{opacity:.75}
     </div>
   </div>
   <div class="fbottom"><span>© 2026 Conexão Pop – Todos os direitos reservados. CNPJ 40.905.719/0001-96</span><a href="https://conexaopop.com.br/politica-de-privacidade/" target="_blank" rel="noopener">Política de Privacidade</a></div>
-  <p class="fnote">Versão de teste da agenda: datas tiradas de agendas públicas em 23/11/2026, ainda sem conferência.</p>
 </div></footer>
 
 <div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
@@ -360,7 +368,6 @@ footer small{opacity:.75}
     </div>
     <div class="field"><label for="a-mail">Seu e-mail</label><input id="a-mail" type="email" placeholder="voce@email.com" autocomplete="email"></div>
     <div class="row2"><button class="btn pink" type="submit">Seguir</button><button class="btn" type="button" id="sheetClose">Cancelar</button></div>
-    <p class="sub">Nesta versão de teste o alerta fica salvo só neste navegador.</p>
   </form>
 </div>
 
@@ -580,7 +587,7 @@ form.addEventListener("submit",e=>{
   const names={ticketmaster:"Ticketmaster",eventim:"Eventim",ticket360:"Ticket360",ingresse:"Ingresse"};
   const auto=Object.keys(names).find(s=>link.includes(s));
   msg.hidden=false;
-  msg.textContent=`Show enviado. ${document.getElementById("f-artist").value} entra na agenda depois da revisão da redação.${auto?" Como o link é da "+names[auto]+", preço, status e capa vão se atualizar sozinhos.":""} (Versão de teste: nada foi enviado de verdade.)`;
+  msg.textContent=`Show enviado. ${document.getElementById("f-artist").value} entra na agenda depois da revisão da redação.${auto?" Como o link é da "+names[auto]+", preço, status e capa vão se atualizar sozinhos.":""}`;
 });
 
 function route(){const cad=location.hash==="#cadastrar";document.getElementById("cadView").hidden=!cad;document.getElementById("agendaView").hidden=cad;if(cad)scrollTo({top:0})}

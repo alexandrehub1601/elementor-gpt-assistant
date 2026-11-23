@@ -38,6 +38,19 @@
 .cpa-btn.cpa-icon{padding:7px 10px}
 .cpa-badge{background:var(--cpa-pink);color:var(--cpa-on-pink);border-radius:999px;font-size:12px;font-weight:800;padding:0 7px}
 
+/* Botões blindados contra o estilo do tema */
+#cpa button.cpa-btn,#cpa a.cpa-btn,#cpa-form button.cpa-btn{font-family:var(--cpa-ui);text-transform:none;letter-spacing:0;line-height:1.2;box-shadow:none;background:transparent;color:var(--cpa-fg);border:1.5px solid var(--cpa-line);border-radius:999px;font-weight:700;text-decoration:none;width:auto;height:auto}
+#cpa button.cpa-btn:hover,#cpa a.cpa-btn:hover{background:var(--cpa-tint);color:var(--cpa-fg);border-color:var(--cpa-pink)}
+#cpa button.cpa-follow[aria-pressed="true"]{background:var(--cpa-pink);border-color:var(--cpa-pink);color:var(--cpa-on-pink)}
+#cpa a.cpa-btn-pink,#cpa button.cpa-btn-pink{background:var(--cpa-pink);border-color:var(--cpa-pink);color:var(--cpa-on-pink)}
+#cpa button.cpa-btn-ghost{border-color:#fff;color:#fff;background:transparent}
+#cpa button.cpa-btn-ghost:hover{background:rgba(255,255,255,.14);color:#fff}
+#cpa-form button.cpa-btn-dark{background:#2D2727;border-color:#2D2727;color:#fff}
+#cpa button.cpa-tab{font-family:var(--cpa-pixel);text-transform:none;letter-spacing:0;box-shadow:none;background:transparent;color:#fff;border:2px solid #fff;border-radius:999px}
+#cpa button.cpa-tab[aria-selected="true"]{background:#fff;color:#2D2727}
+#cpa .cpa-btn svg{stroke:currentColor;fill:none}
+#cpa a.cpa-seller.cpa-link{color:#fff;background:#2D2727;text-decoration:none}
+
 /* Filtros */
 .cpa-filters{position:sticky;top:0;z-index:20;background:var(--cpa-pink-strong);color:#fff;box-shadow:0 6px 18px -10px rgba(45,39,39,.5)}
 .admin-bar .cpa-filters{top:32px}
@@ -75,7 +88,8 @@
 .cpa-ticket:hover{border-color:var(--cpa-pink);box-shadow:0 10px 28px -16px rgba(220,79,146,.55)}
 .cpa-stub{position:relative;background:var(--cpa-pink);color:var(--cpa-on-pink);display:flex;flex-direction:column;align-items:center;padding:16px 2px;border-radius:8px 0 0 8px;text-align:center;border-right:2px dashed rgba(255,255,255,.85);margin:-1.5px 0 -1.5px -1.5px}
 .cpa-ticket.cpa-near .cpa-stub{background:#2D2727;color:#fff}
-.cpa-stub .cpa-wd{font-weight:700;font-size:13px}
+.cpa-stub .cpa-wd,.cpa-stub .cpa-dd,.cpa-stub .cpa-mm{font-stretch:75%;font-variation-settings:"wdth" 75;text-transform:uppercase}
+.cpa-stub .cpa-wd{font-weight:700;font-size:13px;letter-spacing:.04em}
 .cpa-stub .cpa-dd{font-weight:800;font-size:34px;line-height:1;letter-spacing:-.02em}
 .cpa-stub .cpa-mm{font-weight:700;font-size:14px;line-height:1.2}
 .cpa-stub .cpa-plus{margin-top:10px;font-size:12px;font-weight:700;background:rgba(45,39,39,.14);padding:2px 7px;border-radius:999px}

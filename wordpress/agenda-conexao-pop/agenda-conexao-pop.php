@@ -618,7 +618,7 @@ final class Agenda_Conexao_Pop {
 	/* ------------------------------------------------------------------ */
 
 	public function registrar_assets() {
-		wp_register_style('cpa-fontes', 'https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap', array(), null);
+		wp_register_style('cpa-fontes', 'https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap', array(), null);
 		wp_register_style('cpa-agenda', CPA_URL . 'assets/agenda.css', array('cpa-fontes'), CPA_VERSION);
 		wp_register_script('cpa-agenda', CPA_URL . 'assets/agenda.js', array(), CPA_VERSION, true);
 	}

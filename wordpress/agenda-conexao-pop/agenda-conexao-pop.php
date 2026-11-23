@@ -441,7 +441,7 @@ final class Agenda_Conexao_Pop {
 				<?php wp_nonce_field('cpa_importar_inicial'); ?><input type="hidden" name="action" value="cpa_importar_inicial">
 				<?php submit_button('Importar agenda inicial (125 shows e festivais)', 'secondary', 'submit', false); ?>
 			</form>
-			<p class="description">A agenda inicial traz os shows e festivais de nov/2026 a nov/2027 levantados no protótipo. Eles entram como "Pendente", com a capa, que sobe para a biblioteca de mídia do site, para a redação conferir antes de publicar. A importação baixa as capas e pode levar alguns minutos.</p>
+			<p class="description">Traz os 125 shows e festivais que estão hoje em conexaopop.com.br/agenda, já publicados e com capa. Depois é só editar ou mandar para a lixeira o que quiser. Se clicar de novo, não duplica: só cria o que ainda não existe. A importação sobe as capas para a biblioteca de mídia e pode levar alguns minutos.</p>
 			<h2>Como usar</h2>
 			<ol>
 				<li>Crie uma página "Agenda" e cole <code>[agenda_conexao]</code> num widget de shortcode do Elementor (ou no editor).</li>
@@ -457,7 +457,7 @@ final class Agenda_Conexao_Pop {
 		$n = absint($_GET['cpa_n'] ?? 0);
 		$txt = array(
 			'aprovado'  => 'Show aprovado e publicado na agenda.',
-			'inicial'   => sprintf('%d shows importados como pendentes. Confira as datas e publique.', $n),
+			'inicial'   => sprintf('%d shows e festivais importados e publicados. Edite ou mande para a lixeira o que quiser.', $n),
 			'tm'        => sprintf('%d shows novos importados da Ticketmaster como pendentes.', $n),
 			'tm_erro'   => 'A Ticketmaster não respondeu. Confira a chave da API e tente de novo.',
 		);
@@ -487,7 +487,7 @@ final class Agenda_Conexao_Pop {
 			if ($existe) {
 				continue;
 			}
-			$id = wp_insert_post(array('post_type' => self::CPT, 'post_status' => 'pending', 'post_title' => $s['n']));
+			$id = wp_insert_post(array('post_type' => self::CPT, 'post_status' => 'publish', 'post_title' => $s['n']));
 			if (is_wp_error($id) || !$id) {
 				continue;
 			}
@@ -524,7 +524,7 @@ final class Agenda_Conexao_Pop {
 			}
 			$n++;
 		}
-		wp_safe_redirect(admin_url('edit.php?post_type=' . self::CPT . '&post_status=pending&cpa_msg=inicial&cpa_n=' . $n));
+		wp_safe_redirect(admin_url('edit.php?post_type=' . self::CPT . '&cpa_msg=inicial&cpa_n=' . $n));
 		exit;
 	}
 

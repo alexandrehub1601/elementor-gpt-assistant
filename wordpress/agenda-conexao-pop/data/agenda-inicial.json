@@ -1,0 +1,1226 @@
+{
+ "generos": {
+  "pop": "Pop",
+  "popbr": "Pop nacional",
+  "rnb": "R&B",
+  "kpop": "K-pop / J-pop",
+  "fest": "Festival",
+  "rock": "Rock",
+  "indie": "Indie",
+  "mpb": "MPB",
+  "pagode": "Pagode",
+  "rap": "Rap",
+  "metal": "Metal",
+  "eletronica": "Eletrônica"
+ },
+ "shows": [
+  {
+   "id": "gybe",
+   "n": "Godspeed You! Black Emperor",
+   "g": [
+    "indie"
+   ],
+   "s": "ing",
+   "d": [
+    [
+     "2026-11-23",
+     "São Paulo",
+     "SP",
+     "Audio",
+     "",
+     "esgotado"
+    ],
+    [
+     "2026-11-24",
+     "São Paulo",
+     "SP",
+     "Audio",
+     "",
+     "extra"
+    ]
+   ]
+  },
+  {
+   "id": "neworder",
+   "n": "New Order",
+   "g": [
+    "indie",
+    "pop"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2026-11-25",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "",
+     "esgotado"
+    ]
+   ]
+  },
+  {
+   "id": "marr",
+   "n": "Johnny Marr",
+   "g": [
+    "indie",
+    "rock"
+   ],
+   "d": [
+    [
+     "2026-11-24",
+     "São Paulo",
+     "SP",
+     "Tokio Marine Hall"
+    ]
+   ]
+  },
+  {
+   "id": "omam",
+   "n": "Of Monsters and Men",
+   "g": [
+    "indie"
+   ],
+   "d": [
+    [
+     "2026-11-25",
+     "São Paulo",
+     "SP",
+     "Audio",
+     "",
+     "esgotado"
+    ],
+    [
+     "2026-11-26",
+     "São Paulo",
+     "SP",
+     "Audio",
+     "",
+     "esgotado"
+    ]
+   ]
+  },
+  {
+   "id": "seal",
+   "n": "Seal",
+   "g": [
+    "pop",
+    "rnb"
+   ],
+   "d": [
+    [
+     "2026-11-26",
+     "Rio de Janeiro",
+     "RJ",
+     "Qualistage"
+    ],
+    [
+     "2026-11-28",
+     "São Paulo",
+     "SP",
+     "Nubank Parque"
+    ]
+   ]
+  },
+  {
+   "id": "apc",
+   "n": "A Perfect Circle",
+   "g": [
+    "rock"
+   ],
+   "d": [
+    [
+     "2026-11-27",
+     "São Paulo",
+     "SP",
+     "Suhai Music Hall"
+    ]
+   ]
+  },
+  {
+   "id": "fagner",
+   "n": "Fagner",
+   "g": [
+    "mpb"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2026-11-27",
+     "São Paulo",
+     "SP",
+     "Tokio Marine Hall"
+    ]
+   ]
+  },
+  {
+   "id": "revela",
+   "n": "Grupo Revelação",
+   "g": [
+    "pagode"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2026-11-27",
+     "Rio de Janeiro",
+     "RJ",
+     "Brava Arena Jockey"
+    ]
+   ]
+  },
+  {
+   "id": "babymetal",
+   "n": "BABYMETAL",
+   "g": [
+    "kpop",
+    "metal"
+   ],
+   "d": [
+    [
+     "2026-11-28",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed"
+    ]
+   ]
+  },
+  {
+   "id": "lagum",
+   "n": "Lagum",
+   "sub": "Turnê nacional",
+   "g": [
+    "popbr"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2026-11-28",
+     "Brasília",
+     "DF",
+     "Centro de Convenções Ulysses Guimarães",
+     "21h"
+    ],
+    [
+     "2026-12-05",
+     "Ribeirão Preto",
+     "SP",
+     "Multiplan Hall Ribeirão Shopping",
+     "21h"
+    ],
+    [
+     "2026-12-11",
+     "Porto Alegre",
+     "RS",
+     "Auditório Araújo Vianna",
+     "21h30"
+    ],
+    [
+     "2026-12-12",
+     "Jurerê Internacional",
+     "SC",
+     "P12 Parador",
+     "20h"
+    ],
+    [
+     "2026-12-13",
+     "Curitiba",
+     "PR",
+     "Cine Lido",
+     "22h"
+    ]
+   ]
+  },
+  {
+   "id": "pitty",
+   "n": "Pitty",
+   "sub": "Turnê · 8 cidades até dezembro",
+   "g": [
+    "popbr",
+    "rock"
+   ],
+   "d": [
+    [
+     "2026-11-28",
+     "Recife",
+     "PE",
+     "Classic Hall"
+    ],
+    [
+     "2026-12-04",
+     "Porto Alegre",
+     "RS",
+     "Auditório Araújo Vianna"
+    ],
+    [
+     "2026-12-05",
+     "Vitória",
+     "ES",
+     "Espaço Patrick Ribeiro"
+    ],
+    [
+     "2026-12-12",
+     "Ribeirão Preto",
+     "SP",
+     "CHF Espaço Cultural"
+    ],
+    [
+     "2026-12-19",
+     "Sorocaba",
+     "SP",
+     "Clube Recreativo"
+    ],
+    [
+     "2026-12-28",
+     "Balneário Camboriú",
+     "SC",
+     "Music Park"
+    ]
+   ]
+  },
+  {
+   "id": "molotov",
+   "n": "No Ar Coquetel Molotov 2026",
+   "g": [
+    "fest",
+    "indie"
+   ],
+   "d": [
+    [
+     "2026-11-28",
+     "Recife",
+     "PE",
+     "Campus da UFPE"
+    ]
+   ]
+  },
+  {
+   "id": "gipsy",
+   "n": "Gipsy Kings by Diego Baliardo",
+   "g": [
+    "mpb"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2026-11-28",
+     "São Paulo",
+     "SP",
+     "Suhai Music Hall",
+     "21h"
+    ],
+    [
+     "2026-11-29",
+     "Rio de Janeiro",
+     "RJ",
+     "Qualistage",
+     "21h30"
+    ]
+   ]
+  },
+  {
+   "id": "amfootball",
+   "n": "American Football",
+   "g": [
+    "indie"
+   ],
+   "s": "ing",
+   "d": [
+    [
+     "2026-11-30",
+     "São Paulo",
+     "SP",
+     "Audio"
+    ]
+   ]
+  },
+  {
+   "id": "caesar",
+   "n": "Daniel Caesar",
+   "g": [
+    "rnb",
+    "pop"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2026-12-02",
+     "São Paulo",
+     "SP",
+     "Suhai Music Hall"
+    ]
+   ]
+  },
+  {
+   "id": "sheeran",
+   "n": "Ed Sheeran",
+   "sub": "Loop Tour",
+   "g": [
+    "pop"
+   ],
+   "d": [
+    [
+     "2026-12-05",
+     "São Paulo",
+     "SP",
+     "Nubank Parque"
+    ],
+    [
+     "2026-12-06",
+     "São Paulo",
+     "SP",
+     "Nubank Parque"
+    ]
+   ]
+  },
+  {
+   "id": "primavera",
+   "n": "Primavera Sound São Paulo 2026",
+   "g": [
+    "fest",
+    "indie"
+   ],
+   "d": [
+    [
+     "2026-12-05",
+     "São Paulo",
+     "SP",
+     "Autódromo de Interlagos"
+    ],
+    [
+     "2026-12-06",
+     "São Paulo",
+     "SP",
+     "Autódromo de Interlagos"
+    ]
+   ]
+  },
+  {
+   "id": "capital",
+   "n": "Capital Inicial",
+   "g": [
+    "rock",
+    "popbr"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2026-12-05",
+     "Rio de Janeiro",
+     "RJ",
+     "Brava Arena Jockey"
+    ]
+   ]
+  },
+  {
+   "id": "djavan",
+   "n": "Djavan",
+   "g": [
+    "mpb"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2026-12-05",
+     "Maceió",
+     "AL",
+     "Estacionamento do Jaraguá",
+     "21h"
+    ],
+    [
+     "2026-12-12",
+     "São Paulo",
+     "SP",
+     "Mercado Livre Arena Pacaembu",
+     "20h"
+    ],
+    [
+     "2026-12-13",
+     "São Paulo",
+     "SP",
+     "Mercado Livre Arena Pacaembu",
+     "20h"
+    ]
+   ]
+  },
+  {
+   "id": "ferrugem",
+   "n": "Ferrugem",
+   "g": [
+    "pagode"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2026-12-05",
+     "Rio de Janeiro",
+     "RJ",
+     "Qualistage"
+    ]
+   ]
+  },
+  {
+   "id": "mariarita",
+   "n": "Maria Rita",
+   "g": [
+    "mpb"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2026-12-06",
+     "João Pessoa",
+     "PB",
+     "Teatro Pedra do Reino",
+     "18h"
+    ]
+   ]
+  },
+  {
+   "id": "psica",
+   "n": "Psica 2026",
+   "g": [
+    "fest"
+   ],
+   "d": [
+    [
+     "2026-12-11",
+     "Belém",
+     "PA",
+     "Mangueirão e Cidade Velha"
+    ],
+    [
+     "2026-12-12",
+     "Belém",
+     "PA",
+     "Mangueirão e Cidade Velha"
+    ],
+    [
+     "2026-12-13",
+     "Belém",
+     "PA",
+     "Mangueirão e Cidade Velha"
+    ]
+   ]
+  },
+  {
+   "id": "roupanova",
+   "n": "Roupa Nova",
+   "g": [
+    "popbr"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2026-12-12",
+     "Ribeirão Preto",
+     "SP",
+     "Multiplan Hall Ribeirão Shopping"
+    ]
+   ]
+  },
+  {
+   "id": "sarava",
+   "n": "Festival Saravá 2026",
+   "g": [
+    "fest"
+   ],
+   "d": [
+    [
+     "2026-12-12",
+     "Florianópolis",
+     "SC",
+     "Alcateia Park Campeche"
+    ],
+    [
+     "2026-12-13",
+     "Florianópolis",
+     "SC",
+     "Alcateia Park Campeche"
+    ]
+   ]
+  },
+  {
+   "id": "revxande",
+   "n": "Grupo Revelação & Xande de Pilares",
+   "g": [
+    "pagode"
+   ],
+   "s": "tm",
+   "age": "16 anos",
+   "d": [
+    [
+     "2026-12-13",
+     "Recife",
+     "PE",
+     "Classic Hall",
+     "20h",
+     "",
+     "18h"
+    ]
+   ]
+  },
+  {
+   "id": "slayer",
+   "n": "Slayer",
+   "g": [
+    "metal"
+   ],
+   "d": [
+    [
+     "2026-12-17",
+     "São Paulo",
+     "SP",
+     "Nubank Parque"
+    ]
+   ]
+  },
+  {
+   "id": "lenine",
+   "n": "Lenine",
+   "g": [
+    "mpb"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2026-12-18",
+     "Rio de Janeiro",
+     "RJ",
+     "Brava Arena Jockey"
+    ]
+   ]
+  },
+  {
+   "id": "diferrero",
+   "n": "Di Ferrero",
+   "g": [
+    "popbr"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2026-12-19",
+     "Rio de Janeiro",
+     "RJ",
+     "Qualistage"
+    ]
+   ]
+  },
+  {
+   "id": "richie",
+   "n": "Lionel Richie",
+   "g": [
+    "pop",
+    "rnb"
+   ],
+   "d": [
+    [
+     "2026-12-19",
+     "São Paulo",
+     "SP",
+     "Nubank Parque"
+    ]
+   ]
+  },
+  {
+   "id": "ney",
+   "n": "Ney Matogrosso",
+   "g": [
+    "mpb"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2026-12-19",
+     "Ribeirão Preto",
+     "SP",
+     "Multiplan Hall Ribeirão Shopping"
+    ]
+   ]
+  },
+  {
+   "id": "teaser",
+   "n": "Rodrigo Teaser",
+   "sub": "Tributo a Michael Jackson",
+   "g": [
+    "pop"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2026-12-20",
+     "Rio de Janeiro",
+     "RJ",
+     "Qualistage",
+     "19h"
+    ]
+   ]
+  },
+  {
+   "id": "soad",
+   "n": "System of a Down + Faith No More",
+   "g": [
+    "metal",
+    "rock"
+   ],
+   "d": [
+    [
+     "2027-01-15",
+     "Rio de Janeiro",
+     "RJ",
+     "Maracanã"
+    ]
+   ]
+  },
+  {
+   "id": "rush",
+   "n": "Rush",
+   "g": [
+    "rock"
+   ],
+   "d": [
+    [
+     "2027-01-22",
+     "Curitiba",
+     "PR",
+     "Arena da Baixada"
+    ],
+    [
+     "2027-01-24",
+     "São Paulo",
+     "SP",
+     "Allianz Parque"
+    ],
+    [
+     "2027-01-26",
+     "São Paulo",
+     "SP",
+     "Allianz Parque"
+    ],
+    [
+     "2027-01-30",
+     "Rio de Janeiro",
+     "RJ",
+     "Estádio Nilton Santos"
+    ],
+    [
+     "2027-02-01",
+     "Belo Horizonte",
+     "MG",
+     "Mineirão"
+    ],
+    [
+     "2027-02-04",
+     "Brasília",
+     "DF",
+     "Arena BRB Mané Garrincha"
+    ]
+   ]
+  },
+  {
+   "id": "verao",
+   "n": "Festival de Verão Salvador 2027",
+   "g": [
+    "fest",
+    "popbr"
+   ],
+   "d": [
+    [
+     "2027-01-23",
+     "Salvador",
+     "BA",
+     "Arena Festival"
+    ],
+    [
+     "2027-01-24",
+     "Salvador",
+     "BA",
+     "Arena Festival"
+    ]
+   ]
+  },
+  {
+   "id": "freya",
+   "n": "Freya Skye",
+   "g": [
+    "pop"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2027-01-27",
+     "São Paulo",
+     "SP",
+     "Audio",
+     "21h"
+    ],
+    [
+     "2027-01-28",
+     "São Paulo",
+     "SP",
+     "Audio",
+     "20h45"
+    ]
+   ]
+  },
+  {
+   "id": "planeta",
+   "n": "Planeta Atlântida 2027",
+   "g": [
+    "fest",
+    "popbr"
+   ],
+   "d": [
+    [
+     "2027-01-29",
+     "Xangri-Lá",
+     "RS",
+     "Sede campestre da Saba"
+    ],
+    [
+     "2027-01-30",
+     "Xangri-Lá",
+     "RS",
+     "Sede campestre da Saba"
+    ]
+   ]
+  },
+  {
+   "id": "pitbull",
+   "n": "Pitbull",
+   "g": [
+    "pop"
+   ],
+   "d": [
+    [
+     "2027-01-31",
+     "São Paulo",
+     "SP",
+     "Nubank Parque"
+    ]
+   ]
+  },
+  {
+   "id": "karolg",
+   "n": "Karol G",
+   "g": [
+    "pop"
+   ],
+   "d": [
+    [
+     "2027-02-12",
+     "São Paulo",
+     "SP",
+     "Mercado Livre Arena Pacaembu"
+    ]
+   ]
+  },
+  {
+   "id": "jack",
+   "n": "Jack Johnson",
+   "g": [
+    "indie"
+   ],
+   "d": [
+    [
+     "2027-02-16",
+     "Rio de Janeiro",
+     "RJ",
+     "Qualistage"
+    ],
+    [
+     "2027-02-18",
+     "Florianópolis",
+     "SC",
+     "Stage Music Park"
+    ],
+    [
+     "2027-02-20",
+     "São Paulo",
+     "SP",
+     "Nubank Parque"
+    ]
+   ]
+  },
+  {
+   "id": "foo",
+   "n": "Foo Fighters",
+   "g": [
+    "rock"
+   ],
+   "d": [
+    [
+     "2027-02-18",
+     "Belo Horizonte",
+     "MG",
+     "Arena MRV"
+    ],
+    [
+     "2027-02-20",
+     "São Paulo",
+     "SP",
+     "MorumBIS"
+    ]
+   ]
+  },
+  {
+   "id": "placebo",
+   "n": "Placebo",
+   "g": [
+    "rock",
+    "indie"
+   ],
+   "d": [
+    [
+     "2027-02-20",
+     "São Paulo",
+     "SP",
+     "Suhai Music Hall"
+    ],
+    [
+     "2027-02-23",
+     "Brasília",
+     "DF",
+     "Centro de Eventos Ulysses Guimarães"
+    ],
+    [
+     "2027-02-26",
+     "Curitiba",
+     "PR",
+     "Live Curitiba"
+    ],
+    [
+     "2027-02-28",
+     "Porto Alegre",
+     "RS",
+     "Auditório Araújo Vianna"
+    ]
+   ]
+  },
+  {
+   "id": "pausini",
+   "n": "Laura Pausini",
+   "g": [
+    "pop"
+   ],
+   "d": [
+    [
+     "2027-02-27",
+     "São Paulo",
+     "SP",
+     "Mercado Livre Arena Pacaembu"
+    ],
+    [
+     "2027-03-02",
+     "Porto Alegre",
+     "RS",
+     "Auditório Araújo Vianna"
+    ]
+   ]
+  },
+  {
+   "id": "kidabelha",
+   "n": "Kid Abelha",
+   "g": [
+    "popbr"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2027-03-06",
+     "São José",
+     "SC",
+     "Arena Opus",
+     "21h30"
+    ],
+    [
+     "2027-04-30",
+     "Porto Alegre",
+     "RS",
+     "Auditório Araújo Vianna",
+     "21h30"
+    ],
+    [
+     "2027-05-01",
+     "Porto Alegre",
+     "RS",
+     "Auditório Araújo Vianna",
+     "21h30"
+    ]
+   ]
+  },
+  {
+   "id": "u2",
+   "n": "U2",
+   "sub": "Abertura: Beck",
+   "g": [
+    "rock",
+    "pop"
+   ],
+   "d": [
+    [
+     "2027-03-10",
+     "São Paulo",
+     "SP",
+     "MorumBIS",
+     "",
+     "esgotado"
+    ],
+    [
+     "2027-03-12",
+     "São Paulo",
+     "SP",
+     "MorumBIS",
+     "",
+     "esgotado"
+    ],
+    [
+     "2027-03-14",
+     "São Paulo",
+     "SP",
+     "MorumBIS",
+     "",
+     "esgotado"
+    ],
+    [
+     "2027-03-16",
+     "São Paulo",
+     "SP",
+     "MorumBIS"
+    ]
+   ]
+  },
+  {
+   "id": "lolla",
+   "n": "Lollapalooza Brasil 2027",
+   "g": [
+    "fest",
+    "pop"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2027-03-19",
+     "São Paulo",
+     "SP",
+     "Autódromo de Interlagos",
+     "11h"
+    ],
+    [
+     "2027-03-20",
+     "São Paulo",
+     "SP",
+     "Autódromo de Interlagos",
+     "11h"
+    ],
+    [
+     "2027-03-21",
+     "São Paulo",
+     "SP",
+     "Autódromo de Interlagos",
+     "11h"
+    ]
+   ]
+  },
+  {
+   "id": "louis",
+   "n": "Louis Tomlinson",
+   "g": [
+    "pop"
+   ],
+   "d": [
+    [
+     "2027-04-06",
+     "São Paulo",
+     "SP",
+     "Suhai Music Hall"
+    ],
+    [
+     "2027-04-07",
+     "São Paulo",
+     "SP",
+     "Suhai Music Hall"
+    ]
+   ]
+  },
+  {
+   "id": "criolo",
+   "n": "Criolo",
+   "g": [
+    "rap"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2027-04-10",
+     "Belo Horizonte",
+     "MG",
+     "Arena Hall BH",
+     "21h"
+    ],
+    [
+     "2027-04-23",
+     "Curitiba",
+     "PR",
+     "Cine Lido",
+     "21h"
+    ],
+    [
+     "2027-04-24",
+     "Porto Alegre",
+     "RS",
+     "Auditório Araújo Vianna",
+     "21h30"
+    ],
+    [
+     "2027-05-08",
+     "São Paulo",
+     "SP",
+     "Suhai Music Hall",
+     "21h30"
+    ]
+   ]
+  },
+  {
+   "id": "tomorrowland",
+   "n": "Tomorrowland Brasil 2027",
+   "g": [
+    "fest",
+    "eletronica"
+   ],
+   "d": [
+    [
+     "2027-04-30",
+     "Itu",
+     "SP",
+     "Parque Maeda"
+    ],
+    [
+     "2027-05-01",
+     "Itu",
+     "SP",
+     "Parque Maeda"
+    ],
+    [
+     "2027-05-02",
+     "Itu",
+     "SP",
+     "Parque Maeda"
+    ]
+   ]
+  },
+  {
+   "id": "simpleplan",
+   "n": "Simple Plan + All Time Low",
+   "g": [
+    "pop",
+    "rock"
+   ],
+   "d": [
+    [
+     "2027-05-13",
+     "Rio de Janeiro",
+     "RJ",
+     "Qualistage"
+    ],
+    [
+     "2027-05-15",
+     "Curitiba",
+     "PR",
+     "Arena da Baixada"
+    ],
+    [
+     "2027-05-16",
+     "São Paulo",
+     "SP",
+     "Nubank Parque"
+    ]
+   ]
+  },
+  {
+   "id": "coolritiba",
+   "n": "Coolritiba 2027",
+   "g": [
+    "fest",
+    "popbr"
+   ],
+   "d": [
+    [
+     "2027-05-22",
+     "Curitiba",
+     "PR",
+     "Pedreira Paulo Leminski"
+    ],
+    [
+     "2027-05-23",
+     "Curitiba",
+     "PR",
+     "Pedreira Paulo Leminski"
+    ]
+   ]
+  },
+  {
+   "id": "paulaf",
+   "n": "Paula Fernandes",
+   "g": [
+    "popbr"
+   ],
+   "s": "tm",
+   "d": [
+    [
+     "2027-06-05",
+     "Rio de Janeiro",
+     "RJ",
+     "Qualistage"
+    ]
+   ]
+  },
+  {
+   "id": "hilary",
+   "n": "Hilary Duff",
+   "sub": "The Lucky Me Tour",
+   "g": [
+    "pop"
+   ],
+   "s": "tm",
+   "link": "https://www.ticketmaster.com.br/event/hilary-duff?utm_source=parceiros&utm_medium=cpc&utm_campaign=hilary-duff",
+   "partner": true,
+   "d": [
+    [
+     "2027-08-13",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "",
+     "esgotado"
+    ],
+    [
+     "2027-08-14",
+     "São Paulo",
+     "SP",
+     "Espaço Unimed",
+     "",
+     "extra"
+    ]
+   ]
+  },
+  {
+   "id": "thetown",
+   "n": "The Town 2027",
+   "sub": "De 4 a 12 de setembro; dias a confirmar",
+   "g": [
+    "fest",
+    "rock"
+   ],
+   "d": [
+    [
+     "2027-09-04",
+     "São Paulo",
+     "SP",
+     "Autódromo de Interlagos"
+    ]
+   ]
+  }
+ ]
+}

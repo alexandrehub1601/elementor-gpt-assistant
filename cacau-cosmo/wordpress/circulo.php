@@ -1205,4 +1205,23 @@ function cc_circulo_aviso_pedido( $order_id ) {
 	$o->save();
 }
 
+/* Meu Universo: menu da conta em português e sem "Downloads" (a loja não vende arquivos) */
+add_filter( 'woocommerce_account_menu_items', function ( $itens ) {
+	unset( $itens['downloads'] );
+	$nomes = array(
+		'dashboard'       => 'Meu Universo',
+		'orders'          => 'Meus pedidos',
+		'edit-address'    => 'Endereços',
+		'edit-account'    => 'Meus dados',
+		'payment-methods' => 'Pagamentos',
+		'customer-logout' => 'Sair',
+	);
+	foreach ( $nomes as $k => $v ) {
+		if ( isset( $itens[ $k ] ) ) {
+			$itens[ $k ] = $v;
+		}
+	}
+	return $itens;
+}, 20 );
+
 endif; // CC_CIRCULO_ATIVO

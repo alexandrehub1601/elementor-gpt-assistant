@@ -21,3 +21,15 @@
 .cc-root .cc-shop-main ul.products li.product.cc-transp a img{object-fit:contain;background:transparent;padding:6% 4% 2%;box-sizing:border-box}
 .cc-root .cc-shop-main ul.products li.product.cc-transp:hover .cc-imgbox img{transform:scale(1.04) translateY(-6px)}
 .cc-root .cc-shop-main ul.products li.product.outofstock.cc-transp .cc-imgbox img{filter:saturate(.7)}
+
+/* topo mais curto, como no print: Cacaucosmo / Loja · Pequenos universos. */
+.elementor .cc-root .phero.cc-shop-hero.e-con{min-height:0!important;padding:calc(var(--bar) + 4vh) var(--pad) clamp(44px,6vh,72px)!important}
+.cc-root .cc-shop-h1{font-family:var(--font-display)!important;font-weight:700;font-size:clamp(34px,4.4vw,64px);line-height:1.05;color:var(--cc-cream)!important;
+  margin:clamp(10px,1.2vw,16px) 0 0;text-align:center;letter-spacing:-.01em}
+.cc-root .cc-shop-hero .cc-hero-sub{margin-top:12px!important}
+.cc-root .cc-shop-nota{font-family:var(--font-mono)!important;font-size:clamp(12px,.95vw,14px);color:var(--cc-gold);text-align:center;margin:10px 0 0;opacity:.95}
+/* sem preço nos cartões; tamanhos no lugar */
+.cc-root .cc-shop-main ul.products li.product .price{display:none!important}
+.cc-root .cc-shop-main ul.products li.product .cc-tamanhos{font-family:var(--font-body);font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--cc-brown);margin:-6px 0 18px;text-align:center}
+.cc-root .cc-shop-main ul.products li.product .woocommerce-loop-product__title{min-height:0!important}

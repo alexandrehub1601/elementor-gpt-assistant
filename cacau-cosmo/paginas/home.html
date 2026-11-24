@@ -600,7 +600,7 @@ a.is-soon{cursor:default}
       <button data-lang="en" aria-pressed="false">EN</button>
     </div>
     <a href="#circulo" class="hdr-circ js-hdr-circ" data-i18n="t-btncircle">Entrar no Círculo</a>
-    <a href="/minha-conta/" class="hdr-user" aria-label="Entrar na minha conta" title="Minha conta">
+    <a href="/minha-conta/" class="hdr-user" aria-label="Entrar na minha conta" title="Meu Universo">
       <svg viewBox="0 0 24 24"><use href="#ic-user"></use></svg>
     </a>
   </div>
@@ -1130,7 +1130,7 @@ function ccFallback(img){
   if(!U.logado) return;
   document.querySelectorAll('.js-membro').forEach(function(a){a.hidden=false});
   var l=document.querySelector('.drawer__login span');
-  if(l){ l.setAttribute('data-i18n','t-account'); l.textContent='Minha conta'; }
+  if(l){ l.setAttribute('data-i18n','t-account'); l.textContent='Meu Universo'; }
 })();
 
 /* ===== LOJA — "EM BREVE" ==================================== */
@@ -1147,7 +1147,7 @@ function ccFallback(img){
   var dict = {
     't-nav-home':       'Home',
     't-login':          'Already a member · Log in',
-    't-account':        'My account',
+    't-account':        'My Universe',
     't-nav-shop':       'Shop',
     't-nav-about':      'About us',
     't-nav-universe':   'Universe',

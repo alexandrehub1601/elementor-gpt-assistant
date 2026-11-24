@@ -182,3 +182,36 @@
   .cc-root .cc-acc table.woocommerce-orders-table td.woocommerce-orders-table__cell-order-actions{grid-column:1/-1}
 }
 @media (max-width:520px){.cc-acc-cards{grid-template-columns:1fr}}
+
+/* ===== MEU UNIVERSO ======================================= */
+/* topo mais baixo: chega mais rápido no que importa */
+.elementor .cc-root .phero.cc-acc-hero.e-con{min-height:0!important;padding:calc(var(--bar) + 4vh) var(--pad) clamp(40px,6vh,70px)!important}
+.cc-root .cc-acc-hero .js-acc-h1{font-size:clamp(34px,4.4vw,64px)!important}
+.cc-meu-un{background:var(--cc-navy);color:var(--cc-cream);border-radius:10px;padding:clamp(22px,2.6vw,34px);margin:0 0 26px}
+.cc-meu-un__topo{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding-bottom:18px;margin-bottom:18px;
+  border-bottom:1px solid rgba(241,232,208,.16)}
+.cc-meu-un__tag{display:block;font-family:var(--font-body);font-size:10px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;color:var(--cc-pink)}
+.cc-meu-un h2{font-family:var(--font-display)!important;font-weight:700;font-size:clamp(22px,2.2vw,30px);line-height:1.2;color:var(--cc-cream)!important;margin:8px 0 0}
+.cc-meu-un h2 em{font-style:italic;font-weight:500;color:var(--cc-pink)}
+.cc-meu-un__orbita svg{width:34px;height:34px;color:var(--cc-gold);flex:none}
+.cc-meu-un__grade{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cc-un-tile{display:flex;flex-direction:column;gap:12px;padding:18px 20px;border-radius:8px;background:rgba(241,232,208,.06);
+  border:1px solid rgba(241,232,208,.1);color:var(--cc-cream)!important;text-decoration:none!important;transition:background .3s,border-color .3s,transform .3s}
+.cc-un-tile:hover{background:rgba(241,232,208,.11);border-color:rgba(210,147,168,.5);transform:translateY(-2px)}
+.cc-un-tile svg{width:22px;height:22px;color:var(--cc-pink)}
+.cc-un-tile b{font-family:var(--font-body);font-weight:500;font-size:15px;letter-spacing:.02em}
+.cc-un-tile:nth-child(3) svg{color:var(--cc-gold)}
+/* pedidos em cartões no celular */
+@media (max-width:760px){
+  .cc-root .cc-acc table.woocommerce-orders-table thead{display:none}
+  .cc-root .cc-acc table.woocommerce-orders-table,.cc-root .cc-acc table.woocommerce-orders-table tbody{display:block;width:100%}
+  .cc-root .cc-acc table.woocommerce-orders-table tr{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;padding:18px;margin:0 0 12px;
+    background:var(--cc-paper);border-radius:8px;border:1px solid rgba(0,6,46,.08)}
+  .cc-root .cc-acc table.woocommerce-orders-table td,.cc-root .cc-acc table.woocommerce-orders-table th{display:block;padding:0!important;border:0!important;text-align:left!important;background:none!important}
+  .cc-root .cc-acc table.woocommerce-orders-table [data-title]::before{content:attr(data-title);display:block;font-family:var(--font-body);font-size:9px;
+    letter-spacing:.22em;text-transform:uppercase;opacity:.6;margin-bottom:4px;font-weight:600}
+  .cc-root .cc-acc table.woocommerce-orders-table .woocommerce-orders-table__cell-order-actions{grid-column:1/-1}
+  .cc-root .cc-acc table.woocommerce-orders-table .woocommerce-orders-table__cell-order-actions::before{display:none}
+  .cc-root .cc-acc table.woocommerce-orders-table .woocommerce-orders-table__cell-order-actions .button{width:100%;text-align:center}
+  .cc-meu-un__grade{grid-template-columns:1fr 1fr}
+}

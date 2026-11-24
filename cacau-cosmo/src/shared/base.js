@@ -112,7 +112,7 @@
     't-nav-journal': 'Journal',
     't-nav-universe': 'Universe',
     't-contact':     'Contact',
-    't-account':     'My account',
+    't-account':     'My Universe',
     't-logout':      'Log out',
     't-login':       'Log in',
     't-btncircle':   'Join the Circle',

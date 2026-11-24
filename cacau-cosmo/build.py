@@ -200,7 +200,8 @@ FEATURE_HTML = """<section class="cc-feature">
 </section>"""
 
 SHOP_DICT = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
-  't-shop-label': 'Shop', 't-shop-sub': 'Nibs-to-bar chocolate in small batches. When it\\u2019s gone, it\\u2019s gone.',
+  't-shop-label': 'Cacaucosmo / Shop', 't-shop-h1': 'Small universes.', 't-shop-sub': 'Origin chocolate, made in nature\\u2019s own time.',
+  't-shop-nota': 'Limited runs. Each batch, a new chapter.',
   't-trust1-h': 'Small batches', 't-trust1-p': 'Nibs to bar, handmade. When a batch is gone, it\\u2019s gone.',
   't-trust2-h': 'Origin cacao', 't-trust2-p': 'Respecting people, territories and nature\\u2019s own time.',
   't-trust3-h': 'Careful shipping', 't-trust3-p': 'Packaging designed so the chocolate arrives whole, anywhere in Brazil.',
@@ -240,14 +241,16 @@ def build_loja():
         t.html(tpl_header(read("elementor/loja.css")), "cc-header"),
         t.con("phero cc-shop-hero", [
             t.html(DECO, "cc-deco"),
-            t.html('<p class="label" data-i18n="t-shop-label">Loja</p>', "cc-label"),
-            t.w("theme-archive-title", {"header_size": "h1", "align": "center"}),
-            t.html('<p class="cc-hero-sub" data-i18n="t-shop-sub">Chocolate nibs to bar em pequenos lotes. Quando acaba, acaba.</p>'),
+            t.html('<p class="label" data-i18n="t-shop-label">Cacaucosmo / Loja</p>', "cc-label"),
+            t.html('<h1 class="cc-shop-h1" data-i18n="t-shop-h1">Pequenos universos.</h1>'),
+            t.html('<p class="cc-hero-sub" data-i18n="t-shop-sub">Chocolate de origem, feito no tempo da natureza.</p>'
+                   '<p class="cc-shop-nota" data-i18n="t-shop-nota">Produções limitadas. Cada lote, um novo capítulo.</p>'),
         ]),
         t.con("cc-shop-main", [
             t.w("woocommerce-notices"),
             # vitrine: todos os produtos publicados, na ordem do campo Posição (Sol, Lua, Saturno)
-            t.w("shortcode", {"shortcode": '[products limit="12" columns="3" orderby="menu_order" order="ASC"]'}),
+            # vitrine: um card por astro (o de 100 g); na página do produto escolhe-se 33 g ou 100 g
+            t.w("shortcode", {"shortcode": '[products ids="900120,900122,900124" orderby="post__in" columns="3"]'}),
         ]),
         t.html(TRUST_HTML),
         t.html(FEATURE_HTML),
@@ -262,7 +265,23 @@ def build_loja():
 
 # Só na loja: os cartões trocam a foto pela caixa sem fundo (cc-card-<astro>-<peso>.png
 # na Biblioteca de Mídia). A página do produto continua com a foto de fundo azul.
-SHOP_TRANSP_JS = r"""/* ===== LOJA: CAIXAS SEM FUNDO NOS CARTÕES ================ */
+SHOP_TRANSP_JS = r"""/* ===== LOJA: UM CARTÃO POR ASTRO, SEM PREÇO =============== */
+(function(){
+  var en=document.documentElement.lang==='en';
+  document.querySelectorAll('.cc-shop-main ul.products li.product').forEach(function(li){
+    var link=li.querySelector('a.woocommerce-LoopProduct-link'), h=li.querySelector('.woocommerce-loop-product__title');
+    if(h&&!h.dataset.cc){ h.dataset.cc=1;
+      h.textContent=h.textContent.split('·')[0].trim();                       /* "Saturno 47% · 100 g" -> "Saturno 47%" */
+      h.insertAdjacentHTML('afterend','<p class="cc-tamanhos">33 g &middot; 100 g</p>');
+    }
+    var b=li.querySelector('a.button');
+    if(b&&link){
+      b.href=link.href; b.className='button cc-escolher'; ['data-product_id','data-product_sku','data-quantity','aria-describedby','rel'].forEach(function(k){b.removeAttribute(k)});
+      b.textContent=li.classList.contains('outofstock')?(en?'Unavailable':'Indisponível'):(en?'Choose size':'Escolher tamanho');
+    }
+  });
+})();
+/* ===== LOJA: CAIXAS SEM FUNDO NOS CARTÕES ================ */
 (function(){
   var cards=[].slice.call(document.querySelectorAll('.cc-shop-main ul.products li.product'));
   if(!cards.length)return;
@@ -700,7 +719,7 @@ def build_checkout():
 
 
 # ---- MINHA CONTA -----------------------------------------------------
-ACC_HERO = """<p class="label js-acc-label">Minha conta</p>
+ACC_HERO = """<p class="label js-acc-label">Meu Universo</p>
 <h1 class="display js-acc-h1" style="font-size:clamp(34px,5vw,80px);line-height:1.08;color:var(--cc-cream);text-align:center;margin-top:14px;max-width:16ch">Seu <span class="em">Círculo.</span></h1>
 <p class="cc-hero-sub js-acc-sub"></p>"""
 
@@ -760,6 +779,13 @@ ACC_JS = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
   }
 
   /* ---- logado ---- */
+  var NOMES={dashboard:t('Meu Universo','My Universe'),orders:t('Meus pedidos','My orders'),'edit-address':t('Endereços','Addresses'),
+    'edit-account':t('Meus dados','My details'),'payment-methods':t('Pagamentos','Payments'),'customer-logout':t('Sair','Log out')};
+  nav.querySelectorAll('li').forEach(function(li){
+    var m=li.className.match(/navigation-link--([a-z-]+)/); if(!m) return;
+    if(m[1]==='downloads'){ li.remove(); return; }
+    var a=li.querySelector('a'); if(a&&NOMES[m[1]]) a.textContent=NOMES[m[1]];
+  });
   var links={}; nav.querySelectorAll('li').forEach(function(li){
     var m=li.className.match(/navigation-link--([a-z-]+)/); if(m){ var a=li.querySelector('a'); links[m[1]]={href:a.getAttribute('href'),text:a.textContent.trim()}; }
   });
@@ -767,29 +793,33 @@ ACC_JS = """window.CC_DICT = Object.assign(window.CC_DICT||{}, {
   var nome=content&&content.querySelector('p strong'); nome=nome?nome.textContent.trim():'';
 
   if(isDash){
-    hero(nome?t('Olá, ','Hello, ')+'<span class="cc-acc-hello">'+nome+'</span>':t('Minha conta','My account'),
-      t('Bem-vindo ao seu <span class="em">Círculo.</span>','Welcome to your <span class="em">Circle.</span>'),
-      t('Seus pedidos, endereços e o que estamos criando, tudo num só lugar.','Your orders, addresses and what we\\u2019re creating, all in one place.'));
+    hero('Cacaucosmo', t('Meu <span class="em">Universo.</span>','My <span class="em">Universe.</span>'),
+      t('Seu lugar dentro do Círculo.','Your place inside the Circle.'));
     var ps=content.querySelectorAll(':scope > p');
     var sair=ps[0]? ps[0].querySelector('a') : null;
     ps.forEach(function(p){ p.style.display='none'; });
-    var star='<svg viewBox="0 0 24 24"><use href="#ic-star"></use></svg>', bag='<svg viewBox="0 0 24 24"><use href="#ic-bag"></use></svg>',
-        pin='<svg viewBox="0 0 24 24"><use href="#ic-pin"></use></svg>';
-    function card(href,icon,b,s,cta,mod){ return href?'<a class="cc-acc-card '+(mod||'')+'" href="'+href+'">'+icon+'<b>'+b+'</b><span>'+s+'</span><em>'+cta+'</em></a>':''; }
-    var html='<p class="cc-acc-intro">'+t('Este é o seu cantinho no Cosmo. Daqui você acompanha seus pedidos, ajusta seus dados e descobre o que está saindo do forno.',
-      'This is your corner of the Cosmos. From here you can track orders, update your details and see what\\u2019s fresh out of the kitchen.')+'</p><div class="cc-acc-cards">'+
-      card(links.orders&&links.orders.href,bag,t('Meus pedidos','My orders'),t('Acompanhe status e entregas.','Track status and deliveries.'),t('Ver pedidos','View orders'))+
-      card(links['edit-address']&&links['edit-address'].href,pin,t('Endereços','Addresses'),t('Entrega e cobrança salvas.','Saved shipping and billing.'),t('Editar','Edit'))+
-      card(links['edit-account']&&links['edit-account'].href,star,t('Dados da conta','Account details'),t('Nome, e-mail e senha.','Name, email and password.'),t('Editar','Edit'))+
-      card('/loja/',bag,t('Loja','Shop'),t('Sol, Lua e Saturno. Pequenos lotes.','Sun, Moon and Saturn. Small batches.'),t('Comprar','Shop now'),'cc-acc-card--navy')+
-      card('/journal/',star,'Journal',t('Histórias entre o cacau e o cosmo.','Stories between cacao and cosmos.'),t('Ler','Read'),'cc-acc-card--pink')+
-      card('/contato/',star,t('Fale com a gente','Talk to us'),t('Dúvidas, presentes e parcerias.','Questions, gifts and partnerships.'),t('Contato','Contact'))+
-      '</div>';
+    var ic={
+      caixa:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 0v18m8-13.5-8 4.5-8-4.5"/></svg>',
+      pino:'<svg viewBox="0 0 24 24"><use href="#ic-pin"></use></svg>',
+      brilho:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 3c.6 5.3 1.7 6.4 7 7-5.3.6-6.4 1.7-7 7-.6-5.3-1.7-6.4-7-7 5.3-.6 6.4-1.7 7-7Zm8 11c.3 2.2.8 2.7 3 3-2.2.3-2.7.8-3 3-.3-2.2-.8-2.7-3-3 2.2-.3 2.7-.8 3-3Z"/></svg>',
+      pessoa:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.9-3.9 3.9-6 7.5-6s6.6 2.1 7.5 6"/></svg>',
+      orbita:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="3.2"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(-28 12 12)"/></svg>'};
+    function tile(href,icon,b){ return href?'<a class="cc-un-tile" href="'+href+'">'+icon+'<b>'+b+'</b></a>':''; }
+    var html='<section class="cc-meu-un">'+
+      '<div class="cc-meu-un__topo"><div><span class="cc-meu-un__tag">'+t('Membro do Círculo','Circle member')+'</span>'+
+      '<h2>'+(nome?t('Bem-vinda ao seu universo, ','Welcome to your universe, ')+'<em>'+nome+'</em>.':t('Bem-vinda ao seu universo.','Welcome to your universe.'))+'</h2></div>'+
+      '<span class="cc-meu-un__orbita" aria-hidden="true">'+ic.orbita+'</span></div>'+
+      '<div class="cc-meu-un__grade">'+
+        tile(links.orders&&links.orders.href,ic.caixa,t('Meus pedidos','My orders'))+
+        tile(links['edit-address']&&links['edit-address'].href,ic.pino,t('Endereços','Addresses'))+
+        tile('/universo/',ic.brilho,t('Meu Círculo','My Circle'))+
+        tile(links['edit-account']&&links['edit-account'].href,ic.pessoa,t('Meus dados','My details'))+
+      '</div></section>';
     if(sair) html+='<p class="cc-acc-small">'+t('Não é você? ','Not you? ')+'<a href="'+sair.getAttribute('href')+'">'+t('Sair','Log out')+'</a></p>';
     content.insertAdjacentHTML('afterbegin',html);
   } else {
-    var titulo=active?active.textContent.trim():t('Minha conta','My account');
-    hero(t('Minha conta','My account'), titulo+'<span class="em">.</span>', nome?'':'');
+    var titulo=active?active.textContent.trim():t('Meu Universo','My Universe');
+    hero(t('Meu Universo','My Universe'), titulo+'<span class="em">.</span>', '');
   }
 
   /* selos de status nos pedidos */

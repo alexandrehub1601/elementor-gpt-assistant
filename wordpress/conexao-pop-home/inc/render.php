@@ -67,20 +67,20 @@ final class CPH_Render {
 		}
 		$top = array_shift($posts);
 		// Duas matérias logo abaixo da principal, para a coluna da esquerda acompanhar a lista.
-		$extras = array_splice($posts, 5, 2);
+		$extras = array_splice($posts, 5, 4);
 		$baixo = '';
 		foreach ($extras as $p) {
 			$baixo .= '<article class="cph-card"><a href="' . esc_url($p['u']) . '">' . self::img($p, 'cph-img-card') . '<span class="cph-card-meta">' . self::tag($p['cat']) . '<span class="cph-quando">' . esc_html($p['quando']) . '</span></span><h3 class="cph-card-t">' . esc_html($p['t']) . '</h3></a></article>';
 		}
-		$h = '<section class="cph-bloco cph-agora"><div class="cph-wrap cph-agora-grid"><div class="cph-agora-col">'
+		$h = '<section class="cph-bloco cph-agora"><div class="cph-wrap"><div class="cph-agora-grid"><div class="cph-agora-col">'
 			. '<article class="cph-agora-top"><a href="' . esc_url($top['u']) . '">' . self::img($top, 'cph-img-wide') . '<span class="cph-agora-meta">' . self::tag($top['cat']) . '<span class="cph-quando">' . esc_html($top['quando']) . '</span></span>'
 			. '<h2 class="cph-agora-t">' . esc_html($top['t']) . '</h2>' . ($top['ex'] ? '<p class="cph-ex">' . esc_html($top['ex']) . '</p>' : '') . '</a></article>'
-			. ($baixo ? '<div class="cph-agora-mais">' . $baixo . '</div>' : '') . '</div>'
+			. '</div>'
 			. '<aside class="cph-lista"><h3 class="cph-lista-h"><span class="cph-tag cph-tag-ink">Acabou de sair</span></h3><ol>';
 		foreach ($posts as $p) {
 			$h .= '<li><a href="' . esc_url($p['u']) . '">' . self::img($p, 'cph-img-mini') . '<span><span class="cph-lista-meta">' . self::tag($p['cat']) . '<span class="cph-quando">' . esc_html($p['quando']) . '</span></span><strong>' . esc_html($p['t']) . '</strong></span></a></li>';
 		}
-		return $h . '</ol></aside></div></section>';
+		return $h . '</ol></aside></div>' . ($baixo ? '<div class="cph-agora-mais">' . $baixo . '</div>' : '') . '</div></section>';
 	}
 
 	public static function em_alta($posts) {

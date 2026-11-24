@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Home Conexão Pop
  * Description: Blocos de home com a identidade 2026 do Conexão Pop: faixa de manchetes, destaques, "acabou de sair", em alta, editorias, próximos shows, slides e newsletter. Use os shortcodes no Elementor ou [cp_home] para a home inteira.
- * Version: 1.2.0
+ * Version: 1.2.1
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Conexão Pop
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-define('CPH_VERSION', '1.2.0');
+define('CPH_VERSION', '1.2.1');
 define('CPH_URL', plugin_dir_url(__FILE__));
 define('CPH_DIR', plugin_dir_path(__FILE__));
 
@@ -238,7 +238,7 @@ final class CPH {
 
 	public function sc_agora($a = array()) {
 		$a = shortcode_atts(array('_dentro' => 0), $a);
-		return $this->envolver(CPH_Render::agora(self::buscar(array(), 8)), $a);
+		return $this->envolver(CPH_Render::agora(self::buscar(array(), 10)), $a);
 	}
 
 	public function sc_em_alta($a = array()) {

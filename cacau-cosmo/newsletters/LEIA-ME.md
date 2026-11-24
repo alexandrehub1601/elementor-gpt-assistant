@@ -14,3 +14,12 @@ Preencha o assunto e o texto de pré-visualização da tabela. Antes de enviar, 
 [dia de dezembro] da newsletter de Natal e mande um teste para você.
 Para segmentar só quem está aprovado, envie para a tag `circulo-aprovada`.
 Para gerar de novo depois de mudar os textos: `python3 cacau-cosmo/newsletters/gerar.py`.
+
+## Black Friday (até 29/11, 23h59)
+
+| Arquivo | Quando enviar | Assunto |
+|---|---|---|
+| bf-1-comecou.html | agora | Black Friday no Círculo: o Saturno com preço especial |
+| bf-2-ritual.html | 26/11 | Um ritual para desacelerar na Black Friday |
+| bf-3-ultimos-dias.html | 27 ou 28/11 | Últimos dias: Saturno por R$ 397 |
+| bf-4-ultimo-dia.html | 29/11 de manhã | ÚLTIMO DIA: a Black Friday termina hoje às 23h59 |

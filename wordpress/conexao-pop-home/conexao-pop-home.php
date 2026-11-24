@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Home Conexão Pop
  * Description: Blocos de home com a identidade 2026 do Conexão Pop: faixa de manchetes, destaques, "acabou de sair", em alta, editorias, próximos shows, slides e newsletter. Use os shortcodes no Elementor ou [cp_home] para a home inteira.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Conexão Pop
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-define('CPH_VERSION', '1.0.0');
+define('CPH_VERSION', '1.1.0');
 define('CPH_URL', plugin_dir_url(__FILE__));
 define('CPH_DIR', plugin_dir_path(__FILE__));
 
@@ -44,7 +44,7 @@ final class CPH {
 
 	public function __construct() {
 		add_action('wp_enqueue_scripts', array($this, 'assets'));
-		foreach (array('cp_home', 'cp_faixa', 'cp_destaques', 'cp_agora', 'cp_em_alta', 'cp_editoria', 'cp_proximos_shows', 'cp_newsletter', 'cp_slides') as $sc) {
+		foreach (array('cp_home', 'cp_faixa', 'cp_destaques', 'cp_agora', 'cp_em_alta', 'cp_editoria', 'cp_proximos_shows', 'cp_newsletter', 'cp_slides', 'cp_divisor', 'cp_capa', 'cp_mosaico', 'cp_manchetes', 'cp_sanfona') as $sc) {
 			add_shortcode($sc, array($this, 'sc_' . substr($sc, 3)));
 		}
 		add_action('admin_menu', array($this, 'menu'));
@@ -151,20 +151,67 @@ final class CPH {
 
 	public function sc_home() {
 		$this->usar_assets();
+		$d = function ($n, $cor, $virar = false) {
+			return CPH_Render::divisor($n, $cor, $virar);
+		};
 		return '<div class="cph cph-home">'
 			. $this->sc_faixa(array('_dentro' => 1))
 			. $this->sc_destaques(array('_dentro' => 1))
+			. $d(3, 'rosa')
 			. $this->sc_agora(array('_dentro' => 1))
 			. $this->sc_em_alta(array('_dentro' => 1))
+			. $d(1, 'preto')
 			. $this->sc_editoria(array('categoria' => 'musica', 'titulo' => 'Música', '_dentro' => 1))
+			. $this->sc_capa(array('categoria' => 'coberturas', 'rotulo' => 'Cobertura', '_dentro' => 1))
+			. $this->sc_mosaico(array('categoria' => 'festival', 'titulo' => 'Festivais', '_dentro' => 1))
+			. $d(4, 'azul')
 			. $this->sc_proximos_shows(array('_dentro' => 1))
-			. $this->sc_slides(array('categoria' => 'entrevistas', 'titulo' => 'Entrevistas', '_dentro' => 1))
-			. $this->sc_editoria(array('categoria' => 'shows', 'titulo' => 'Shows', '_dentro' => 1))
-			. $this->sc_editoria(array('categoria' => 'festival', 'titulo' => 'Festivais', '_dentro' => 1))
+			. $this->sc_sanfona(array('categoria' => 'entrevistas', 'titulo' => 'Entrevistas', '_dentro' => 1))
+			. $d(2, 'rosa')
+			. $this->sc_manchetes(array('categoria' => 'marcas', 'titulo' => 'Marcas & Mercado', '_dentro' => 1))
+			. $this->sc_slides(array('categoria' => 'shows', 'titulo' => 'Shows', 'cor' => 'azul', '_dentro' => 1))
 			. $this->sc_newsletter(array('_dentro' => 1))
-			. $this->sc_slides(array('categoria' => 'coberturas', 'titulo' => 'Coberturas', 'cor' => 'rosa', '_dentro' => 1))
-			. $this->sc_editoria(array('categoria' => 'marcas', 'titulo' => 'Marcas', '_dentro' => 1))
+			. $this->sc_editoria(array('categoria' => 'eventos', 'titulo' => 'Eventos', '_dentro' => 1))
+			. $d(3, 'preto')
 			. '</div>';
+	}
+
+	public function sc_divisor($a = array()) {
+		$a = shortcode_atts(array('padrao' => 2, 'cor' => 'rosa', 'virar' => 'nao'), $a);
+		$this->usar_assets();
+		return '<div class="cph">' . CPH_Render::divisor(intval($a['padrao']), sanitize_key($a['cor']), $a['virar'] === 'sim') . '</div>';
+	}
+
+	public function sc_capa($a = array()) {
+		$a = shortcode_atts(array('categoria' => 'coberturas', 'rotulo' => '', '_dentro' => 0), $a);
+		$p = self::buscar(array('category_name' => sanitize_title($a['categoria'])), 1);
+		if (!$p) {
+			$p = self::buscar(array(), 1);
+		}
+		return $this->envolver(CPH_Render::capa($p ? $p[0] : null, sanitize_text_field($a['rotulo'])), $a);
+	}
+
+	private function bloco_lista($a, $qtd_padrao, $render, $extra = null) {
+		$a = shortcode_atts(array('categoria' => 'musica', 'titulo' => '', 'qtd' => $qtd_padrao, 'cor' => '', '_dentro' => 0), $a);
+		$slug = sanitize_title($a['categoria']);
+		$cat = get_category_by_slug($slug);
+		$titulo = $a['titulo'] ? $a['titulo'] : ($cat ? $cat->name : $slug);
+		$link = $cat ? get_category_link($cat) : home_url('/');
+		$posts = self::buscar(array('category_name' => $slug), intval($a['qtd']));
+		$html = $extra === null ? CPH_Render::$render($titulo, $link, $posts) : CPH_Render::$render($titulo, $link, $posts, sanitize_key($a['cor'] ? $a['cor'] : $extra));
+		return $this->envolver($html, $a);
+	}
+
+	public function sc_mosaico($a = array()) {
+		return $this->bloco_lista((array) $a + array('categoria' => 'festival'), 5, 'mosaico');
+	}
+
+	public function sc_manchetes($a = array()) {
+		return $this->bloco_lista((array) $a + array('categoria' => 'marcas'), 6, 'manchetes');
+	}
+
+	public function sc_sanfona($a = array()) {
+		return $this->bloco_lista((array) $a + array('categoria' => 'entrevistas'), 6, 'sanfona', 'preto');
 	}
 
 	private function envolver($html, $a) {
@@ -283,6 +330,11 @@ final class CPH {
 				<tr><td><code>[cp_slides categoria="entrevistas" titulo="Entrevistas"]</code></td><td>Carrossel de matérias (<code>cor="rosa"</code>, <code>cor="azul"</code> ou <code>cor="limao"</code>)</td></tr>
 				<tr><td><code>[cp_proximos_shows]</code></td><td>Bloco preto com os próximos shows da agenda</td></tr>
 				<tr><td><code>[cp_newsletter]</code></td><td>Newsletter (configure abaixo)</td></tr>
+				<tr><td><code>[cp_capa categoria="coberturas" rotulo="Cobertura"]</code></td><td>Uma matéria em tela cheia, com título enorme e a skyline rosa</td></tr>
+				<tr><td><code>[cp_mosaico categoria="festival" titulo="Festivais"]</code></td><td>Uma grande e quatro menores</td></tr>
+				<tr><td><code>[cp_manchetes categoria="marcas" titulo="Marcas"]</code></td><td>Seis manchetes só em texto, estilo revista</td></tr>
+				<tr><td><code>[cp_sanfona categoria="entrevistas" titulo="Entrevistas"]</code></td><td>Colunas com título na vertical que abrem ao passar o mouse (<code>cor="rosa"</code>, <code>azul</code>, <code>limao</code> ou <code>preto</code>)</td></tr>
+				<tr><td><code>[cp_divisor padrao="3" cor="rosa"]</code></td><td>Divisória de pixels da identidade (padrão 1 a 4; cor rosa, preto, azul ou limao; <code>virar="sim"</code> inverte)</td></tr>
 				</tbody>
 			</table>
 			<p>Nenhum bloco repete matéria de outro na mesma página. A ordem dos blocos na página define quem pega primeiro.</p>

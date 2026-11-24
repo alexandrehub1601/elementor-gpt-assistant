@@ -145,4 +145,60 @@ final class CPH_Render {
 		}
 		return $h . '</div>' . self::sky() . '</div></div></section>';
 	}
+	/** Divisória de pixels. $n = 1 a 4 (padrão), $cor = rosa, preto, azul ou limao. */
+	public static function divisor($n = 2, $cor = 'rosa', $virar = false) {
+		$n = max(1, min(4, intval($n)));
+		$cor = in_array($cor, array('rosa', 'preto', 'azul', 'limao'), true) ? $cor : 'rosa';
+		return '<div class="cph-div cph-div-' . $n . ' cph-div-' . $cor . ($virar ? ' cph-div-flip' : '') . '" aria-hidden="true"></div>';
+	}
+
+	/** Capa: uma matéria com foto em tela cheia, título enorme e a skyline rosa no pé. */
+	public static function capa($p, $rotulo = '') {
+		if (!$p) {
+			return '';
+		}
+		return '<section class="cph-bloco"><div class="cph-wrap"><article class="cph-capa"><a href="' . esc_url($p['u']) . '">' . self::img($p, 'cph-img-capa')
+			. '<span class="cph-capa-txt">' . ($rotulo ? self::tag($rotulo, 'cph-tag-ink') : '') . self::tag($p['cat']) . '<h2 class="cph-capa-t">' . esc_html($p['t']) . '</h2>'
+			. ($p['ex'] ? '<p>' . esc_html($p['ex']) . '</p>' : '') . '<span class="cph-capa-btn">Ler agora' . self::seta() . '</span></span>' . self::sky('cph-capa-sky') . '</a></article></div></section>';
+	}
+
+	/** Mosaico: uma grande à esquerda e quatro menores. */
+	public static function mosaico($titulo, $link, $posts) {
+		if (!$posts) {
+			return '';
+		}
+		$big = array_shift($posts);
+		$h = '<section class="cph-bloco"><div class="cph-wrap">' . self::cabecalho($titulo, $link) . '<div class="cph-mosaico">'
+			. '<article class="cph-mos-big"><a href="' . esc_url($big['u']) . '">' . self::img($big, 'cph-img-fill') . '<span class="cph-mos-txt">' . self::tag($big['cat']) . '<strong>' . esc_html($big['t']) . '</strong></span></a></article>';
+		foreach ($posts as $p) {
+			$h .= '<article class="cph-mos-sm"><a href="' . esc_url($p['u']) . '">' . self::img($p, 'cph-img-fill') . '<span class="cph-mos-txt">' . self::tag($p['cat']) . '<strong>' . esc_html($p['t']) . '</strong></span></a></article>';
+		}
+		return $h . '</div></div></section>';
+	}
+
+	/** Manchetes: só texto, em colunas, estilo revista. */
+	public static function manchetes($titulo, $link, $posts) {
+		if (!$posts) {
+			return '';
+		}
+		$h = '<section class="cph-bloco"><div class="cph-wrap"><div class="cph-manchetes">' . self::cabecalho($titulo, $link) . '<ol class="cph-man-lista">';
+		foreach ($posts as $p) {
+			$h .= '<li><a href="' . esc_url($p['u']) . '"><span class="cph-card-meta">' . self::tag($p['cat'], 'cph-tag-ink') . '<span class="cph-quando">' . esc_html($p['quando']) . '</span></span><strong>' . esc_html($p['t']) . '</strong></a></li>';
+		}
+		return $h . '</ol></div></div></section>';
+	}
+
+	/** Sanfona: colunas com título na vertical que abrem ao passar o mouse (ou com o teclado). */
+	public static function sanfona($titulo, $link, $posts, $cor = 'preto') {
+		if (!$posts) {
+			return '';
+		}
+		$cor = in_array($cor, array('preto', 'rosa', 'azul', 'limao'), true) ? $cor : 'preto';
+		$h = '<section class="cph-bloco"><div class="cph-wrap"><div class="cph-sanfona cph-sanfona-' . $cor . '">' . self::cabecalho($titulo, $link) . '<ol class="cph-san-lista">';
+		foreach ($posts as $i => $p) {
+			$h .= '<li class="cph-san' . ($i === 0 ? ' cph-san-aberta' : '') . '"><a href="' . esc_url($p['u']) . '"><span class="cph-san-v" aria-hidden="true"><span class="cph-num">' . sprintf('%02d', $i + 1) . '</span><span class="cph-san-vt">' . esc_html($p['t']) . '</span></span>'
+				. '<span class="cph-san-full">' . self::img($p, 'cph-img-fill') . '<span class="cph-san-txt">' . self::tag($p['cat']) . '<strong>' . esc_html($p['t']) . '</strong></span></span></a></li>';
+		}
+		return $h . '</ol></div></div></section>';
+	}
 }

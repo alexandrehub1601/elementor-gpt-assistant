@@ -20,6 +20,11 @@ Puxam as matérias de verdade do site; nada muda no jeito de publicar.
 | `[cp_slides categoria="entrevistas" titulo="Entrevistas" cor="limao"]` | Carrossel (cor: limao, rosa ou azul) |
 | `[cp_proximos_shows]` | Próximos shows da agenda (precisa do plugin da agenda) |
 | `[cp_newsletter]` | Newsletter (cole o formulário em Configurações) |
+| `[cp_capa categoria="coberturas" rotulo="Cobertura"]` | Uma matéria em tela cheia, título enorme e a skyline rosa |
+| `[cp_mosaico categoria="festival" titulo="Festivais"]` | Uma grande e quatro menores |
+| `[cp_manchetes categoria="marcas" titulo="Marcas"]` | Seis manchetes só em texto, estilo revista |
+| `[cp_sanfona categoria="entrevistas" titulo="Entrevistas"]` | Colunas com título na vertical que abrem ao passar o mouse |
+| `[cp_divisor padrao="3" cor="rosa"]` | Divisória de pixels da identidade (padrão 1 a 4; cor rosa, preto, azul ou limao; `virar="sim"`) |
 
 Nenhum bloco repete matéria de outro na mesma página. "Em alta" usa o contador de visitas
 que o site já tem (coluna "Views"); sem contador, usa as mais comentadas.

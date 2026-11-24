@@ -10,7 +10,7 @@ Salve cada foto nesta pasta com o nome abaixo (JPG, retrato, idealmente 800x880p
 - `guilherme-da-silva-junior.jpg` — Guilherme da Silva Junior
 - `joao-paulo-manrique-tavela.jpg` — João Paulo Manrique Tavela
 - `joao-victor-fornario-rodrigues.jpg` — João Victor Fornario Rodrigues
-- `nagaki-yamauci.jpg` — Nagaki Yamauci
+- `nagaki-yamaguchi.jpg` — Nagaki Yamaguchi
 - `ricardo-jose-vercelli.jpg` — Ricardo José Vercelli
 - `rosano-antonio-carvalo-rosan.jpg` — Rosano Antonio Carvalo Rosan
 - `thiago-pizzocaro-volpi.jpg` — Thiago Pizzocaro Volpi

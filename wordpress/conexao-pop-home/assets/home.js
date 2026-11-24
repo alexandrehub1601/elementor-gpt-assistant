@@ -12,3 +12,14 @@
 		});
 	});
 })();
+/* Matéria: copiar link */
+(function () {
+	document.querySelectorAll(".cph-copiar").forEach(function (b) {
+		b.addEventListener("click", function () {
+			var url = b.dataset.url, txt = b.querySelector("span");
+			var ok = function () { if (txt) { txt.textContent = "Link copiado"; setTimeout(function () { txt.textContent = "Copiar link"; }, 2000); } };
+			if (navigator.clipboard) navigator.clipboard.writeText(url).then(ok, function () { prompt("Copie o link:", url); });
+			else prompt("Copie o link:", url);
+		});
+	});
+})();

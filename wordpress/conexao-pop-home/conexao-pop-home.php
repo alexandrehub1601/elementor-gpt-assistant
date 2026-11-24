@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Home Conexão Pop
  * Description: Blocos de home com a identidade 2026 do Conexão Pop: faixa de manchetes, destaques, "acabou de sair", em alta, editorias, próximos shows, slides e newsletter. Use os shortcodes no Elementor ou [cp_home] para a home inteira.
- * Version: 1.2.1
+ * Version: 1.3.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Conexão Pop
@@ -13,11 +13,12 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-define('CPH_VERSION', '1.2.1');
+define('CPH_VERSION', '1.3.0');
 define('CPH_URL', plugin_dir_url(__FILE__));
 define('CPH_DIR', plugin_dir_path(__FILE__));
 
 require_once CPH_DIR . 'inc/render.php';
+require_once CPH_DIR . 'inc/paginas.php';
 
 final class CPH {
 
@@ -39,17 +40,20 @@ final class CPH {
 			'news_titulo' => 'Receba o melhor do pop no seu e-mail',
 			'news_texto'  => 'Lançamentos, shows e festivais da semana, sem spam.',
 			'news_embed'  => '',
+			'layout_materia'   => 0,
+			'layout_categoria' => 0,
 		));
 	}
 
 	public function __construct() {
 		add_action('wp_enqueue_scripts', array($this, 'assets'));
-		foreach (array('cp_home', 'cp_faixa', 'cp_destaques', 'cp_agora', 'cp_em_alta', 'cp_editoria', 'cp_proximos_shows', 'cp_newsletter', 'cp_slides', 'cp_divisor', 'cp_capa', 'cp_mosaico', 'cp_manchetes', 'cp_sanfona') as $sc) {
+		foreach (array('cp_home', 'cp_faixa', 'cp_destaques', 'cp_agora', 'cp_em_alta', 'cp_editoria', 'cp_proximos_shows', 'cp_newsletter', 'cp_slides', 'cp_divisor', 'cp_capa', 'cp_mosaico', 'cp_manchetes', 'cp_sanfona', 'cp_materia', 'cp_categoria') as $sc) {
 			add_shortcode($sc, array($this, 'sc_' . substr($sc, 3)));
 		}
 		add_action('admin_menu', array($this, 'menu'));
 		add_action('admin_init', array($this, 'registrar'));
 		add_action('save_post_post', array(__CLASS__, 'limpar_cache'));
+		add_filter('template_include', array($this, 'modelo'), 99);
 	}
 
 	public static function limpar_cache() {
@@ -295,6 +299,140 @@ final class CPH {
 	}
 
 	/* ------------------------------------------------------------------ */
+	/* Matéria e categoria                                                 */
+	/* ------------------------------------------------------------------ */
+
+	public function modelo($tpl) {
+		$o = self::opcoes();
+		if ($o['layout_materia'] && is_singular('post')) {
+			$this->usar_assets();
+			return CPH_DIR . 'templates/single.php';
+		}
+		if ($o['layout_categoria'] && is_category()) {
+			$this->usar_assets();
+			return CPH_DIR . 'templates/categoria.php';
+		}
+		return $tpl;
+	}
+
+	public function sc_materia() {
+		if (!is_singular('post')) {
+			return '';
+		}
+		$this->usar_assets();
+		return self::html_materia(get_post());
+	}
+
+	public function sc_categoria() {
+		if (!is_category()) {
+			return '';
+		}
+		$this->usar_assets();
+		return self::html_categoria();
+	}
+
+	/** Categoria principal: a do Yoast, se existir; senão a primeira editoria conhecida. */
+	private static function cat_principal($id) {
+		$prim = (int) get_post_meta($id, '_yoast_wpseo_primary_category', true);
+		if ($prim && ($c = get_category($prim)) && !is_wp_error($c)) {
+			return $c;
+		}
+		$cats = get_the_category($id);
+		foreach (array_keys(self::$editorias) as $slug) {
+			foreach ($cats as $c) {
+				if ($c->slug === $slug) {
+					return $c;
+				}
+			}
+		}
+		foreach ($cats as $c) {
+			if (!in_array($c->slug, array('destaque', 'brasil', 'especiais', 'conectese'), true)) {
+				return $c;
+			}
+		}
+		return $cats ? $cats[0] : null;
+	}
+
+	public static function proximos_lista($qtd) {
+		if (!class_exists('Agenda_Conexao_Pop')) {
+			return array();
+		}
+		$hoje = current_time('Y-m-d');
+		$lista = array();
+		foreach (Agenda_Conexao_Pop::eventos() as $e) {
+			if (in_array('fest', $e['g'], true)) {
+				continue;
+			}
+			foreach ($e['d'] as $d) {
+				if ($d[0] >= $hoje) {
+					$lista[] = array('n' => $e['n'], 'data' => $d[0], 'local' => $d[3], 'cidade' => $d[1], 'uf' => $d[2], 'img' => $e['img'], 'status' => $d[5]);
+					break;
+				}
+			}
+		}
+		usort($lista, function ($x, $y) {
+			return strcmp($x['data'], $y['data']);
+		});
+		return array_slice($lista, 0, $qtd);
+	}
+
+	public static function html_materia($post) {
+		$id = $post->ID;
+		self::$usados[] = $id;
+		$cat = self::cat_principal($id);
+		$palavras = str_word_count(wp_strip_all_tags($post->post_content));
+		$tags = array();
+		foreach ((array) get_the_tags($id) as $tg) {
+			if ($tg) {
+				$tags[] = array($tg->name, get_tag_link($tg));
+			}
+		}
+		$thumb_id = get_post_thumbnail_id($id);
+		$m = array(
+			't'        => html_entity_decode(get_the_title($post), ENT_QUOTES, 'UTF-8'),
+			'sub'      => has_excerpt($id) ? wp_strip_all_tags(get_the_excerpt($post)) : '',
+			'cat'      => $cat ? $cat->name : '',
+			'cat_url'  => $cat ? get_category_link($cat) : '',
+			'data'     => get_the_date('j \d\e F \d\e Y, H\hi', $post),
+			'data_iso' => get_the_date('c', $post),
+			'autor'    => get_the_author_meta('display_name', $post->post_author),
+			'leitura'  => sprintf('%d min de leitura', max(1, (int) ceil($palavras / 220))),
+			'img'      => $thumb_id ? wp_get_attachment_image_url($thumb_id, 'full') : '',
+			'legenda'  => $thumb_id ? wp_get_attachment_caption($thumb_id) : '',
+			'conteudo' => apply_filters('the_content', $post->post_content),
+			'tags'     => $tags,
+			'url'      => get_permalink($post),
+		);
+		$lateral = CPH_Paginas::lateral(self::em_alta(5), self::proximos_lista(4), home_url('/agenda/'));
+		$rel = $cat ? self::buscar(array('cat' => $cat->term_id), 4) : array();
+		$depois = $rel ? CPH_Render::editoria('Leia também', $cat ? get_category_link($cat) : '', $rel) : '';
+		if (comments_open($id) || get_comments_number($id)) {
+			ob_start();
+			comments_template();
+			$depois .= '<section class="cph-bloco"><div class="cph-wrap cph-comentarios">' . ob_get_clean() . '</div></section>';
+		}
+		return CPH_Paginas::materia($m, $lateral, $depois);
+	}
+
+	public static function html_categoria() {
+		global $wp_query;
+		$term = get_queried_object();
+		$posts = array();
+		foreach ((array) $wp_query->posts as $p) {
+			$posts[] = self::card($p);
+		}
+		$pag = paginate_links(array('type' => 'array', 'prev_text' => '← Anteriores', 'next_text' => 'Próximas →', 'mid_size' => 1));
+		return CPH_Paginas::categoria(array(
+			'nome'    => $term ? $term->name : '',
+			'desc'    => $term ? wp_strip_all_tags(term_description($term)) : '',
+			'total'   => $term ? (int) $term->count : 0,
+			'posts'   => $posts,
+			'paginas' => $pag ? $pag : array(),
+			'pagina'  => max(1, (int) get_query_var('paged')),
+		));
+	}
+
+	/* ------------------------------------------------------------------ */
 	/* Configurações                                                       */
 	/* ------------------------------------------------------------------ */
 
@@ -309,6 +447,8 @@ final class CPH {
 				'news_texto'  => sanitize_text_field($v['news_texto'] ?? ''),
 				// Código do formulário da ferramenta de newsletter: só administradores salvam isto.
 				'news_embed'  => current_user_can('unfiltered_html') ? (string) ($v['news_embed'] ?? '') : wp_kses_post($v['news_embed'] ?? ''),
+				'layout_materia'   => empty($v['layout_materia']) ? 0 : 1,
+				'layout_categoria' => empty($v['layout_categoria']) ? 0 : 1,
 			);
 		}));
 	}
@@ -340,6 +480,14 @@ final class CPH {
 			<p>Nenhum bloco repete matéria de outro na mesma página. A ordem dos blocos na página define quem pega primeiro.</p>
 			<form method="post" action="options.php">
 				<?php settings_fields('cph'); ?>
+				<h2>Matérias e categorias</h2>
+				<table class="form-table">
+					<tr><th>Layout novo</th><td>
+						<label><input type="checkbox" name="<?php echo esc_attr(self::OPT); ?>[layout_materia]" value="1" <?php checked($o['layout_materia'], 1); ?>> Usar nas matérias</label><br>
+						<label><input type="checkbox" name="<?php echo esc_attr(self::OPT); ?>[layout_categoria]" value="1" <?php checked($o['layout_categoria'], 1); ?>> Usar nas páginas de categoria</label>
+						<p class="description">Usa o cabeçalho e o rodapé do tema. Se vocês têm Elementor Pro, dá para deixar desmarcado e usar <code>[cp_materia]</code> e <code>[cp_categoria]</code> nos modelos do Construtor de temas.</p>
+					</td></tr>
+				</table>
 				<h2>Newsletter</h2>
 				<table class="form-table">
 					<tr><th><label for="cph_nt">Título</label></th><td><input class="regular-text" id="cph_nt" name="<?php echo esc_attr(self::OPT); ?>[news_titulo]" value="<?php echo esc_attr($o['news_titulo']); ?>"></td></tr>

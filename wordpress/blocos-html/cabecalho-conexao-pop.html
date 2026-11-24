@@ -1,130 +1,175 @@
-<!-- Cabeçalho Conexão Pop · identidade 2026. Cole num widget HTML do Elementor no topo (de preferência no cabeçalho do Theme Builder). Responsivo. -->
+<!-- Cabeçalho Conexão Pop v2 · identidade 2026. Cole num widget HTML do Elementor no cabeçalho (Theme Builder) ou no topo das páginas. Responsivo. -->
 <link rel="stylesheet" href="https://use.typekit.net/xqr3xib.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=TikTok+Sans:wght@400;500;700&display=swap">
 <style>
-.cph-h{--k:#111;--p:#FF1574;--l:#D7FF47;--b:#5145FF;--c:#F4F1EC;position:sticky;top:0;z-index:999;font-family:"TikTok Sans",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--c)}
-.admin-bar .cph-h{top:32px}
-.cph-h *{box-sizing:border-box}
-.cph-h a{color:inherit;text-decoration:none}
-.cph-h ul{list-style:none;margin:0;padding:0}
-.cph-h :focus-visible{outline:3px solid var(--l);outline-offset:3px}
-.cph-h svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
-.cph-h-in{max-width:1320px;margin:0 auto;padding:0 20px}
+.cpx{--k:#111;--p:#FF1574;--l:#D7FF47;--b:#5145FF;--c:#F4F1EC;position:sticky;top:0;z-index:9999;font-family:"TikTok Sans",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--c)}
+.admin-bar .cpx{top:32px}
+.cpx *{box-sizing:border-box}
+.cpx a{color:inherit;text-decoration:none}
+.cpx ul,.cpx ol{list-style:none;margin:0;padding:0}
+.cpx :focus-visible{outline:3px solid var(--l);outline-offset:3px}
+.cpx svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.cpx-in{max-width:1360px;margin:0 auto;padding:0 22px}
+.cpx-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-/* Barra de cima (preta) */
-.cph-h-util{background:var(--k);font-size:13px;overflow:hidden;max-height:38px;transition:max-height .25s}
-.cph-h-util .cph-h-in{display:flex;align-items:center;gap:18px;min-height:38px}
-.cph-h-data{font:400 12px/1 "Geist Pixel","Courier New",monospace;text-transform:uppercase;letter-spacing:.03em;color:var(--l)}
-.cph-h-claim{color:#BDB7AE}
-.cph-h-soc{display:flex;gap:4px;margin-left:auto}
-.cph-h-soc a{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;color:var(--c);transition:background .15s,color .15s}
-.cph-h-soc a:hover{background:var(--p);color:#fff}
-.cph-h-soc svg{width:17px;height:17px}
+/* Linha 1: preta, logo grande */
+.cpx-top{background:var(--k);overflow:hidden;max-height:120px;transition:max-height .3s cubic-bezier(.2,.7,.2,1)}
+.cpx-top .cpx-in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;min-height:104px}
+.cpx-data{font:400 12px/1.3 "Geist Pixel","Courier New",monospace;text-transform:uppercase;letter-spacing:.03em;color:var(--l)}
+.cpx-data b{display:block;font-weight:400;color:#8F8A83}
+.cpx-logo{display:block;line-height:0;justify-self:center}
+.cpx-logo img{height:72px;width:auto;display:block;transition:transform .25s}
+.cpx-logo:hover img{transform:rotate(-2deg) scale(1.04)}
+.cpx-acts{display:flex;align-items:center;gap:10px;justify-self:end}
+.cpx-busca{display:flex;align-items:center;gap:8px;height:46px;border-radius:999px;border:2px solid #3A3A3A;padding:0 6px 0 16px;width:240px;transition:width .25s,border-color .15s;background:#1B1B1B}
+.cpx-busca:focus-within{width:320px;border-color:var(--l)}
+.cpx-busca input{flex:1;min-width:0;border:0;background:transparent;color:var(--c);font:500 15px/1 "TikTok Sans",sans-serif;outline:none;padding:0;height:auto;box-shadow:none}
+.cpx-busca input::placeholder{color:#8F8A83}
+.cpx-busca button{width:34px;height:34px;border-radius:50%;border:0;background:var(--l);color:var(--k);display:grid;place-items:center;cursor:pointer;padding:0}
+.cpx-busca button svg{width:17px;height:17px}
+.cpx-agenda{display:inline-flex;align-items:center;gap:8px;height:46px;border-radius:999px;padding:0 18px;background:var(--p);color:#fff!important;font-weight:700;font-size:15px;white-space:nowrap;transition:background .15s,color .15s,transform .15s}
+.cpx-agenda:hover{background:var(--l);color:var(--k)!important;transform:rotate(-2deg)}
+.cpx-menu{display:inline-flex;align-items:center;gap:10px;height:46px;border-radius:999px;border:2px solid var(--c);background:transparent;color:var(--c);padding:0 16px;cursor:pointer;font:700 20px/1 "kensington","Kensington",Impact,sans-serif;text-transform:uppercase;letter-spacing:.02em;transition:background .15s,color .15s}
+.cpx-menu:hover{background:var(--c);color:var(--k)}
+.cpx-burger{display:grid;gap:4px}
+.cpx-burger i{display:block;width:18px;height:2.5px;background:currentColor}
+.cpx-burger i:nth-child(2){width:12px}
 
-/* Barra principal (rosa) */
-.cph-h-main{background:var(--p)}
-.cph-h-main .cph-h-in{display:flex;align-items:center;gap:22px;min-height:96px;transition:min-height .25s}
-.cph-h-logo{flex:none;display:block;line-height:0}
-.cph-h-logo img{height:62px;width:auto;display:block;transition:height .25s}
-.cph-h-nav{flex:1;min-width:0}
-.cph-h-nav ul{display:flex;justify-content:center;flex-wrap:wrap;gap:2px}
-.cph-h-nav a{position:relative;display:inline-block;padding:8px 10px 6px;font:700 25px/1 "kensington","Kensington",Impact,"Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.01em;color:var(--c);isolation:isolate;white-space:nowrap}
-/* A caixa inclinada do logo aparece atrás da editoria */
-.cph-h-nav a::before{content:"";position:absolute;inset:2px -2px 0;background:var(--c);transform:skewY(-4deg) scaleX(0);transform-origin:left;transition:transform .22s cubic-bezier(.2,.7,.2,1);z-index:-1}
-.cph-h-nav li:nth-child(even) a::before{transform:skewY(3deg) scaleX(0)}
-.cph-h-nav a:hover,.cph-h-nav a:focus-visible,.cph-h-nav a[aria-current="page"]{color:var(--p)}
-.cph-h-nav a:hover::before,.cph-h-nav a:focus-visible::before,.cph-h-nav a[aria-current="page"]::before{transform:skewY(-4deg) scaleX(1)}
-.cph-h-nav li:nth-child(even) a:hover::before,.cph-h-nav li:nth-child(even) a:focus-visible::before,.cph-h-nav li:nth-child(even) a[aria-current="page"]::before{transform:skewY(3deg) scaleX(1)}
-.cph-h-acts{flex:none;display:flex;align-items:center;gap:10px}
-.cph-h-agenda{display:inline-flex;align-items:center;gap:8px;background:var(--l);color:var(--k)!important;border-radius:999px;padding:11px 18px;font-weight:700;font-size:15px;white-space:nowrap;transition:background .15s,transform .15s}
-.cph-h-agenda:hover{background:var(--c);transform:rotate(-2deg)}
-.cph-h-btn{width:46px;height:46px;border-radius:50%;border:2px solid var(--c);background:transparent;color:var(--c);display:grid;place-items:center;cursor:pointer;padding:0;transition:background .15s,color .15s}
-.cph-h-btn:hover{background:var(--c);color:var(--p)}
-.cph-h-menu{display:none}
+/* Linha 2: rosa, editorias */
+.cpx-nav{background:var(--p);position:relative}
+.cpx-nav .cpx-in{display:flex;align-items:center;gap:14px;min-height:58px}
+.cpx-mini{flex:none;width:0;overflow:hidden;opacity:0;transition:width .3s,opacity .2s;line-height:0}
+.cpx-mini img{height:34px;width:auto}
+.cpx-nav ul{flex:1;display:flex;justify-content:center;gap:6px 26px;flex-wrap:wrap}
+.cpx-nav a{display:block;padding:10px 0 8px;position:relative}
+.cpx-roll{position:relative;display:block;overflow:hidden;font:700 24px/1.05 "kensington","Kensington",Impact,"Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.01em;white-space:nowrap}
+.cpx-roll>span{position:relative;display:block;color:var(--c);transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.cpx-roll>span::after{content:attr(data-t);position:absolute;left:0;top:100%;color:var(--k)}
+.cpx-nav a:hover .cpx-roll>span,.cpx-nav a:focus-visible .cpx-roll>span{transform:translateY(-100%)}
+.cpx-nav a[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:repeating-linear-gradient(90deg,var(--l) 0 6px,transparent 6px 10px)}
 
-/* Borda de pixels */
-.cph-h .cph-h-edge{display:block;width:100%;height:clamp(18px,2.4vw,30px);stroke:none;fill:var(--p);transform:scale(-1,-1);margin-top:-1px;pointer-events:none}
+/* Equalizador de pixels pendurado na faixa rosa */
+.cpx-eq{display:flex;height:22px;margin-top:-1px;pointer-events:none}
+.cpx-eq i{flex:1;height:100%;background:var(--p);transform-origin:top;animation:cpx-eq var(--d,1.6s) steps(5,end) var(--a,0s) infinite alternate}
+.cpx-eq i:nth-child(7n){background:var(--k)}
+@keyframes cpx-eq{from{transform:scaleY(var(--min,.15))}to{transform:scaleY(var(--max,1))}}
 
-/* Ao rolar a página */
-.cph-h.is-min .cph-h-util{max-height:0}
-.cph-h.is-min .cph-h-main .cph-h-in{min-height:66px}
-.cph-h.is-min .cph-h-logo img{height:40px}
+/* Compacto ao rolar */
+.cpx.is-min .cpx-top{max-height:0}
+.cpx.is-min .cpx-mini{width:118px;opacity:1}
 
-/* Busca */
-.cph-h-busca{position:absolute;left:0;right:0;top:100%;background:var(--k);padding:22px 0 26px;border-bottom:4px solid var(--l)}
-.cph-h-busca[hidden]{display:none}
-.cph-h-busca form{display:flex;gap:10px;max-width:900px;margin:0 auto;padding:0 20px}
-.cph-h-busca input{flex:1;min-width:0;min-height:56px;border:0;border-radius:999px;padding:0 24px;font:700 22px/1 "kensington","Kensington",Impact,sans-serif;text-transform:uppercase;letter-spacing:.02em;background:var(--c);color:var(--k)}
-.cph-h-busca button{min-height:56px;border:0;border-radius:999px;padding:0 24px;background:var(--p);color:#fff;font-weight:700;font-size:16px;cursor:pointer}
+/* Menu aberto (tela cheia) */
+.cpx-over{position:fixed;inset:0;z-index:10000;background:var(--k);color:var(--c);display:grid;grid-template-rows:auto 1fr auto;overflow-y:auto}
+.cpx-over[hidden]{display:none}
+.cpx-over-top{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;max-width:1360px;width:100%;margin:0 auto}
+.cpx-over-top img{height:52px;width:auto}
+.cpx-fechar{display:inline-flex;align-items:center;gap:10px;height:46px;border-radius:999px;border:2px solid var(--c);background:transparent;color:var(--c);padding:0 16px;cursor:pointer;font:700 20px/1 "kensington","Kensington",Impact,sans-serif;text-transform:uppercase}
+.cpx-fechar:hover{background:var(--p);border-color:var(--p);color:#fff}
+.cpx-over-mid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;max-width:1360px;width:100%;margin:0 auto;padding:10px 22px 30px;align-items:start}
+.cpx-over ol a{display:flex;align-items:baseline;gap:16px;font:700 clamp(48px,7.6vw,112px)/.9 "kensington","Kensington",Impact,sans-serif;text-transform:uppercase;color:var(--c);padding:2px 0;transition:color .15s,transform .2s}
+.cpx-on{font:400 14px/1 "Geist Pixel","Courier New",monospace;color:#6E6A64;min-width:2.2em}
+.cpx-over ol a:hover,.cpx-over ol a:focus-visible,.cpx-over ol a.is-on{color:var(--p);transform:translateX(10px)}
+.cpx-over ol a:hover .cpx-on,.cpx-over ol a.is-on .cpx-on{color:var(--l)}
+.cpx-prev{position:sticky;top:20px;display:grid;gap:14px}
+.cpx-prev-h{font:400 13px/1 "Geist Pixel","Courier New",monospace;text-transform:uppercase;background:var(--l);color:var(--k);justify-self:start;padding:5px 8px 4px}
+.cpx-prev-lista{display:grid;gap:12px;min-height:300px}
+.cpx-prev-lista a{display:grid;grid-template-columns:120px minmax(0,1fr);gap:14px;align-items:center;background:#1C1C1C;border-radius:14px;padding:10px;transition:background .15s}
+.cpx-prev-lista a:hover{background:#262626}
+.cpx-prev-lista img{width:120px;aspect-ratio:4/3;object-fit:cover;border-radius:10px;display:block;background:#2A2A2A}
+.cpx-prev-lista strong{font:700 22px/.98 "kensington","Kensington",Impact,sans-serif;text-transform:uppercase}
+.cpx-prev-vazio{color:#8F8A83;font-size:15px}
+.cpx-over-agenda{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--p);color:#fff;border-radius:16px;padding:16px 18px;font:700 28px/1 "kensington","Kensington",Impact,sans-serif;text-transform:uppercase}
+.cpx-over-agenda i{font-style:normal;width:42px;height:42px;border-radius:50%;background:var(--l);color:var(--k);display:grid;place-items:center}
+.cpx-over-bot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;max-width:1360px;width:100%;margin:0 auto;padding:0 22px 22px}
+.cpx-soc{display:flex;gap:8px}
+.cpx-soc a{width:44px;height:44px;border-radius:50%;border:2px solid var(--c);display:grid;place-items:center;transition:background .15s,border-color .15s}
+.cpx-soc a:hover{background:var(--p);border-color:var(--p)}
+.cpx-over-bot small{font:400 12px/1 "Geist Pixel","Courier New",monospace;text-transform:uppercase;color:#6E6A64}
+.cpx-over-eq{height:60px}
+.cpx-over-eq i{transform-origin:bottom}
 
-/* Menu do celular */
-.cph-h-drawer{position:fixed;inset:0;z-index:1000;background:var(--p);display:flex;flex-direction:column;overflow-y:auto}
-.cph-h-drawer[hidden]{display:none}
-.cph-h-drawer-top{display:flex;align-items:center;justify-content:space-between;padding:16px 20px}
-.cph-h-drawer-top img{height:46px;width:auto}
-.cph-h-drawer ul{padding:10px 20px 0;display:grid;gap:2px}
-.cph-h-drawer ul a{display:inline-block;font:700 clamp(46px,13vw,72px)/.95 "kensington","Kensington",Impact,sans-serif;text-transform:uppercase;color:var(--c);padding:4px 0}
-.cph-h-drawer ul li:nth-child(odd) a:hover,.cph-h-drawer ul a[aria-current="page"]{color:var(--l)}
-.cph-h-drawer ul li:nth-child(even) a:hover{color:var(--k)}
-.cph-h-drawer .cph-h-agenda{margin:24px 20px 0;align-self:flex-start;font-size:17px;padding:14px 22px}
-.cph-h-drawer .cph-h-soc{margin:22px 20px 0;gap:8px}
-.cph-h-drawer .cph-h-soc a{width:44px;height:44px;border:2px solid var(--c)}
-.cph-h .cph-h-drawer-sky{margin-top:auto;width:100%;height:70px;fill:var(--k);stroke:none;display:block;flex:none}
-
-@media (max-width:1240px){.cph-h-nav a{font-size:21px;padding:8px 7px 6px}.cph-h-claim{display:none}}
-@media (max-width:1060px){
-  .cph-h-nav,.cph-h-util,.cph-h-main .cph-h-agenda{display:none}
-  .cph-h-menu{display:grid}
-  .cph-h-main .cph-h-in{min-height:72px;justify-content:space-between}
-  .cph-h-logo img{height:46px}
-  .cph-h.is-min .cph-h-main .cph-h-in{min-height:60px}
-  .cph-h.is-min .cph-h-logo img{height:36px}
+@media (max-width:1180px){.cpx-busca{width:44px;padding:0;border:0;background:transparent}.cpx-busca input{display:none}.cpx-busca:focus-within{width:44px}.cpx-busca button{width:44px;height:44px}.cpx-nav ul{gap:6px 18px}.cpx-roll{font-size:21px}}
+@media (max-width:900px){
+  .cpx-top .cpx-in{grid-template-columns:auto 1fr;min-height:74px}
+  .cpx-data{display:none}
+  .cpx-logo{justify-self:start}
+  .cpx-logo img{height:48px}
+  .cpx-agenda,.cpx-nav ul{display:none}
+  .cpx-menu span:first-child{display:none}
+  .cpx-nav .cpx-in{min-height:14px}
+  .cpx-mini{display:none}
+  .cpx.is-min .cpx-top{max-height:120px}
+  .cpx.is-min .cpx-mini{width:0}
+  .cpx-over-mid{grid-template-columns:1fr}
+  .cpx-prev{display:none}
+  .cpx-over-agenda{margin:0 22px}
 }
-@media (max-width:782px){.admin-bar .cph-h{top:0}}
-@media (prefers-reduced-motion:reduce){.cph-h *{transition:none!important}}
+@media (max-width:782px){.admin-bar .cpx{top:0}}
+@media (prefers-reduced-motion:reduce){.cpx *{transition:none!important;animation:none!important}}
 </style>
 
-<header class="cph-h" id="cph-h">
-  <div class="cph-h-util"><div class="cph-h-in">
-    <span class="cph-h-data" id="cph-h-data"></span>
-    <span class="cph-h-claim">Música, shows, festivais e as marcas que se conectam com o entretenimento</span>
-    <nav class="cph-h-soc" aria-label="Redes sociais"><a href="https://www.instagram.com/siteconexaopop" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a><a href="https://www.tiktok.com/@siteconexaopop" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.6 2.3 4.2 5 4.5"/></svg></a><a href="https://www.youtube.com/c/Conex%C3%A3oPOP" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="m10 9.5 5 2.5-5 2.5z" fill="currentColor"/></svg></a><a href="https://twitter.com/conexaopopsite" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24"><path d="M4 4l16 16M20 4 4 20"/></svg></a><a href="https://www.facebook.com/siteconexaopop/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V10H6.5v3.5H9V21h3.5v-7.5H15l.5-3.5h-3V7a1 1 0 0 1 1-1H15z"/></svg></a></nav>
-  </div></div>
-  <div class="cph-h-main"><div class="cph-h-in">
-    <a class="cph-h-logo" href="https://conexaopop.com.br/" aria-label="Conexão Pop, página inicial"><img src="https://conexaopop.com.br/wp-content/plugins/agenda-conexao-pop/assets/img/logo-caixas.svg" alt="Conexão Pop" width="420" height="137"></a>
-    <nav class="cph-h-nav" aria-label="Editorias"><ul><li><a href="https://conexaopop.com.br/ultimas-noticias/"><span>Últimas notícias</span></a></li><li><a href="https://conexaopop.com.br/category/musica/"><span>Música</span></a></li><li><a href="https://conexaopop.com.br/category/marcas/"><span>Marcas</span></a></li><li><a href="https://conexaopop.com.br/category/shows/"><span>Shows</span></a></li><li><a href="https://conexaopop.com.br/category/eventos/"><span>Festivais</span></a></li><li><a href="https://conexaopop.com.br/category/entrevistas/"><span>Entrevistas</span></a></li><li><a href="https://conexaopop.com.br/category/mercado/"><span>Mercado</span></a></li></ul></nav>
-    <div class="cph-h-acts">
-      <a class="cph-h-agenda" href="https://conexaopop.com.br/agenda/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a3 3 0 0 0 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 0 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg>Agenda 26/27</a>
-      <button class="cph-h-btn" type="button" id="cph-h-sbtn" aria-label="Buscar" aria-expanded="false" aria-controls="cph-h-busca"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
-      <button class="cph-h-btn cph-h-menu" type="button" id="cph-h-mbtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="cph-h-drawer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+<header class="cpx" id="cpx">
+  <div class="cpx-top"><div class="cpx-in">
+    <span class="cpx-data" id="cpx-data"></span>
+    <a class="cpx-logo" href="https://conexaopop.com.br/" aria-label="Conexão Pop, página inicial"><img src="https://conexaopop.com.br/wp-content/plugins/agenda-conexao-pop/assets/img/logo-caixas.svg" alt="Conexão Pop" width="420" height="137"></a>
+    <div class="cpx-acts">
+      <form class="cpx-busca" role="search" action="https://conexaopop.com.br/" method="get"><label class="cpx-sr" for="cpx-q">Buscar no Conexão Pop</label><input id="cpx-q" type="search" name="s" placeholder="Buscar artista, show…"><button type="submit" aria-label="Buscar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button></form>
+      <a class="cpx-agenda" href="https://conexaopop.com.br/agenda/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a3 3 0 0 0 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 0 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg>Agenda 26/27</a>
+      <button class="cpx-menu" type="button" id="cpx-abrir" aria-expanded="false" aria-controls="cpx-over"><span>Menu</span><span class="cpx-burger" aria-hidden="true"><i></i><i></i><i></i></span><span class="cpx-sr">Abrir menu</span></button>
     </div>
   </div></div>
-  <svg class="cph-h-edge" viewBox="65 705 443 86.2" preserveAspectRatio="none" aria-hidden="true"><path d="M508.26,705.15v86.14H65.06c.21-1.53-.55-3.62.55-4.79h21.17v-19.88h36.07v-16.93h27.24v25.4h16.56v-11.23c.73-.48,2.46-.53,3.48-.57,4.58-.18,9.28-.04,13.82.39v17.48l.55.55h44.36v-11.04h30.37l.55-.55v-16.01h29.45v19.14h38.47l.55.55v11.6h21.72v-16.2h19.51v-15.28l.55-.55h20.43v12.52h23.56v-8.65c0-.2.57-.82.37-1.29h32.58c1.03,0,.15,2.51.16,3.12.05,3.21.35,6.41.4,9.57.02,1.36.13,2.76-.29,4.08l.46.54h18.96v-31.66h28.71v-36.07c.47.2,1.09-.37,1.29-.37h5.89c.09,0,.33.24.66.24,1.53,0,3.4-.49,5.05-.24Z"/></svg>
-  <div class="cph-h-busca" id="cph-h-busca" hidden>
-    <form role="search" action="https://conexaopop.com.br/" method="get"><label for="cph-h-q" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Buscar no Conexão Pop</label><input id="cph-h-q" type="search" name="s" placeholder="Buscar artista, show, festival…" autocomplete="off"><button type="submit">Buscar</button></form>
-  </div>
-  <div class="cph-h-drawer" id="cph-h-drawer" hidden role="dialog" aria-modal="true" aria-label="Menu">
-    <div class="cph-h-drawer-top"><a href="https://conexaopop.com.br/" aria-label="Conexão Pop, página inicial"><img src="https://conexaopop.com.br/wp-content/plugins/agenda-conexao-pop/assets/img/logo-caixas.svg" alt="Conexão Pop" width="420" height="137"></a><button class="cph-h-btn" type="button" id="cph-h-mclose" aria-label="Fechar menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
-    <nav aria-label="Editorias"><ul><li><a href="https://conexaopop.com.br/ultimas-noticias/">Últimas notícias</a></li><li><a href="https://conexaopop.com.br/category/musica/">Música</a></li><li><a href="https://conexaopop.com.br/category/marcas/">Marcas</a></li><li><a href="https://conexaopop.com.br/category/shows/">Shows</a></li><li><a href="https://conexaopop.com.br/category/eventos/">Festivais</a></li><li><a href="https://conexaopop.com.br/category/entrevistas/">Entrevistas</a></li><li><a href="https://conexaopop.com.br/category/mercado/">Mercado</a></li></ul></nav>
-    <a class="cph-h-agenda" href="https://conexaopop.com.br/agenda/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a3 3 0 0 0 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 0 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg>Agenda de shows 26/27</a>
-    <div class="cph-h-soc"><a href="https://www.instagram.com/siteconexaopop" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a><a href="https://www.tiktok.com/@siteconexaopop" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.6 2.3 4.2 5 4.5"/></svg></a><a href="https://www.youtube.com/c/Conex%C3%A3oPOP" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="m10 9.5 5 2.5-5 2.5z" fill="currentColor"/></svg></a><a href="https://twitter.com/conexaopopsite" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24"><path d="M4 4l16 16M20 4 4 20"/></svg></a><a href="https://www.facebook.com/siteconexaopop/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V10H6.5v3.5H9V21h3.5v-7.5H15l.5-3.5h-3V7a1 1 0 0 1 1-1H15z"/></svg></a></div>
-    <svg class="cph-h-drawer-sky" viewBox="65 705 443 86.2" preserveAspectRatio="none" aria-hidden="true"><path d="M508.26,705.15v86.14H65.06c.21-1.53-.55-3.62.55-4.79h21.17v-19.88h36.07v-16.93h27.24v25.4h16.56v-11.23c.73-.48,2.46-.53,3.48-.57,4.58-.18,9.28-.04,13.82.39v17.48l.55.55h44.36v-11.04h30.37l.55-.55v-16.01h29.45v19.14h38.47l.55.55v11.6h21.72v-16.2h19.51v-15.28l.55-.55h20.43v12.52h23.56v-8.65c0-.2.57-.82.37-1.29h32.58c1.03,0,.15,2.51.16,3.12.05,3.21.35,6.41.4,9.57.02,1.36.13,2.76-.29,4.08l.46.54h18.96v-31.66h28.71v-36.07c.47.2,1.09-.37,1.29-.37h5.89c.09,0,.33.24.66.24,1.53,0,3.4-.49,5.05-.24Z"/></svg>
+  <nav class="cpx-nav" aria-label="Editorias"><div class="cpx-in">
+    <a class="cpx-mini" href="https://conexaopop.com.br/" aria-label="Conexão Pop" tabindex="-1"><img src="https://conexaopop.com.br/wp-content/plugins/agenda-conexao-pop/assets/img/logo-caixas.svg" alt="" width="420" height="137"></a>
+    <ul><li><a href="https://conexaopop.com.br/ultimas-noticias/"><span class="cpx-roll"><span data-t="Últimas notícias">Últimas notícias</span></span></a></li><li><a href="https://conexaopop.com.br/category/musica/"><span class="cpx-roll"><span data-t="Música">Música</span></span></a></li><li><a href="https://conexaopop.com.br/category/shows/"><span class="cpx-roll"><span data-t="Shows">Shows</span></span></a></li><li><a href="https://conexaopop.com.br/category/eventos/"><span class="cpx-roll"><span data-t="Festivais">Festivais</span></span></a></li><li><a href="https://conexaopop.com.br/category/entrevistas/"><span class="cpx-roll"><span data-t="Entrevistas">Entrevistas</span></span></a></li><li><a href="https://conexaopop.com.br/category/marcas/"><span class="cpx-roll"><span data-t="Marcas">Marcas</span></span></a></li><li><a href="https://conexaopop.com.br/category/mercado/"><span class="cpx-roll"><span data-t="Mercado">Mercado</span></span></a></li></ul>
+  </div></nav>
+  <div class="cpx-eq" id="cpx-eq" aria-hidden="true"></div>
+
+  <div class="cpx-over" id="cpx-over" hidden role="dialog" aria-modal="true" aria-label="Menu do Conexão Pop">
+    <div class="cpx-over-top"><a href="https://conexaopop.com.br/" aria-label="Conexão Pop, página inicial"><img src="https://conexaopop.com.br/wp-content/plugins/agenda-conexao-pop/assets/img/logo-caixas.svg" alt="Conexão Pop" width="420" height="137"></a><button class="cpx-fechar" type="button" id="cpx-fechar">Fechar <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="cpx-over-mid">
+      <nav aria-label="Editorias"><ol id="cpx-ol"><li><a href="https://conexaopop.com.br/ultimas-noticias/" data-cat=""><span class="cpx-on">01</span>Últimas notícias</a></li><li><a href="https://conexaopop.com.br/category/musica/" data-cat="musica"><span class="cpx-on">02</span>Música</a></li><li><a href="https://conexaopop.com.br/category/shows/" data-cat="shows"><span class="cpx-on">03</span>Shows</a></li><li><a href="https://conexaopop.com.br/category/eventos/" data-cat="festival"><span class="cpx-on">04</span>Festivais</a></li><li><a href="https://conexaopop.com.br/category/entrevistas/" data-cat="entrevistas"><span class="cpx-on">05</span>Entrevistas</a></li><li><a href="https://conexaopop.com.br/category/marcas/" data-cat="marcas"><span class="cpx-on">06</span>Marcas</a></li><li><a href="https://conexaopop.com.br/category/mercado/" data-cat="mercado"><span class="cpx-on">07</span>Mercado</a></li></ol></nav>
+      <div class="cpx-prev"><span class="cpx-prev-h" id="cpx-prev-h">Últimas no Conexão Pop</span><div class="cpx-prev-lista" id="cpx-prev"></div>
+        <a class="cpx-over-agenda" href="https://conexaopop.com.br/agenda/">Agenda de shows 26/27<i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></a></div>
+    </div>
+    <div class="cpx-over-bot"><div class="cpx-soc"><a href="https://www.instagram.com/siteconexaopop" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a><a href="https://www.tiktok.com/@siteconexaopop" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.6 2.3 4.2 5 4.5"/></svg></a><a href="https://www.youtube.com/c/Conex%C3%A3oPOP" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="m10 9.5 5 2.5-5 2.5z" fill="currentColor"/></svg></a><a href="https://twitter.com/conexaopopsite" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24"><path d="M4 4l16 16M20 4 4 20"/></svg></a><a href="https://www.facebook.com/siteconexaopop/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V10H6.5v3.5H9V21h3.5v-7.5H15l.5-3.5h-3V7a1 1 0 0 1 1-1H15z"/></svg></a></div><small>Música, shows, festivais e marcas · desde 2017</small></div>
+    <div class="cpx-eq cpx-over-eq" id="cpx-eq2" aria-hidden="true"></div>
   </div>
 </header>
 <script>
 (function(){
-  var h=document.getElementById("cph-h");if(!h)return;
-  var dias=["dom","seg","ter","qua","qui","sex","sáb"],meses=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"],n=new Date();
-  var d=document.getElementById("cph-h-data");if(d)d.textContent=dias[n.getDay()]+" "+n.getDate()+" "+meses[n.getMonth()]+" "+n.getFullYear();
+  var h=document.getElementById("cpx");if(!h)return;
+  var API="https://conexaopop.com.br/wp-json/wp/v2/";
+  var dias=["domingo","segunda","terça","quarta","quinta","sexta","sábado"],meses=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"],n=new Date();
+  var dt=document.getElementById("cpx-data");if(dt)dt.innerHTML=dias[n.getDay()]+"<b>"+n.getDate()+" "+meses[n.getMonth()]+" "+n.getFullYear()+"</b>";
+  /* equalizador */
+  function eq(el,qtd){if(!el)return;var f=document.createDocumentFragment();for(var i=0;i<qtd;i++){var b=document.createElement("i");b.style.setProperty("--d",(0.9+Math.random()*1.4).toFixed(2)+"s");b.style.setProperty("--a",(-Math.random()*2).toFixed(2)+"s");b.style.setProperty("--min",(0.1+Math.random()*0.35).toFixed(2));b.style.setProperty("--max",(0.55+Math.random()*0.45).toFixed(2));f.appendChild(b)}el.appendChild(f)}
+  eq(document.getElementById("cpx-eq"),Math.max(32,Math.round(innerWidth/22)));eq(document.getElementById("cpx-eq2"),Math.max(32,Math.round(innerWidth/22)));
+  /* página atual */
   var aqui=location.pathname.replace(/\/+$/,"/");
-  h.querySelectorAll("nav a").forEach(function(a){try{if(new URL(a.href).pathname===aqui&&aqui!=="/")a.setAttribute("aria-current","page")}catch(e){}});
-  var min=false;function rolar(){var y=window.scrollY,m=min?y>40:y>120;if(m!==min){min=m;h.classList.toggle("is-min",m)}}
-  window.addEventListener("scroll",rolar,{passive:true});rolar();
-  var sb=document.getElementById("cph-h-sbtn"),bx=document.getElementById("cph-h-busca");
-  sb.addEventListener("click",function(){var abrir=bx.hidden;bx.hidden=!abrir;sb.setAttribute("aria-expanded",abrir);if(abrir)document.getElementById("cph-h-q").focus()});
-  var mb=document.getElementById("cph-h-mbtn"),dr=document.getElementById("cph-h-drawer"),mc=document.getElementById("cph-h-mclose");
-  function menu(abrir){dr.hidden=!abrir;mb.setAttribute("aria-expanded",abrir);document.documentElement.style.overflow=abrir?"hidden":"";(abrir?mc:mb).focus()}
-  mb.addEventListener("click",function(){menu(true)});mc.addEventListener("click",function(){menu(false)});
-  document.addEventListener("keydown",function(e){if(e.key!=="Escape")return;if(!dr.hidden)menu(false);else if(!bx.hidden){bx.hidden=true;sb.setAttribute("aria-expanded","false");sb.focus()}});
+  h.querySelectorAll(".cpx-nav a,#cpx-ol a").forEach(function(a){try{if(new URL(a.href).pathname===aqui&&aqui!=="/")a.setAttribute("aria-current","page")}catch(e){}});
+  /* compacto ao rolar */
+  var min=false;function rolar(){var y=scrollY,m=min?y>40:y>140;if(m!==min){min=m;h.classList.toggle("is-min",m)}}
+  addEventListener("scroll",rolar,{passive:true});rolar();
+  /* menu em tela cheia */
+  var ov=document.getElementById("cpx-over"),ab=document.getElementById("cpx-abrir"),fe=document.getElementById("cpx-fechar");
+  function menu(o){ov.hidden=!o;ab.setAttribute("aria-expanded",o);document.documentElement.style.overflow=o?"hidden":"";(o?fe:ab).focus();if(o)mostrar("")}
+  ab.addEventListener("click",function(){menu(true)});fe.addEventListener("click",function(){menu(false)});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!ov.hidden)menu(false)});
+  /* últimas matérias de cada editoria, puxadas do próprio site */
+  var cache={},ids={},prev=document.getElementById("cpx-prev"),ph=document.getElementById("cpx-prev-h"),atual=null;
+  function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+  function txt(html){var d=document.createElement("div");d.innerHTML=html;return d.textContent}
+  function pintar(lista){if(!lista||!lista.length){prev.innerHTML='<p class="cpx-prev-vazio">Abra a editoria para ver as matérias.</p>';return}
+    prev.innerHTML=lista.map(function(p){var m=p._embedded&&p._embedded["wp:featuredmedia"]&&p._embedded["wp:featuredmedia"][0];var img=m&&m.media_details&&m.media_details.sizes&&(m.media_details.sizes.medium||m.media_details.sizes.thumbnail||{}).source_url||(m&&m.source_url)||"";
+      return '<a href="'+esc(p.link)+'">'+(img?'<img src="'+esc(img)+'" alt="" loading="lazy">':'<img alt="">')+'<strong>'+esc(txt(p.title.rendered))+'</strong></a>'}).join("")}
+  function idDe(slug){if(!slug)return Promise.resolve(0);if(ids[slug]!==undefined)return Promise.resolve(ids[slug]);
+    return fetch(API+"categories?slug="+encodeURIComponent(slug)).then(function(r){return r.json()}).then(function(j){ids[slug]=j&&j[0]?j[0].id:0;return ids[slug]})}
+  function mostrar(slug){atual=slug;var a=document.querySelector('#cpx-ol a[data-cat="'+slug+'"]');
+    document.querySelectorAll("#cpx-ol a").forEach(function(x){x.classList.toggle("is-on",x===a&&!!slug)});
+    ph.textContent=slug&&a?"Últimas em "+a.textContent.replace(/^\d+/,""):"Últimas no Conexão Pop";
+    if(cache[slug]){pintar(cache[slug]);return}
+    idDe(slug).then(function(id){return fetch(API+"posts?per_page=3&_embed=wp:featuredmedia"+(id?"&categories="+id:"")).then(function(r){return r.json()})})
+      .then(function(j){cache[slug]=Array.isArray(j)?j:[];if(atual===slug)pintar(cache[slug])}).catch(function(){if(atual===slug)pintar([])})}
+  document.querySelectorAll("#cpx-ol a").forEach(function(a){var t;var ir=function(){clearTimeout(t);t=setTimeout(function(){mostrar(a.dataset.cat)},120)};a.addEventListener("mouseenter",ir);a.addEventListener("focus",ir)});
 })();
 </script>

@@ -1,0 +1,61 @@
+<!-- Banner da Agenda Conexão Pop. Cole num widget HTML do Elementor. Ocupa a largura da coluna e se ajusta ao celular. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap">
+<style>
+.cpb{--cpb-ink:#2D2727;--cpb-pink:#FF56AC;--cpb-pink2:#DC4F92;position:relative;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:center;gap:24px;overflow:hidden;border-radius:10px;background:var(--cpb-ink);color:#fff;isolation:isolate;padding:28px 40px;min-height:250px;font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;text-decoration:none;box-sizing:border-box}
+.cpb *{box-sizing:border-box}
+.cpb-photo{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:50% 62%;filter:grayscale(1) contrast(1.25) brightness(.85);z-index:-2}
+.cpb::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(220,79,146,.95) 0%,rgba(255,86,172,.82) 45%,rgba(45,39,39,.9) 100%);mix-blend-mode:multiply;z-index:-1}
+.cpb-text{display:grid;gap:14px;justify-items:start}
+.cpb .cpb-title{margin:0;font-family:"Geist Pixel","Courier New",monospace;font-weight:400;font-size:clamp(30px,4.4vw,58px);line-height:1.14;color:#fff;text-transform:none;letter-spacing:-.01em}
+.cpb-title span{background:var(--cpb-ink);color:#fff;padding:0 .16em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.cpb-title em{font-style:normal;color:var(--cpb-pink)}
+.cpb .cpb-sub{margin:0;max-width:44ch;font-size:clamp(15px,1.4vw,18px);font-weight:500;line-height:1.45;color:#fff;text-shadow:0 1px 10px rgba(45,39,39,.45)}
+.cpb .cpb-btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:10px 22px;border-radius:999px;background:#fff;color:var(--cpb-ink);font:800 16px/1.2 "Bricolage Grotesque",system-ui,sans-serif;text-transform:none;letter-spacing:0;border:0;box-shadow:0 10px 24px -12px rgba(45,39,39,.7);transition:background .15s,color .15s,transform .15s}
+.cpb:hover .cpb-btn,.cpb:focus-visible .cpb-btn{background:var(--cpb-ink);color:#fff}
+.cpb:hover .cpb-btn svg{transform:translateX(3px)}
+.cpb-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .15s}
+.cpb:focus-visible{outline:3px solid var(--cpb-pink);outline-offset:3px}
+
+/* Ingressos à direita */
+.cpb-tickets{display:grid;gap:10px;justify-self:end;width:100%;max-width:360px}
+.cpb-t{display:grid;grid-template-columns:58px minmax(0,1fr);background:#fff;color:var(--cpb-ink);border-radius:8px;overflow:hidden;box-shadow:0 12px 26px -16px rgba(0,0,0,.7)}
+.cpb-t:nth-child(1){transform:rotate(-2deg) translateX(-14px)}
+.cpb-t:nth-child(2){transform:rotate(1.5deg) translateX(10px)}
+.cpb-t:nth-child(3){transform:rotate(-1deg)}
+.cpb-d{background:var(--cpb-pink);display:grid;justify-items:center;align-content:center;padding:6px 2px;border-right:2px dashed rgba(255,255,255,.9);font-stretch:75%;font-variation-settings:"wdth" 75;text-transform:uppercase;line-height:1}
+.cpb-d b{font-size:26px;font-weight:800}
+.cpb-d small{font-size:11px;font-weight:700;margin-top:2px}
+.cpb-i{padding:9px 12px;min-width:0}
+.cpb-i strong{display:block;font-family:"Geist Pixel","Courier New",monospace;font-weight:400;font-size:18px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cpb-i span{display:block;font-size:12.5px;color:#6E5D64;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+@media (max-width:760px){
+  .cpb{grid-template-columns:1fr;padding:24px 20px 26px;min-height:0}
+  .cpb-tickets{justify-self:stretch;max-width:none;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .cpb-t{grid-template-columns:1fr}
+  .cpb-t:nth-child(n){transform:none}
+  .cpb-d{grid-auto-flow:column;gap:5px;align-items:baseline;border-right:0;border-bottom:2px dashed rgba(255,255,255,.9);padding:6px 4px}
+  .cpb-d b{font-size:20px}
+  .cpb-i{padding:7px 8px}
+  .cpb-i strong{font-size:14px}
+  .cpb-i span{display:none}
+  .cpb .cpb-btn{width:100%;justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){.cpb *{transition:none!important}}
+</style>
+
+<a class="cpb" href="https://conexaopop.com.br/agenda/" aria-label="Ver a agenda de shows e festivais 2026/27 do Conexão Pop">
+  <img class="cpb-photo" src="https://conexaopop.com.br/wp-content/plugins/agenda-conexao-pop/assets/img/plateia.webp" alt="" width="1400" height="933" loading="lazy">
+  <div class="cpb-text">
+    <p class="cpb-title"><span>agenda de</span><br><span>shows <em>26/27</em></span></p>
+    <p class="cpb-sub">Shows e festivais em todo o Brasil num lugar só. Filtre por cidade e data e receba aviso quando abrir a venda.</p>
+    <span class="cpb-btn">Ver a agenda <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </div>
+  <div class="cpb-tickets" aria-hidden="true">
+    <div class="cpb-t"><div class="cpb-d"><b>05</b><small>dez</small></div><div class="cpb-i"><strong>Ed Sheeran</strong><span>Nubank Parque, São Paulo</span></div></div>
+    <div class="cpb-t"><div class="cpb-d"><b>19</b><small>mar</small></div><div class="cpb-i"><strong>Lollapalooza</strong><span>Interlagos, São Paulo</span></div></div>
+    <div class="cpb-t"><div class="cpb-d"><b>27</b><small>mar</small></div><div class="cpb-i"><strong>Jão</strong><span>Nubank Parque, São Paulo</span></div></div>
+  </div>
+</a>

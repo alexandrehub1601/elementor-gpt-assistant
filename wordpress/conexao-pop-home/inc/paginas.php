@@ -142,4 +142,52 @@ final class CPH_Paginas {
 		}
 		return $h . '</div></section></div>';
 	}
+	private static function form_busca($q, $acao, $cls = '') {
+		return '<form class="cph-bform ' . esc_attr($cls) . '" role="search" action="' . esc_url($acao) . '" method="get"><label class="screen-reader-text cph-sr" for="cph-bq-' . esc_attr($cls) . '">Buscar no Conexão Pop</label>'
+			. '<input id="cph-bq-' . esc_attr($cls) . '" type="search" name="s" value="' . esc_attr($q) . '" placeholder="Buscar artista, show, festival…"><button type="submit">Buscar</button></form>';
+	}
+
+	/** Busca. $b: q, total, posts, paginas, editorias [[nome, url, ativa]], alta (cards para quando não acha nada), acao (URL do formulário). */
+	public static function busca($b) {
+		$h = '<div class="cph cph-busca">'
+			. '<header class="cph-bus-head"><div class="cph-wrap">'
+			. '<span class="cph-tag cph-tag-ink">' . esc_html($b['total'] ? sprintf(_n('%s resultado', '%s resultados', $b['total']), number_format_i18n($b['total'])) : 'Nenhum resultado') . '</span>'
+			. '<p class="cph-bus-label">Você buscou</p><h1 class="cph-bus-t">' . esc_html($b['q']) . '</h1>'
+			. self::form_busca($b['q'], $b['acao'], 'topo') . '</div>' . CPH_Render::sky('cph-cat-sky') . '</header>';
+		if ($b['editorias']) {
+			$h .= '<div class="cph-wrap cph-bus-filtros" aria-label="Filtrar por editoria">';
+			foreach ($b['editorias'] as $e) {
+				$h .= '<a href="' . esc_url($e[1]) . '"' . ($e[2] ? ' aria-current="true"' : '') . '>' . esc_html($e[0]) . '</a>';
+			}
+			$h .= '</div>';
+		}
+		if (!$b['posts']) {
+			$h .= '<section class="cph-bloco"><div class="cph-wrap cph-bus-vazio"><h2 class="cph-h2">Nada por aqui</h2><p>Tente outra palavra, o nome do artista sem acento ou só o sobrenome. Ou veja o que está bombando:</p></div></section>';
+			return $h . ($b['alta'] ? CPH_Render::em_alta($b['alta']) : '') . '</div>';
+		}
+		$h .= '<section class="cph-bloco"><div class="cph-wrap"><ol class="cph-bus-lista">';
+		foreach ($b['posts'] as $p) {
+			$h .= '<li><a href="' . esc_url($p['u']) . '">'
+				. ($p['img'] ? '<span class="cph-img"><img src="' . esc_url($p['img']) . '" alt="" loading="lazy"></span>' : '<span class="cph-img cph-semfoto">' . CPH_Render::sky() . '</span>')
+				. '<span class="cph-bus-txt"><span class="cph-card-meta">' . self::tag($p['cat']) . '<span class="cph-quando">' . esc_html($p['quando']) . '</span></span><strong>' . esc_html($p['t']) . '</strong>'
+				. ($p['ex'] ? '<span class="cph-ex">' . esc_html($p['ex']) . '</span>' : '') . '</span></a></li>';
+		}
+		$h .= '</ol>';
+		if ($b['paginas']) {
+			$h .= '<nav class="cph-pag" aria-label="Páginas">' . implode('', $b['paginas']) . '</nav>';
+		}
+		return $h . '</div></section></div>';
+	}
+
+	/** 404. $e: home, agenda, acao, alta (cards). */
+	public static function erro404($e) {
+		$h = '<div class="cph cph-404"><section class="cph-404-hero"><div class="cph-wrap cph-404-in">'
+			. '<div class="cph-404-num" aria-hidden="true">4<span>0</span>4</div>'
+			. '<div class="cph-404-txt"><span class="cph-tag">Erro 404</span><h1 class="cph-404-t">Essa página saiu do setlist</h1>'
+			. '<p>O link pode ter mudado ou a matéria saiu do ar. Busque o que você procurava ou volte para o palco principal.</p>'
+			. self::form_busca('', $e['acao'], '404')
+			. '<div class="cph-404-btns"><a class="cph-404-btn" href="' . esc_url($e['home']) . '">Voltar para a home</a><a class="cph-404-btn cph-404-btn-ag" href="' . esc_url($e['agenda']) . '">Ver a agenda de shows</a></div></div>'
+			. '</div><div class="cph-404-eq" aria-hidden="true">' . str_repeat('<i></i>', 48) . '</div></section>';
+		return $h . ($e['alta'] ? CPH_Render::em_alta($e['alta']) : '') . '</div>';
+	}
 }

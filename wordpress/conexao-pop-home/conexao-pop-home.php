@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Home Conexão Pop
  * Description: Blocos de home com a identidade 2026 do Conexão Pop: faixa de manchetes, destaques, "acabou de sair", em alta, editorias, próximos shows, slides e newsletter. Use os shortcodes no Elementor ou [cp_home] para a home inteira.
- * Version: 1.3.0
+ * Version: 1.4.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Conexão Pop
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-define('CPH_VERSION', '1.3.0');
+define('CPH_VERSION', '1.4.0');
 define('CPH_URL', plugin_dir_url(__FILE__));
 define('CPH_DIR', plugin_dir_path(__FILE__));
 
@@ -42,12 +42,14 @@ final class CPH {
 			'news_embed'  => '',
 			'layout_materia'   => 0,
 			'layout_categoria' => 0,
+			'layout_busca'     => 0,
+			'layout_404'       => 0,
 		));
 	}
 
 	public function __construct() {
 		add_action('wp_enqueue_scripts', array($this, 'assets'));
-		foreach (array('cp_home', 'cp_faixa', 'cp_destaques', 'cp_agora', 'cp_em_alta', 'cp_editoria', 'cp_proximos_shows', 'cp_newsletter', 'cp_slides', 'cp_divisor', 'cp_capa', 'cp_mosaico', 'cp_manchetes', 'cp_sanfona', 'cp_materia', 'cp_categoria') as $sc) {
+		foreach (array('cp_home', 'cp_faixa', 'cp_destaques', 'cp_agora', 'cp_em_alta', 'cp_editoria', 'cp_proximos_shows', 'cp_newsletter', 'cp_slides', 'cp_divisor', 'cp_capa', 'cp_mosaico', 'cp_manchetes', 'cp_sanfona', 'cp_materia', 'cp_categoria', 'cp_busca', 'cp_404') as $sc) {
 			add_shortcode($sc, array($this, 'sc_' . substr($sc, 3)));
 		}
 		add_action('admin_menu', array($this, 'menu'));
@@ -312,6 +314,14 @@ final class CPH {
 			$this->usar_assets();
 			return CPH_DIR . 'templates/categoria.php';
 		}
+		if ($o['layout_busca'] && is_search()) {
+			$this->usar_assets();
+			return CPH_DIR . 'templates/busca.php';
+		}
+		if ($o['layout_404'] && is_404()) {
+			$this->usar_assets();
+			return CPH_DIR . 'templates/404.php';
+		}
 		return $tpl;
 	}
 
@@ -329,6 +339,56 @@ final class CPH {
 		}
 		$this->usar_assets();
 		return self::html_categoria();
+	}
+
+	public function sc_busca() {
+		if (!is_search()) {
+			return '';
+		}
+		$this->usar_assets();
+		return self::html_busca();
+	}
+
+	public function sc_404() {
+		$this->usar_assets();
+		return self::html_404();
+	}
+
+	public static function html_busca() {
+		global $wp_query;
+		$q = get_search_query(false);
+		$posts = array();
+		foreach ((array) $wp_query->posts as $p) {
+			if ($p->post_type === 'post') {
+				$posts[] = self::card($p);
+			}
+		}
+		$atual = (string) get_query_var('category_name');
+		$eds = array(array('Tudo', add_query_arg('s', rawurlencode($q), home_url('/')), $atual === ''));
+		foreach (array('musica', 'shows', 'festival', 'entrevistas', 'marcas', 'coberturas') as $slug) {
+			if (get_category_by_slug($slug)) {
+				$eds[] = array(self::$editorias[$slug], add_query_arg(array('s' => rawurlencode($q), 'category_name' => $slug), home_url('/')), $atual === $slug);
+			}
+		}
+		$pag = paginate_links(array('type' => 'array', 'prev_text' => '← Anteriores', 'next_text' => 'Próximas →', 'mid_size' => 1));
+		return CPH_Paginas::busca(array(
+			'q'         => $q,
+			'total'     => (int) $wp_query->found_posts,
+			'posts'     => $posts,
+			'paginas'   => $pag ? $pag : array(),
+			'editorias' => $eds,
+			'alta'      => $posts ? array() : self::em_alta(6),
+			'acao'      => home_url('/'),
+		));
+	}
+
+	public static function html_404() {
+		return CPH_Paginas::erro404(array(
+			'home'   => home_url('/'),
+			'agenda' => home_url('/agenda/'),
+			'acao'   => home_url('/'),
+			'alta'   => self::em_alta(6),
+		));
 	}
 
 	/** Categoria principal: a do Yoast, se existir; senão a primeira editoria conhecida. */
@@ -449,6 +509,8 @@ final class CPH {
 				'news_embed'  => current_user_can('unfiltered_html') ? (string) ($v['news_embed'] ?? '') : wp_kses_post($v['news_embed'] ?? ''),
 				'layout_materia'   => empty($v['layout_materia']) ? 0 : 1,
 				'layout_categoria' => empty($v['layout_categoria']) ? 0 : 1,
+				'layout_busca'     => empty($v['layout_busca']) ? 0 : 1,
+				'layout_404'       => empty($v['layout_404']) ? 0 : 1,
 			);
 		}));
 	}
@@ -484,8 +546,10 @@ final class CPH {
 				<table class="form-table">
 					<tr><th>Layout novo</th><td>
 						<label><input type="checkbox" name="<?php echo esc_attr(self::OPT); ?>[layout_materia]" value="1" <?php checked($o['layout_materia'], 1); ?>> Usar nas matérias</label><br>
-						<label><input type="checkbox" name="<?php echo esc_attr(self::OPT); ?>[layout_categoria]" value="1" <?php checked($o['layout_categoria'], 1); ?>> Usar nas páginas de categoria</label>
-						<p class="description">Usa o cabeçalho e o rodapé do tema. Se vocês têm Elementor Pro, dá para deixar desmarcado e usar <code>[cp_materia]</code> e <code>[cp_categoria]</code> nos modelos do Construtor de temas.</p>
+						<label><input type="checkbox" name="<?php echo esc_attr(self::OPT); ?>[layout_categoria]" value="1" <?php checked($o['layout_categoria'], 1); ?>> Usar nas páginas de categoria</label><br>
+						<label><input type="checkbox" name="<?php echo esc_attr(self::OPT); ?>[layout_busca]" value="1" <?php checked($o['layout_busca'], 1); ?>> Usar no resultado da busca</label><br>
+						<label><input type="checkbox" name="<?php echo esc_attr(self::OPT); ?>[layout_404]" value="1" <?php checked($o['layout_404'], 1); ?>> Usar na página não encontrada (404)</label>
+						<p class="description">Usa o cabeçalho e o rodapé do tema. Se vocês têm Elementor Pro, dá para deixar desmarcado e usar <code>[cp_materia]</code>, <code>[cp_categoria]</code>, <code>[cp_busca]</code> e <code>[cp_404]</code> nos modelos do Construtor de temas.</p>
 					</td></tr>
 				</table>
 				<h2>Newsletter</h2>

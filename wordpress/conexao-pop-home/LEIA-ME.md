@@ -29,8 +29,8 @@ Puxam as matérias de verdade do site; nada muda no jeito de publicar.
 Nenhum bloco repete matéria de outro na mesma página. "Em alta" usa o contador de visitas
 que o site já tem (coluna "Views"); sem contador, usa as mais comentadas.
 
-## Matérias e categorias
-Em Configurações > Home Conexão Pop, marque "Usar nas matérias" e "Usar nas páginas de
-categoria" para aplicar o layout novo (com o cabeçalho e o rodapé do tema).
-Com Elementor Pro, dá para deixar desmarcado e usar `[cp_materia]` e `[cp_categoria]`
-nos modelos de Post único e de Arquivo do Construtor de temas.
+## Matérias, categorias, busca e 404
+Em Configurações > Home Conexão Pop, marque onde usar o layout novo: matérias, categorias,
+resultado da busca e página não encontrada (404). Usa o cabeçalho e o rodapé do tema.
+Com Elementor Pro, dá para deixar desmarcado e usar `[cp_materia]`, `[cp_categoria]`,
+`[cp_busca]` e `[cp_404]` nos modelos do Construtor de temas.

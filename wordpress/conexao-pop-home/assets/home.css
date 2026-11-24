@@ -261,6 +261,24 @@
 .cph-texto th{background:var(--k);color:var(--l);font-family:var(--px);font-weight:400;font-size:13px;text-transform:uppercase}
 .cph-texto hr{border:0;height:10px;background:repeating-linear-gradient(90deg,var(--p) 0 10px,transparent 10px 20px);margin:2em 0}
 
+/* Caixinhas: fonte preferida e Instagram */
+.cph-seguir{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:34px 0 0}
+.cph-seguir-box{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:1fr auto;gap:12px 14px;border-radius:var(--r);padding:20px;transition:transform .15s}
+.cph-seguir-box:hover{transform:translateY(-3px)}
+.cph-seguir-google{background:var(--c);color:var(--k)}
+.cph-seguir-insta{background:var(--p);color:var(--w)}
+.cph-seguir-ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--k);color:var(--l)}
+.cph-seguir-insta .cph-seguir-ic{background:var(--w);color:var(--p)}
+.cph-seguir-ic .cph-i{width:26px;height:26px;stroke-width:2}
+.cph-seguir-txt{display:grid;gap:6px;justify-items:start}
+.cph-seguir-txt strong{font-family:var(--disp);font-weight:700;font-size:26px;line-height:.95;text-transform:uppercase}
+.cph-seguir-txt>span:last-child{font-size:14px;line-height:1.4;opacity:.85}
+.cph-seguir-btn{grid-column:2;justify-self:start;display:inline-flex;align-items:center;border-radius:999px;padding:9px 18px;font-weight:700;font-size:15px;background:var(--k);color:var(--l)}
+.cph-seguir-insta .cph-seguir-btn{background:var(--l);color:var(--k)}
+.cph-seguir-box:hover .cph-seguir-btn{background:var(--p);color:var(--w)}
+.cph-seguir-insta:hover .cph-seguir-btn{background:var(--k);color:var(--l)}
+@media (max-width:680px){.cph-seguir{grid-template-columns:1fr}}
+
 /* Lateral */
 .cph-lat-box{border-radius:var(--r);padding:20px}
 .cph .cph-lat-h{font-family:var(--disp);font-weight:700;font-size:34px;line-height:.9;text-transform:uppercase;margin:0 0 12px}

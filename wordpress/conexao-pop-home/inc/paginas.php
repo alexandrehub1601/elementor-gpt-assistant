@@ -57,6 +57,7 @@ final class CPH_Paginas {
 		}
 		$h .= '<div class="cph-wrap cph-mat-corpo"><div class="cph-mat-col">'
 			. '<div class="cph-texto">' . $m['conteudo'] . '</div>'
+			. self::caixas_seguir()
 			. ($tags ? '<div class="cph-mat-tags"><span class="cph-tag cph-tag-ink">Tags</span>' . $tags . '</div>' : '')
 			. '<div class="cph-mat-fim"><span>Gostou? Manda pra alguém</span>' . $share . '</div>'
 			. '</div>'
@@ -66,6 +67,22 @@ final class CPH_Paginas {
 			. $depois
 			. '</article>';
 		return $h;
+	}
+
+	/** Caixinhas depois do texto: fonte preferida no Google e Instagram. */
+	public static function caixas_seguir() {
+		$dominio = wp_parse_url(home_url('/'), PHP_URL_HOST);
+		$dominio = preg_replace('/^www\./', '', (string) $dominio);
+		return '<div class="cph-seguir">'
+			. '<a class="cph-seguir-box cph-seguir-google" href="https://www.google.com/preferences/source?q=' . rawurlencode($dominio) . '" target="_blank" rel="noopener">'
+			. '<span class="cph-seguir-ic" aria-hidden="true"><svg class="cph-i" viewBox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg></span>'
+			. '<span class="cph-seguir-txt"><span class="cph-tag cph-tag-ink">Google</span><strong>Adicione o Conexão Pop como fonte preferida</strong><span>Nossas matérias aparecem primeiro para você nas notícias do Google.</span></span>'
+			. '<span class="cph-seguir-btn">Adicionar</span></a>'
+			. '<a class="cph-seguir-box cph-seguir-insta" href="https://www.instagram.com/siteconexaopop" target="_blank" rel="noopener">'
+			. '<span class="cph-seguir-ic" aria-hidden="true"><svg class="cph-i" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></span>'
+			. '<span class="cph-seguir-txt"><span class="cph-tag">Instagram</span><strong>@siteconexaopop</strong><span>Bastidores, coberturas e as notícias do dia no seu feed.</span></span>'
+			. '<span class="cph-seguir-btn">Seguir</span></a>'
+			. '</div>';
 	}
 
 	/** Lateral da matéria: as mais lidas em lista compacta e os próximos shows. */

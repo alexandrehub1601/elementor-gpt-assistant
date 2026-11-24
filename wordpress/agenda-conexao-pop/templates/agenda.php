@@ -8,13 +8,15 @@ if (!defined('ABSPATH')) {
 	<section class="cpa-hero">
 		<img class="cpa-photo" src="<?php echo esc_url(CPA_URL . 'assets/img/plateia.webp'); ?>" alt="" width="1400" height="933">
 		<div class="cpa-wrap">
-			<h1 class="cpa-title"><span>agenda de</span><br><span>shows <em><?php echo esc_html(wp_date('y') . '/' . wp_date('y', strtotime('+1 year'))); ?></em></span></h1>
+			<p class="cpa-eyebrow"><span>Agenda <?php echo esc_html(wp_date('Y') . '/' . wp_date('y', strtotime('+1 year'))); ?></span></p>
+			<h1 class="cpa-title">Agenda de shows e festivais</h1>
 			<p>Os shows de pop, pop nacional e R&amp;B, e os festivais que vêm por aí no Brasil. Siga um show e receba um aviso quando abrir a venda, virar o lote ou sair data extra.</p>
 			<div class="cpa-hero-actions">
 				<?php if ($cad) : ?><a class="cpa-btn cpa-btn-pink" href="<?php echo esc_url($cad); ?>">Cadastrar meu show</a><?php endif; ?>
 				<button type="button" class="cpa-btn cpa-btn-ghost" id="cpa-following"><svg class="cpa-i" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span id="cpa-following-label">Meus alertas</span></button>
 			</div>
 		</div>
+		<svg class="cpa-sky" viewBox="65 705 443 86.2" preserveAspectRatio="none" aria-hidden="true"><path d="M508.26,705.15v86.14H65.06c.21-1.53-.55-3.62.55-4.79h21.17v-19.88h36.07v-16.93h27.24v25.4h16.56v-11.23c.73-.48,2.46-.53,3.48-.57,4.58-.18,9.28-.04,13.82.39v17.48l.55.55h44.36v-11.04h30.37l.55-.55v-16.01h29.45v19.14h38.47l.55.55v11.6h21.72v-16.2h19.51v-15.28l.55-.55h20.43v12.52h23.56v-8.65c0-.2.57-.82.37-1.29h32.58c1.03,0,.15,2.51.16,3.12.05,3.21.35,6.41.4,9.57.02,1.36.13,2.76-.29,4.08l.46.54h18.96v-31.66h28.71v-36.07c.47.2,1.09-.37,1.29-.37h5.89c.09,0,.33.24.66.24,1.53,0,3.4-.49,5.05-.24Z"/></svg>
 	</section>
 
 	<div class="cpa-filters"><div class="cpa-wrap">

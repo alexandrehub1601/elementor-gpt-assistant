@@ -13,7 +13,8 @@ $generos = get_terms(array('taxonomy' => Agenda_Conexao_Pop::TAX, 'hide_empty' =
 ?>
 <div class="cpa cpa-cadastro" id="cpa-form">
 	<div class="cpa-wrap">
-		<h2 class="cpa-h2">coloque seu show na agenda</h2>
+		<p class="cpa-eyebrow"><span>Para artistas e produtoras</span></p>
+		<h2 class="cpa-h2">Coloque seu show na agenda</h2>
 		<p class="cpa-intro">É de graça. A redação do Conexão Pop revisa cada envio antes de publicar.</p>
 
 		<?php if ($enviado) : ?>

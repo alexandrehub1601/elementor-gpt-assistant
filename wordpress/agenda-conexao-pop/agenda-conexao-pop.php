@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Agenda Conexão Pop
  * Description: Agenda de shows e festivais do Conexão Pop. Cadastro de shows no painel, envio de shows por artistas e produtoras (com aprovação), alertas de fãs e importação da Ticketmaster.
- * Version: 1.0.0
+ * Version: 2.0.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Conexão Pop
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-define('CPA_VERSION', '1.0.0');
+define('CPA_VERSION', '2.0.0');
 define('CPA_FILE', __FILE__);
 define('CPA_DIR', plugin_dir_path(__FILE__));
 define('CPA_URL', plugin_dir_url(__FILE__));
@@ -700,7 +700,8 @@ final class Agenda_Conexao_Pop {
 	/* ------------------------------------------------------------------ */
 
 	public function registrar_assets() {
-		wp_register_style('cpa-fontes', 'https://fonts.googleapis.com/css2?family=Geist+Pixel&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap', array(), null);
+		wp_register_style('cpa-kensington', 'https://use.typekit.net/xqr3xib.css', array(), null);
+		wp_register_style('cpa-fontes', 'https://fonts.googleapis.com/css2?family=Geist+Pixel&family=TikTok+Sans:wght@400;500;600;700&display=swap', array('cpa-kensington'), null);
 		wp_register_style('cpa-agenda', CPA_URL . 'assets/agenda.css', array('cpa-fontes'), CPA_VERSION);
 		wp_register_script('cpa-agenda', CPA_URL . 'assets/agenda.js', array(), CPA_VERSION, true);
 	}

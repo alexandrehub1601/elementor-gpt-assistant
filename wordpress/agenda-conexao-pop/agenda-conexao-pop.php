@@ -89,6 +89,7 @@ final class Agenda_Conexao_Pop {
 		add_action('admin_post_cpa_aprovar', array($this, 'aprovar'));
 		add_action('admin_menu', array($this, 'menu'));
 		add_action('admin_init', array($this, 'registrar_opcoes'));
+		add_action('admin_init', array(__CLASS__, 'garantir_pagina_cadastro'));
 		add_action('admin_post_cpa_importar_inicial', array($this, 'importar_inicial'));
 		add_action('admin_post_cpa_importar_tm', array($this, 'importar_tm_agora'));
 		add_action(self::CRON, array($this, 'importar_ticketmaster'));
@@ -147,6 +148,38 @@ final class Agenda_Conexao_Pop {
 		}
 		if (!wp_next_scheduled(self::CRON)) {
 			wp_schedule_event(time() + HOUR_IN_SECONDS, 'daily', self::CRON);
+		}
+	}
+
+	/** Cria a página "Cadastrar meu show" (/cadastrar-meu-show/) se ela ainda não existir, e liga ela à agenda. */
+	public static function garantir_pagina_cadastro() {
+		if (!current_user_can('manage_options')) {
+			return;
+		}
+		$o  = get_option(self::OPT, array());
+		$id = absint($o['pagina_cadastro'] ?? 0);
+		if ($id && get_post_status($id) && get_post_status($id) !== 'trash') {
+			return;
+		}
+		$pag = get_page_by_path('cadastrar-meu-show');
+		if ($pag && $pag->post_status !== 'trash') {
+			$id = $pag->ID;
+			if (strpos((string) $pag->post_content, '[agenda_conexao_cadastro]') === false) {
+				wp_update_post(array('ID' => $id, 'post_content' => $pag->post_content . "\n\n[agenda_conexao_cadastro]"));
+			}
+		} else {
+			$id = wp_insert_post(array(
+				'post_type'    => 'page',
+				'post_status'  => 'publish',
+				'post_title'   => 'Cadastrar meu show',
+				'post_name'    => 'cadastrar-meu-show',
+				'post_content' => "<!-- wp:shortcode -->\n[agenda_conexao_cadastro]\n<!-- /wp:shortcode -->",
+			));
+		}
+		if ($id && !is_wp_error($id)) {
+			$o['pagina_cadastro'] = $id;
+			update_option(self::OPT, $o);
+			self::limpar_cache();
 		}
 	}
 

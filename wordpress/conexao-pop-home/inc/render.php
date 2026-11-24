@@ -66,9 +66,16 @@ final class CPH_Render {
 			return '';
 		}
 		$top = array_shift($posts);
-		$h = '<section class="cph-bloco cph-agora"><div class="cph-wrap cph-agora-grid">'
+		// Duas matérias logo abaixo da principal, para a coluna da esquerda acompanhar a lista.
+		$extras = array_splice($posts, 5, 2);
+		$baixo = '';
+		foreach ($extras as $p) {
+			$baixo .= '<article class="cph-card"><a href="' . esc_url($p['u']) . '">' . self::img($p, 'cph-img-card') . '<span class="cph-card-meta">' . self::tag($p['cat']) . '<span class="cph-quando">' . esc_html($p['quando']) . '</span></span><h3 class="cph-card-t">' . esc_html($p['t']) . '</h3></a></article>';
+		}
+		$h = '<section class="cph-bloco cph-agora"><div class="cph-wrap cph-agora-grid"><div class="cph-agora-col">'
 			. '<article class="cph-agora-top"><a href="' . esc_url($top['u']) . '">' . self::img($top, 'cph-img-wide') . '<span class="cph-agora-meta">' . self::tag($top['cat']) . '<span class="cph-quando">' . esc_html($top['quando']) . '</span></span>'
 			. '<h2 class="cph-agora-t">' . esc_html($top['t']) . '</h2>' . ($top['ex'] ? '<p class="cph-ex">' . esc_html($top['ex']) . '</p>' : '') . '</a></article>'
+			. ($baixo ? '<div class="cph-agora-mais">' . $baixo . '</div>' : '') . '</div>'
 			. '<aside class="cph-lista"><h3 class="cph-lista-h"><span class="cph-tag cph-tag-ink">Acabou de sair</span></h3><ol>';
 		foreach ($posts as $p) {
 			$h .= '<li><a href="' . esc_url($p['u']) . '">' . self::img($p, 'cph-img-mini') . '<span><span class="cph-lista-meta">' . self::tag($p['cat']) . '<span class="cph-quando">' . esc_html($p['quando']) . '</span></span><strong>' . esc_html($p['t']) . '</strong></span></a></li>';
@@ -145,11 +152,15 @@ final class CPH_Render {
 		}
 		return $h . '</div>' . self::sky() . '</div></div></section>';
 	}
-	/** Divisória de pixels. $n = 1 a 4 (padrão), $cor = rosa, preto, azul ou limao. */
+	/**
+	 * Divisória: faixa da largura da tela com a borda de baixo em pixels (a skyline da identidade, invertida).
+	 * $n = 1 (pixels baixos) ou 2 (pixels altos); $cor = rosa, preto, azul ou limao.
+	 */
 	public static function divisor($n = 2, $cor = 'rosa', $virar = false) {
-		$n = max(1, min(4, intval($n)));
 		$cor = in_array($cor, array('rosa', 'preto', 'azul', 'limao'), true) ? $cor : 'rosa';
-		return '<div class="cph-div cph-div-' . $n . ' cph-div-' . $cor . ($virar ? ' cph-div-flip' : '') . '" aria-hidden="true"></div>';
+		$alto = intval($n) % 2 === 0;
+		return '<div class="cph-div cph-div-' . $cor . ($alto ? ' cph-div-alto' : '') . ($virar ? ' cph-div-flip' : '') . '" aria-hidden="true"><span class="cph-div-faixa"></span>'
+			. '<svg viewBox="65 705 443 86.2" preserveAspectRatio="none"><path d="' . self::SKY . '"/></svg></div>';
 	}
 
 	/** Capa: uma matéria com foto em tela cheia, título enorme e a skyline rosa no pé. */
@@ -194,11 +205,11 @@ final class CPH_Render {
 			return '';
 		}
 		$cor = in_array($cor, array('preto', 'rosa', 'azul', 'limao'), true) ? $cor : 'preto';
-		$h = '<section class="cph-bloco"><div class="cph-wrap"><div class="cph-sanfona cph-sanfona-' . $cor . '">' . self::cabecalho($titulo, $link) . '<ol class="cph-san-lista">';
+		$h = '<section class="cph-bloco cph-full cph-sanfona cph-sanfona-' . $cor . '"><div class="cph-wrap">' . self::cabecalho($titulo, $link) . '<ol class="cph-san-lista">';
 		foreach ($posts as $i => $p) {
 			$h .= '<li class="cph-san' . ($i === 0 ? ' cph-san-aberta' : '') . '"><a href="' . esc_url($p['u']) . '"><span class="cph-san-v" aria-hidden="true"><span class="cph-num">' . sprintf('%02d', $i + 1) . '</span><span class="cph-san-vt">' . esc_html($p['t']) . '</span></span>'
 				. '<span class="cph-san-full">' . self::img($p, 'cph-img-fill') . '<span class="cph-san-txt">' . self::tag($p['cat']) . '<strong>' . esc_html($p['t']) . '</strong></span></span></a></li>';
 		}
-		return $h . '</ol></div></div></section>';
+		return $h . '</ol></div></section>';
 	}
 }

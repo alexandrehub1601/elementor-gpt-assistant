@@ -128,7 +128,7 @@ if ( ! defined( 'CC_CIRCULO_CPT' ) ) {
 		'cidade'    => 'Cidade',
 		'idade'     => 'Idade',
 		'origem'    => 'Como conheceu',
-		'indicacao' => 'Indicado por',
+		'indicacao' => 'Quem apresentou',
 	) );
 	/* opções de "Como conheceu a Cacau Cosmo?" (valor do formulário => texto salvo) */
 	define( 'CC_CIRCULO_ORIGENS', array(
@@ -282,11 +282,8 @@ function cc_circulo_receber( WP_REST_Request $req ) {
 	if ( ! isset( CC_CIRCULO_ORIGENS[ $d['origem'] ] ) ) {
 		return cc_circulo_resposta( false, 'Conte como você conheceu a Cacau Cosmo.', 400 );
 	}
-	if ( 'recomendacao' === $d['origem'] && '' === $d['indicacao'] ) {
-		return cc_circulo_resposta( false, 'Conte quem recomendou a Cacau Cosmo para você.', 400 );
-	}
-	if ( 'recomendacao' !== $d['origem'] ) {
-		$d['indicacao'] = '';
+	if ( '' === $d['indicacao'] ) {
+		return cc_circulo_resposta( false, 'Escreva o nome de quem te apresentou a Cacau Cosmo.', 400 );
 	}
 	$d['origem'] = CC_CIRCULO_ORIGENS[ $d['origem'] ];   // salva o texto ("Recomendação"), mais fácil de ler e exportar
 	if ( ! $req->get_param( 'consentimento' ) ) {
@@ -376,7 +373,7 @@ function cc_circulo_mc_campos() {
 	$quer = array( 'FNAME' => 'Nome', 'WHATSAPP' => 'WhatsApp', 'INSTAGRAM' => 'Instagram',
 		'ESTADO' => 'Estado', 'CIDADE' => 'Cidade', 'IDADE' => 'Idade', 'LINKSENHA' => 'Link para criar senha',
 		'SITUACAO' => 'Situação no Círculo', 'DATACIRC' => 'Data da solicitação',
-		'ORIGEM' => 'Como conheceu', 'INDICACAO' => 'Indicado por' );
+		'ORIGEM' => 'Como conheceu', 'INDICACAO' => 'Quem apresentou' );
 	foreach ( $quer as $tag => $nome ) {
 		if ( ! in_array( $tag, $tem, true ) ) {
 			cc_circulo_mc_req( 'POST', '/lists/' . CC_MC_LIST_ID . '/merge-fields', array( 'tag' => $tag, 'name' => $nome, 'type' => 'text' ) );

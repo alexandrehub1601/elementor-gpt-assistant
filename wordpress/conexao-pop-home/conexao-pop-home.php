@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Home Conexão Pop
  * Description: Blocos de home com a identidade 2026 do Conexão Pop: faixa de manchetes, destaques, "acabou de sair", em alta, editorias, próximos shows, slides e newsletter. Use os shortcodes no Elementor ou [cp_home] para a home inteira.
- * Version: 1.6.2
+ * Version: 1.6.3
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Conexão Pop
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-define('CPH_VERSION', '1.6.2');
+define('CPH_VERSION', '1.6.3');
 define('CPH_URL', plugin_dir_url(__FILE__));
 define('CPH_DIR', plugin_dir_path(__FILE__));
 
@@ -94,14 +94,14 @@ final class CPH {
 
 	/** Categoria com 12 matérias por página (3 de abertura + 9 em grade, ou 12 em grade). */
 	public function por_pagina($q) {
-		if (!is_admin() && $q->is_main_query() && $q->is_category() && self::opcoes()['layout_categoria']) {
+		if (!is_admin() && $q->is_main_query() && ($q->is_category() || $q->is_tag()) && self::opcoes()['layout_categoria']) {
 			$q->set('posts_per_page', 12);
 		}
 	}
 
 	public function classe_body($c) {
 		$o = self::opcoes();
-		if (($o['layout_materia'] && is_singular('post')) || ($o['layout_categoria'] && is_category()) || ($o['layout_busca'] && is_search()) || ($o['layout_404'] && is_404())) {
+		if (($o['layout_materia'] && is_singular('post')) || ($o['layout_categoria'] && (is_category() || is_tag())) || ($o['layout_busca'] && is_search()) || ($o['layout_404'] && is_404())) {
 			$c[] = 'cph-pagina';
 		}
 		return $c;
@@ -357,7 +357,7 @@ final class CPH {
 			$this->usar_assets();
 			return CPH_DIR . 'templates/single.php';
 		}
-		if ($o['layout_categoria'] && is_category()) {
+		if ($o['layout_categoria'] && (is_category() || is_tag())) {
 			$this->usar_assets();
 			return CPH_DIR . 'templates/categoria.php';
 		}
@@ -381,7 +381,7 @@ final class CPH {
 	}
 
 	public function sc_categoria() {
-		if (!is_category()) {
+		if (!(is_category() || is_tag())) {
 			return '';
 		}
 		$this->usar_assets();
@@ -639,7 +639,7 @@ final class CPH {
 				<table class="form-table">
 					<tr><th>Layout novo</th><td>
 						<label><input type="checkbox" name="<?php echo esc_attr(self::OPT); ?>[layout_materia]" value="1" <?php checked($o['layout_materia'], 1); ?>> Usar nas matérias</label><br>
-						<label><input type="checkbox" name="<?php echo esc_attr(self::OPT); ?>[layout_categoria]" value="1" <?php checked($o['layout_categoria'], 1); ?>> Usar nas páginas de categoria</label><br>
+						<label><input type="checkbox" name="<?php echo esc_attr(self::OPT); ?>[layout_categoria]" value="1" <?php checked($o['layout_categoria'], 1); ?>> Usar nas páginas de categoria e de tag</label><br>
 						<label><input type="checkbox" name="<?php echo esc_attr(self::OPT); ?>[layout_busca]" value="1" <?php checked($o['layout_busca'], 1); ?>> Usar no resultado da busca</label><br>
 						<label><input type="checkbox" name="<?php echo esc_attr(self::OPT); ?>[layout_404]" value="1" <?php checked($o['layout_404'], 1); ?>> Usar na página não encontrada (404)</label>
 						<p class="description">Usa o cabeçalho e o rodapé do tema. Se vocês têm Elementor Pro, dá para deixar desmarcado e usar <code>[cp_materia]</code>, <code>[cp_categoria]</code>, <code>[cp_busca]</code> e <code>[cp_404]</code> nos modelos do Construtor de temas.</p>

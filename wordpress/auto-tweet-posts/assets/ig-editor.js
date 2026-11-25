@@ -52,6 +52,7 @@
 	delete st.imageId; delete st.zoom; delete st.ox; delete st.oy;
 
 	var imgs = [null, null, null], logo = null, avatar = null, logoBox = null, active = 0;
+	var cardBox = null; // área do card no modelo Card (para arrastar)
 
 	/* ------------------------------------------------------------ util */
 
@@ -73,6 +74,7 @@
 	function isStory() { return st.format === 'story'; }
 	function tpl() { return isStory() ? 'stories' : st.template; }
 	function pos() {
+		if (/^pixel/.test(tpl())) { return DEFAULT_POS[tpl()]; } // modelos pixel: tudo fixo
 		var key = isStory() ? 'posStory' : 'pos';
 		return st[key] === null || st[key] === undefined ? DEFAULT_POS[tpl()] : st[key];
 	}
@@ -208,15 +210,16 @@
 		/* Stories: gradiente escuro, marca, título condensado e descrição.
 		   Embaixo fica livre para o adesivo de link. */
 		stories: function (h) {
-			var margin = 108, maxW = W - margin * 2;
-			var fs = Math.round(64 * st.fontScale), lh = Math.round(fs * 1.04);
-			var font = '700 condensed ' + fs + 'px "Bricolage Grotesque", sans-serif';
-			var ds = Math.round(41 * st.fontScale), dlh = Math.round(ds * 1.18);
-			var dfont = '400 condensed ' + ds + 'px "Bricolage Grotesque", sans-serif';
-			var lines = wrap(st.text, font, maxW * 0.79);
-			var dlines = String(st.desc || '').trim() ? wrap(st.desc, dfont, maxW * 0.88) : [];
-			var brandH = 40, gap = 40, dgap = 26;
-			var blockH = brandH + gap + lines.length * lh + (dlines.length ? dgap + dlines.length * dlh : 0);
+			var margin = 108;
+			var fs = 80, lh = 81;
+			var font = '700 ' + fs + 'px ' + TITLE_FONT;
+			var ds = 38, dlh = 48;
+			var dfont = '400 ' + ds + 'px "TikTok Sans", sans-serif';
+			var lines = wrap(String(st.text || '').toLocaleUpperCase('pt-BR'), font, 800);
+			var dlines = String(st.desc || '').trim() ? wrap(st.desc, dfont, 780) : [];
+			var logoW = 230, logoH = logoBox ? Math.round(logoW * logoBox.height / logoBox.width) : 0;
+			var gap = 36, dgap = 30;
+			var blockH = logoH + gap + lines.length * lh + (dlines.length ? dgap + dlines.length * dlh : 0);
 			var top = Math.max(margin, h * pos() - blockH);
 
 			var g = ctx.createLinearGradient(0, h * 0.3, 0, h);
@@ -226,11 +229,20 @@
 			ctx.fillStyle = g;
 			ctx.fillRect(0, h * 0.3, W, h * 0.7);
 
-			brand(margin, top, brandH, D.color);
-			var y = top + brandH + gap;
-			drawLines(lines, margin, y, lh, font, '#fff');
+			// Blocos pixel no rodapé (os mesmos do Pixel 1).
+			ctx.fillStyle = PINK;
+			PIXELS.pixel1.forEach(function (r) { if (r[1] >= 1100) { ctx.fillRect(r[0], r[1] + (h - 1350), r[2], r[3]); } });
+
+			if (logoBox) { ctx.drawImage(logoBox, margin, top, logoW, logoH); }
+			ctx.textBaseline = 'alphabetic';
+			ctx.font = font;
+			ctx.fillStyle = '#fff';
+			var y = top + logoH + gap + 61; // linha de base da 1ª linha do título
+			lines.forEach(function (l, i) { ctx.fillText(l, margin - 4, y + i * lh); });
 			if (dlines.length) {
-				drawLines(dlines, margin, y + lines.length * lh + dgap, dlh, dfont, '#fff');
+				ctx.font = dfont;
+				var dy = y + (lines.length - 1) * lh + dgap + 38;
+				dlines.forEach(function (l, i) { ctx.fillText(l, margin, dy + i * dlh); });
 			}
 		},
 
@@ -243,6 +255,7 @@
 			var lines = wrap(st.text, font, cw - pad * 2 + 20);
 			var ch = 171 + (lines.length - 1) * lh + 36;
 			var y = Math.round(Math.min(h - ch - 20, Math.max(20, h * pos() - ch / 2)));
+			cardBox = { x: x, y: y, w: cw, h: ch };
 
 			ctx.save();
 			ctx.shadowColor = 'rgba(0,0,0,.10)';
@@ -367,7 +380,7 @@
 		$('#atp-ig-change').text(st.layout > 1 && !isStory() ? 'Trocar foto ' + (active + 1) : 'Trocar imagem');
 		$('#atp-ig-zoom').val(st.photos[active].zoom);
 		$('#atp-ig-tag-row').toggle(/^pixel/.test(tpl()));
-		$('#atp-ig-pos').val(pos());
+		$('#atp-ig-pos').val(pos()).closest('label').toggle(!/^pixel/.test(tpl()));
 		$('#atp-ig-count').text(st.caption.length);
 		$('#atp-ig-publish').prop('disabled', !D.canPublish);
 		if (!D.permalink) { $('#atp-ig-copy').hide(); }
@@ -428,6 +441,12 @@
 		var rect = canvas.getBoundingClientRect();
 		var cx = (e.clientX - rect.left) * canvas.width / rect.width;
 		var cy = (e.clientY - rect.top) * canvas.height / rect.height;
+		// Card: arrastar o próprio card muda a altura dele.
+		if (tpl() === 'card' && cardBox && cx >= cardBox.x && cx <= cardBox.x + cardBox.w && cy >= cardBox.y && cy <= cardBox.y + cardBox.h) {
+			drag = { x: e.clientX, y: e.clientY, card: true };
+			canvas.setPointerCapture(e.pointerId);
+			return;
+		}
 		slots().forEach(function (slot, i) { if (cx >= slot.x && cx < slot.x + slot.w && cy >= slot.y && cy < slot.y + slot.h) { active = i; } });
 		syncUI();
 		if (!imgs[active]) { return; }
@@ -437,6 +456,15 @@
 	canvas.addEventListener('pointermove', function (e) {
 		if (!drag) { return; }
 		var k = canvas.width / canvas.getBoundingClientRect().width;
+		if (drag.card) {
+			var h = H();
+			var cur = pos();
+			st.pos = Math.min(0.92, Math.max(0.08, cur + (e.clientY - drag.y) * k / h));
+			drag.y = e.clientY;
+			$('#atp-ig-pos').val(st.pos);
+			render();
+			return;
+		}
 		var p = st.photos[active];
 		var f = fit(imgs[active], p, slots()[active]);
 		var dx = (e.clientX - drag.x) * k, dy = (e.clientY - drag.y) * k;
@@ -444,6 +472,14 @@
 		if (f.spanX < -0.5) { p.ox = Math.min(1, Math.max(0, p.ox + dx / f.spanX)); }
 		if (f.spanY < -0.5) { p.oy = Math.min(1, Math.max(0, p.oy + dy / f.spanY)); }
 		render();
+	});
+	canvas.addEventListener('mousemove', function (e) {
+		if (drag) { return; }
+		var rect = canvas.getBoundingClientRect();
+		var cx = (e.clientX - rect.left) * canvas.width / rect.width;
+		var cy = (e.clientY - rect.top) * canvas.height / rect.height;
+		var onCard = tpl() === 'card' && cardBox && cx >= cardBox.x && cx <= cardBox.x + cardBox.w && cy >= cardBox.y && cy <= cardBox.y + cardBox.h;
+		canvas.style.cursor = onCard ? 'ns-resize' : '';
 	});
 	function endDrag() { if (drag) { drag = null; save(); } }
 	canvas.addEventListener('pointerup', endDrag);
@@ -488,7 +524,7 @@
 
 	/* ------------------------------------------------------------ início */
 
-	var fonts = ['700 75px kensington', '400 29px "Geist Pixel"', '400 36px Inter', '600 29px Inter', '400 25px Inter', '400 condensed 50px "Bricolage Grotesque"', '700 50px "Bricolage Grotesque"', '700 condensed 50px "Bricolage Grotesque"', '800 50px "Bricolage Grotesque"', '400 30px Archivo', '700 30px Archivo'];
+	var fonts = ['700 80px kensington', '400 38px "TikTok Sans"', '400 29px "Geist Pixel"', '400 36px Inter', '600 29px Inter', '400 25px Inter', '400 condensed 50px "Bricolage Grotesque"', '700 50px "Bricolage Grotesque"', '700 condensed 50px "Bricolage Grotesque"', '800 50px "Bricolage Grotesque"', '400 30px Archivo', '700 30px Archivo'];
 	var fontsReady = document.fonts ? Promise.all(fonts.map(function (f) { return document.fonts.load(f).catch(function () {}); })) : Promise.resolve();
 
 	syncUI();

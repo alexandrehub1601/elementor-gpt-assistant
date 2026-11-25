@@ -178,7 +178,7 @@ final class ATP_Instagram {
 
 	public static function enqueue( $hook ) {
 		$url = plugin_dir_url( self::$file );
-		$ver = '1.6.0';
+		$ver = '1.6.1';
 		if ( $hook === self::$settings_hook ) {
 			wp_enqueue_media();
 			wp_enqueue_script( 'atp-ig-settings', $url . 'assets/ig-settings.js', array( 'jquery' ), $ver, true );
@@ -193,7 +193,7 @@ final class ATP_Instagram {
 		}
 		$free = self::is_free( $post );
 		wp_enqueue_media();
-		wp_enqueue_style( 'atp-ig-fonts', 'https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;700&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Geist+Pixel&family=Inter:wght@400;600;700&display=swap', array(), null );
+		wp_enqueue_style( 'atp-ig-fonts', 'https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;700&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Geist+Pixel&family=Inter:wght@400;600;700&family=TikTok+Sans:wght@400;500;700&display=swap', array(), null );
 		// Kensington (títulos): kit do Adobe Fonts do site conexaopop.com.br.
 		wp_enqueue_style( 'atp-ig-kensington', 'https://use.typekit.net/xqr3xib.css', array(), null );
 		wp_enqueue_style( 'atp-ig-editor', $url . 'assets/ig-editor.css', array(), $ver );
@@ -427,7 +427,7 @@ final class ATP_Instagram {
 			<div class="atp-ig-grid">
 				<div class="atp-ig-preview">
 					<canvas id="atp-ig-canvas" width="1080" height="1350"></canvas>
-					<p class="description">Arraste a imagem para reenquadrar.</p>
+					<p class="description">Arraste a imagem para reenquadrar. No Card de post, arraste o card para subir ou descer.</p>
 				</div>
 
 				<div class="atp-ig-controls">

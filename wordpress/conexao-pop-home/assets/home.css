@@ -502,6 +502,19 @@ body.cph-pagina .cph-cat-head,body.cph-pagina .cph-bus-head,.cph-ultimas .cph-ca
 .cph .cph-img-fill,.cph .cph-img-slide,.cph .cph-img-capa{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;aspect-ratio:auto!important}
 .cph .cph-img-dest{aspect-ratio:16/10}.cph .cph-img-wide{aspect-ratio:16/9}.cph .cph-img-card{aspect-ratio:4/3}.cph .cph-img-mini{aspect-ratio:1}
 
+/* Hover dos links: o tema não pinta mais o texto de rosa por cima dos nossos blocos */
+body .cph a:hover,body .cph a:focus{color:inherit}
+.cph .cph-seguir-insta,.cph .cph-seguir-insta:hover,.cph .cph-seguir-insta:focus{color:#fff!important}
+.cph .cph-seguir-google,.cph .cph-seguir-google:hover,.cph .cph-seguir-google:focus{color:#111!important}
+.cph .cph-mar-big a,.cph .cph-mar-big a:hover,.cph .cph-mar-card a,.cph .cph-mar-card a:hover,.cph .cph-shows-lista a,.cph .cph-shows-lista a:hover{color:#111!important}
+.cph .cph-marcas .cph-mar-faixa a,.cph .cph-marcas .cph-mar-faixa a:hover{color:#fff!important}
+.cph .cph-slide a,.cph .cph-slide a:hover,.cph .cph-mosaico a,.cph .cph-mosaico a:hover,.cph .cph-capa a,.cph .cph-capa a:hover,.cph .cph-san a,.cph .cph-san a:hover{color:#F4F1EC!important}
+.cph .cph-sanfona-limao .cph-san a,.cph .cph-sanfona-limao .cph-san a:hover{color:#111!important}
+.cph .cph-texto a:hover{color:#111;background:#D7FF47}
+body .cph a.cph-taglink:hover{color:#111;background:#D7FF47}
+.cph .cph-autor-link:hover,.cph .cph-autor-nome a:hover{color:#FF1574}
+.cph-materia .cph-lat-shows .cph-more{margin-top:18px}
+
 /* Responsivo */
 @media (max-width:1000px){
   .cph-cards,.cph-agora-mais{grid-template-columns:repeat(2,minmax(0,1fr))}

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Home Conexão Pop
  * Description: Blocos de home com a identidade 2026 do Conexão Pop: faixa de manchetes, destaques, "acabou de sair", em alta, editorias, próximos shows, slides e newsletter. Use os shortcodes no Elementor ou [cp_home] para a home inteira.
- * Version: 1.6.1
+ * Version: 1.6.2
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Conexão Pop
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-define('CPH_VERSION', '1.6.1');
+define('CPH_VERSION', '1.6.2');
 define('CPH_URL', plugin_dir_url(__FILE__));
 define('CPH_DIR', plugin_dir_path(__FILE__));
 
@@ -459,6 +459,20 @@ final class CPH {
 		));
 	}
 
+	/** Subtítulo da matéria: o resumo (excerpt) escrito pela redação ou o subtítulo do tema SmartMag. */
+	public static function subtitulo($post) {
+		$s = trim(wp_strip_all_tags((string) $post->post_excerpt));
+		if ($s === '') {
+			foreach (array('_bunyad_sub_title', 'sub_title', '_subtitle', 'subtitle') as $k) {
+				$v = trim(wp_strip_all_tags((string) get_post_meta($post->ID, $k, true)));
+				if ($v !== '') {
+					return html_entity_decode($v, ENT_QUOTES, 'UTF-8');
+				}
+			}
+		}
+		return html_entity_decode($s, ENT_QUOTES, 'UTF-8');
+	}
+
 	/** Categoria principal: a do Yoast, se existir; senão a primeira editoria conhecida. */
 	private static function cat_principal($id) {
 		$prim = (int) get_post_meta($id, '_yoast_wpseo_primary_category', true);
@@ -518,7 +532,7 @@ final class CPH {
 		$thumb_id = get_post_thumbnail_id($id);
 		$m = array(
 			't'        => html_entity_decode(get_the_title($post), ENT_QUOTES, 'UTF-8'),
-			'sub'      => has_excerpt($id) ? wp_strip_all_tags(get_the_excerpt($post)) : '',
+			'sub'      => self::subtitulo($post),
 			'cat'      => $cat ? $cat->name : '',
 			'cat_url'  => $cat ? get_category_link($cat) : '',
 			'data'     => get_the_date('j \d\e F \d\e Y, H\hi', $post),

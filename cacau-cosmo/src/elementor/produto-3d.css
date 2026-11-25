@@ -99,3 +99,10 @@ body.cc-p100 .cc3d__box{--d:calc(var(--bw)*.2667*1.12*var(--k))}
 .cc-root .cc-prod-info form.cart .quantity{align-self:stretch}
 .cc-root .cc-prod-info form.cart .single_add_to_cart_button{letter-spacing:.16em!important;white-space:nowrap}
 @media (max-width:620px){.cc-escolha__linha>span{flex:0 0 100%;margin-bottom:-2px}}
+
+/* aviso na foto / caixa 3D da página do produto */
+.cc-prod-gallery{position:relative}
+.cc-prod-gallery::after{content:'Embalagem ilustrativa';position:absolute;left:50%;transform:translateX(-50%);top:0;z-index:5;
+  font-family:var(--font-body);font-size:9px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:#EFE6D2;
+  border:1px solid rgba(239,230,210,.35);border-radius:20px;padding:6px 12px;background:rgba(0,0,0,.25);pointer-events:none;white-space:nowrap}
+html[lang="en"] .cc-prod-gallery::after{content:'Illustrative packaging'}

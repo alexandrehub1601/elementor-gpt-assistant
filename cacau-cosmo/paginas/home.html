@@ -418,7 +418,7 @@ a.is-soon{cursor:default}
 .fruto__txt{display:flex;flex-direction:column;justify-content:center;padding:clamp(44px,5.5vw,100px) var(--pad)}
 .fruto__txt .label{color:var(--cc-gold)}
 .fruto__txt h2{font-size:clamp(30px,3.6vw,58px);margin:14px 0 18px;max-width:13ch;color:var(--cc-cream)}
-.fruto__txt p:not(.label){font-family:var(--font-mono);font-size:clamp(14px,1.1vw,17px);line-height:1.7;opacity:.86;max-width:40ch}
+.fruto__txt p:not(.label){font-family:var(--font-body)!important;font-size:clamp(16px,1.3vw,20px);line-height:1.65;opacity:.9;max-width:38ch}
 .fruto__foto,.faixa-foto,.founder__foto{margin:0;overflow:hidden;background:var(--cc-brown)}
 .fruto__foto{min-height:clamp(360px,48vh,600px);position:relative}
 .fruto__foto img,.faixa-foto img,.founder__foto img{display:block;width:100%;height:100%;object-fit:cover}
@@ -707,16 +707,11 @@ a.is-soon{cursor:default}
 <section class="duo" id="cosmo">
   <div class="duo__seam" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#ic-star"></use></svg></div>
 
-  <div class="duo__side duo__terra duo--foto">
-    <!-- foto: Midia - cc-home-cacau-aberto.jpg -->
-    <img class="duo__bg" src="https://cacaucosmo.com.br/wp-content/uploads/2026/11/cc-home-cacau-aberto.jpg" data-cc-midia="cc-home-cacau-aberto"
-         alt="" aria-hidden="true" loading="lazy" decoding="async">
-    <p class="label rv" data-i18n="t-duolabel-cacau">Cacau</p>
+  <div class="duo__side duo__terra">
+    <p class="label rv" style="color:var(--cc-brown)" data-i18n="t-duolabel-cacau">Cacau</p>
     <ul class="rv d1">
       <li data-i18n="t-duo-terra">Terra.</li><li data-i18n="t-duo-fruto">Fruto.</li><li data-i18n="t-duo-ferment">Fermentação.</li><li data-i18n="t-duo-materia">Matéria.</li>
     </ul>
-    <svg class="duo__branch" viewBox="0 0 240 300" aria-hidden="true">
-      <use href="#art-branch"></use></svg>
   </div>
 
   <div class="duo__side duo__cosmo duo--video">
@@ -743,10 +738,9 @@ a.is-soon{cursor:default}
 <!-- ===== 5 - DO FRUTO ======================================= -->
 <section class="fruto" id="fruto">
   <div class="fruto__txt">
-    <p class="label rv" data-i18n="t-frutolabel">Do fruto</p>
+    <p class="label rv" data-i18n="t-frutolabel">Origem</p>
     <h2 class="display rv d1" data-i18n="t-frutoh2">Cada lote começa na árvore.</h2>
-    <p class="rv d2" data-i18n="t-origemp">Trabalhamos com cacau de origem, respeitando as pessoas,
-      os territórios e o tempo da natureza.</p>
+    <p class="rv d2" data-i18n="t-frutop">O cacau vem do sul da Bahia. No nosso ateliê, no Rio, transformamos as amêndoas em chocolate, em pequenos lotes.</p>
   </div>
   <figure class="fruto__foto">
     <!-- foto: Midia - cc-home-cacau.jpg -->
@@ -777,7 +771,7 @@ a.is-soon{cursor:default}
 </figure>
 
 <div class="founder" id="founder">
-  <h2 class="display rv founder__frase" data-i18n="t-founderp4">Porque, para mim, fazer chocolate sempre foi uma forma de cuidar.</h2>
+  <h2 class="display rv founder__frase" data-i18n="t-founderp4">Fazer chocolate sempre foi, para mim, uma forma de cuidar.</h2>
   <figure class="founder__foto rv d1">
     <!-- foto: Midia - cc-home-founder.jpg -->
     <img src="https://cacaucosmo.com.br/wp-content/uploads/2026/11/cc-home-founder.jpg" data-cc-midia="cc-home-founder"
@@ -1239,13 +1233,14 @@ function ccFallback(img){
     't-founderp1':      'Cacau Cosmo began before it existed as a brand. It began in the kitchen, when I started making chocolate for my grandmother, who lives with Alzheimer\u2019s.',
     't-founderp2':      'In food, I found a form of care &mdash; and in cacao, a meeting of gastronomy, nature, science and ritual.',
     't-founderp3':      'My training in gastronomy taught me to transform ingredients. Yoga taught me to stay present through the process.',
-    't-founderp4':      'Because, for me, making chocolate has always been a way of caring.',
+    't-founderp4':      'Making chocolate has always been, for me, a way of caring.',
+    't-frutop':         'Our cacao comes from southern Bahia. In our atelier in Rio, we turn the beans into chocolate, in small batches.',
     't-foundercta':     'Discover the story',
 
     't-circlelabel':    'Circle',
     't-circleh2':       'Join the <span class="em">circle.</span>',
     't-circlep':        'Get news and launches from Cacau Cosmo.',
-    't-frutolabel':     'From the fruit',
+    't-frutolabel':     'Origin',
     't-frutoh2':        'Every batch begins on the tree.',
     't-maniflabel':     'Manifesto',
     't-foundersig':     'Founder, Cacau Cosmo',

@@ -495,6 +495,13 @@ body.cph-pagina .main-wrap,body.cph-pagina .main,body.cph-pagina #main,body.cph-
 /* Encaixa o topo por baixo do equalizador do cabeçalho, para não sobrar fio branco */
 body.cph-pagina .cph-cat-head,body.cph-pagina .cph-bus-head,.cph-ultimas .cph-cat-head{margin-top:-24px;padding-top:80px}
 
+/* Imagens sempre cobrindo o espaço (o tema não pode mudar a altura) */
+.cph .cph-img{display:block!important;overflow:hidden!important;line-height:0!important}
+.cph .cph-img img,.cph .cph-mat-capa img{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:cover!important;margin:0!important;padding:0!important;border:0!important;display:block!important}
+.cph .cph-mat-capa img{height:auto!important;max-height:720px!important}
+.cph .cph-img-fill,.cph .cph-img-slide,.cph .cph-img-capa{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;aspect-ratio:auto!important}
+.cph .cph-img-dest{aspect-ratio:16/10}.cph .cph-img-wide{aspect-ratio:16/9}.cph .cph-img-card{aspect-ratio:4/3}.cph .cph-img-mini{aspect-ratio:1}
+
 /* Responsivo */
 @media (max-width:1000px){
   .cph-cards,.cph-agora-mais{grid-template-columns:repeat(2,minmax(0,1fr))}

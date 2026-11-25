@@ -33,6 +33,10 @@ final class CPH_News {
 			return $s;
 		});
 		add_action(self::GANCHO, array($this, 'enviar_lote'));
+		// Guarda o último erro de envio de e-mail, para mostrar no painel.
+		add_action('wp_mail_failed', function ($erro) {
+			update_option('cph_news_erro', array('quando' => current_time('mysql'), 'msg' => $erro->get_error_message()), false);
+		});
 	}
 
 	public static function instalar() {
@@ -227,11 +231,14 @@ final class CPH_News {
 		<div class="wrap">
 			<h1>Newsletter do Conexão Pop</h1>
 			<?php if (!empty($_GET['cph_msg'])) : // phpcs:ignore ?>
-				<div class="notice notice-success is-dismissible"><p><?php echo esc_html(array('teste' => 'Teste enviado para o seu e-mail.', 'fila' => 'Envio começou. Os e-mails saem em lotes de ' . self::LOTE . ' por minuto.', 'parado' => 'Envio cancelado.')[sanitize_key($_GET['cph_msg'])] ?? ''); // phpcs:ignore ?></p></div>
+				<div class="notice notice-success is-dismissible"><p><?php echo esc_html(array('confirmado' => 'Inscrição confirmada.', 'teste' => 'Teste enviado para o seu e-mail.', 'fila' => 'Envio começou. Os e-mails saem em lotes de ' . self::LOTE . ' por minuto.', 'parado' => 'Envio cancelado.')[sanitize_key($_GET['cph_msg'])] ?? ''); // phpcs:ignore ?></p></div>
 			<?php endif; ?>
 			<p style="font-size:15px"><strong><?php echo esc_html(number_format_i18n(self::contar('ativo'))); ?></strong> inscritos confirmados · <?php echo esc_html(number_format_i18n(self::contar('pendente'))); ?> aguardando confirmação · <?php echo esc_html(number_format_i18n(self::contar('saiu'))); ?> saíram
 				· <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin-post.php?action=cph_news_csv'), 'cph_news_csv')); ?>">Baixar lista (CSV)</a></p>
 
+			<?php $erro = get_option('cph_news_erro'); if ($erro) : ?>
+				<div class="notice notice-error"><p><strong>O WordPress não conseguiu enviar um e-mail</strong> (<?php echo esc_html(mysql2date('d/m H:i', $erro['quando'])); ?>): <?php echo esc_html($erro['msg']); ?><br>Isso costuma ser a hospedagem bloqueando o envio. Instale um plugin de SMTP (WP Mail SMTP ou FluentSMTP) ligado a um serviço como Brevo e mande um teste.</p></div>
+			<?php endif; ?>
 			<?php if ($envio && empty($envio['fim'])) : ?>
 				<div class="notice notice-info"><p><strong>Enviando "<?php echo esc_html($envio['assunto']); ?>":</strong> <?php echo esc_html(number_format_i18n($envio['enviados'])); ?> de <?php echo esc_html(number_format_i18n($envio['total'])); ?> e-mails.
 				<form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="display:inline"><?php wp_nonce_field('cph_news_acao'); ?><input type="hidden" name="action" value="cph_news_acao"><button class="button" name="botao" value="parar">Cancelar envio</button></form></p></div>
@@ -257,6 +264,20 @@ final class CPH_News {
 					<button class="button button-primary" name="botao" value="enviar" onclick="return confirm('Enviar para <?php echo esc_attr(self::contar('ativo')); ?> inscritos?')" <?php disabled(($envio && empty($envio['fim'])) || !self::contar('ativo')); ?>>Enviar para todos os inscritos</button>
 				</p>
 			</form>
+			<h2>Inscritos</h2>
+			<p class="description">Os mais recentes primeiro. "Aguardando" é quem ainda não clicou no e-mail de confirmação (se o e-mail não chega, a pessoa fica aqui). Você pode confirmar à mão quem pediu para entrar.</p>
+			<?php
+			global $wpdb;
+			$lista = $wpdb->get_results('SELECT id, email, nome, interesses, status, criado FROM ' . self::tabela() . ' ORDER BY id DESC LIMIT 100'); // phpcs:ignore
+			$rot = array('ativo' => 'Confirmado', 'pendente' => 'Aguardando', 'saiu' => 'Saiu');
+			?>
+			<table class="widefat striped" style="max-width:1000px"><thead><tr><th>E-mail</th><th>Nome</th><th>Interesses</th><th>Situação</th><th>Desde</th><th></th></tr></thead><tbody>
+			<?php if (!$lista) : ?><tr><td colspan="6">Ninguém inscrito ainda.</td></tr><?php endif; ?>
+			<?php foreach ((array) $lista as $s) : ?>
+				<tr><td><?php echo esc_html($s->email); ?></td><td><?php echo esc_html($s->nome); ?></td><td><?php echo esc_html(str_replace(',', ', ', $s->interesses)); ?></td><td><?php echo esc_html($rot[$s->status] ?? $s->status); ?></td><td><?php echo esc_html(mysql2date('d/m/Y', $s->criado)); ?></td>
+				<td><?php if ($s->status === 'pendente') : ?><form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>"><?php wp_nonce_field('cph_news_acao'); ?><input type="hidden" name="action" value="cph_news_acao"><input type="hidden" name="id" value="<?php echo esc_attr($s->id); ?>"><button class="button button-small" name="botao" value="confirmar">Confirmar</button></form><?php endif; ?></td></tr>
+			<?php endforeach; ?>
+			</tbody></table>
 			<h2>Boas práticas</h2>
 			<p>Para os e-mails não caírem no spam, use um plugin de SMTP (WP Mail SMTP, FluentSMTP) ligado a um serviço de envio, como Brevo, Amazon SES ou SendGrid, e configure SPF e DKIM do domínio. Muitas hospedagens limitam o envio direto do servidor.</p>
 		</div>
@@ -269,6 +290,12 @@ final class CPH_News {
 			wp_die('Sem permissão.');
 		}
 		$botao = sanitize_key($_POST['botao'] ?? '');
+		if ($botao === 'confirmar') {
+			global $wpdb;
+			$wpdb->update(self::tabela(), array('status' => 'ativo', 'confirmado' => current_time('mysql')), array('id' => absint($_POST['id'] ?? 0)));
+			wp_safe_redirect(admin_url('admin.php?page=cph-news&cph_msg=confirmado'));
+			exit;
+		}
 		if ($botao === 'parar') {
 			$e = get_option(self::ENVIO);
 			if ($e) {

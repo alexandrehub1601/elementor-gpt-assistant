@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Home Conexão Pop
  * Description: Blocos de home com a identidade 2026 do Conexão Pop: faixa de manchetes, destaques, "acabou de sair", em alta, editorias, próximos shows, slides e newsletter. Use os shortcodes no Elementor ou [cp_home] para a home inteira.
- * Version: 1.5.1
+ * Version: 1.6.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Conexão Pop
@@ -13,13 +13,14 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-define('CPH_VERSION', '1.5.1');
+define('CPH_VERSION', '1.6.0');
 define('CPH_URL', plugin_dir_url(__FILE__));
 define('CPH_DIR', plugin_dir_path(__FILE__));
 
 require_once CPH_DIR . 'inc/render.php';
 require_once CPH_DIR . 'inc/paginas.php';
 require_once CPH_DIR . 'inc/newsletter.php';
+require_once CPH_DIR . 'inc/conteudo.php';
 
 final class CPH {
 
@@ -45,18 +46,24 @@ final class CPH {
 			'layout_categoria' => 0,
 			'layout_busca'     => 0,
 			'layout_404'       => 0,
+			'tags_link'        => 1,
+			'leia_tambem'      => 1,
+			'tags_ignorar'     => '',
 		));
 	}
 
 	public function __construct() {
 		add_action('wp_enqueue_scripts', array($this, 'assets'));
-		foreach (array('cp_home', 'cp_faixa', 'cp_destaques', 'cp_agora', 'cp_em_alta', 'cp_editoria', 'cp_proximos_shows', 'cp_newsletter', 'cp_slides', 'cp_divisor', 'cp_capa', 'cp_mosaico', 'cp_manchetes', 'cp_sanfona', 'cp_materia', 'cp_categoria', 'cp_busca', 'cp_404', 'cp_marcas') as $sc) {
+		foreach (array('cp_home', 'cp_faixa', 'cp_destaques', 'cp_agora', 'cp_em_alta', 'cp_editoria', 'cp_proximos_shows', 'cp_newsletter', 'cp_slides', 'cp_divisor', 'cp_capa', 'cp_mosaico', 'cp_manchetes', 'cp_sanfona', 'cp_materia', 'cp_categoria', 'cp_busca', 'cp_404', 'cp_marcas', 'cp_ultimas') as $sc) {
 			add_shortcode($sc, array($this, 'sc_' . substr($sc, 3)));
 		}
 		add_action('admin_menu', array($this, 'menu'));
 		add_action('admin_init', array($this, 'registrar'));
 		add_action('save_post_post', array(__CLASS__, 'limpar_cache'));
 		add_filter('template_include', array($this, 'modelo'), 99);
+		add_filter('wp_resource_hints', array($this, 'dicas'), 10, 2);
+		add_action('pre_get_posts', array($this, 'por_pagina'));
+		add_filter('body_class', array($this, 'classe_body'));
 	}
 
 	public static function limpar_cache() {
@@ -68,6 +75,36 @@ final class CPH {
 		wp_register_style('cph-fontes', 'https://fonts.googleapis.com/css2?family=Geist+Pixel&family=TikTok+Sans:wght@400;500;600;700&display=swap', array('cph-kensington'), null);
 		wp_register_style('cph', CPH_URL . 'assets/home.css', array('cph-fontes'), CPH_VERSION);
 		wp_register_script('cph', CPH_URL . 'assets/home.js', array(), CPH_VERSION, true);
+		// O visual vai no <head> em todas as páginas: assim nada aparece desconfigurado antes de carregar.
+		if (!is_admin()) {
+			wp_enqueue_style('cph');
+		}
+	}
+
+	/** Avisa o navegador cedo que vai buscar as fontes. */
+	public function dicas($urls, $tipo) {
+		if ($tipo === 'preconnect') {
+			$urls[] = 'https://use.typekit.net';
+			$urls[] = array('href' => 'https://p.typekit.net', 'crossorigin');
+			$urls[] = 'https://fonts.googleapis.com';
+			$urls[] = array('href' => 'https://fonts.gstatic.com', 'crossorigin');
+		}
+		return $urls;
+	}
+
+	/** Categoria com 12 matérias por página (3 de abertura + 9 em grade, ou 12 em grade). */
+	public function por_pagina($q) {
+		if (!is_admin() && $q->is_main_query() && $q->is_category() && self::opcoes()['layout_categoria']) {
+			$q->set('posts_per_page', 12);
+		}
+	}
+
+	public function classe_body($c) {
+		$o = self::opcoes();
+		if (($o['layout_materia'] && is_singular('post')) || ($o['layout_categoria'] && is_category()) || ($o['layout_busca'] && is_search()) || ($o['layout_404'] && is_404())) {
+			$c[] = 'cph-pagina';
+		}
+		return $c;
 	}
 
 	private function usar_assets() {
@@ -351,6 +388,27 @@ final class CPH {
 		return self::html_categoria();
 	}
 
+	/** Página "Últimas notícias": todas as matérias, da mais nova para a mais antiga, com paginação. */
+	public function sc_ultimas($a = array()) {
+		$a = shortcode_atts(array('titulo' => 'Últimas notícias', 'texto' => 'Tudo o que saiu no Conexão Pop, da mais nova para a mais antiga.', 'qtd' => 12), $a);
+		$this->usar_assets();
+		$pag = max(1, (int) get_query_var('paged'), (int) get_query_var('page'));
+		$q = new WP_Query(array('post_type' => 'post', 'post_status' => 'publish', 'posts_per_page' => max(3, (int) $a['qtd']), 'paged' => $pag, 'ignore_sticky_posts' => true));
+		$posts = array();
+		foreach ($q->posts as $p) {
+			$posts[] = self::card($p);
+		}
+		$links = paginate_links(array(
+			'base' => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))), 'format' => '',
+			'current' => $pag, 'total' => (int) $q->max_num_pages, 'type' => 'array', 'mid_size' => 1,
+			'prev_text' => '← Anteriores', 'next_text' => 'Próximas →',
+		));
+		return '<div class="cph-ultimas">' . CPH_Paginas::categoria(array(
+			'nome' => $a['titulo'], 'desc' => $a['texto'], 'total' => (int) wp_count_posts('post')->publish,
+			'posts' => $posts, 'paginas' => $links ? $links : array(), 'pagina' => $pag,
+		)) . '</div>';
+	}
+
 	public function sc_busca() {
 		if (!is_search()) {
 			return '';
@@ -527,6 +585,9 @@ final class CPH {
 				'layout_categoria' => empty($v['layout_categoria']) ? 0 : 1,
 				'layout_busca'     => empty($v['layout_busca']) ? 0 : 1,
 				'layout_404'       => empty($v['layout_404']) ? 0 : 1,
+				'tags_link'        => empty($v['tags_link']) ? 0 : 1,
+				'leia_tambem'      => empty($v['leia_tambem']) ? 0 : 1,
+				'tags_ignorar'     => sanitize_text_field($v['tags_ignorar'] ?? ''),
 			);
 		}));
 	}
@@ -553,6 +614,7 @@ final class CPH {
 				<tr><td><code>[cp_marcas]</code></td><td>Marcas &amp; Mercado em destaque: seção azul de ponta a ponta, com uma grande, quatro com foto e uma faixa de manchetes</td></tr>
 				<tr><td><code>[cp_manchetes categoria="marcas" titulo="Marcas"]</code></td><td>Seis manchetes só em texto, estilo revista</td></tr>
 				<tr><td><code>[cp_sanfona categoria="entrevistas" titulo="Entrevistas"]</code></td><td>Colunas com título na vertical que abrem ao passar o mouse (<code>cor="rosa"</code>, <code>azul</code>, <code>limao</code> ou <code>preto</code>)</td></tr>
+				<tr><td><code>[cp_ultimas]</code></td><td>Página "Últimas notícias": todas as matérias com paginação (12 por página)</td></tr>
 				<tr><td><code>[cp_divisor padrao="3" cor="rosa"]</code></td><td>Divisória de pixels da identidade (padrão 1 a 4; cor rosa, preto, azul ou limao; <code>virar="sim"</code> inverte)</td></tr>
 				</tbody>
 			</table>
@@ -568,6 +630,15 @@ final class CPH {
 						<label><input type="checkbox" name="<?php echo esc_attr(self::OPT); ?>[layout_404]" value="1" <?php checked($o['layout_404'], 1); ?>> Usar na página não encontrada (404)</label>
 						<p class="description">Usa o cabeçalho e o rodapé do tema. Se vocês têm Elementor Pro, dá para deixar desmarcado e usar <code>[cp_materia]</code>, <code>[cp_categoria]</code>, <code>[cp_busca]</code> e <code>[cp_404]</code> nos modelos do Construtor de temas.</p>
 					</td></tr>
+				</table>
+				<h2>Texto das matérias</h2>
+				<table class="form-table">
+					<tr><th>Links automáticos</th><td>
+						<label><input type="checkbox" name="<?php echo esc_attr(self::OPT); ?>[tags_link]" value="1" <?php checked($o['tags_link'], 1); ?>> Transformar em link os nomes que já existem como tag (só a primeira vez que aparecem, até 10 por matéria)</label><br>
+						<label><input type="checkbox" name="<?php echo esc_attr(self::OPT); ?>[leia_tambem]" value="1" <?php checked($o['leia_tambem'], 1); ?>> Mostrar um "Leia também" depois do segundo parágrafo</label>
+					</td></tr>
+					<tr><th><label for="cph_ti">Tags que não viram link</label></th><td><input class="large-text" id="cph_ti" name="<?php echo esc_attr(self::OPT); ?>[tags_ignorar]" value="<?php echo esc_attr($o['tags_ignorar']); ?>" placeholder="Ex.: são paulo, rio de janeiro, natal">
+						<p class="description">Separe por vírgula. Palavras genéricas como música, shows, festivais e marcas já ficam de fora.</p></td></tr>
 				</table>
 				<h2>Newsletter</h2>
 				<table class="form-table">
@@ -585,3 +656,4 @@ final class CPH {
 
 new CPH();
 new CPH_News();
+new CPH_Conteudo();

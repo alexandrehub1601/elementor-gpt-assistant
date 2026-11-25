@@ -376,7 +376,7 @@
 .cph-comentarios{max-width:760px}
 
 /* ================= Categoria ================= */
-.cph-cat-head{position:relative;background:var(--p);color:var(--w);padding:56px 0 0;margin-bottom:clamp(30px,4vw,56px)}
+.cph-cat-head{position:relative;background:var(--p);color:var(--w);padding:56px 0 0;margin:0 0 clamp(30px,4vw,56px)}
 .cph-cat-head .cph-wrap{display:grid;gap:14px;justify-items:start;padding-bottom:28px}
 .cph-cat-head .cph-tag-ink{background:var(--k);color:var(--l)}
 .cph .cph-cat-t{font-family:var(--disp);font-weight:700;font-size:clamp(72px,13vw,190px);line-height:.82;text-transform:uppercase;color:var(--w);margin:0}
@@ -474,6 +474,26 @@
   .cph-404-num{font-size:clamp(130px,40vw,220px)}
 }
 @media (prefers-reduced-motion:reduce){.cph-404-num span,.cph-404-eq i{animation:none}}
+
+/* Links automáticos de tag e "Leia também" (valem também no layout do tema) */
+a.cph-taglink{color:#C2186F;font-weight:600;text-decoration:none;border-bottom:2px solid rgba(255,21,116,.35);transition:background .15s,border-color .15s}
+a.cph-taglink:hover{background:#D7FF47;color:#111;border-color:#111}
+.cph-leia{margin:26px 0 30px;clear:both}
+.cph-leia a{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;padding:12px 16px 12px 12px;border-left:6px solid #FF1574;background:#F4F1EC;color:#111!important;text-decoration:none!important;transition:background .15s}
+.cph-leia a:hover{background:#FFE3EF}
+.cph-leia img{width:72px;height:72px;object-fit:cover;border-radius:0!important;margin:0!important;display:block}
+.cph-leia span{display:grid;gap:4px;min-width:0}
+.cph-leia em{font-style:normal;font-family:"Geist Pixel","Courier New",monospace;font-size:12px;line-height:1;text-transform:uppercase;letter-spacing:.03em;color:#FF1574}
+.cph-leia strong{font-family:"kensington","Kensington",Impact,"Arial Narrow",sans-serif;font-weight:700;font-size:22px;line-height:1;text-transform:uppercase}
+.cph-leia svg{width:22px;height:22px;fill:none;stroke:#FF1574;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .15s}
+.cph-leia a:hover svg{transform:translateX(4px)}
+@media (max-width:520px){.cph-leia img{width:56px;height:56px}.cph-leia strong{font-size:19px}}
+
+/* Páginas com layout novo: tira o espaço que o tema coloca entre o cabeçalho e o conteúdo */
+body.cph-pagina .main-wrap,body.cph-pagina .main,body.cph-pagina #main,body.cph-pagina .site-content,body.cph-pagina #content,body.cph-pagina .ts-contain,body.cph-pagina .main-content,body.cph-pagina .elementor-location-single,body.cph-pagina .elementor-location-archive{padding-top:0!important;margin-top:0!important}
+.cph-cat .cph-cat-head,.cph-busca .cph-bus-head{margin-top:0}
+/* Encaixa o topo por baixo do equalizador do cabeçalho, para não sobrar fio branco */
+body.cph-pagina .cph-cat-head,body.cph-pagina .cph-bus-head,.cph-ultimas .cph-cat-head{margin-top:-24px;padding-top:80px}
 
 /* Responsivo */
 @media (max-width:1000px){

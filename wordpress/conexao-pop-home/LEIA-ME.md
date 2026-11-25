@@ -47,3 +47,15 @@ Com Elementor Pro, dá para deixar desmarcado e usar `[cp_materia]`, `[cp_catego
   FluentSMTP) ligado a um serviço de envio (Brevo, Amazon SES, SendGrid) e configure SPF e
   DKIM do domínio. O agendador do WordPress roda com as visitas do site; se o site tiver
   pouco tráfego de madrugada, ative um cron real na hospedagem.
+
+## Página "Últimas notícias"
+Na página /ultimas-noticias, coloque um widget Shortcode com `[cp_ultimas]`
+(12 matérias por página, com paginação). Dá para mudar: `[cp_ultimas qtd="15" titulo="Últimas"]`.
+
+## Links automáticos e "Leia também"
+- Nomes que já existem como **tag** viram link para a tag na primeira vez que aparecem no
+  texto (até 10 por matéria). Não mexe em títulos, legendas, citações nem links que já existem.
+  Se o nome não for uma tag, nada acontece.
+- Depois do segundo parágrafo entra um **"Leia também"** discreto com uma matéria da mesma editoria.
+- As duas coisas ligam e desligam em Configurações > Home Conexão Pop, onde também dá para
+  listar tags que não devem virar link.

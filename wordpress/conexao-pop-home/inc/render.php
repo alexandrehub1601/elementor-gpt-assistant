@@ -232,7 +232,7 @@ final class CPH_Render {
 		}
 		$big = array_shift($posts);
 		$meio = array_splice($posts, 0, 4);
-		$h = '<section class="cph-bloco cph-full cph-marcas"><div class="cph-wrap">'
+		$h = '<section class="cph-bloco cph-full cph-marcas">' . self::sky('cph-mar-sky') . '<div class="cph-wrap">'
 			. '<header class="cph-head"><h2 class="cph-h2">' . esc_html($titulo) . '</h2>' . self::tag($chamada) . '<span class="cph-rule" aria-hidden="true"></span>'
 			. ($link ? '<a class="cph-more cph-more-lime" href="' . esc_url($link) . '">Ver tudo' . self::seta() . '</a>' : '') . '</header>'
 			. '<div class="cph-mar-grid"><article class="cph-mar-big"><a href="' . esc_url($big['u']) . '">' . self::img($big, 'cph-img-wide')

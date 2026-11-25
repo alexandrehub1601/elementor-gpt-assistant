@@ -34,3 +34,16 @@ Em Configurações > Home Conexão Pop, marque onde usar o layout novo: matéria
 resultado da busca e página não encontrada (404). Usa o cabeçalho e o rodapé do tema.
 Com Elementor Pro, dá para deixar desmarcado e usar `[cp_materia]`, `[cp_categoria]`,
 `[cp_busca]` e `[cp_404]` nos modelos do Construtor de temas.
+
+## Newsletter (feita no WordPress)
+- O bloco `[cp_newsletter]` (e a home) já inscrevem direto no WordPress. A pessoa recebe um
+  e-mail para confirmar (exigência da LGPD) e só então entra na lista.
+- Menu **Newsletter** no painel: quantos inscritos, baixar a lista em CSV e montar a edição
+  (assunto, texto de abertura, matérias dos últimos 14 dias e próximos shows da agenda).
+  Dá para pré-visualizar e mandar um teste antes de enviar para todos.
+- O envio sai em lotes de 40 e-mails por minuto, para a hospedagem não travar. Cada e-mail
+  tem o link "Sair da lista".
+- **Importante:** para não cair no spam, instale um plugin de SMTP (WP Mail SMTP ou
+  FluentSMTP) ligado a um serviço de envio (Brevo, Amazon SES, SendGrid) e configure SPF e
+  DKIM do domínio. O agendador do WordPress roda com as visitas do site; se o site tiver
+  pouco tráfego de madrugada, ative um cron real na hospedagem.

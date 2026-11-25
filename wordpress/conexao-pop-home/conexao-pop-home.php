@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Home Conexão Pop
  * Description: Blocos de home com a identidade 2026 do Conexão Pop: faixa de manchetes, destaques, "acabou de sair", em alta, editorias, próximos shows, slides e newsletter. Use os shortcodes no Elementor ou [cp_home] para a home inteira.
- * Version: 1.4.1
+ * Version: 1.5.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Conexão Pop
@@ -13,12 +13,13 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-define('CPH_VERSION', '1.4.1');
+define('CPH_VERSION', '1.5.0');
 define('CPH_URL', plugin_dir_url(__FILE__));
 define('CPH_DIR', plugin_dir_path(__FILE__));
 
 require_once CPH_DIR . 'inc/render.php';
 require_once CPH_DIR . 'inc/paginas.php';
+require_once CPH_DIR . 'inc/newsletter.php';
 
 final class CPH {
 
@@ -37,8 +38,8 @@ final class CPH {
 
 	public static function opcoes() {
 		return wp_parse_args(get_option(self::OPT, array()), array(
-			'news_titulo' => 'Receba o melhor do pop no seu e-mail',
-			'news_texto'  => 'Lançamentos, shows e festivais da semana, sem spam.',
+			'news_titulo' => 'A semana pop na sua caixa de entrada',
+			'news_texto'  => 'Toda semana: o que bombou no pop, os lançamentos e os shows que vêm por aí. Direto na sua caixa de entrada.',
 			'news_embed'  => '',
 			'layout_materia'   => 0,
 			'layout_categoria' => 0,
@@ -49,7 +50,7 @@ final class CPH {
 
 	public function __construct() {
 		add_action('wp_enqueue_scripts', array($this, 'assets'));
-		foreach (array('cp_home', 'cp_faixa', 'cp_destaques', 'cp_agora', 'cp_em_alta', 'cp_editoria', 'cp_proximos_shows', 'cp_newsletter', 'cp_slides', 'cp_divisor', 'cp_capa', 'cp_mosaico', 'cp_manchetes', 'cp_sanfona', 'cp_materia', 'cp_categoria', 'cp_busca', 'cp_404') as $sc) {
+		foreach (array('cp_home', 'cp_faixa', 'cp_destaques', 'cp_agora', 'cp_em_alta', 'cp_editoria', 'cp_proximos_shows', 'cp_newsletter', 'cp_slides', 'cp_divisor', 'cp_capa', 'cp_mosaico', 'cp_manchetes', 'cp_sanfona', 'cp_materia', 'cp_categoria', 'cp_busca', 'cp_404', 'cp_marcas') as $sc) {
 			add_shortcode($sc, array($this, 'sc_' . substr($sc, 3)));
 		}
 		add_action('admin_menu', array($this, 'menu'));
@@ -161,7 +162,6 @@ final class CPH {
 			return CPH_Render::divisor($n, $cor, $virar);
 		};
 		return '<div class="cph cph-home">'
-			. $this->sc_faixa(array('_dentro' => 1))
 			. $this->sc_destaques(array('_dentro' => 1))
 			. $d(3, 'rosa')
 			. $this->sc_agora(array('_dentro' => 1))
@@ -174,11 +174,10 @@ final class CPH {
 			. $this->sc_proximos_shows(array('_dentro' => 1))
 			. $this->sc_sanfona(array('categoria' => 'entrevistas', 'titulo' => 'Entrevistas', '_dentro' => 1))
 			. $d(2, 'rosa')
-			. $this->sc_manchetes(array('categoria' => 'marcas', 'titulo' => 'Marcas & Mercado', '_dentro' => 1))
+			. $this->sc_marcas(array('_dentro' => 1))
 			. $this->sc_slides(array('categoria' => 'shows', 'titulo' => 'Shows', 'cor' => 'azul', '_dentro' => 1))
 			. $this->sc_newsletter(array('_dentro' => 1))
 			. $this->sc_editoria(array('categoria' => 'eventos', 'titulo' => 'Eventos', '_dentro' => 1))
-			. $d(3, 'preto')
 			. '</div>';
 	}
 
@@ -206,6 +205,14 @@ final class CPH {
 		$posts = self::buscar(array('category_name' => $slug), intval($a['qtd']));
 		$html = $extra === null ? CPH_Render::$render($titulo, $link, $posts) : CPH_Render::$render($titulo, $link, $posts, sanitize_key($a['cor'] ? $a['cor'] : $extra));
 		return $this->envolver($html, $a);
+	}
+
+	public function sc_marcas($a = array()) {
+		$a = shortcode_atts(array('categoria' => 'marcas', 'titulo' => 'Marcas & Mercado', 'chamada' => 'Onde as marcas encontram o pop', 'qtd' => 8, '_dentro' => 0), $a);
+		$slug = sanitize_title($a['categoria']);
+		$cat = get_category_by_slug($slug);
+		$posts = self::buscar(array('category_name' => $slug), intval($a['qtd']));
+		return $this->envolver(CPH_Render::marcas($a['titulo'], $cat ? get_category_link($cat) : '', $posts, $a['chamada']), $a);
 	}
 
 	public function sc_mosaico($a = array()) {
@@ -297,7 +304,11 @@ final class CPH {
 	public function sc_newsletter($a = array()) {
 		$a = shortcode_atts(array('_dentro' => 0), $a);
 		$o = self::opcoes();
-		return $this->envolver(CPH_Render::newsletter($o['news_titulo'], $o['news_texto'], $o['news_embed']), $a);
+		$amostra = array();
+		foreach (get_posts(array('numberposts' => 3, 'post_status' => 'publish')) as $p) {
+			$amostra[] = array('t' => html_entity_decode(get_the_title($p), ENT_QUOTES, 'UTF-8'));
+		}
+		return $this->envolver(CPH_Render::newsletter($o['news_titulo'], $o['news_texto'], $o['news_embed'], $amostra, CPH_News::contar('ativo'), rest_url('cph/v1/news')), $a);
 	}
 
 	/* ------------------------------------------------------------------ */
@@ -463,6 +474,12 @@ final class CPH {
 			'tags'     => $tags,
 			'url'      => get_permalink($post),
 		);
+		$m['autor_box'] = CPH_Paginas::autor(array(
+			'nome' => get_the_author_meta('display_name', $post->post_author),
+			'foto' => get_avatar_url($post->post_author, array('size' => 192)),
+			'bio'  => get_the_author_meta('description', $post->post_author),
+			'url'  => get_author_posts_url($post->post_author),
+		));
 		$lateral = CPH_Paginas::lateral(self::em_alta(5), self::proximos_lista(4), home_url('/agenda/'));
 		$rel = $cat ? self::buscar(array('cat' => $cat->term_id), 4) : array();
 		$depois = $rel ? CPH_Render::editoria('Leia também', $cat ? get_category_link($cat) : '', $rel) : '';
@@ -534,6 +551,7 @@ final class CPH {
 				<tr><td><code>[cp_newsletter]</code></td><td>Newsletter (configure abaixo)</td></tr>
 				<tr><td><code>[cp_capa categoria="coberturas" rotulo="Cobertura"]</code></td><td>Uma matéria em tela cheia, com título enorme e a skyline rosa</td></tr>
 				<tr><td><code>[cp_mosaico categoria="festival" titulo="Festivais"]</code></td><td>Uma grande e quatro menores</td></tr>
+				<tr><td><code>[cp_marcas]</code></td><td>Marcas &amp; Mercado em destaque: seção azul de ponta a ponta, com uma grande, quatro com foto e uma faixa de manchetes</td></tr>
 				<tr><td><code>[cp_manchetes categoria="marcas" titulo="Marcas"]</code></td><td>Seis manchetes só em texto, estilo revista</td></tr>
 				<tr><td><code>[cp_sanfona categoria="entrevistas" titulo="Entrevistas"]</code></td><td>Colunas com título na vertical que abrem ao passar o mouse (<code>cor="rosa"</code>, <code>azul</code>, <code>limao</code> ou <code>preto</code>)</td></tr>
 				<tr><td><code>[cp_divisor padrao="3" cor="rosa"]</code></td><td>Divisória de pixels da identidade (padrão 1 a 4; cor rosa, preto, azul ou limao; <code>virar="sim"</code> inverte)</td></tr>
@@ -557,7 +575,7 @@ final class CPH {
 					<tr><th><label for="cph_nt">Título</label></th><td><input class="regular-text" id="cph_nt" name="<?php echo esc_attr(self::OPT); ?>[news_titulo]" value="<?php echo esc_attr($o['news_titulo']); ?>"></td></tr>
 					<tr><th><label for="cph_nx">Texto</label></th><td><input class="large-text" id="cph_nx" name="<?php echo esc_attr(self::OPT); ?>[news_texto]" value="<?php echo esc_attr($o['news_texto']); ?>"></td></tr>
 					<tr><th><label for="cph_ne">Formulário</label></th><td><textarea class="large-text code" rows="6" id="cph_ne" name="<?php echo esc_attr(self::OPT); ?>[news_embed]"><?php echo esc_textarea($o['news_embed']); ?></textarea>
-						<p class="description">Cole o código do formulário da ferramenta de vocês (Mailchimp, RD Station, Brevo, Substack…). Vazio: o bloco mostra as redes sociais do Conexão Pop.</p></td></tr>
+						<p class="description">Deixe vazio para usar a newsletter do próprio WordPress (menu <strong>Newsletter</strong>). Só cole um código aqui se quiserem usar outra ferramenta (Mailchimp, RD Station, Brevo…).</p></td></tr>
 				</table>
 				<?php submit_button('Salvar'); ?>
 			</form>
@@ -567,3 +585,4 @@ final class CPH {
 }
 
 new CPH();
+new CPH_News();

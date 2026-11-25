@@ -133,24 +133,37 @@ final class CPH_Render {
 		return $h . '</ul>' . self::sky() . '</div></div></section>';
 	}
 
-	public static function newsletter($titulo, $texto, $embed) {
-		$redes = array(
-			'Instagram' => 'https://www.instagram.com/siteconexaopop',
-			'TikTok'    => 'https://www.tiktok.com/@siteconexaopop',
-			'YouTube'   => 'https://www.youtube.com/c/Conex%C3%A3oPOP',
-			'X'         => 'https://twitter.com/conexaopopsite',
-		);
-		$h = '<section class="cph-bloco"><div class="cph-wrap"><div class="cph-news"><div class="cph-news-txt">' . self::tag('Newsletter', 'cph-tag-ink') . '<h2 class="cph-h2">' . esc_html($titulo) . '</h2><p>' . esc_html($texto) . '</p></div><div class="cph-news-form">';
+	/**
+	 * Newsletter. Sem formulário externo, usa a inscrição do próprio WordPress.
+	 * $amostra: matérias para a prévia da edição; $total: inscritos confirmados; $acao: URL da API.
+	 */
+	public static function newsletter($titulo, $texto, $embed, $amostra = array(), $total = 0, $acao = '') {
+		$h = '<section class="cph-bloco"><div class="cph-wrap"><div class="cph-news"><div class="cph-news-txt">' . self::tag('Newsletter', 'cph-tag-ink') . '<h2 class="cph-h2">' . esc_html($titulo) . '</h2><p>' . esc_html($texto) . '</p>';
 		if (trim($embed) !== '') {
-			$h .= $embed; // código do formulário salvo por administrador nas configurações
-		} else {
-			$h .= '<p class="cph-news-alt">Enquanto isso, siga o Conexão Pop:</p><div class="cph-redes">';
-			foreach ($redes as $n => $u) {
-				$h .= '<a href="' . esc_url($u) . '" target="_blank" rel="noopener">' . esc_html($n) . '</a>';
-			}
-			$h .= '</div>';
+			return $h . '</div><div class="cph-news-form">' . $embed . '</div>' . self::sky() . '</div></div></section>'; // formulário salvo por administrador
 		}
-		return $h . '</div>' . self::sky() . '</div></div></section>';
+		$chips = '';
+		foreach (array('musica' => 'Música', 'shows' => 'Shows', 'festivais' => 'Festivais', 'marcas' => 'Marcas') as $k => $n) {
+			$chips .= '<label class="cph-chip"><input type="checkbox" name="interesses[]" value="' . esc_attr($k) . '" checked><span>' . esc_html($n) . '</span></label>';
+		}
+		$h .= '<form class="cph-nform" data-acao="' . esc_url($acao) . '" novalidate>'
+			. '<div class="cph-nform-row"><label class="cph-sr" for="cph-nemail">Seu e-mail</label><input id="cph-nemail" type="email" name="email" required placeholder="seu@email.com" autocomplete="email">'
+			. '<button type="submit">Quero receber</button></div>'
+			. '<label class="cph-sr" for="cph-nnome">Seu nome</label><input id="cph-nnome" class="cph-nnome" type="text" name="nome" placeholder="Como podemos te chamar? (opcional)" autocomplete="given-name">'
+			. '<fieldset class="cph-chips"><legend>O que você quer receber?</legend>' . $chips . '</fieldset>'
+			. '<input type="text" name="site" tabindex="-1" autocomplete="off" class="cph-hp" aria-hidden="true">'
+			. '<p class="cph-nform-msg" role="status" hidden></p>'
+			. '<p class="cph-nform-lgpd">Toda semana, sem spam. Você confirma pelo e-mail e sai quando quiser.' . ($total >= 50 ? ' Junte-se a ' . esc_html(number_format_i18n($total)) . ' leitores.' : '') . '</p>'
+			. '</form></div>';
+		// Prévia da edição: um "e-mail" inclinado com as manchetes da semana
+		$itens = '';
+		foreach (array_slice($amostra, 0, 3) as $i => $p) {
+			$itens .= '<li><span class="cph-num">' . sprintf('%02d', $i + 1) . '</span>' . esc_html($p['t']) . '</li>';
+		}
+		$h .= '<div class="cph-news-mock" aria-hidden="true"><div class="cph-mock-top"><span class="cph-mock-dots"><i></i><i></i><i></i></span><span>Caixa de entrada</span></div>'
+			. '<div class="cph-mock-de"><b>Conexão Pop</b><span>A semana pop · ' . esc_html(date_i18n('j M')) . '</span></div>'
+			. '<div class="cph-mock-t">O que bombou esta semana</div><ol>' . $itens . '</ol><div class="cph-mock-eq">' . str_repeat('<i></i>', 18) . '</div></div>';
+		return $h . self::sky() . '</div></div></section>';
 	}
 	/**
 	 * Divisória: faixa da largura da tela com a borda de baixo em pixels (a skyline da identidade, invertida).
@@ -211,5 +224,30 @@ final class CPH_Render {
 				. '<span class="cph-san-full">' . self::img($p, 'cph-img-fill') . '<span class="cph-san-txt">' . self::tag($p['cat']) . '<strong>' . esc_html($p['t']) . '</strong></span></span></a></li>';
 		}
 		return $h . '</ol></div></section>';
+	}
+	/** Marcas & Mercado: seção de destaque em largura total (azul), com uma grande, quatro com foto e uma faixa de manchetes. */
+	public static function marcas($titulo, $link, $posts, $chamada = 'Onde as marcas encontram o pop') {
+		if (!$posts) {
+			return '';
+		}
+		$big = array_shift($posts);
+		$meio = array_splice($posts, 0, 4);
+		$h = '<section class="cph-bloco cph-full cph-marcas"><div class="cph-wrap">'
+			. '<header class="cph-head"><h2 class="cph-h2">' . esc_html($titulo) . '</h2>' . self::tag($chamada) . '<span class="cph-rule" aria-hidden="true"></span>'
+			. ($link ? '<a class="cph-more cph-more-lime" href="' . esc_url($link) . '">Ver tudo' . self::seta() . '</a>' : '') . '</header>'
+			. '<div class="cph-mar-grid"><article class="cph-mar-big"><a href="' . esc_url($big['u']) . '">' . self::img($big, 'cph-img-wide')
+			. '<span class="cph-mar-txt">' . self::tag($big['cat'], 'cph-tag-ink') . '<strong>' . esc_html($big['t']) . '</strong>' . ($big['ex'] ? '<span class="cph-ex">' . esc_html($big['ex']) . '</span>' : '') . '</span></a></article>';
+		foreach ($meio as $p) {
+			$h .= '<article class="cph-mar-card"><a href="' . esc_url($p['u']) . '">' . self::img($p, 'cph-img-card') . '<span class="cph-mar-txt"><span class="cph-quando">' . esc_html($p['quando']) . '</span><strong>' . esc_html($p['t']) . '</strong></span></a></article>';
+		}
+		$h .= '</div>';
+		if ($posts) {
+			$h .= '<ol class="cph-mar-faixa">';
+			foreach ($posts as $i => $p) {
+				$h .= '<li><a href="' . esc_url($p['u']) . '"><span class="cph-num">' . sprintf('%02d', $i + 1) . '</span><strong>' . esc_html($p['t']) . '</strong></a></li>';
+			}
+			$h .= '</ol>';
+		}
+		return $h . '</div></section>';
 	}
 }

@@ -60,6 +60,7 @@ final class CPH_Paginas {
 			. self::caixas_seguir()
 			. ($tags ? '<div class="cph-mat-tags"><span class="cph-tag cph-tag-ink">Tags</span>' . $tags . '</div>' : '')
 			. '<div class="cph-mat-fim"><span>Gostou? Manda pra alguém</span>' . $share . '</div>'
+			. (!empty($m['autor_box']) ? $m['autor_box'] : '')
 			. '</div>'
 			. ($lateral ? '<aside class="cph-mat-lateral">' . $lateral . '</aside>' : '')
 			. '</div>'
@@ -67,6 +68,17 @@ final class CPH_Paginas {
 			. $depois
 			. '</article>';
 		return $h;
+	}
+
+	/** Bloco do autor: foto, nome, bio e link para as matérias dele. $a: nome, foto, bio, url. */
+	public static function autor($a) {
+		if (empty($a['nome'])) {
+			return '';
+		}
+		return '<section class="cph-autor"><a class="cph-autor-foto" href="' . esc_url($a['url']) . '" tabindex="-1" aria-hidden="true">' . ($a['foto'] ? '<img src="' . esc_url($a['foto']) . '" alt="" loading="lazy">' : '') . '</a>'
+			. '<div class="cph-autor-txt"><span class="cph-tag cph-tag-ink">Quem escreveu</span><h2 class="cph-autor-nome"><a href="' . esc_url($a['url']) . '">' . esc_html($a['nome']) . '</a></h2>'
+			. ($a['bio'] ? '<p>' . esc_html($a['bio']) . '</p>' : '')
+			. '<a class="cph-autor-link" href="' . esc_url($a['url']) . '">Ver todas as matérias</a></div></section>';
 	}
 
 	/** Caixinhas depois do texto: fonte preferida no Google e Instagram. */

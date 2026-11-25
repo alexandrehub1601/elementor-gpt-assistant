@@ -1,7 +1,7 @@
 === Auto Post Social (X + Instagram) ===
 Requires at least: 5.8
 Requires PHP: 7.4
-Stable tag: 1.4.2
+Stable tag: 1.5.0
 License: GPLv2 or later
 
 Compartilha os posts no X (Twitter) com o título, "🔗 Saiba tudo em: [link]" e a thumb.
@@ -51,6 +51,8 @@ Dois modos (Configurações › Auto Tweet (X)):
 Editor de artes: Posts › Arte p/ Instagram, o botão "Criar arte para o Instagram" na lateral
 do post ou o link "Arte Instagram" na lista de posts.
 
+* Página Posts › Arte p/ Instagram com as matérias em cards (miniatura, busca, filtros e páginas).
+* "+ Nova arte avulsa": arte sem post do site (imagem, texto e legenda livres); fica salva na mesma página.
 * 3 modelos: Faixa rosa, Gradiente escuro e Card de post.
 * Feed (1080x1350) ou Stories (1080x1920).
 * 1, 2 ou 3 fotos lado a lado; cada uma com troca de imagem, zoom e arrastar para reenquadrar.

@@ -14,3 +14,33 @@
 #atp-ig-status { margin-top: 8px; font-weight: 600; }
 #atp-ig-status.is-error { color: #b32d2e; }
 #atp-ig-status.is-ok { color: #007017; }
+
+/* Página de escolha (Posts › Arte p/ Instagram) */
+.atp-ig-back { margin: 12px 0 0; }
+.atp-ig-back a { text-decoration: none; }
+.atp-pick { max-width: 1400px; }
+.atp-pick-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin: 12px 0 8px; }
+.atp-pick-head h1 { padding: 0; margin: 0 0 4px; }
+.atp-pick-title { margin: 28px 0 12px; font-size: 18px; }
+.atp-pick-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.atp-pick-bar input[type=search] { min-width: 260px; flex: 1 1 260px; max-width: 420px; }
+.atp-pick-tabs { display: flex; gap: 4px; margin-right: auto; background: #fff; border: 1px solid #dcdcde; border-radius: 6px; padding: 3px; }
+.atp-pick-tabs a { text-decoration: none; padding: 6px 12px; border-radius: 4px; color: #1d2327; }
+.atp-pick-tabs a.is-active { background: #1d2327; color: #fff; }
+.atp-pick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+.atp-card { position: relative; background: #fff; border: 1px solid #dcdcde; border-radius: 8px; overflow: hidden; transition: box-shadow .15s, transform .15s; }
+.atp-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.12); transform: translateY(-2px); }
+.atp-card-link { display: flex; flex-direction: column; text-decoration: none; color: #1d2327; height: 100%; }
+.atp-card-link:focus { box-shadow: 0 0 0 2px #2271b1; outline: none; }
+.atp-card-img { display: block; aspect-ratio: 4 / 5; background: #e9e9eb center / cover no-repeat; position: relative; }
+.atp-card-noimg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #8c8f94; font-size: 12px; }
+.atp-card-badges { position: absolute; top: 8px; left: 8px; right: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
+.atp-badge { background: rgba(17,17,17,.82); color: #fff; font-size: 11px; line-height: 1; padding: 5px 7px; border-radius: 3px; }
+.atp-badge.is-ig { background: #ff1574; }
+.atp-badge.is-draft { background: #d7ff47; color: #111; }
+.atp-card-title { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-weight: 600; font-size: 13px; line-height: 1.35; padding: 10px 12px 4px; }
+.atp-card-date { color: #646970; font-size: 12px; padding: 0 12px 12px; margin-top: auto; }
+.atp-card-del { position: absolute; right: 8px; bottom: 10px; font-size: 12px; color: #b32d2e; text-decoration: none; }
+.atp-pick-pages { margin: 20px 0; }
+.atp-pick-pages .page-numbers { display: inline-block; padding: 6px 10px; margin-right: 4px; border: 1px solid #dcdcde; border-radius: 4px; background: #fff; text-decoration: none; }
+.atp-pick-pages .page-numbers.current { background: #1d2327; color: #fff; border-color: #1d2327; }

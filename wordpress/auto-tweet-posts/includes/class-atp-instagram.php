@@ -14,6 +14,7 @@ final class ATP_Instagram {
 	const ACCOUNT     = 'atp_ig_account';
 	const META_STATE  = '_atp_ig_state';
 	const META_POSTS  = '_atp_ig_posts';
+	const FREE_TYPE   = 'atp_arte'; // artes avulsas (sem post do site)
 	const CRON_HOOK   = 'atp_ig_refresh_token';
 	const API_VERSION = 'v23.0';
 	const TEMPLATES   = array(
@@ -38,6 +39,9 @@ final class ATP_Instagram {
 		add_action( 'wp_ajax_atp_ig_save', array( __CLASS__, 'ajax_save' ) );
 		add_action( 'wp_ajax_atp_ig_publish', array( __CLASS__, 'ajax_publish' ) );
 		add_action( 'admin_post_atp_ig_test', array( __CLASS__, 'handle_test' ) );
+		add_action( 'admin_post_atp_ig_new', array( __CLASS__, 'handle_new' ) );
+		add_action( 'admin_post_atp_ig_delete', array( __CLASS__, 'handle_delete' ) );
+		add_action( 'init', array( __CLASS__, 'register_type' ) );
 		add_action( self::CRON_HOOK, array( __CLASS__, 'refresh_token' ) );
 		add_action( 'init', array( __CLASS__, 'schedule_refresh' ) );
 		register_deactivation_hook( $file, array( __CLASS__, 'deactivate' ) );
@@ -104,6 +108,60 @@ final class ATP_Instagram {
 		return $out;
 	}
 
+	public static function register_type() {
+		register_post_type(
+			self::FREE_TYPE,
+			array(
+				'label'           => 'Artes avulsas',
+				'public'          => false,
+				'show_ui'         => false,
+				'show_in_rest'    => false,
+				'rewrite'         => false,
+				'query_var'       => false,
+				'supports'        => array( 'title' ),
+				'capability_type' => 'post',
+				'map_meta_cap'    => true,
+			)
+		);
+	}
+
+	public static function is_free( $post ) {
+		return $post && self::FREE_TYPE === $post->post_type;
+	}
+
+	public static function handle_new() {
+		check_admin_referer( 'atp_ig_new' );
+		if ( ! current_user_can( 'edit_posts' ) || ! current_user_can( 'upload_files' ) ) {
+			wp_die( 'Sem permissão.' );
+		}
+		$id = wp_insert_post(
+			array(
+				'post_type'   => self::FREE_TYPE,
+				'post_status' => 'publish',
+				'post_title'  => 'Arte avulsa – ' . wp_date( 'd/m/Y H:i' ),
+				'post_author' => get_current_user_id(),
+			),
+			true
+		);
+		if ( is_wp_error( $id ) ) {
+			wp_die( esc_html( $id->get_error_message() ) );
+		}
+		wp_safe_redirect( self::editor_url( $id ) );
+		exit;
+	}
+
+	public static function handle_delete() {
+		$id = isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0;
+		check_admin_referer( 'atp_ig_delete_' . $id );
+		$post = get_post( $id );
+		if ( ! self::is_free( $post ) || ! current_user_can( 'delete_post', $id ) ) {
+			wp_die( 'Sem permissão.' );
+		}
+		wp_delete_post( $id, true );
+		wp_safe_redirect( admin_url( 'edit.php?page=atp-ig-editor&deleted=1' ) );
+		exit;
+	}
+
 	public static function admin_menu() {
 		self::$settings_hook = add_options_page( 'Instagram – Artes', 'Instagram (artes)', 'manage_options', 'atp-instagram', array( __CLASS__, 'render_settings' ) );
 		self::$editor_hook   = add_submenu_page( 'edit.php', 'Arte para Instagram', 'Arte p/ Instagram', 'edit_posts', 'atp-ig-editor', array( __CLASS__, 'render_editor' ) );
@@ -111,7 +169,7 @@ final class ATP_Instagram {
 
 	public static function enqueue( $hook ) {
 		$url = plugin_dir_url( self::$file );
-		$ver = '1.4.1';
+		$ver = '1.5.0';
 		if ( $hook === self::$settings_hook ) {
 			wp_enqueue_media();
 			wp_enqueue_script( 'atp-ig-settings', $url . 'assets/ig-settings.js', array( 'jquery' ), $ver, true );
@@ -119,10 +177,12 @@ final class ATP_Instagram {
 		if ( $hook !== self::$editor_hook ) {
 			return;
 		}
+		wp_enqueue_style( 'atp-ig-editor', $url . 'assets/ig-editor.css', array(), $ver );
 		$post = self::current_post();
 		if ( ! $post ) {
 			return;
 		}
+		$free = self::is_free( $post );
 		wp_enqueue_media();
 		wp_enqueue_style( 'atp-ig-fonts', 'https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap', array(), null );
 		wp_enqueue_style( 'atp-ig-editor', $url . 'assets/ig-editor.css', array(), $ver );
@@ -142,12 +202,13 @@ final class ATP_Instagram {
 			),
 			'postId'          => $post->ID,
 			'slug'            => $post->post_name ? $post->post_name : 'arte-' . $post->ID,
-			'title'           => ATP_Auto_Tweet::plain( get_the_title( $post ) ),
-			'excerpt'         => has_excerpt( $post ) ? ATP_Auto_Tweet::plain( $post->post_excerpt ) : '',
-			'permalink'       => get_permalink( $post ),
-			'thumbId'         => (int) get_post_thumbnail_id( $post ),
-			'postImages'      => self::post_images( $post ),
-			'defaultCaption'  => self::build_caption( $post ),
+			'free'            => $free,
+			'title'           => $free ? '' : ATP_Auto_Tweet::plain( get_the_title( $post ) ),
+			'excerpt'         => ! $free && has_excerpt( $post ) ? ATP_Auto_Tweet::plain( $post->post_excerpt ) : '',
+			'permalink'       => $free ? '' : get_permalink( $post ),
+			'thumbId'         => $free ? 0 : (int) get_post_thumbnail_id( $post ),
+			'postImages'      => $free ? array() : self::post_images( $post ),
+			'defaultCaption'  => $free ? '' : self::build_caption( $post ),
 			'state'           => is_array( $state ) ? $state : null,
 			'color'           => $s['color'],
 			'brandText'       => $s['brand_text'],
@@ -329,14 +390,20 @@ final class ATP_Instagram {
 		$s = self::settings();
 		?>
 		<div class="wrap atp-ig">
-			<h1>Arte para Instagram</h1>
-			<p class="atp-ig-sub">
-				<strong><?php echo esc_html( get_the_title( $post ) ); ?></strong> ·
-				<a href="<?php echo esc_url( get_edit_post_link( $post->ID ) ); ?>">voltar ao post</a>
-				<?php if ( 'publish' === $post->post_status ) : ?>
-					· <a href="<?php echo esc_url( get_permalink( $post ) ); ?>" target="_blank" rel="noopener">ver matéria</a>
-				<?php endif; ?>
-			</p>
+			<p class="atp-ig-back"><a href="<?php echo esc_url( admin_url( 'edit.php?page=atp-ig-editor' ) ); ?>">← Todas as artes</a></p>
+			<?php if ( self::is_free( $post ) ) : ?>
+				<h1>Arte avulsa</h1>
+				<p class="atp-ig-sub">Arte sem post do site: escolha a imagem, escreva o texto e a legenda.</p>
+			<?php else : ?>
+				<h1>Arte para Instagram</h1>
+				<p class="atp-ig-sub">
+					<strong><?php echo esc_html( get_the_title( $post ) ); ?></strong> ·
+					<a href="<?php echo esc_url( get_edit_post_link( $post->ID ) ); ?>">voltar ao post</a>
+					<?php if ( 'publish' === $post->post_status ) : ?>
+						· <a href="<?php echo esc_url( get_permalink( $post ) ); ?>" target="_blank" rel="noopener">ver matéria</a>
+					<?php endif; ?>
+				</p>
+			<?php endif; ?>
 			<?php if ( '' === $s['token'] ) : ?>
 				<div class="notice notice-warning inline"><p>Para publicar direto, conecte a conta em <a href="<?php echo esc_url( admin_url( 'options-general.php?page=atp-instagram' ) ); ?>">Configurações › Instagram (artes)</a>. Enquanto isso, dá para baixar a arte.</p></div>
 			<?php elseif ( 'publish' !== $post->post_status ) : ?>
@@ -422,20 +489,145 @@ final class ATP_Instagram {
 	}
 
 	private static function render_post_picker() {
-		$posts = get_posts(
+		// phpcs:disable WordPress.Security.NonceVerification
+		$search = isset( $_GET['s'] ) ? sanitize_text_field( wp_unslash( $_GET['s'] ) ) : '';
+		$status = isset( $_GET['status'] ) && in_array( $_GET['status'], array( 'publish', 'draft', 'future' ), true ) ? sanitize_key( $_GET['status'] ) : '';
+		$paged  = isset( $_GET['paged'] ) ? max( 1, absint( $_GET['paged'] ) ) : 1;
+		// phpcs:enable
+
+		$query = new WP_Query(
 			array(
 				'post_type'      => ATP_Auto_Tweet::settings()['post_types'],
-				'post_status'    => array( 'publish', 'future', 'draft' ),
-				'posts_per_page' => 30,
+				'post_status'    => $status ? array( $status ) : array( 'publish', 'future', 'draft', 'pending' ),
+				'posts_per_page' => 24,
+				'paged'          => $paged,
+				's'              => $search,
+				'orderby'        => 'date',
+				'order'          => 'DESC',
 			)
 		);
-		echo '<div class="wrap"><h1>Arte para Instagram</h1><p>Escolha o post:</p><ul>';
-		foreach ( $posts as $p ) {
-			if ( current_user_can( 'edit_post', $p->ID ) ) {
-				echo '<li><a href="' . esc_url( self::editor_url( $p->ID ) ) . '">' . esc_html( get_the_title( $p ) ) . '</a> <span class="description">(' . esc_html( get_post_status_object( $p->post_status )->label ) . ')</span></li>';
-			}
-		}
-		echo '</ul></div>';
+		$free = get_posts(
+			array(
+				'post_type'      => self::FREE_TYPE,
+				'post_status'    => 'publish',
+				'posts_per_page' => 12,
+				'orderby'        => 'modified',
+				'order'          => 'DESC',
+			)
+		);
+		$base     = admin_url( 'edit.php?page=atp-ig-editor' );
+		$new_url  = wp_nonce_url( admin_url( 'admin-post.php?action=atp_ig_new' ), 'atp_ig_new' );
+		$statuses = array(
+			''        => 'Todos',
+			'publish' => 'Publicados',
+			'future'  => 'Agendados',
+			'draft'   => 'Rascunhos',
+		);
+		?>
+		<div class="wrap atp-pick">
+			<div class="atp-pick-head">
+				<div>
+					<h1>Artes para Instagram</h1>
+					<p class="atp-ig-sub">Escolha uma matéria para criar a arte, ou crie uma arte avulsa sem post do site.</p>
+				</div>
+				<a class="button button-primary button-hero" href="<?php echo esc_url( $new_url ); ?>">+ Nova arte avulsa</a>
+			</div>
+
+			<?php if ( isset( $_GET['deleted'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification ?>
+				<div class="notice notice-success inline"><p>Arte avulsa excluída.</p></div>
+			<?php endif; ?>
+
+			<?php if ( $free ) : ?>
+				<h2 class="atp-pick-title">Artes avulsas</h2>
+				<div class="atp-pick-grid">
+					<?php foreach ( $free as $p ) : ?>
+						<?php self::render_pick_card( $p, true ); ?>
+					<?php endforeach; ?>
+				</div>
+			<?php endif; ?>
+
+			<h2 class="atp-pick-title">Matérias</h2>
+			<form class="atp-pick-bar" method="get" action="<?php echo esc_url( admin_url( 'edit.php' ) ); ?>">
+				<input type="hidden" name="page" value="atp-ig-editor">
+				<div class="atp-pick-tabs">
+					<?php foreach ( $statuses as $key => $label ) : ?>
+						<a class="<?php echo $status === $key ? 'is-active' : ''; ?>" href="<?php echo esc_url( add_query_arg( array( 'status' => $key ? $key : false, 's' => $search ? $search : false ), $base ) ); ?>"><?php echo esc_html( $label ); ?></a>
+					<?php endforeach; ?>
+				</div>
+				<?php if ( $status ) : ?>
+					<input type="hidden" name="status" value="<?php echo esc_attr( $status ); ?>">
+				<?php endif; ?>
+				<input type="search" name="s" value="<?php echo esc_attr( $search ); ?>" placeholder="Buscar matéria…">
+				<button class="button">Buscar</button>
+			</form>
+
+			<?php if ( ! $query->have_posts() ) : ?>
+				<p>Nenhuma matéria encontrada.</p>
+			<?php else : ?>
+				<div class="atp-pick-grid">
+					<?php foreach ( $query->posts as $p ) : ?>
+						<?php
+						if ( current_user_can( 'edit_post', $p->ID ) ) {
+							self::render_pick_card( $p, false );
+						}
+						?>
+					<?php endforeach; ?>
+				</div>
+				<div class="atp-pick-pages">
+					<?php
+					echo wp_kses_post(
+						(string) paginate_links(
+							array(
+								'base'      => add_query_arg( 'paged', '%#%' ),
+								'format'    => '',
+								'current'   => $paged,
+								'total'     => $query->max_num_pages,
+								'prev_text' => '‹ Anteriores',
+								'next_text' => 'Próximas ›',
+							)
+						)
+					);
+					?>
+				</div>
+			<?php endif; ?>
+		</div>
+		<?php
+	}
+
+	private static function render_pick_card( $p, $free ) {
+		$state    = json_decode( (string) get_post_meta( $p->ID, self::META_STATE, true ), true );
+		$img_id   = $free ? ( isset( $state['photos'][0]['id'] ) ? (int) $state['photos'][0]['id'] : 0 ) : (int) get_post_thumbnail_id( $p );
+		$img      = $img_id ? wp_get_attachment_image_url( $img_id, 'medium_large' ) : '';
+		$title    = $free ? ( ! empty( $state['text'] ) ? $state['text'] : 'Arte sem texto' ) : get_the_title( $p );
+		$ig       = get_post_meta( $p->ID, self::META_POSTS, true );
+		$on_ig    = is_array( $ig ) && $ig;
+		$has_art  = is_array( $state );
+		$st_obj   = get_post_status_object( $p->post_status );
+		$date     = $free ? get_the_modified_date( 'd/m/Y H:i', $p ) : get_the_date( 'd/m/Y H:i', $p );
+		?>
+		<div class="atp-card">
+			<a class="atp-card-link" href="<?php echo esc_url( self::editor_url( $p->ID ) ); ?>">
+				<span class="atp-card-img"<?php echo $img ? ' style="background-image:url(' . esc_url( $img ) . ')"' : ''; ?>>
+					<?php if ( ! $img ) : ?><span class="atp-card-noimg">Sem imagem</span><?php endif; ?>
+				</span>
+				<span class="atp-card-badges">
+					<?php if ( ! $free && $st_obj && 'publish' !== $p->post_status ) : ?>
+						<span class="atp-badge"><?php echo esc_html( $st_obj->label ); ?></span>
+					<?php endif; ?>
+					<?php if ( $on_ig ) : ?>
+						<span class="atp-badge is-ig">No Instagram</span>
+					<?php elseif ( $has_art ) : ?>
+						<span class="atp-badge is-draft">Arte em andamento</span>
+					<?php endif; ?>
+				</span>
+				<span class="atp-card-title"><?php echo esc_html( wp_trim_words( $title, 18, '…' ) ); ?></span>
+				<span class="atp-card-date"><?php echo esc_html( $date ); ?></span>
+			</a>
+			<?php if ( $free ) : ?>
+				<a class="atp-card-del" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=atp_ig_delete&post=' . $p->ID ), 'atp_ig_delete_' . $p->ID ) ); ?>" onclick="return confirm('Excluir esta arte avulsa?')">Excluir</a>
+			<?php endif; ?>
+		</div>
+		<?php
 	}
 
 	/** Outras imagens do post (para preencher as fotos 2 e 3). */

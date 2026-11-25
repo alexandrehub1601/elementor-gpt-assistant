@@ -353,6 +353,7 @@
 		$('#atp-ig-pos').val(pos());
 		$('#atp-ig-count').text(st.caption.length);
 		$('#atp-ig-publish').prop('disabled', !D.canPublish);
+		if (!D.permalink) { $('#atp-ig-copy').hide(); }
 	}
 
 	function status(msg, type) {
@@ -381,7 +382,7 @@
 			window.prompt('Copie o link:', D.permalink);
 		}
 	});
-	$('#atp-ig-text').val(st.text).on('input', function () { update({ text: this.value }); });
+	$('#atp-ig-text').attr('placeholder', 'Escreva o texto da arte').val(st.text).on('input', function () { update({ text: this.value }); });
 	$('#atp-ig-caption').val(st.caption).on('input', function () { update({ caption: this.value }); });
 
 	var frame;

@@ -18,9 +18,16 @@ final class ATP_Instagram {
 	const CRON_HOOK   = 'atp_ig_refresh_token';
 	const API_VERSION = 'v23.0';
 	const TEMPLATES   = array(
-		'faixa'  => 'Faixa rosa',
-		'escuro' => 'Gradiente escuro',
-		'tweet'  => 'Card de post',
+		'pixel1' => 'Pixel 1',
+		'pixel2' => 'Pixel 2',
+		'pixel3' => 'Pixel 3',
+		'card'   => 'Card de post',
+	);
+	// Modelos da versão anterior → equivalentes novos.
+	const OLD_TEMPLATES = array(
+		'faixa'  => 'pixel1',
+		'escuro' => 'pixel2',
+		'tweet'  => 'card',
 	);
 
 	private static $file;
@@ -60,8 +67,8 @@ final class ATP_Instagram {
 			'logo_id'          => 0,
 			'avatar_id'        => 0,
 			'account_name'     => 'Conexão POP',
-			'handle'           => '@conexaopopsite',
-			'default_template' => 'faixa',
+			'handle'           => '@conexaopop.com.br',
+			'default_template' => 'pixel1',
 			'caption'          => "{title}\n\n🔗 Leia a matéria completa no link da bio!\n\n{tags}",
 		);
 	}
@@ -96,7 +103,9 @@ final class ATP_Instagram {
 		}
 		$out['logo_id']          = isset( $in['logo_id'] ) ? absint( $in['logo_id'] ) : 0;
 		$out['avatar_id']        = isset( $in['avatar_id'] ) ? absint( $in['avatar_id'] ) : 0;
-		$out['default_template'] = isset( $in['default_template'] ) && isset( self::TEMPLATES[ $in['default_template'] ] ) ? $in['default_template'] : 'faixa';
+		$tpl                     = isset( $in['default_template'] ) ? (string) $in['default_template'] : '';
+		$tpl                     = isset( self::OLD_TEMPLATES[ $tpl ] ) ? self::OLD_TEMPLATES[ $tpl ] : $tpl;
+		$out['default_template'] = isset( self::TEMPLATES[ $tpl ] ) ? $tpl : 'pixel1';
 		$caption                 = isset( $in['caption'] ) ? sanitize_textarea_field( $in['caption'] ) : '';
 		$out['caption']          = '' !== trim( $caption ) ? $caption : $d['caption'];
 
@@ -169,7 +178,7 @@ final class ATP_Instagram {
 
 	public static function enqueue( $hook ) {
 		$url = plugin_dir_url( self::$file );
-		$ver = '1.5.0';
+		$ver = '1.6.0';
 		if ( $hook === self::$settings_hook ) {
 			wp_enqueue_media();
 			wp_enqueue_script( 'atp-ig-settings', $url . 'assets/ig-settings.js', array( 'jquery' ), $ver, true );
@@ -184,7 +193,9 @@ final class ATP_Instagram {
 		}
 		$free = self::is_free( $post );
 		wp_enqueue_media();
-		wp_enqueue_style( 'atp-ig-fonts', 'https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap', array(), null );
+		wp_enqueue_style( 'atp-ig-fonts', 'https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;700&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Geist+Pixel&family=Inter:wght@400;600;700&display=swap', array(), null );
+		// Kensington (títulos): kit do Adobe Fonts do site conexaopop.com.br.
+		wp_enqueue_style( 'atp-ig-kensington', 'https://use.typekit.net/xqr3xib.css', array(), null );
 		wp_enqueue_style( 'atp-ig-editor', $url . 'assets/ig-editor.css', array(), $ver );
 		wp_enqueue_script( 'atp-ig-editor', $url . 'assets/ig-editor.js', array( 'jquery' ), $ver, true );
 
@@ -215,10 +226,13 @@ final class ATP_Instagram {
 			'logoId'          => (int) $s['logo_id'],
 			'defaultLogo'     => $url . 'assets/logo.png',
 			'defaultAvatar'   => $url . 'assets/avatar.jpg',
+			'avatarPop'       => $url . 'assets/avatar-pop.png',
+			'logoBox'         => $url . 'assets/logo-caixas.svg',
+			'category'        => $free ? '' : self::category( $post ),
 			'avatarId'        => (int) $s['avatar_id'],
 			'accountName'     => $s['account_name'],
 			'handle'          => $s['handle'],
-			'defaultTemplate' => $s['default_template'],
+			'defaultTemplate' => isset( self::OLD_TEMPLATES[ $s['default_template'] ] ) ? self::OLD_TEMPLATES[ $s['default_template'] ] : $s['default_template'],
 			'canPublish'      => '' !== $s['token'] && 'publish' === $post->post_status,
 		);
 		wp_add_inline_script( 'atp-ig-editor', 'window.ATP_IG = ' . wp_json_encode( $data ) . ';', 'before' );
@@ -274,7 +288,7 @@ final class ATP_Instagram {
 						</td>
 					</tr>
 					<?php
-					self::media_field( 'logo_id', 'Outro logo (opcional)', $s['logo_id'], 'Em branco usa o logo da Conexão POP. PNG com fundo transparente; ele é pintado de branco na faixa rosa e na cor da marca no gradiente escuro.' );
+					self::media_field( 'logo_id', 'Outro logo (opcional)', $s['logo_id'], 'Usado só no modelo de Stories. Em branco usa o logo da Conexão POP. PNG com fundo transparente.' );
 					self::media_field( 'avatar_id', 'Outra foto de perfil (opcional)', $s['avatar_id'], 'A bolinha do modelo "Card de post". Em branco usa a foto de perfil da Conexão POP.' );
 					?>
 					<tr>
@@ -453,9 +467,9 @@ final class ATP_Instagram {
 					<label class="atp-ig-range">Zoom <input type="range" id="atp-ig-zoom" min="1" max="3" step="0.01"></label>
 
 					<div id="atp-ig-tag-row">
-						<h3>Logo no selo preto</h3>
-						<label><input type="radio" name="atp-ig-taglogo" value="pink"> Rosa</label>
-						<label style="margin-left:12px"><input type="radio" name="atp-ig-taglogo" value="white"> Branco</label>
+						<h3>Etiqueta</h3>
+						<input type="text" id="atp-ig-tag" class="regular-text" placeholder="Ex.: MÚSICA">
+						<p class="description">Faixa verde acima do título. Vem com a categoria da matéria; deixe em branco para não usar.</p>
 					</div>
 
 					<h3>Texto da arte</h3>
@@ -630,6 +644,24 @@ final class ATP_Instagram {
 		<?php
 	}
 
+	private static function clean_template( $t ) {
+		if ( isset( self::OLD_TEMPLATES[ $t ] ) ) {
+			return self::OLD_TEMPLATES[ $t ];
+		}
+		return isset( self::TEMPLATES[ $t ] ) ? $t : 'pixel1';
+	}
+
+	/** Categoria principal da matéria (para a etiqueta). */
+	private static function category( $post ) {
+		$cats = get_the_category( $post->ID );
+		foreach ( (array) $cats as $c ) {
+			if ( ! in_array( $c->slug, array( 'uncategorized', 'sem-categoria' ), true ) ) {
+				return ATP_Auto_Tweet::plain( $c->name );
+			}
+		}
+		return '';
+	}
+
 	/** Outras imagens do post (para preencher as fotos 2 e 3). */
 	private static function post_images( $post ) {
 		$thumb = (int) get_post_thumbnail_id( $post );
@@ -724,11 +756,11 @@ final class ATP_Instagram {
 			);
 		}
 		return array(
-			'template'  => isset( $in['template'] ) && isset( self::TEMPLATES[ $in['template'] ] ) ? $in['template'] : 'faixa',
+			'template'  => self::clean_template( isset( $in['template'] ) ? (string) $in['template'] : '' ),
 			'format'    => isset( $in['format'] ) && 'story' === $in['format'] ? 'story' : 'feed',
 			'layout'    => isset( $in['layout'] ) ? max( 1, min( 3, absint( $in['layout'] ) ) ) : 1,
 			'photos'    => $photos ? $photos : null,
-			'tagLogo'   => isset( $in['tagLogo'] ) && 'white' === $in['tagLogo'] ? 'white' : 'pink',
+			'tag'       => isset( $in['tag'] ) ? sanitize_text_field( $in['tag'] ) : null,
 			'fontScale' => $num( 'fontScale', 0.6, 1.6, 1 ),
 			'pos'       => isset( $in['pos'] ) && is_numeric( $in['pos'] ) ? max( 0.3, min( 0.98, (float) $in['pos'] ) ) : null,
 			'posStory'  => isset( $in['posStory'] ) && is_numeric( $in['posStory'] ) ? max( 0.3, min( 0.98, (float) $in['posStory'] ) ) : null,

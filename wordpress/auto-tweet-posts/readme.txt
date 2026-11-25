@@ -1,7 +1,7 @@
 === Auto Post Social (X + Instagram) ===
 Requires at least: 5.8
 Requires PHP: 7.4
-Stable tag: 1.5.0
+Stable tag: 1.6.0
 License: GPLv2 or later
 
 Compartilha os posts no X (Twitter) com o título, "🔗 Saiba tudo em: [link]" e a thumb.
@@ -53,7 +53,9 @@ do post ou o link "Arte Instagram" na lista de posts.
 
 * Página Posts › Arte p/ Instagram com as matérias em cards (miniatura, busca, filtros e páginas).
 * "+ Nova arte avulsa": arte sem post do site (imagem, texto e legenda livres); fica salva na mesma página.
-* 3 modelos: Faixa rosa, Gradiente escuro e Card de post.
+* Modelos de feed na identidade nova (Canva): Pixel 1, Pixel 2, Pixel 3 (foto, blocos rosa, logo em caixas,
+  etiqueta verde e título em caixa alta) e Card de post (card branco sobre 1 ou 2 fotos empilhadas).
+* Fontes: Kensington (kit Adobe Fonts do site), Geist Pixel e Inter. Cores #FF1574 e #D7FF47.
 * Feed (1080x1350) ou Stories (1080x1920).
 * 1, 2 ou 3 fotos lado a lado; cada uma com troca de imagem, zoom e arrastar para reenquadrar.
 * Selo preto da marca com logo rosa ou branco (modelo Faixa rosa).

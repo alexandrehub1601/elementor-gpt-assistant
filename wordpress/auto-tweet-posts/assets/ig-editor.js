@@ -7,23 +7,34 @@
 
 	var W = 1080;
 	var HEIGHTS = { feed: 1350, story: 1920 };
-	var DEFAULT_POS = { faixa: 0.8, escuro: 0.9, tweet: 0.92, stories: 0.75 };
+	// Identidade nova (conexaopop.com.br).
+	var PINK = '#FF1574', LIME = '#D7FF47';
+	var TITLE_FONT = 'kensington, Anton, Impact, sans-serif';
+	// Blocos "pixel" rosa de cada modelo, em coordenadas da arte 1080x1350 (x, y, largura, altura).
+	var PIXELS = {"pixel1":[[0,0,84,12],[0,12,120,60],[0,72,84,48],[0,132,24,72],[72,1224,96,60],[912,1236,72,48],[540,1236,96,60],[912,1284,168,12],[228,1272,48,36],[0,1284,168,24],[432,1296,216,12],[0,1308,276,12],[432,1308,336,24],[0,1320,288,12],[852,1296,228,48],[0,1332,768,12],[0,1344,1080,12]],"pixel2":[[0,0,264,24],[0,24,192,36],[0,60,84,36],[0,96,120,60],[0,156,84,48],[0,216,24,72],[948,1128,12,72],[948,1200,72,120],[948,1320,132,36]],"pixel3":[[492,0,324,12],[264,0,72,48],[0,0,192,48],[492,12,240,60],[504,72,216,12],[192,48,60,60],[0,48,120,60],[0,108,180,12],[600,84,60,48],[0,120,192,72],[0,192,48,12],[0,204,36,72],[96,420,60,60],[0,492,96,96],[0,588,36,84]]};
+	// pos = centro do card (card) ou topo da etiqueta (pixel*).
+	var DEFAULT_POS = { card: 0.472, pixel1: 0.6415, pixel2: 0.6415, pixel3: 0.6415, stories: 0.75 };
+	// Modelos antigos salvos em rascunhos.
+	var OLD_TEMPLATES = { faixa: 'pixel1', escuro: 'pixel2', tweet: 'card' };
 
 	var canvas = document.getElementById('atp-ig-canvas');
 	var ctx = canvas.getContext('2d');
 
 	var st = $.extend({
-		template: D.defaultTemplate || 'faixa',
+		template: D.defaultTemplate || 'pixel1',
 		format: 'feed',
 		layout: 1,
 		photos: null,
-		tagLogo: 'pink',
+		tag: null,
 		fontScale: 1, pos: null,
 		text: D.title,
 		caption: D.defaultCaption,
 		desc: null
 	}, D.state || {});
 	if (st.desc === null || st.desc === undefined) { st.desc = D.excerpt || ''; }
+	if (OLD_TEMPLATES[st.template]) { st.template = OLD_TEMPLATES[st.template]; st.pos = null; }
+	if (!DEFAULT_POS[st.template] || st.template === 'stories') { st.template = 'pixel1'; }
+	if (st.tag === null || st.tag === undefined) { st.tag = D.category || ''; }
 	if (!st.text) { st.text = D.title; }
 	st.fontScale = 1; // tamanho do texto é fixo (padrão da marca)
 	if (!st.caption) { st.caption = D.defaultCaption; }
@@ -40,7 +51,7 @@
 	while (st.photos.length < 3) { st.photos.push({ id: 0, zoom: 1, ox: 0.5, oy: 0.5 }); }
 	delete st.imageId; delete st.zoom; delete st.ox; delete st.oy;
 
-	var imgs = [null, null, null], logo = null, avatar = null, active = 0;
+	var imgs = [null, null, null], logo = null, avatar = null, logoBox = null, active = 0;
 
 	/* ------------------------------------------------------------ util */
 
@@ -137,20 +148,26 @@
 
 	/* ------------------------------------------------------------ desenho */
 
-	/** Colunas das fotos: [{x, w}] */
+	/** Áreas das fotos: [{x, y, w, h}]. No card ficam empilhadas; nos outros, lado a lado. */
 	function slots() {
-		var n = isStory() ? 1 : st.layout, out = [];
+		var n = isStory() ? 1 : st.layout, out = [], h = H();
+		var rows = tpl() === 'card';
 		for (var i = 0; i < n; i++) {
-			var x = Math.round(i * W / n);
-			out.push({ x: x, w: Math.round((i + 1) * W / n) - x });
+			if (rows) {
+				var y = Math.round(i * h / n);
+				out.push({ x: 0, y: y, w: W, h: Math.round((i + 1) * h / n) - y });
+			} else {
+				var x = Math.round(i * W / n);
+				out.push({ x: x, y: 0, w: Math.round((i + 1) * W / n) - x, h: h });
+			}
 		}
 		return out;
 	}
 
-	function fit(img, p, slot, h) {
-		var s = Math.max(slot.w / img.width, h / img.height) * p.zoom;
+	function fit(img, p, slot) {
+		var s = Math.max(slot.w / img.width, slot.h / img.height) * p.zoom;
 		var dw = img.width * s, dh = img.height * s;
-		return { s: s, dw: dw, dh: dh, spanX: slot.w - dw, spanY: h - dh };
+		return { s: s, dw: dw, dh: dh, spanX: slot.w - dw, spanY: slot.h - dh };
 	}
 
 	function drawPhoto(h) {
@@ -160,19 +177,19 @@
 			var img = imgs[i], p = st.photos[i];
 			ctx.save();
 			ctx.beginPath();
-			ctx.rect(slot.x, 0, slot.w, h);
+			ctx.rect(slot.x, slot.y, slot.w, slot.h);
 			ctx.clip();
 			if (img) {
-				var f = fit(img, p, slot, h);
-				ctx.drawImage(img, slot.x + f.spanX * p.ox, f.spanY * p.oy, f.dw, f.dh);
+				var f = fit(img, p, slot);
+				ctx.drawImage(img, slot.x + f.spanX * p.ox, slot.y + f.spanY * p.oy, f.dw, f.dh);
 			} else {
 				ctx.fillStyle = i % 2 ? '#1c1c1c' : '#262626';
-				ctx.fillRect(slot.x, 0, slot.w, h);
+				ctx.fillRect(slot.x, slot.y, slot.w, slot.h);
 				ctx.fillStyle = '#777';
 				ctx.font = '400 36px Archivo, sans-serif';
 				ctx.textBaseline = 'middle';
 				ctx.textAlign = 'center';
-				ctx.fillText('Escolha a foto ' + (i + 1), slot.x + slot.w / 2, h * 0.3);
+				ctx.fillText('Escolha a foto ' + (i + 1), slot.x + slot.w / 2, slot.y + slot.h * 0.3);
 				ctx.textAlign = 'left';
 			}
 			ctx.restore();
@@ -188,41 +205,6 @@
 	}
 
 	var TEMPLATES = {
-		/* Faixa rosa: selo com a marca + caixa rosa com o título em branco. */
-		faixa: function (h) {
-			var margin = 60, pad = 32, fs = Math.round(60 * st.fontScale), lh = Math.round(fs * 1.16);
-			var font = '700 ' + fs + 'px "Bricolage Grotesque", sans-serif';
-			var lines = wrap(st.text, font, W * 0.74 - pad * 2);
-			var boxW = widest(lines, font) + pad * 2;
-			var boxH = lines.length * lh - (lh - fs) + pad * 2;
-			var tagH = 62, tagPadX = 20, brandH = 30;
-			var tagW = brand(0, 0, brandH, '#fff', true) + tagPadX * 2;
-			var boxY = Math.max(margin + tagH, h * pos() - boxH);
-
-			ctx.fillStyle = '#0d0d0d';
-			ctx.fillRect(margin, boxY - tagH, tagW, tagH);
-			brand(margin + tagPadX, boxY - tagH + (tagH - brandH) / 2, brandH, st.tagLogo === 'white' ? '#fff' : D.color);
-
-			ctx.fillStyle = D.color;
-			ctx.fillRect(margin, boxY, boxW, boxH);
-			drawLines(lines, margin + pad, boxY + pad - fs * 0.04, lh, font, '#fff');
-		},
-
-		/* Gradiente escuro: marca na cor da marca + título branco condensado. */
-		escuro: function (h) {
-			// Margens largas: o grid do perfil corta as laterais do 4:5.
-			var margin = 130, fs = 54, lh = Math.round(fs * 1.08);
-			var font = '700 condensed ' + fs + 'px "Bricolage Grotesque", sans-serif';
-			var lines = wrap(st.text, font, 740);
-			var brandH = 30, gap = 16;
-			var blockH = brandH + gap + lines.length * lh;
-			var top = Math.max(margin, h * pos() - blockH);
-
-			bottomGradient(h, Math.max(0, Math.min(0.5, (top - 160) / h)), 0.92);
-			brand(margin, top, brandH, D.color);
-			drawLines(lines, margin, top + brandH + gap, lh, font, '#fff');
-		},
-
 		/* Stories: gradiente escuro, marca, título condensado e descrição.
 		   Embaixo fica livre para o adesivo de link. */
 		stories: function (h) {
@@ -252,65 +234,101 @@
 			}
 		},
 
-		/* Card de post: cartão branco com avatar, nome, @ e o texto. */
-		tweet: function (h) {
-			var cw = Math.round(W * 0.76), pad = 34, av = 76;
-			var fs = Math.round(35 * st.fontScale), lh = Math.round(fs * 1.3);
-			var font = '400 ' + fs + 'px Archivo, sans-serif';
-			var lines = wrap(st.text, font, cw - pad * 2);
-			var ch = pad + av + 22 + lines.length * lh - (lh - fs) + pad;
-			var x = Math.round((W - cw) / 2);
-			var y = Math.max(40, h * pos() - ch);
-
-			bottomGradient(h, 0.5, 0.6);
+		/* Card de post (Canva p.1): card branco com avatar, nome, @ e texto,
+		   sobre 1 ou 2 fotos empilhadas. */
+		card: function (h) {
+			var cw = 864, x = 108, pad = 34, av = 74;
+			var fs = 35, lh = 44;
+			var font = '400 ' + fs + 'px Inter, sans-serif';
+			var lines = wrap(st.text, font, cw - pad * 2 + 20);
+			var ch = 171 + (lines.length - 1) * lh + 36;
+			var y = Math.round(Math.min(h - ch - 20, Math.max(20, h * pos() - ch / 2)));
 
 			ctx.save();
-			ctx.shadowColor = 'rgba(0,0,0,.25)';
-			ctx.shadowBlur = 24;
-			roundRect(x, y, cw, ch, 26);
+			ctx.shadowColor = 'rgba(0,0,0,.10)';
+			ctx.shadowBlur = 30;
+			roundRect(x, y, cw, ch, 30);
 			ctx.fillStyle = '#fff';
 			ctx.fill();
 			ctx.restore();
 
-			// Avatar.
-			var ax = x + pad, ay = y + pad;
+			var ax = x + pad, ay = y + 31;
 			ctx.save();
 			ctx.beginPath();
 			ctx.arc(ax + av / 2, ay + av / 2, av / 2, 0, Math.PI * 2);
 			ctx.clip();
+			ctx.fillStyle = PINK;
+			ctx.fillRect(ax, ay, av, av);
 			if (avatar) {
 				var s = Math.max(av / avatar.width, av / avatar.height);
 				ctx.drawImage(avatar, ax + (av - avatar.width * s) / 2, ay + (av - avatar.height * s) / 2, avatar.width * s, avatar.height * s);
-			} else {
-				ctx.fillStyle = D.color;
-				ctx.fillRect(ax, ay, av, av);
-				ctx.font = '800 15px "Bricolage Grotesque", sans-serif';
-				ctx.fillStyle = '#fff';
-				ctx.textBaseline = 'middle';
-				ctx.textAlign = 'center';
-				ctx.fillText(D.brandText, ax + av / 2, ay + av / 2);
-				ctx.textAlign = 'left';
 			}
 			ctx.restore();
 
-			ctx.textBaseline = 'top';
-			ctx.fillStyle = '#0f1419';
-			ctx.font = '700 30px Archivo, sans-serif';
-			ctx.fillText(D.accountName, ax + av + 18, ay + 6);
-			ctx.fillStyle = '#536471';
-			ctx.font = '400 25px Archivo, sans-serif';
-			ctx.fillText(D.handle, ax + av + 18, ay + 44);
+			ctx.textBaseline = 'alphabetic';
+			ctx.fillStyle = '#070707';
+			ctx.font = '600 29px Inter, sans-serif';
+			ctx.fillText(D.accountName, x + 137, y + 62);
+			ctx.fillStyle = '#53565E';
+			ctx.font = '400 25px Inter, sans-serif';
+			ctx.fillText(D.handle, x + 137, y + 95);
 
-			drawLines(lines, x + pad, ay + av + 22, lh, font, '#0f1419');
+			ctx.fillStyle = '#000';
+			ctx.font = font;
+			lines.forEach(function (l, i) { ctx.fillText(l, x + pad, y + 171 + i * lh); });
 		}
 	};
+
+	/* Pixel 1/2/3 (Canva p.2-4): foto, gradiente, blocos rosa, logo em caixas,
+	   etiqueta verde e título em caixa alta. */
+	function pixelTemplate(name) {
+		return function (h) {
+			var g = ctx.createLinearGradient(0, h * 0.4, 0, h);
+			g.addColorStop(0, 'rgba(0,0,0,0)');
+			g.addColorStop(0.45, 'rgba(0,0,0,.6)');
+			g.addColorStop(1, 'rgba(0,0,0,.92)');
+			ctx.fillStyle = g;
+			ctx.fillRect(0, h * 0.4, W, h * 0.6);
+
+			ctx.fillStyle = PINK;
+			PIXELS[name].forEach(function (r) { ctx.fillRect(r[0], r[1], r[2], r[3]); });
+
+			if (logoBox) {
+				ctx.drawImage(logoBox, 774, 108, 222, 222 * logoBox.height / logoBox.width);
+			}
+
+			var top = Math.round(h * pos());
+			ctx.textBaseline = 'alphabetic';
+			var tag = noEmoji(st.tag).trim().toLocaleUpperCase('pt-BR');
+			if (tag) {
+				ctx.font = '400 33px "Geist Pixel", monospace';
+				ctx.letterSpacing = '4px';
+				var tw = ctx.measureText(tag).width - 4;
+				ctx.fillStyle = LIME;
+				ctx.fillRect(102, top, tw + 20, 42);
+				ctx.fillStyle = '#111';
+				ctx.fillText(tag, 112, top + 33);
+				ctx.letterSpacing = '0px';
+			}
+
+			var font = '700 80px ' + TITLE_FONT;
+			var lines = wrap(String(st.text || '').toLocaleUpperCase('pt-BR'), font, 830);
+			ctx.font = font;
+			ctx.fillStyle = '#fff';
+			lines.forEach(function (l, i) { ctx.fillText(l, 104, top + 154 + i * 81); });
+		};
+	}
+	TEMPLATES.pixel1 = pixelTemplate('pixel1');
+	TEMPLATES.pixel2 = pixelTemplate('pixel2');
+	TEMPLATES.pixel3 = pixelTemplate('pixel3');
 
 	function render() {
 		var h = H();
 		if (canvas.height !== h) { canvas.height = h; }
 		ctx.textAlign = 'left';
+		ctx.letterSpacing = '0px';
 		drawPhoto(h);
-		(TEMPLATES[tpl()] || TEMPLATES.faixa)(h);
+		(TEMPLATES[tpl()] || TEMPLATES.pixel1)(h);
 	}
 
 	/* ------------------------------------------------------------ controles */
@@ -331,7 +349,7 @@
 	}
 
 	function syncUI() {
-		$('.atp-ig-templates .button').each(function () {
+		$('.atp-ig-templates [data-template]').each(function () {
 			$(this).toggleClass('is-active', $(this).data('template') === st.template);
 		});
 		$('input[name="atp-ig-format"][value="' + st.format + '"]').prop('checked', true);
@@ -348,8 +366,7 @@
 		});
 		$('#atp-ig-change').text(st.layout > 1 && !isStory() ? 'Trocar foto ' + (active + 1) : 'Trocar imagem');
 		$('#atp-ig-zoom').val(st.photos[active].zoom);
-		$('input[name="atp-ig-taglogo"][value="' + st.tagLogo + '"]').prop('checked', true);
-		$('#atp-ig-tag-row').toggle(tpl() === 'faixa');
+		$('#atp-ig-tag-row').toggle(/^pixel/.test(tpl()));
 		$('#atp-ig-pos').val(pos());
 		$('#atp-ig-count').text(st.caption.length);
 		$('#atp-ig-publish').prop('disabled', !D.canPublish);
@@ -360,14 +377,17 @@
 		$('#atp-ig-status').removeClass('is-error is-ok').addClass(type ? 'is-' + type : '').html(msg);
 	}
 
-	$('.atp-ig-templates').on('click', '.button', function () {
-		update({ template: $(this).data('template'), pos: null });
+	$('.atp-ig-templates').on('click', '[data-template]', function () {
+		var t = $(this).data('template'), ch = { template: t, pos: null };
+		if (t === 'card' && st.layout === 1) { ch.layout = 2; } // card do Canva: 2 fotos empilhadas
+		if (t !== 'card' && st.template === 'card' && st.layout === 2) { ch.layout = 1; }
+		update(ch);
 	});
 	$('input[name="atp-ig-format"]').on('change', function () { update({ format: this.value }); });
 	$('#atp-ig-zoom').on('input', function () { st.photos[active].zoom = parseFloat(this.value); update(); });
 	$('#atp-ig-layout').on('click', '.button', function () { update({ layout: +$(this).data('layout') }); });
 	$('#atp-ig-slots').on('click', '.button', function () { active = +$(this).data('slot'); syncUI(); });
-	$('input[name="atp-ig-taglogo"]').on('change', function () { update({ tagLogo: this.value }); });
+	$('#atp-ig-tag').val(st.tag).on('input', function () { update({ tag: this.value }); });
 	$('#atp-ig-pos').on('input', function () {
 		var ch = {};
 		ch[isStory() ? 'posStory' : 'pos'] = parseFloat(this.value);
@@ -407,7 +427,8 @@
 	canvas.addEventListener('pointerdown', function (e) {
 		var rect = canvas.getBoundingClientRect();
 		var cx = (e.clientX - rect.left) * canvas.width / rect.width;
-		slots().forEach(function (slot, i) { if (cx >= slot.x && cx < slot.x + slot.w) { active = i; } });
+		var cy = (e.clientY - rect.top) * canvas.height / rect.height;
+		slots().forEach(function (slot, i) { if (cx >= slot.x && cx < slot.x + slot.w && cy >= slot.y && cy < slot.y + slot.h) { active = i; } });
 		syncUI();
 		if (!imgs[active]) { return; }
 		drag = { x: e.clientX, y: e.clientY };
@@ -417,7 +438,7 @@
 		if (!drag) { return; }
 		var k = canvas.width / canvas.getBoundingClientRect().width;
 		var p = st.photos[active];
-		var f = fit(imgs[active], p, slots()[active], H());
+		var f = fit(imgs[active], p, slots()[active]);
 		var dx = (e.clientX - drag.x) * k, dy = (e.clientY - drag.y) * k;
 		drag = { x: e.clientX, y: e.clientY };
 		if (f.spanX < -0.5) { p.ox = Math.min(1, Math.max(0, p.ox + dx / f.spanX)); }
@@ -467,15 +488,15 @@
 
 	/* ------------------------------------------------------------ início */
 
-	var fonts = ['400 condensed 50px "Bricolage Grotesque"', '700 50px "Bricolage Grotesque"', '700 condensed 50px "Bricolage Grotesque"', '800 50px "Bricolage Grotesque"', '400 30px Archivo', '700 30px Archivo'];
+	var fonts = ['700 75px kensington', '400 29px "Geist Pixel"', '400 36px Inter', '600 29px Inter', '400 25px Inter', '400 condensed 50px "Bricolage Grotesque"', '700 50px "Bricolage Grotesque"', '700 condensed 50px "Bricolage Grotesque"', '800 50px "Bricolage Grotesque"', '400 30px Archivo', '700 30px Archivo'];
 	var fontsReady = document.fonts ? Promise.all(fonts.map(function (f) { return document.fonts.load(f).catch(function () {}); })) : Promise.resolve();
 
 	syncUI();
 	Promise.all([
 		loadImage(st.photos[0].id), loadImage(st.photos[1].id), loadImage(st.photos[2].id),
-		loadImage(D.logoId, D.defaultLogo), loadImage(D.avatarId, D.defaultAvatar), fontsReady
+		loadImage(D.logoId, D.defaultLogo), loadImage(D.avatarId, D.avatarPop), loadUrl(D.logoBox), fontsReady
 	]).then(function (r) {
-		imgs = [r[0], r[1], r[2]]; logo = r[3]; avatar = r[4];
+		imgs = [r[0], r[1], r[2]]; logo = r[3]; avatar = r[4]; logoBox = r[5];
 		render();
 	});
 })(jQuery);

@@ -12,6 +12,11 @@
 .cpx-in{max-width:1360px;margin:0 auto;padding:0 22px}
 .cpx-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
+/* A largura do cabeçalho nunca depende do conteúdo (a faixa de manchetes é bem comprida) */
+.cpx{width:100%;max-width:100%;min-width:0}
+.cpx-tick,.cpx-tick-vp{contain:inline-size;min-width:0;max-width:100%}
+.elementor-widget-container:has(> .cpx),.elementor-widget:has(.cpx),.elementor-widget-html:has(.cpx){min-width:0;max-width:100%;width:100%}
+
 /* Faixa "Não perca" (últimas matérias, puxadas do site) */
 .cpx-tick{display:flex;align-items:stretch;background:var(--l);color:var(--k);overflow:hidden;max-height:40px;transition:max-height .3s}
 .cpx-tick[hidden]{display:none}
@@ -108,7 +113,7 @@
   .cpx-agenda,.cpx-nav ul{display:none}
   .cpx-menu span:first-child{display:none}
   .cpx-nav .cpx-in{min-height:14px}
-  .cpx-mini{display:none}
+  .cpx .cpx-nav .cpx-mini{display:none!important}
   .cpx.is-min .cpx-top{max-height:120px}
   .cpx.is-min .cpx-mini{width:0}
   .cpx-over-mid{grid-template-columns:1fr}

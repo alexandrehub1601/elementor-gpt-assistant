@@ -485,13 +485,48 @@
 	canvas.addEventListener('pointerup', endDrag);
 	canvas.addEventListener('pointercancel', endDrag);
 
+	/* Baixar: no computador baixa o JPG; no celular abre a folha de compartilhar
+	   ("Salvar imagem" no iPhone). Tudo síncrono para não perder o toque do usuário. */
+	function dataUrlToBlob(url) {
+		var parts = url.split(','), bin = atob(parts[1]), arr = new Uint8Array(bin.length);
+		for (var i = 0; i < bin.length; i++) { arr[i] = bin.charCodeAt(i); }
+		return new Blob([arr], { type: 'image/jpeg' });
+	}
+
+	function showSaveOverlay(url) {
+		var $o = $('<div class="atp-ig-save"><div class="atp-ig-save-box"><p><strong>Toque e segure a imagem</strong> e escolha <strong>"Adicionar às Fotos"</strong> (ou "Salvar imagem").</p><img alt="Arte"><button type="button" class="button">Fechar</button></div></div>');
+		$o.find('img').attr('src', url);
+		$o.on('click', function (e) { if (e.target === this || $(e.target).is('button')) { $o.remove(); } });
+		$('body').append($o);
+	}
+
 	$('#atp-ig-download').on('click', function () {
+		var name = D.slug + '-' + st.format + '.jpg';
+		var url = canvas.toDataURL('image/jpeg', 0.92);
+		var blob = dataUrlToBlob(url);
+		var touch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+
+		if (touch) {
+			var file = null;
+			try { file = new File([blob], name, { type: 'image/jpeg' }); } catch (e) { file = null; }
+			if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+				navigator.share({ files: [file] }).catch(function (err) {
+					if (!err || err.name !== 'AbortError') { showSaveOverlay(url); }
+				});
+				return;
+			}
+			showSaveOverlay(url);
+			return;
+		}
+
+		var obj = URL.createObjectURL(blob);
 		var a = document.createElement('a');
-		a.download = D.slug + '-' + st.format + '.jpg';
-		a.href = canvas.toDataURL('image/jpeg', 0.92);
+		a.download = name;
+		a.href = obj;
 		document.body.appendChild(a);
 		a.click();
 		a.remove();
+		setTimeout(function () { URL.revokeObjectURL(obj); }, 10000);
 	});
 
 	$('#atp-ig-publish').on('click', function () {

@@ -1,0 +1,1042 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Norberto Baruffaldi · 25 Nov 2026</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<!--
+  ===========================================================================
+  PRANCHETA DE APRESENTAÇÃO DE CRIATIVOS — C2G
+  ---------------------------------------------------------------------------
+  Arquivo-base. Duplique, preencha e envie. Tudo que precisa ser trocado está
+  marcado com um comentário "TROCAR" na linha de cima.
+
+  ABRA NO NAVEGADOR (duplo clique no arquivo, ou arraste para o Chrome).
+  Visualizador de prévia e leitor de e-mail não rodam JavaScript: nesses, a
+  página aparece, mas "Ver story", o zoom e o tutorial não respondem.
+
+  O QUE TROCAR, NA ORDEM:
+    1. <title> lá em cima          → Cliente · data curta
+    2. NOME DO CLIENTE (o <h1>)
+    3. A data e a contagem de criativos
+    4. Em cada AD: a imagem, o rótulo do AD e o texto do conceito
+    5. Apague os ADs que sobrarem, ou copie o bloco MOLDE do fim do arquivo
+       para adicionar mais
+
+  COMO ENTRA A IMAGEM: dentro de cada .moldura, troque o bloco
+      <span class="vazio">…</span>
+  por
+      <img src="feed-01.jpg" alt="AD 01 — Feed">
+  A caixa já está reservada pela proporção do formato, então nada se mexe de
+  lugar quando a arte entra. Serve caminho de arquivo, URL ou data:URI.
+  ===========================================================================
+-->
+
+<!-- A revelação só existe se o JS rodar: a classe entra ANTES de o CSS esconder.
+     Sem JS, a página nasce e permanece visível. -->
+<script>document.documentElement.className += " js anima";</script>
+
+<style>
+/* ===========================================================================
+   Superfície de prova: a cor forte da tela vem das peças, nunca da interface.
+   O cinza é quente (tint de #1D060D, a tinta da C2G) em vez de neutro frio —
+   pertence à marca sem virar cor. O âmbar #FE8F00 toca só o que é acionável.
+   =========================================================================== */
+
+:root {
+  color-scheme: light;                 /* trava o claro: nada de auto-escurecer */
+  --fundo:       #eeecea;
+  --painel:      #f8f7f6;
+  --painel-alto: #ffffff;
+  --borda:       #dedbd7;
+  --borda-forte: #c4c0ba;
+  --tinta:       #1d0a10;
+  --tinta-media: #57504f;
+  --tinta-fraca: #857e7c;
+  --realce:      #fe8f00;
+  --realce-tex:  #9a5a00;              /* âmbar escurecido: contraste de texto */
+  --sobre-realce:#1d060d;
+  --sombra:      0 1px 2px rgba(30,25,23,.05), 0 12px 32px rgba(30,25,23,.07);
+  --sombra-alta: 0 2px 6px rgba(30,25,23,.08), 0 24px 60px rgba(30,25,23,.13);
+  /* véu neutro de propósito: arte ampliada se julga sobre cinza sem matiz */
+  --veu:         rgba(20,19,18,.95);
+  --sobre-veu:   #f4f3f2;
+}
+
+* { box-sizing: border-box; }
+
+/* o corte vai no <html> com clip: hidden no body cria scroll container próprio
+   e quebra scrollY, sticky e IntersectionObserver */
+html { overflow-x: clip; }
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--tinta);
+  font: 400 16px/1.6 "IBM Plex Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body:has(dialog[open]) { overflow: hidden; }
+
+[hidden] { display: none !important; }
+
+.mono {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+:where(a, button, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--realce);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.env { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 clamp(18px, 4vw, 40px); }
+
+/* ---------------------------------------------------------------- marca --- */
+.marca { display: block; color: var(--tinta); }
+/* dirigido pela LARGURA: um SVG 92×36 escalado por height estoura 360px */
+.marca svg { display: block; width: 100%; height: auto; fill: currentColor; }
+.marca-topo   { width: 76px; }
+.marca-rodape { width: 62px; }
+
+/* ----------------------------------------------------------------- topo --- */
+.topo { padding: clamp(26px, 5vw, 44px) 0 clamp(38px, 7vw, 68px); }
+.topo-barra {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding-bottom: clamp(34px, 7vw, 66px);
+}
+.topo-selo { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--tinta-fraca); }
+.topo h1 {
+  margin: 0; font-size: clamp(31px, 6.4vw, 50px); font-weight: 600;
+  letter-spacing: -.03em; line-height: 1.03;
+}
+.topo .meta {
+  margin: 15px 0 0; font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--tinta-fraca);
+}
+.topo .meta span + span::before { content: "·"; margin: 0 10px; opacity: .55; }
+.topo .angulo { margin: 22px 0 0; max-width: 64ch; font-size: 15.5px; line-height: 1.68; color: var(--tinta-media); }
+.topo .angulo b { color: var(--tinta); font-weight: 600; }
+.regua { height: 1px; background: var(--borda); margin-top: clamp(30px, 5vw, 46px); }
+
+/* ----------------------------------------------------------------- peça --- */
+main { padding-bottom: clamp(50px, 8vw, 90px); }
+
+/* Áreas nomeadas, e não um trilho aninhado: é o que deixa o botão "Ver story"
+   cair ENTRE o feed e o story no empilhamento — clicou, o story nasce logo
+   abaixo do botão, dentro da tela — e ir para a coluna de texto no desktop,
+   sem precisar duplicar o botão no HTML. */
+.peca {
+  --alt: clamp(300px, 33vw, 500px);
+  --vao: clamp(20px, 2.8vw, 40px);
+  padding: clamp(34px, 6vw, 62px) 0; border-bottom: 1px solid var(--borda);
+  display: grid; grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "num" "feed" "bot" "story" "conc";
+}
+.peca:last-of-type { border-bottom: 0; }
+.peca-cab { grid-area: num;   margin: 0 0 20px; }
+.q-feed   { grid-area: feed;  margin: 0; }
+.bt-story { grid-area: bot;   margin-top: 22px; }
+.q-story  { grid-area: story; margin: 22px 0 0; }
+.conceito-grupo { grid-area: conc; margin-top: clamp(26px, 3.4vw, 34px); display: grid; gap: 20px; }
+
+@media (min-width: 1000px) {
+  .peca {
+    grid-template-columns: max-content max-content minmax(230px, 1fr);
+    grid-template-areas: "feed story num" "feed story bot" "feed story conc";
+    grid-template-rows: auto auto 1fr;
+    align-items: start;
+  }
+  /* o respiro entre colunas vem de margem, não de column-gap: com o story
+     oculto a coluna dele zera e o gap ficaria sobrando no vazio */
+  .q-story  { margin: 0 0 0 var(--vao); }
+  .peca-cab { margin: 2px 0 20px clamp(34px, 4.4vw, 58px); }
+  .bt-story { margin: 0 0 0 clamp(34px, 4.4vw, 58px); }
+  .conceito-grupo { margin: 26px 0 0 clamp(34px, 4.4vw, 58px); }
+}
+
+.peca-cab { font-size: 12px; font-weight: 400; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--tinta-fraca); }
+.peca-cab b { color: var(--tinta); font-weight: 500; }
+
+/* botão de story: é o único controle dentro do conteúdo — por isso ele pode
+   carregar o âmbar quando ligado, e só ele */
+.bt-story {
+  justify-self: start;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 9px 17px 9px 14px; cursor: pointer;
+  border: 1px solid var(--borda-forte); border-radius: 999px;
+  background: var(--painel); color: var(--tinta);
+  font: 500 13px/1 "IBM Plex Sans", sans-serif;
+  transition: background .18s ease, border-color .18s ease, color .18s ease;
+}
+.bt-story:hover { background: var(--painel-alto); border-color: var(--tinta-fraca); }
+.bt-story .glifo {
+  width: 11px; height: 17px; flex: 0 0 auto; border-radius: 2.5px;
+  border: 1.5px solid currentColor; opacity: .5;
+  transition: opacity .18s ease, background .18s ease;
+}
+.bt-story[aria-expanded="true"] {
+  background: var(--realce); border-color: var(--realce); color: var(--sobre-realce);
+}
+.bt-story[aria-expanded="true"] .glifo { opacity: 1; background: currentColor; }
+
+/* --------------------------------------------------------------- quadro --- */
+.quadro { max-width: 100%; min-width: 0; }
+.quadro[data-formato="Feed"]  { --ar: 1080 / 1440; }
+.quadro[data-formato="Story"] { --ar: 1080 / 1920; }
+
+/* a caixa é reservada pela proporção, não pela imagem: o layout é idêntico com
+   placeholder e com arte real, e nada reflui quando o time troca */
+.moldura {
+  position: relative; display: block; overflow: hidden; padding: 0;
+  height: var(--alt); aspect-ratio: var(--ar); width: auto; max-width: 100%;
+  border: 1px solid var(--borda); border-radius: 8px;
+  background: var(--painel); box-shadow: var(--sombra);
+  font: inherit; color: inherit; cursor: zoom-in;
+  transition: box-shadow .26s ease, transform .26s ease;
+}
+.moldura img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.moldura:hover { box-shadow: var(--sombra-alta); transform: translateY(-3px); }
+
+.quadro figcaption {
+  display: flex; gap: 11px; align-items: baseline; margin-top: 13px;
+  font-size: 11.5px; letter-spacing: .07em; color: var(--tinta-fraca);
+}
+.quadro figcaption b {
+  color: var(--tinta-media); font-weight: 500;
+  letter-spacing: .14em; text-transform: uppercase;
+}
+
+/* Revelação do story. Empilhado ele sobe; lado a lado ele SAI DE TRÁS do feed:
+   parte deslocado exatamente a própria largura mais o vão — ou seja, escondido
+   atrás da moldura opaca do feed — e desliza para o lugar. A legenda não
+   acompanha o deslize (ela cruzaria por cima da legenda do feed, que não tem
+   fundo); entra depois, em fade. */
+.quadro-entra { animation: entra-story .48s cubic-bezier(.2,.7,.3,1) both; }
+@keyframes entra-story { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
+
+@media (min-width: 1000px) {
+  .q-feed  { position: relative; z-index: 2; }
+  .q-story { position: relative; z-index: 1; }
+  .quadro-entra { animation: sai-de-tras .56s cubic-bezier(.22,.78,.3,1) both; }
+  @keyframes sai-de-tras {
+    from { transform: translateX(calc(-100% - var(--vao))); }
+    to   { transform: none; }
+  }
+  .quadro-entra figcaption { animation: surge .34s ease .2s both; }
+  @keyframes surge { from { opacity: 0; } to { opacity: 1; } }
+}
+
+/* --------------------------------------------------- caixa do placeholder --- */
+/* precisa parecer decisão, não defeito: hachura suave e o rótulo medindo a peça */
+.vazio {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 8px; padding: 16px; text-align: center;
+  background-image: repeating-linear-gradient(135deg,
+    transparent 0 11px, rgba(140,120,120,.07) 11px 12px);
+}
+.vazio::after {
+  content: ""; position: absolute; inset: 10px;
+  border: 1px dashed var(--borda-forte); border-radius: 4px; opacity: .85;
+}
+.vazio b { font-size: 12px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--tinta-media); }
+.vazio span { font-size: 11.5px; letter-spacing: .08em; color: var(--tinta-fraca); }
+
+/* ------------------------------------------------------------- conceito --- */
+.conceito-bt {
+  display: inline-flex; align-items: center; gap: 11px; cursor: pointer;
+  padding: 8px 0; border: 0; background: none;
+  font-family: inherit; font-size: 11.5px; font-weight: 500;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--tinta-media); user-select: none; transition: color .18s ease;
+}
+.conceito-bt:hover { color: var(--tinta); }
+.conceito-bt .cruz { position: relative; width: 9px; height: 9px; flex: 0 0 auto; color: var(--realce-tex); }
+.conceito-bt .cruz::before,
+.conceito-bt .cruz::after {
+  content: ""; position: absolute; inset: 0; margin: auto; background: currentColor;
+  transition: transform .26s cubic-bezier(.2,.7,.3,1);
+}
+.conceito-bt .cruz::before { width: 100%; height: 1.5px; }
+.conceito-bt .cruz::after  { width: 1.5px; height: 100%; }
+.conceito.aberto .cruz::after { transform: scaleY(0); }
+
+/* O desdobrar é CSS puro: grid 0fr -> 1fr. O estado vive numa classe, nunca
+   no fim de uma animação — animação que não termina (aba em segundo plano)
+   deixaria o painel preso aberto. Só colapsa se houver JS para reabrir. */
+.js .conceito-caixa {
+  display: grid; grid-template-rows: 0fr; opacity: 0;
+  transition: grid-template-rows .44s cubic-bezier(.2,.7,.3,1), opacity .34s ease;
+}
+.js .conceito.aberto .conceito-caixa { grid-template-rows: 1fr; opacity: 1; }
+.js .conceito-corpo { overflow: hidden; min-height: 0; }
+.conceito-corpo { max-width: 64ch; color: var(--tinta-media); font-size: 15.5px; line-height: 1.68; }
+.conceito-corpo > :first-child { padding-top: 6px; }
+.conceito-corpo > :last-child  { padding-bottom: 4px; }
+.conceito-corpo p { margin: 0 0 14px; }
+.conceito-corpo p:last-child { margin-bottom: 0; }
+.conceito-corpo b { color: var(--tinta); font-weight: 600; }
+
+/* os parágrafos sobem escalonados enquanto a caixa abre — é o que dá a
+   sensação de texto se assentando, em vez de bloco que aparece pronto */
+.conceito.aberto .conceito-corpo > * { animation: assenta .52s cubic-bezier(.2,.7,.3,1) both; }
+.conceito.aberto .conceito-corpo > :nth-child(2) { animation-delay: .07s; }
+.conceito.aberto .conceito-corpo > :nth-child(3) { animation-delay: .14s; }
+.conceito.aberto .conceito-corpo > :nth-child(n+4) { animation-delay: .2s; }
+@keyframes assenta { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* --------------------------------------------------------------- rodapé --- */
+.rodape { border-top: 1px solid var(--borda); padding: clamp(36px, 6vw, 58px) 0 clamp(104px, 13vw, 132px); }
+.rodape-linha { display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; flex-wrap: wrap; }
+.rodape .nota { margin: 0; max-width: 44ch; font-size: 13.5px; line-height: 1.68; color: var(--tinta-media); }
+.rodape .assinatura { margin: 0; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--tinta-fraca); }
+.rodape .bloco-marca { display: flex; flex-direction: column; gap: 14px; }
+
+/* =========================================================== ampliação === */
+.lb {
+  width: 100%; max-width: none; height: 100%; max-height: none;
+  margin: 0; padding: 0; border: 0; background: transparent; overflow: hidden;
+  color: var(--sobre-veu);
+}
+.lb::backdrop { background: var(--veu); }
+.lb[open] { display: block; }
+
+.lb-tela {
+  position: fixed; inset: 0; display: grid; place-items: center;
+  padding: 74px 16px 84px; overflow: auto; overscroll-behavior: contain;
+}
+.lb-quadro {
+  position: relative; border-radius: 6px; overflow: hidden; background: rgba(255,255,255,.05);
+  max-width: min(92vw, 940px); aspect-ratio: var(--ar, 1080/1350);
+  height: min(80vh, 880px); width: auto; cursor: zoom-in;
+  animation: cresce .3s cubic-bezier(.2,.7,.3,1) both;
+}
+.lb-quadro img { display: block; width: 100%; height: 100%; object-fit: contain; }
+/* o gesto é nosso: sem isto o navegador sequestra a pinça e rola a página */
+.lb-quadro { touch-action: none; }
+/* no toque quem amplia é a pinça — o botão de lupa seria um segundo caminho
+   para a mesma coisa, com estado próprio para dessincronizar. A classe .dedo
+   entra no primeiro toque real; o media query cobre o caso antes disso. */
+@media (pointer: coarse) { #lb-zoom { display: none; } }
+.dedo #lb-zoom { display: none; }
+.lb-quadro .vazio { background-image: repeating-linear-gradient(135deg, transparent 0 11px, rgba(255,255,255,.055) 11px 12px); }
+.lb-quadro .vazio b { color: rgba(244,243,242,.82); }
+.lb-quadro .vazio span { color: rgba(244,243,242,.5); }
+.lb-quadro .vazio::after { border-color: rgba(244,243,242,.28); }
+@keyframes cresce { from { opacity: 0; transform: scale(.985); } to { opacity: 1; transform: none; } }
+
+/* zoom 1:1 — a peça passa a 1080px de largura e a tela vira área de rolagem.
+   place-items volta para start: com o conteúdo maior que a caixa, o centro
+   corta a borda esquerda e ela fica inalcançável na rolagem. */
+.lb[data-zoom="1"] .lb-tela { place-items: start; padding: 0; }
+.lb[data-zoom="1"] .lb-quadro {
+  width: 1080px; max-width: none; height: auto; max-height: none;
+  border-radius: 0; cursor: zoom-out; animation: none;
+}
+
+.lb-barra {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 2;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding: 20px clamp(16px, 3vw, 26px);
+  background: linear-gradient(rgba(14,13,12,.78), transparent);
+  pointer-events: none;
+}
+.lb-barra > * { pointer-events: auto; }
+.lb-legenda { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: rgba(244,243,242,.85); }
+.lb-acoes { display: flex; align-items: center; gap: 10px; }
+.lb-bt {
+  display: grid; place-items: center; cursor: pointer; border-radius: 50%;
+  width: 42px; height: 42px; flex: 0 0 auto;
+  border: 1px solid rgba(244,243,242,.2); background: rgba(244,243,242,.08);
+  color: var(--sobre-veu); font-size: 17px; line-height: 1;
+  transition: background .18s ease, border-color .18s ease;
+}
+.lb-bt:hover { background: rgba(244,243,242,.2); }
+.lb-bt:focus-visible { outline: 2px solid var(--realce); outline-offset: 2px; }
+.lb-bt svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; }
+.lb[data-zoom="1"] #lb-zoom { background: var(--realce); border-color: var(--realce); color: var(--sobre-realce); }
+
+.lb-nav {
+  position: fixed; top: 50%; transform: translateY(-50%); z-index: 2;
+  width: 46px; height: 46px; font-size: 20px;
+}
+.lb-nav.ant { left: clamp(10px, 2vw, 22px); }
+.lb-nav.prox { right: clamp(10px, 2vw, 22px); }
+.lb[data-zoom="1"] .lb-nav { display: none; }
+
+.lb-pe {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 2;
+  margin: 0; padding: 18px 20px calc(18px + env(safe-area-inset-bottom)); text-align: center;
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(244,243,242,.55);
+  background: linear-gradient(transparent, rgba(14,13,12,.65));
+  pointer-events: none;
+}
+
+/* ===================================================== widget de ajuda === */
+.ajuda-bt {
+  position: fixed; z-index: 30;
+  left: 50%; transform: translateX(-50%);
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 11px 19px 11px 15px; cursor: pointer;
+  border: 1px solid var(--borda-forte); border-radius: 999px;
+  background: color-mix(in srgb, var(--painel) 88%, transparent);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  color: var(--tinta); font: 500 13px/1 "IBM Plex Sans", sans-serif;
+  box-shadow: var(--sombra-alta);
+  transition: background .2s ease, border-color .2s ease, transform .2s ease, opacity .2s ease;
+}
+.ajuda-bt:hover { background: var(--painel-alto); transform: translateX(-50%) translateY(-2px); }
+.ajuda-bt .ponto { width: 7px; height: 7px; border-radius: 50%; background: var(--realce); flex: 0 0 auto; }
+.js.anima .ajuda-bt { animation: sobe-pe .6s cubic-bezier(.2,.7,.3,1) 1.1s both; }
+@keyframes sobe-pe { from { opacity: 0; transform: translateX(-50%) translateY(14px); } to { opacity: 1; transform: translateX(-50%); } }
+
+/* com um diálogo aberto o widget fica atrás do véu e só suja a tela.
+   Derivado de :has(dialog[open]) e não de uma classe: classe presa deixaria
+   o botão invisível e inclicável sem volta. */
+body:has(dialog[open]) .ajuda-bt { opacity: 0; pointer-events: none; }
+
+.tut {
+  width: min(520px, calc(100vw - 32px)); max-width: none;
+  margin: auto; padding: 0; border: 1px solid var(--borda); border-radius: 16px;
+  background: var(--painel); color: var(--tinta); box-shadow: var(--sombra-alta);
+}
+.tut::backdrop { background: rgba(23,9,12,.5); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+.tut[open] { animation: cresce .28s cubic-bezier(.2,.7,.3,1) both; }
+.tut-cab { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 24px 24px 0; }
+.tut-cab h2 { margin: 0; font-size: 19px; font-weight: 600; letter-spacing: -.015em; }
+.tut-cab p { margin: 6px 0 0; font-size: 13.5px; color: var(--tinta-fraca); }
+.tut-fechar {
+  width: 32px; height: 32px; flex: 0 0 auto; display: grid; place-items: center;
+  border: 1px solid var(--borda); border-radius: 50%; background: transparent;
+  color: var(--tinta-media); font-size: 16px; cursor: pointer;
+  transition: background .18s ease, color .18s ease;
+}
+.tut-fechar:hover { background: var(--fundo); color: var(--tinta); }
+
+.tut-lista { list-style: none; margin: 0; padding: 22px 24px 26px; display: grid; gap: 17px; }
+.tut-lista li { display: grid; grid-template-columns: 26px 1fr; gap: 14px; align-items: start; }
+.tut-lista .n {
+  width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--fundo); border: 1px solid var(--borda);
+  font: 500 11.5px/1 "IBM Plex Mono", monospace; color: var(--realce-tex);
+}
+.tut-lista p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--tinta-media); }
+.tut-lista b { color: var(--tinta); font-weight: 600; }
+.tut-lista kbd {
+  display: inline-block; min-width: 22px; padding: 2px 6px; margin: 0 1px;
+  font: 500 12px/1.35 "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  text-align: center; color: var(--tinta);
+  background: var(--fundo); border: 1px solid var(--borda); border-radius: 4px;
+}
+
+/* ================================================== animação de entrada === */
+.js.anima .rev { opacity: 0; transform: translateY(18px); }
+.js.anima .rev.vis {
+  opacity: 1; transform: none;
+  transition: opacity .64s cubic-bezier(.2,.7,.3,1), transform .64s cubic-bezier(.2,.7,.3,1);
+  transition-delay: var(--atraso, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js.anima .rev { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .js.anima .ajuda-bt, .conceito.aberto .conceito-corpo > *,
+  .quadro-entra, .quadro-entra figcaption,
+  .lb-quadro, .tut[open] { animation: none !important; }
+  .js .conceito-caixa { transition: none !important; }
+  .moldura:hover { transform: none; }
+}
+
+/* ========================================================== responsivo === */
+@media (max-width: 999.98px) {
+  .peca { --alt: auto; }
+  .moldura { height: auto; width: 100%; max-width: min(100%, 460px); }
+  /* o botão acompanha a largura da peça que ele controla */
+  .bt-story { width: min(100%, 460px); justify-content: center; }
+  .lb-tela { padding: 66px 12px 72px; }
+  .lb-quadro { height: auto; width: 100%; max-width: 100%; }
+  .lb-nav { display: none; }   /* no toque quem navega é o arrasto */
+}
+</style>
+
+<!-- logo em <symbol> para não repetir o path em cada uso -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="c2g" viewBox="0 0 92 36">
+    <path d="M72.4985 22.2422H82.3155C81.7012 23.2191 80.9784 24.053 80.1232 24.744C79.268 25.435 78.3766 25.9591 77.4491 26.3046C76.5216 26.6501 75.5701 26.8169 74.6185 26.8169C73.0646 26.8169 71.5951 26.4238 70.2099 25.6256C68.8126 24.8274 67.7044 23.7194 66.8492 22.2779C66.006 20.8483 65.5844 19.2519 65.5844 17.5126V17.2982C65.5844 15.8328 66.0301 14.439 66.7287 13.1285C67.4274 11.818 68.403 10.7458 69.6317 9.89997C70.8603 9.05413 72.2335 8.5776 73.7512 8.44655H74.5221C76.871 8.44655 79.2439 9.53066 81.6289 11.6989H91.0364C89.868 8.33933 87.8082 5.57544 84.8812 3.40721C81.8819 1.19133 78.3285 0.0833933 74.221 0.0833933C73.5223 0.0833933 72.4864 0.14296 71.1494 0.274007C69.0415 0.655233 67.1021 1.40577 65.3556 2.48989C63.5969 3.58591 62.0913 4.93212 60.8265 6.55233C60.1881 7.36244 59.634 8.20828 59.1522 9.08987C58.9113 7.9581 58.5258 6.89782 57.9597 5.8971C56.996 4.16966 55.5265 2.77581 53.5992 1.75126C51.672 0.726713 49.287 0.202527 46.5045 0.202527C43.2281 0.202527 40.5782 0.941153 38.6268 2.38267C36.6754 3.82418 35.2902 5.67074 34.5073 7.85088C34.17 8.80395 33.905 9.79275 33.7002 10.8054C33.4232 10.1025 33.122 9.43536 32.7968 8.82778C32.0982 7.51731 31.1346 6.2545 29.8939 5.03934C28.1834 3.43104 26.2923 2.19205 24.1844 1.31047C22.1125 0.440793 19.9444 0 17.7039 0H17.5112C14.283 0 11.3319 0.881586 8.64578 2.45415C5.95966 4.0267 3.85171 6.14728 2.3099 8.80395C1.16559 10.7696 0.430817 12.9498 0.141727 15.1895C-0.171454 17.6079 0.0453636 20.1693 0.68377 22.5162C1.17763 24.3151 1.96058 26.0187 3.03262 27.5555C4.74307 29.9978 6.91124 31.8681 9.53714 33.1548C12.163 34.4414 14.8733 35.0847 17.6919 35.0847C19.4746 35.0847 21.2212 34.8227 22.9196 34.2985C24.618 33.7743 26.2321 32.9642 27.7498 31.8681C29.2796 30.7721 30.6166 29.4021 31.785 27.7461C32.9534 26.0902 33.8568 24.1602 34.5193 21.9682H25.4853C24.4734 23.5765 23.2689 24.7916 21.8716 25.6017C20.4744 26.4118 19.053 26.8169 17.5955 26.8169C16.0778 26.8169 14.6203 26.4118 13.223 25.5898C11.8258 24.7678 10.6935 23.648 9.83828 22.2303C8.63374 20.2407 8.29647 17.7628 8.80237 15.5112C9.05533 14.3675 9.53714 13.2714 10.2117 12.3065C11.0669 11.0794 12.151 10.1263 13.4639 9.41153C14.7769 8.70864 16.1862 8.35124 17.6919 8.35124C19.4867 8.35124 21.0164 8.79204 22.2691 9.68554C23.5219 10.579 24.6541 11.8538 25.678 13.5097H42.5175C42.6018 12.4733 42.7704 11.6155 43.0475 10.9603C43.4329 10.031 43.9388 9.3877 44.5652 9.04222C45.1795 8.70864 45.9263 8.52994 46.7815 8.52994C47.5043 8.52994 48.1186 8.6729 48.6245 8.935C49.1304 9.209 49.5279 9.59023 49.7808 10.0548C50.0338 10.5195 50.1663 11.0556 50.1663 11.6274C50.1663 12.4733 49.9133 13.3429 49.4195 14.2245C48.9256 15.0942 48.1909 16.0592 47.2272 17.0837C46.2636 18.0963 44.9506 19.3592 43.3366 20.8007L33.4714 29.6404V34.5606H60.2001V27.7819C60.6338 28.4014 61.1156 28.997 61.6335 29.545C62.7658 30.7483 64.0185 31.749 65.4037 32.5591C66.789 33.3692 68.2585 33.9887 69.8124 34.4176C71.3662 34.8465 72.9321 35.0609 74.5221 35.0609C77.6057 35.0609 80.4484 34.3699 83.0623 32.9761C85.1582 31.8801 86.9409 30.4147 88.4225 28.5801C89.9041 26.7454 90.9039 24.6963 91.4339 22.4447C91.8073 21.0628 92 19.4187 92 17.5007V15.4992H72.4985V22.2422ZM48.3715 26.7812L53.3704 22.6472C54.6833 21.5631 55.8036 20.4194 56.6949 19.2519C56.7913 19.1328 56.8635 19.0137 56.9479 18.8945C57.1165 21.1462 57.7308 23.3501 58.8269 25.4945C59.0438 25.9472 59.2847 26.3761 59.5376 26.7931H48.3715V26.7812Z"/>
+  </symbol>
+</svg>
+
+<div class="env">
+  <header class="topo">
+    <div class="topo-barra">
+      <span class="marca marca-topo" role="img" aria-label="C2G">
+        <svg aria-hidden="true" focusable="false"><use href="#c2g"></use></svg>
+      </span>
+      <span class="topo-selo mono">Apresentação de criativos</span>
+    </div>
+
+    <!-- TROCAR: nome do cliente -->
+    <h1 class="rev">Norberto Baruffaldi Advogados Associados</h1>
+
+    <!-- TROCAR: quantidade de criativos e data -->
+    <p class="meta mono rev" style="--atraso:90ms">
+      <span>3 ads estáticos</span><span>3 criativos</span><span>25 de novembro de 2026</span>
+    </p>
+
+    <!-- TROCAR: ângulo central da leva -->
+    <p class="angulo rev" style="--atraso:120ms"><b>Ângulo central da leva:</b> isenção do Imposto de Renda para aposentados e pensionistas que tiveram doenças graves previstas em lei — o reconhecimento das doenças que dão direito ao benefício, a possibilidade de ter direito mesmo anos após o diagnóstico e a atenção aos descontos de IR que continuam sendo feitos na aposentadoria ou pensão.</p>
+
+    <div class="regua rev" style="--atraso:160ms"></div>
+
+  </header>
+
+  <main>
+
+    <!-- ===================== AD 01 ===================== -->
+    <article class="peca rev" data-peca="01">
+      <p class="peca-cab mono">AD <b>01</b> <span style="color:var(--tinta-fraca);"> · Ângulo: <b style="color:var(--tinta-media); font-weight:500;">Doenças que dão direito à isenção</b></span></p>
+
+      <figure class="quadro q-feed" data-formato="Feed">
+        <button type="button" class="moldura" data-legenda="AD 01 · Feed · Doenças que dão direito à isenção" aria-label="Ampliar AD 01, formato feed">
+          <!-- TROCAR: <img src="feed-01.jpg" alt="AD 01 — Feed"> -->
+          <span class="vazio"><b>Feed</b><span class="mono">1080 × 1440</span></span>
+        </button>
+        <figcaption><b>Feed</b><span class="mono">1080 × 1440</span></figcaption>
+      </figure>
+
+      <button type="button" class="bt-story" aria-expanded="false" aria-controls="story-01">
+        <span class="glifo" aria-hidden="true"></span><span class="bt-story-rotulo">Ver story</span>
+      </button>
+
+      <figure class="quadro q-story" data-formato="Story" id="story-01" hidden>
+        <button type="button" class="moldura" data-legenda="AD 01 · Story · Doenças que dão direito à isenção" aria-label="Ampliar AD 01, formato story">
+          <!-- TROCAR: <img src="story-01.jpg" alt="AD 01 — Story"> -->
+          <span class="vazio"><b>Story</b><span class="mono">1080 × 1920</span></span>
+        </button>
+        <figcaption><b>Story</b><span class="mono">1080 × 1920</span></figcaption>
+      </figure>
+
+      <div class="conceito-grupo">
+      <div class="conceito">
+        <button type="button" class="conceito-bt" aria-expanded="false">
+          <span class="cruz" aria-hidden="true"></span>Texto da arte
+        </button>
+        <div class="conceito-caixa"><div class="conceito-corpo">
+          <p><b>ISENÇÃO DO IMPOSTO DE RENDA: VOCÊ É APOSENTADO OU PENSIONISTA E JÁ TEVE ALGUMA DESSAS DOENÇAS?</b></p>
+          <p>Câncer, Parkinson, cardiopatia grave, esclerose múltipla, cegueira ou nefropatia grave.</p>
+          <p>Se você recebeu o diagnóstico de alguma dessas doenças, pode ter direito à isenção do Imposto de Renda sobre sua aposentadoria ou pensão.</p>
+          <p><b>Confira se você tem esse direito!</b></p>
+          <p>Toque em Saiba Mais.</p>
+        </div></div>
+      </div>
+      <div class="conceito">
+        <button type="button" class="conceito-bt" aria-expanded="false">
+          <span class="cruz" aria-hidden="true"></span>Legenda
+        </button>
+        <div class="conceito-caixa"><div class="conceito-corpo">
+          <p>Você recebe aposentadoria ou pensão e já teve alguma doença grave?</p>
+          <p>A legislação prevê isenção do Imposto de Renda para aposentados e pensionistas com determinadas doenças, como câncer, Parkinson, cardiopatia grave, esclerose múltipla e outras.</p>
+          <p>E atenção: mesmo que o diagnóstico tenha acontecido há vários anos ou a doença esteja controlada, ainda pode existir o direito à isenção.</p>
+          <p>Dependendo da situação, também é possível solicitar a restituição de valores pagos indevidamente.</p>
+          <p>Clique em Saiba Mais e entenda se você pode ter direito a esse benefício.</p>
+        </div></div>
+      </div>
+      </div>
+    </article>
+
+    <!-- ===================== AD 02 ===================== -->
+    <article class="peca rev" data-peca="02">
+      <p class="peca-cab mono">AD <b>02</b> <span style="color:var(--tinta-fraca);"> · Estágio: <b style="color:var(--tinta-media); font-weight:500;">Reconhecimento do problema</b> · Ângulo: <b style="color:var(--tinta-media); font-weight:500;">Desconto do IR (advertorial)</b></span></p>
+
+      <figure class="quadro q-feed" data-formato="Feed">
+        <button type="button" class="moldura" data-legenda="AD 02 · Feed · Desconto do IR (advertorial)" aria-label="Ampliar AD 02, formato feed">
+          <!-- TROCAR: <img src="feed-02.jpg" alt="AD 02 — Feed"> -->
+          <span class="vazio"><b>Feed</b><span class="mono">1080 × 1440</span></span>
+        </button>
+        <figcaption><b>Feed</b><span class="mono">1080 × 1440</span></figcaption>
+      </figure>
+
+      <button type="button" class="bt-story" aria-expanded="false" aria-controls="story-02">
+        <span class="glifo" aria-hidden="true"></span><span class="bt-story-rotulo">Ver story</span>
+      </button>
+
+      <figure class="quadro q-story" data-formato="Story" id="story-02" hidden>
+        <button type="button" class="moldura" data-legenda="AD 02 · Story · Desconto do IR (advertorial)" aria-label="Ampliar AD 02, formato story">
+          <!-- TROCAR: <img src="story-02.jpg" alt="AD 02 — Story"> -->
+          <span class="vazio"><b>Story</b><span class="mono">1080 × 1920</span></span>
+        </button>
+        <figcaption><b>Story</b><span class="mono">1080 × 1920</span></figcaption>
+      </figure>
+
+      <div class="conceito-grupo">
+      <div class="conceito">
+        <button type="button" class="conceito-bt" aria-expanded="false">
+          <span class="cruz" aria-hidden="true"></span>Texto da arte
+        </button>
+        <div class="conceito-caixa"><div class="conceito-corpo">
+          <p><b>Tag:</b> Direito Previdenciário</p>
+          <p><b>APOSENTADOS COM DOENÇAS GRAVES PODEM TER DIREITO À ISENÇÃO DO IMPOSTO DE RENDA</b></p>
+          <p>A legislação prevê a isenção do Imposto de Renda sobre rendimentos de aposentadoria e pensão para pessoas com determinadas doenças graves, como câncer, Parkinson e cardiopatia grave.</p>
+          <p>Mesmo após o fim do tratamento, o direito pode permanecer, desde que atendidos os requisitos legais.</p>
+          <p>Toque em Saiba Mais e <b>descubra se você pode ter direito à isenção e à restituição de valores pagos anteriormente.</b></p>
+        </div></div>
+      </div>
+      <div class="conceito">
+        <button type="button" class="conceito-bt" aria-expanded="false">
+          <span class="cruz" aria-hidden="true"></span>Legenda
+        </button>
+        <div class="conceito-caixa"><div class="conceito-corpo">
+          <p>Você recebe aposentadoria ou pensão e já teve alguma doença grave?</p>
+          <p>A legislação prevê isenção do Imposto de Renda para aposentados e pensionistas com determinadas doenças, como câncer, Parkinson, cardiopatia grave, esclerose múltipla e outras.</p>
+          <p>E atenção: mesmo que o diagnóstico tenha acontecido há vários anos ou a doença esteja controlada, ainda pode existir o direito à isenção.</p>
+          <p>Dependendo da situação, também é possível solicitar a restituição de valores pagos indevidamente.</p>
+          <p>Clique em Saiba Mais e entenda se você pode ter direito a esse benefício.</p>
+        </div></div>
+      </div>
+      </div>
+    </article>
+
+    <!-- ===================== AD 03 ===================== -->
+    <article class="peca rev" data-peca="03">
+      <p class="peca-cab mono">AD <b>03</b> <span style="color:var(--tinta-fraca);"> · Estágio: <b style="color:var(--tinta-media); font-weight:500;">Reconhecimento do problema</b> · Ângulo: <b style="color:var(--tinta-media); font-weight:500;">Desconto indevido</b></span></p>
+
+      <figure class="quadro q-feed" data-formato="Feed">
+        <button type="button" class="moldura" data-legenda="AD 03 · Feed · Desconto indevido" aria-label="Ampliar AD 03, formato feed">
+          <!-- TROCAR: <img src="feed-03.jpg" alt="AD 03 — Feed"> -->
+          <span class="vazio"><b>Feed</b><span class="mono">1080 × 1440</span></span>
+        </button>
+        <figcaption><b>Feed</b><span class="mono">1080 × 1440</span></figcaption>
+      </figure>
+
+      <button type="button" class="bt-story" aria-expanded="false" aria-controls="story-03">
+        <span class="glifo" aria-hidden="true"></span><span class="bt-story-rotulo">Ver story</span>
+      </button>
+
+      <figure class="quadro q-story" data-formato="Story" id="story-03" hidden>
+        <button type="button" class="moldura" data-legenda="AD 03 · Story · Desconto indevido" aria-label="Ampliar AD 03, formato story">
+          <!-- TROCAR: <img src="story-03.jpg" alt="AD 03 — Story"> -->
+          <span class="vazio"><b>Story</b><span class="mono">1080 × 1920</span></span>
+        </button>
+        <figcaption><b>Story</b><span class="mono">1080 × 1920</span></figcaption>
+      </figure>
+
+      <div class="conceito-grupo">
+      <div class="conceito">
+        <button type="button" class="conceito-bt" aria-expanded="false">
+          <span class="cruz" aria-hidden="true"></span>Texto da arte
+        </button>
+        <div class="conceito-caixa"><div class="conceito-corpo">
+          <p><b>SEU BENEFÍCIO TEM DESCONTO DE IMPOSTO DE RENDA? ATENÇÃO A ESTE DIREITO!</b></p>
+          <p>Aposentados e pensionistas que tiveram determinadas doenças graves podem ter direito à isenção do IR.</p>
+          <p>E quem continuou pagando o imposto mesmo tendo direito à isenção pode, dependendo do caso, solicitar a restituição dos valores pagos indevidamente nos últimos cinco anos.</p>
+          <p><b>Você pode estar deixando de exercer um direito previsto em lei!</b></p>
+          <p>Toque em Saiba Mais para descobrir se tem direito.</p>
+        </div></div>
+      </div>
+      <div class="conceito">
+        <button type="button" class="conceito-bt" aria-expanded="false">
+          <span class="cruz" aria-hidden="true"></span>Legenda
+        </button>
+        <div class="conceito-caixa"><div class="conceito-corpo">
+          <p>Você recebe aposentadoria ou pensão e já teve alguma doença grave?</p>
+          <p>A legislação prevê isenção do Imposto de Renda para aposentados e pensionistas com determinadas doenças, como câncer, Parkinson, cardiopatia grave, esclerose múltipla e outras.</p>
+          <p>E atenção: mesmo que o diagnóstico tenha acontecido há vários anos ou a doença esteja controlada, ainda pode existir o direito à isenção.</p>
+          <p>Dependendo da situação, também é possível solicitar a restituição de valores pagos indevidamente.</p>
+          <p>Clique em Saiba Mais e entenda se você pode ter direito a esse benefício.</p>
+        </div></div>
+      </div>
+      </div>
+    </article>
+
+    <!--
+      ===================== MOLDE — copie daqui para baixo =====================
+      Para adicionar um criativo, copie o bloco inteiro abaixo, cole antes deste
+      comentário e troque os "04" pelo número do novo AD.
+
+      <article class="peca rev" data-peca="04">
+        <p class="peca-cab mono">AD <b>04</b></p>
+
+        <figure class="quadro q-feed" data-formato="Feed">
+          <button type="button" class="moldura" data-legenda="AD 04 · Feed" aria-label="Ampliar AD 04, formato feed">
+            <img src="feed-04.jpg" alt="AD 04 — Feed">
+          </button>
+          <figcaption><b>Feed</b><span class="mono">1080 × 1440</span></figcaption>
+        </figure>
+
+        <button type="button" class="bt-story" aria-expanded="false" aria-controls="story-04">
+          <span class="glifo" aria-hidden="true"></span><span class="bt-story-rotulo">Ver story</span>
+        </button>
+
+        <figure class="quadro q-story" data-formato="Story" id="story-04" hidden>
+          <button type="button" class="moldura" data-legenda="AD 04 · Story" aria-label="Ampliar AD 04, formato story">
+            <img src="story-04.jpg" alt="AD 04 — Story">
+          </button>
+          <figcaption><b>Story</b><span class="mono">1080 × 1920</span></figcaption>
+        </figure>
+
+        <div class="conceito">
+          <button type="button" class="conceito-bt" aria-expanded="false">
+            <span class="cruz" aria-hidden="true"></span>Conceito
+          </button>
+          <div class="conceito-caixa"><div class="conceito-corpo"><p>…</p></div></div>
+        </div>
+      </article>
+
+      Se um AD não tiver story, apague o <figure class="q-story"> e o
+      <button class="bt-story"> daquele bloco — o resto continua funcionando.
+      ==========================================================================
+    -->
+
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape-linha">
+      <div class="bloco-marca">
+        <span class="marca marca-rodape" role="img" aria-label="C2G">
+          <svg aria-hidden="true" focusable="false"><use href="#c2g"></use></svg>
+        </span>
+        <!-- TROCAR: nome do cliente e data -->
+        <p class="assinatura mono">Norberto Baruffaldi Advogados Associados · 25 de novembro de 2026</p>
+      </div>
+      <p class="nota">Material de apresentação, em revisão. As peças deste documento
+        ainda não foram veiculadas e podem mudar até a aprovação final.</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ============================ widget de ajuda ============================ -->
+<button type="button" class="ajuda-bt" id="ajuda-bt" aria-haspopup="dialog">
+  <span class="ponto" aria-hidden="true"></span>Como navegar
+</button>
+
+<dialog class="tut" id="tut" aria-labelledby="tut-titulo">
+  <div class="tut-cab">
+    <div>
+      <h2 id="tut-titulo">Como navegar</h2>
+      <p>Leva meio minuto.</p>
+    </div>
+    <button type="button" class="tut-fechar" id="tut-fechar" aria-label="Fechar">×</button>
+  </div>
+
+  <ol class="tut-lista">
+    <li>
+      <span class="n mono">1</span>
+      <p>Cada bloco é um criativo. O que aparece primeiro é a versão de <b>feed</b>,
+        que é como a peça sai no perfil e no meio da rolagem.</p>
+    </li>
+    <li>
+      <span class="n mono">2</span>
+      <p><b>Ver story</b> abre, logo abaixo, a versão vertical do mesmo criativo — a
+        que aparece em tela cheia nos stories. Clique de novo para fechar.</p>
+    </li>
+    <li>
+      <span class="n mono">3</span>
+      <p><b>Toque numa peça</b> para vê-la grande. No celular, <b>aproxime e afaste
+        dois dedos</b> para dar zoom e arraste para percorrer; no computador, clique
+        na peça para ampliar em tamanho real.</p>
+    </li>
+    <li>
+      <span class="n mono">4</span>
+      <p>Com a peça aberta, <kbd>&#8592;</kbd> e <kbd>&#8594;</kbd> passam de um
+        criativo para outro; no celular, arraste para o lado.
+        <kbd>Esc</kbd> ou o botão de fechar encerram.</p>
+    </li>
+    <li>
+      <span class="n mono">5</span>
+      <p><b>Texto da arte</b> mostra o que está escrito na peça; <b>Legenda</b> abre o texto que acompanha a publicação.</p>
+    </li>
+  </ol>
+
+</dialog>
+
+<!-- ============================== ampliação =============================== -->
+<dialog class="lb" id="lb" data-zoom="0" aria-label="Peça ampliada">
+  <div class="lb-tela" id="lb-tela">
+    <div class="lb-quadro" id="lb-quadro"></div>
+  </div>
+  <div class="lb-barra">
+    <span class="lb-legenda mono" id="lb-legenda"></span>
+    <span class="lb-acoes">
+      <button type="button" class="lb-bt" id="lb-zoom" aria-pressed="false" aria-label="Dar zoom na peça">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4.5-4.5M8 11h6M11 8v6"></path>
+        </svg>
+      </button>
+      <button type="button" class="lb-bt" id="lb-fechar" aria-label="Fechar">×</button>
+    </span>
+  </div>
+  <button type="button" class="lb-bt lb-nav ant" id="lb-ant" aria-label="Peça anterior">‹</button>
+  <button type="button" class="lb-bt lb-nav prox" id="lb-prox" aria-label="Próxima peça">›</button>
+  <p class="lb-pe mono" id="lb-pe"></p>
+</dialog>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------------------------------------------- entrada por revelação ---
+     Progressivo: o conteúdo nasce visível (a classe .anima é que esconde) e o
+     observador só devolve. O top < 0 cobre o salto de âncora, que entrega a
+     seção já acima da dobra e nunca dispararia o isIntersecting. */
+  var reveis = Array.prototype.slice.call(document.querySelectorAll(".rev"));
+  function mostrarTudo() { reveis.forEach(function (el) { el.classList.add("vis"); }); }
+
+  if (!("IntersectionObserver" in window)) {
+    mostrarTudo();
+  } else {
+    var obs = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (e.isIntersecting || e.boundingClientRect.top < 0) {
+          e.target.classList.add("vis");
+          obs.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.04 });
+    reveis.forEach(function (el) { obs.observe(el); });
+    setTimeout(mostrarTudo, 3500);   // rede: nada fica invisível para sempre
+  }
+
+  /* --------------------------------------------------------- ver story --- */
+  Array.prototype.forEach.call(document.querySelectorAll(".bt-story"), function (bt) {
+    var alvo = document.getElementById(bt.getAttribute("aria-controls"));
+    if (!alvo) { bt.hidden = true; return; }
+    var rotulo = bt.querySelector(".bt-story-rotulo");
+    bt.addEventListener("click", function () {
+      var aberto = bt.getAttribute("aria-expanded") === "true";
+      bt.setAttribute("aria-expanded", aberto ? "false" : "true");
+      if (rotulo) rotulo.textContent = aberto ? "Ver story" : "Ocultar story";
+      if (aberto) {
+        alvo.hidden = true;
+        alvo.classList.remove("quadro-entra");
+      } else {
+        alvo.hidden = false;
+        alvo.classList.remove("quadro-entra");
+        void alvo.offsetWidth;              // reinicia a animação na 2ª abertura
+        alvo.classList.add("quadro-entra");
+      }
+      indexar();
+    });
+  });
+
+  /* --------------------------------------------------------- ampliação --- */
+  var lb = document.getElementById("lb");
+  var tela = document.getElementById("lb-tela");
+  var lbQuadro = document.getElementById("lb-quadro");
+  var lbLegenda = document.getElementById("lb-legenda");
+  var lbPe = document.getElementById("lb-pe");
+  var btZoom = document.getElementById("lb-zoom");
+  var molduras = [], atual = 0;
+
+  // só o que está visível entra na navegação: story fechado não vira parada
+  function indexar() {
+    molduras = Array.prototype.slice.call(document.querySelectorAll(".moldura"))
+      .filter(function (m) { return !m.closest("[hidden]"); });
+  }
+  indexar();
+
+  /* No toque quem amplia é a pinça; no mouse, o clique em 1:1. Isto NÃO sai de
+     um media query lido no carregamento: notebook com tela sensível responde
+     "pointer: fine" e tablet com teclado muda no meio. Vale o gesto que a
+     pessoa de fato usou. */
+  var toque = false;
+  document.addEventListener("touchstart", function () {
+    if (toque) return;
+    toque = true;
+    document.documentElement.classList.add("dedo");
+    dica();
+  }, { passive: true, capture: true });
+
+  var esc = 1, tx = 0, ty = 0;
+
+  function aplicarPinca() {
+    lbQuadro.style.transform = esc > 1
+      ? "translate(" + tx + "px," + ty + "px) scale(" + esc + ")" : "";
+  }
+  function limitarPinca() {
+    // offsetWidth ignora o transform, então dá a medida base sem circularidade
+    var maxX = Math.max(0, (lbQuadro.offsetWidth * esc - tela.clientWidth) / 2);
+    var maxY = Math.max(0, (lbQuadro.offsetHeight * esc - tela.clientHeight) / 2);
+    tx = Math.min(maxX, Math.max(-maxX, tx));
+    ty = Math.min(maxY, Math.max(-maxY, ty));
+  }
+  function zerarPinca() { esc = 1; tx = 0; ty = 0; aplicarPinca(); }
+
+  function dica() {
+    var n = molduras.length > 1 ? (atual + 1) + " de " + molduras.length + " · " : "";
+    var t = toque
+      ? (esc > 1 ? "arraste para percorrer" : "pince para ampliar")
+      : (lb.dataset.zoom === "1" ? "toque para voltar" : "toque para dar zoom");
+    lbPe.textContent = n + t;
+  }
+
+  function zoom(ligar, e) {
+    var rx = 0.5, ry = 0.5;
+    if (e) {
+      var r = lbQuadro.getBoundingClientRect();
+      rx = (e.clientX - r.left) / r.width;
+      ry = (e.clientY - r.top) / r.height;
+    }
+    lb.dataset.zoom = ligar ? "1" : "0";
+    btZoom.setAttribute("aria-pressed", ligar ? "true" : "false");
+    if (ligar) {
+      // ancora no ponto tocado, senão o zoom cai sempre no canto
+      tela.scrollLeft = rx * tela.scrollWidth - tela.clientWidth / 2;
+      tela.scrollTop = ry * tela.scrollHeight - tela.clientHeight / 2;
+    } else {
+      tela.scrollLeft = 0; tela.scrollTop = 0;
+    }
+    dica();
+  }
+
+  function pintar(n) {
+    if (!molduras.length) return;
+    atual = (n + molduras.length) % molduras.length;
+    var m = molduras[atual];
+    var fig = m.closest(".quadro");
+    lbQuadro.style.setProperty("--ar",
+      fig && fig.dataset.formato === "Story" ? "1080 / 1920" : "1080 / 1440");
+    lbQuadro.innerHTML = "";
+    var img = m.querySelector("img");
+    var vazio = m.querySelector(".vazio");
+    lbQuadro.appendChild(img ? img.cloneNode(true) : vazio.cloneNode(true));
+    lbLegenda.textContent = m.dataset.legenda || "";
+    zerarPinca();
+    zoom(false);                      // trocar de peça sempre volta ao enquadramento
+    lbQuadro.style.animation = "none";
+    void lbQuadro.offsetWidth;
+    lbQuadro.style.animation = "";
+  }
+
+  function abrir(m) {
+    indexar();
+    var n = molduras.indexOf(m);
+    if (n < 0) return;
+    pintar(n);
+    if (typeof lb.showModal === "function") lb.showModal(); else lb.setAttribute("open", "");
+  }
+
+  document.addEventListener("click", function (e) {
+    var m = e.target.closest && e.target.closest(".moldura");
+    if (m) { e.preventDefault(); abrir(m); }
+  });
+
+  // clique na peça ampliada alterna o zoom; clique no vazio em volta fecha
+  lbQuadro.addEventListener("click", function (e) {
+    e.stopPropagation();
+    if (toque) return;                      // no dedo, quem manda é a pinça
+    zoom(lb.dataset.zoom !== "1", e);
+  });
+  tela.addEventListener("click", function (e) { if (e.target === tela) lb.close(); });
+  btZoom.addEventListener("click", function (e) {
+    e.stopPropagation();
+    zoom(lb.dataset.zoom !== "1");
+  });
+
+  document.getElementById("lb-ant").addEventListener("click", function () { pintar(atual - 1); });
+  document.getElementById("lb-prox").addEventListener("click", function () { pintar(atual + 1); });
+  document.getElementById("lb-fechar").addEventListener("click", function () { lb.close(); });
+
+
+  lb.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight") { e.preventDefault(); pintar(atual + 1); }
+    if (e.key === "ArrowLeft")  { e.preventDefault(); pintar(atual - 1); }
+    if (e.key === "+" || e.key === "=") { e.preventDefault(); zoom(true); }
+    if (e.key === "-") { e.preventDefault(); zoom(false); }
+  });
+
+  /* Pinça: dois dedos definem a escala e o ponto entre eles fica ancorado, para
+     a arte crescer de onde a pessoa está olhando — não do centro. Um dedo, já
+     ampliado, percorre. Solta perto de 1 e volta ao enquadramento. */
+  function distancia(t) {
+    return Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+  }
+  var d0 = 0, e0 = 1, ax = 0, ay = 0, pegX = 0, pegY = 0, percorrendo = false;
+
+  lbQuadro.addEventListener("touchstart", function (e) {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      percorrendo = false;
+      d0 = distancia(e.touches);
+      e0 = esc;
+      var r = lbQuadro.getBoundingClientRect();
+      ax = (e.touches[0].clientX + e.touches[1].clientX) / 2 - (r.left + r.width / 2);
+      ay = (e.touches[0].clientY + e.touches[1].clientY) / 2 - (r.top + r.height / 2);
+    } else if (e.touches.length === 1 && esc > 1) {
+      percorrendo = true;
+      pegX = e.touches[0].clientX - tx;
+      pegY = e.touches[0].clientY - ty;
+    }
+  }, { passive: false });
+
+  lbQuadro.addEventListener("touchmove", function (e) {
+    if (e.touches.length === 2 && d0) {
+      e.preventDefault();
+      var nova = Math.min(4, Math.max(1, e0 * distancia(e.touches) / d0));
+      // mantém sob os dedos o mesmo ponto da arte
+      tx -= ax * (nova / esc - 1);
+      ty -= ay * (nova / esc - 1);
+      esc = nova;
+      limitarPinca(); aplicarPinca(); dica();
+    } else if (percorrendo && e.touches.length === 1 && esc > 1) {
+      e.preventDefault();
+      tx = e.touches[0].clientX - pegX;
+      ty = e.touches[0].clientY - pegY;
+      limitarPinca(); aplicarPinca();
+    }
+  }, { passive: false });
+
+  lbQuadro.addEventListener("touchend", function (e) {
+    if (e.touches.length < 2) d0 = 0;
+    if (e.touches.length === 0) {
+      percorrendo = false;
+      if (esc <= 1.04) zerarPinca();
+      dica();
+    }
+  });
+
+  // arrasto lateral no toque troca de peça — mas não com a arte ampliada,
+  // onde arrastar é como se percorre
+  var x0 = null, y0 = null;
+  lb.addEventListener("touchstart", function (e) {
+    x0 = e.changedTouches[0].clientX; y0 = e.changedTouches[0].clientY;
+  }, { passive: true });
+  lb.addEventListener("touchend", function (e) {
+    if (x0 === null || !e.changedTouches.length || lb.dataset.zoom === "1" || esc > 1) {
+      x0 = y0 = null; return;
+    }
+    var dx = e.changedTouches[0].clientX - x0;
+    var dy = e.changedTouches[0].clientY - y0;
+    if (Math.abs(dx) > 52 && Math.abs(dx) > Math.abs(dy) * 1.5) pintar(atual + (dx < 0 ? 1 : -1));
+    x0 = y0 = null;
+  }, { passive: true });
+
+  /* --------------------------------------------------------- conceito ---
+     Uma classe, e o CSS faz o resto. Nada aqui espera animação terminar. */
+  Array.prototype.forEach.call(document.querySelectorAll(".conceito"), function (bloco) {
+    var bt = bloco.querySelector(".conceito-bt");
+    if (!bt) return;
+    bt.addEventListener("click", function () {
+      var aberto = bloco.classList.toggle("aberto");
+      bt.setAttribute("aria-expanded", aberto ? "true" : "false");
+    });
+  });
+
+  /* ------------------------------------------------------------ ajuda --- */
+  var tut = document.getElementById("tut");
+  var ajudaBt = document.getElementById("ajuda-bt");
+  ajudaBt.addEventListener("click", function () {
+    if (typeof tut.showModal === "function") tut.showModal(); else tut.setAttribute("open", "");
+  });
+  document.getElementById("tut-fechar").addEventListener("click", function () { tut.close(); });
+  tut.addEventListener("click", function (e) { if (e.target === tut) tut.close(); });
+})();
+</script>
+</html>
